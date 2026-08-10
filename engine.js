@@ -87,6 +87,44 @@
     refreshCount();
   }
 
+  function buildPools() {
+    const section = $("poolsSection");
+    const wrap = $("poolsList");
+    wrap.innerHTML = "";
+    const poolCats = window.POOLS || [];
+    const poolSkills = window.SKILLS.filter((s) => poolCats.includes(s.category));
+    if (!poolSkills.length) { section.style.display = "none"; return; }
+    section.style.display = "";
+    poolCats.forEach((cat) => {
+      const catSkills = poolSkills.filter((s) => s.category === cat);
+      if (!catSkills.length) return;
+      const group = document.createElement("div");
+      group.className = "pools-group";
+      group.innerHTML = `<h3>${cat}</h3>`;
+      const list = document.createElement("div");
+      list.className = "pools-list";
+      catSkills.forEach((skill) => {
+        const n = itemsFor(skill).length;
+        const card = document.createElement("div");
+        card.className = "pool-card" + (n ? " has-items" : " no-items");
+        card.innerHTML = `<span class="pool-name">${skill.name}</span>` +
+          (n ? `<span class="pool-count">${n} question${n === 1 ? "" : "s"}</span>` : `<span class="pool-count zero">0</span>`);
+        if (n) {
+          card.addEventListener("click", () => {
+            if (selectedSkills.has(skill.id)) selectedSkills.delete(skill.id);
+            else selectedSkills.add(skill.id);
+            card.classList.toggle("selected");
+            refreshCount();
+          });
+          if (selectedSkills.has(skill.id)) card.classList.add("selected");
+        }
+        list.appendChild(card);
+      });
+      group.appendChild(list);
+      wrap.appendChild(group);
+    });
+  }
+
   function refreshCount() {
     let items = 0;
     selectedSkills.forEach((id) => { items += itemsFor(skillById(id)).length; });
@@ -107,6 +145,7 @@
         // drop selections that now have no items
         [...selectedSkills].forEach((id) => { if (itemsFor(skillById(id)).length === 0) selectedSkills.delete(id); });
         buildMatrix();
+        buildPools();
       });
     });
   }
@@ -134,7 +173,9 @@
     const type = window.TASK_TYPES[entry.item.type] || window.TASK_TYPES.produce;
 
     $("promptText").textContent = entry.item.prompt || type.label;
-    $("skillTag").textContent = `${entry.category} · ${entry.band} · ${entry.skillName}`;
+    $("skillTag").textContent = entry.band
+      ? `${entry.category} · ${entry.band} · ${entry.skillName}`
+      : `${entry.category} · ${entry.skillName}`;
 
     const area = $("taskArea");
     area.innerHTML = type.render(entry.item);
@@ -227,7 +268,7 @@
       const pct = Math.round((s.right / s.total) * 100);
       const cls = pct === 100 ? "ok" : pct >= 50 ? "mid" : "low";
       return `<div class="skill-row">
-                <span class="skill-name">${s.cat} · ${s.band} · ${s.name}</span>
+                <span class="skill-name">${s.band ? s.cat + " · " + s.band + " · " + s.name : s.cat + " · " + s.name}</span>
                 <span class="skill-score ${cls}">${s.right}/${s.total}</span>
               </div>`;
     }).join("");
@@ -261,7 +302,7 @@
     let t = `GRAMMAR HUB — Teacher results\n`;
     t += `First try: ${firstRight}/${total}   Total attempts: ${totalAttempts}\n\n`;
     t += `By skill (first try):\n`;
-    Object.values(bySkill).forEach((s) => { t += `  ${s.cat} · ${s.band} · ${s.name}: ${s.right}/${s.total}\n`; });
+    Object.values(bySkill).forEach((s) => { t += `  ${s.band ? s.cat + " · " + s.band + " · " + s.name : s.cat + " · " + s.name}: ${s.right}/${s.total}\n`; });
     t += `\nItem log:\n`;
     log.forEach((r) => { t += `  [r${r.round}] (${r.type}) ${r.skill} — "${r.response}" → ${r.result}\n`; });
     teacherText = t;
@@ -293,12 +334,14 @@
 
     buildTypeFilter();
     buildMatrix();
+    buildPools();
 
     $("selectAllBtn").addEventListener("click", () => {
       window.SKILLS.forEach((s) => { if (s.introduced && itemsFor(s).length) selectedSkills.add(s.id); });
       buildMatrix();
+      buildPools();
     });
-    $("selectNoneBtn").addEventListener("click", () => { selectedSkills.clear(); buildMatrix(); });
+    $("selectNoneBtn").addEventListener("click", () => { selectedSkills.clear(); buildMatrix(); buildPools(); });
     $("startBtn").addEventListener("click", startSession);
 
     // task area emits gh:ready when an answer is entered, gh:submit on Enter
