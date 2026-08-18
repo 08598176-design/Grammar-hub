@@ -9,7 +9,7 @@
 
 window.SKILLS = [
 
-  { id:"te-form-b2-core", category:"て-form I", band:"Band 2",
+  { id:"te-form-b2-core", category:"て-form I", band:"choices",
     name:"Sequence, Request, Progressive",
     example:"手を洗って、ご飯を食べます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -59,7 +59,7 @@ window.SKILLS = [
     ]
   },
 
-  { id:"te-form-b2-extended", category:"て-form II", band:"Band 2",
+  { id:"te-form-b2-extended", category:"て-form II", band:"links",
     name:"てみる・てしまう・てくる/ていく・てはいけない・てもいい・ても・てから",
     example:"しゅくだいをぜんぶしてしまいました。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -123,7 +123,7 @@ window.SKILLS = [
     ]
   },
 
-  { id:"particles-b1-core", category:"Core Particles", band:"Band 1",
+  { id:"particles-b1-core", category:"Core Particles", band:"choices",
     name:"は・が・の・に・へ・を・で・と・や・か・も",
     example:"わたしはがくせいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -221,7 +221,7 @@ window.SKILLS = [
     ]
   },
 
-  { id:"ta-tara-tari-b2", category:"た／たら／たり forms", band:"Band 2",
+  { id:"ta-tara-tari-b2", category:"た／たら／たり forms", band:"links",
     name:"たほうがいい・たことがある・たあとで・たら・たり〜たり",
     example:"雨がふったら、うちにいます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -269,7 +269,7 @@ window.SKILLS = [
     ]
   },
 
-  { id:"verb-stem-b2", category:"Verb Stem forms", band:"Band 2",
+  { id:"verb-stem-b2", category:"Verb Stem forms", band:"links",
     name:"そう・かた・にくい・やすい・たい・たいと思っている・に行く/来る・ながら・すぎる",
     example:"日本語で話してみます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -349,7 +349,7 @@ window.SKILLS = [
     ]
   },
 
-  { id:"plain-form-expr-1-b3", category:"Plain Form + Expressions I", band:"Band 3",
+  { id:"plain-form-expr-1-b3", category:"Plain Form + Expressions I", band:"paragraphs",
     name:"そう（伝聞）・つもり・とき／あいだ／まえ・より・かもしれない・でしょう・と思う／と言う",
     example:"あした雨がふるそうです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -413,7 +413,7 @@ window.SKILLS = [
     ]
   },
 
-  { id:"plain-form-expr-2-b3", category:"Plain Form + Expressions II", band:"Band 3",
+  { id:"plain-form-expr-2-b3", category:"Plain Form + Expressions II", band:"paragraphs",
     name:"ために／ように・し・PF＋Noun・の／んです・らしい・よう・はず／べき",
     example:"車を買うためにお金をためています。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -480,7 +480,7 @@ window.SKILLS = [
 ];
 
 window.SKILLS.push(
-  { id:"nai-form-b3", category:"ない-form", band:"Band 3",
+  { id:"nai-form-b3", category:"ない-form", band:"links",
     name:"ないほうがいい・なければならない・なくてもいい",
     example:"コーラはあまり飲まないほうがいいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -512,7 +512,7 @@ window.SKILLS.push(
     ]
   },
 
-  { id:"extent-b3", category:"Words Indicating Extent", band:"Band 3",
+  { id:"extent-b3", category:"Words Indicating Extent", band:"choices",
     name:"ごろ・ぐらい／くらい・しか・だけ・より・一番",
     example:"車はバスより早いです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -570,7 +570,7 @@ window.SKILLS.push(
 );
 
 window.SKILLS.push(
-  { id:"conjunctions-b4", category:"Conjunctions", band:"Band 4",
+  { id:"conjunctions-b4", category:"Conjunctions", band:"links",
     name:"が・けれども／けれど／けど・から・ので・と・のに",
     example:"雨がふったので行きませんでした。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -628,7 +628,7 @@ window.SKILLS.push(
 );
 
 window.SKILLS.push(
-  { id:"nominalisers-b4", category:"Nominalisers", band:"Band 4",
+  { id:"nominalisers-b4", category:"Nominalisers", band:"links",
     name:"の・こと・ことができる・ことにする・ことになる",
     example:"漢字を読むことができますか。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -676,7 +676,7 @@ window.SKILLS.push(
     ]
   },
 
-  { id:"sentence-final-b4", category:"Sentence-Final Particles", band:"Band 4",
+  { id:"sentence-final-b4", category:"Sentence-Final Particles", band:"choices",
     name:"ね／ねえ・よ・か・の",
     example:"日本語は楽しいですね。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -716,7 +716,7 @@ window.SKILLS.push(
     ]
   },
 
-  { id:"misc-b4", category:"Miscellaneous", band:"Band 4",
+  { id:"misc-b4", category:"Miscellaneous", band:"links",
     name:"potential・ば・というNoun・のほう",
     example:"時間があれば、日本へ行きたいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -758,7 +758,7 @@ window.SKILLS.push(
 );
 
 window.SKILLS.push(
-  { id:"particles-harder-b2", category:"Core Particles (Harder: に・で・へ)", band:"Band 2",
+  { id:"particles-harder-b2", category:"Core Particles", band:"links",
     name:"existence vs action vs destination vs time vs indirect object",
     example:"こうえんで子供たちがあそんでいます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -870,7 +870,7 @@ window.SKILLS.push(
     ]
   },
 
-  { id:"persuasive-evaluative-b4", category:"Persuasive & Evaluative Expressions", band:"Band 4",
+  { id:"persuasive-evaluative-b4", category:"Persuasive & Evaluative Expressions", band:"argument",
     name:"一方で・たしかに～ですが・という点でこうかてき・とはかぎりません・全体的に考えると・ぜひ～てください・のではなく",
     example:"一方で、ごみがふえるというもんだいがあります。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1154,7 +1154,7 @@ window.SKILLS.push(
 );
 
 window.SKILLS.push(
-  { id:"comparative-analytical-b4", category:"Comparative & Analytical Expressions", band:"Band 4",
+  { id:"comparative-analytical-b4", category:"Comparative & Analytical Expressions", band:"argument",
     name:"によると・ことが分かります・という点では～と思います・をとおして～学べます・めん・はるかに",
     example:"この文章によると、給食にはいろいろなもくてきがあることが分かります。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1211,6 +1211,180 @@ window.SKILLS.push(
   }
 );
 
-window.BANDS = ["Band 1","Band 2","Band 3","Band 4"];
-window.CATEGORIES = ["Core Particles","て-form I","て-form II","た／たら／たり forms","Verb Stem forms","Plain Form + Expressions I","Plain Form + Expressions II","ない-form","Words Indicating Extent","Conjunctions","Nominalisers","Sentence-Final Particles","Miscellaneous","Core Particles (Harder: に・で・へ)","Persuasive & Evaluative Expressions","Comparative & Analytical Expressions"];
+window.SKILLS.push(
+  { id:"polite-finite-s", category:"Polite Finite Forms", band:"sentences",
+    name:"ます・ません・ました・ませんでした, い-adjectives, な-adjectives/nouns",
+    example:"きのう、すしをたべました。",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      { type:"identify", prompt:"What does ～ます show here?",
+        sentence:"まいあさ、コーヒーを<b>のみます</b>。",
+        options:["present/future, affirmative, polite","present/future, negative, polite","past, affirmative, polite","past, negative, polite"],
+        answer:"present/future, affirmative, polite",
+        explain:"～ます is the polite present/future affirmative — things you do now or will do." },
+      { type:"transform", prompt:"Change to the polite present (ます) form",
+        sentence:"たべる (to eat)", accept:["たべます"],
+        explain:"Drop る from an ichidan verb and add ます. たべる→たべます",
+        tags:["ichidan-verbs"] },
+      { type:"transform", prompt:"Change to the polite present (ます) form",
+        sentence:"のむ (to drink)", accept:["のみます"],
+        explain:"Godan verbs change the final u-sound to an i-sound before ます. のむ→のみます",
+        tags:["godan-verbs"] },
+      { type:"identify", prompt:"What does ～ません show here?",
+        sentence:"あさごはんを<b>たべません</b>。",
+        options:["present/future, negative, polite","present/future, affirmative, polite","past, negative, polite","past, affirmative, polite"],
+        answer:"present/future, negative, polite",
+        explain:"～ません is the polite present/future negative — I don't / won't do X." },
+      { type:"transform", prompt:"Change to the polite negative (ません) form",
+        sentence:"いく (to go)", accept:["いきません"],
+        explain:"Godan verbs change the final u-sound to an i-sound before ません. いく→いきません",
+        tags:["godan-verbs"] },
+      { type:"gapfill", prompt:"Fill in the polite negative form",
+        before:"今日は学校へ", after:"。", cue:"いく", accept:["いきません"],
+        explain:"いく→いきません — polite present negative." },
+      { type:"identify", prompt:"What does ～ました show here?",
+        sentence:"きのう、えいがを<b>みました</b>。",
+        options:["past, affirmative, polite","past, negative, polite","present/future, affirmative, polite","present/future, negative, polite"],
+        answer:"past, affirmative, polite",
+        explain:"～ました is the polite past affirmative — something that did happen." },
+      { type:"transform", prompt:"Change to the polite past (ました) form",
+        sentence:"みる (to watch/see)", accept:["みました"],
+        explain:"Drop る from an ichidan verb and add ました. みる→みました",
+        tags:["ichidan-verbs"] },
+      { type:"identify", prompt:"What does ～ませんでした show here?",
+        sentence:"しゅくだいを<b>しませんでした</b>。",
+        options:["past, negative, polite","past, affirmative, polite","present/future, negative, polite","present/future, affirmative, polite"],
+        answer:"past, negative, polite",
+        explain:"～ませんでした is the polite past negative — something that did not happen." },
+      { type:"transform", prompt:"Change to the polite negative past (ませんでした) form",
+        sentence:"する (to do)", accept:["しませんでした"],
+        explain:"する is irregular. する→します→しませんでした",
+        tags:["irregular-verbs"] },
+      { type:"identify", prompt:"What pattern does this い-adjective sentence follow?",
+        sentence:"このかばんは<b>たかいです</b>。",
+        options:["い-adjective + です (polite present)","な-adjective/noun + です","plain form","past tense"],
+        answer:"い-adjective + です (polite present)",
+        explain:"い-adjectives take です directly for the polite present — no な or だ needed." },
+      { type:"transform", prompt:"Change to the polite negative (くないです)",
+        sentence:"やすいです (is cheap)", accept:["やすくないです"],
+        explain:"い-adjectives drop い and add くないです for the negative. やすい→やすくないです" },
+      { type:"identify", prompt:"What pattern does this な-adjective sentence follow?",
+        sentence:"田中さんは<b>げんきではありません</b>。",
+        options:["な-adjective/noun + ではありません (polite negative)","い-adjective negative","plain form","past tense"],
+        answer:"な-adjective/noun + ではありません (polite negative)",
+        explain:"な-adjectives and nouns use では/じゃ + ありません for the polite negative — they never take くない like い-adjectives." },
+      { type:"gapfill", prompt:"Fill in the polite past form of a な-adjective/noun",
+        before:"きのう、天気は", after:"。", cue:"あめ (rain, noun)", accept:["あめでした"],
+        explain:"Nouns and な-adjectives add でした for the polite past. あめ→あめでした" }
+    ]
+  }
+);
+
+window.SKILLS.push(
+  { id:"plain-finite-l", category:"Plain Finite Forms", band:"links",
+    name:"dictionary form・ない・た・なかった, い-adjectives, な-adjectives/nouns",
+    example:"きのう、テストがあったから、べんきょうした。",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      { type:"identify", prompt:"What is this verb form, and where is it used?",
+        sentence:"わたしはまいあさ、コーヒーを<b>のむ</b>。",
+        options:["dictionary form (plain present) — casual speech, or before PF+expressions like とき/かもしれない","polite present (ます form)","plain past","polite past"],
+        answer:"dictionary form (plain present) — casual speech, or before PF+expressions like とき/かもしれない",
+        explain:"The dictionary form is the plain present. It's used in casual speech and is the base every PF+expression (とき、かもしれない、と思う…) attaches to." },
+      { type:"transform", prompt:"Change to the dictionary (plain present) form",
+        sentence:"たべます (to eat)", accept:["たべる"],
+        explain:"Ichidan verbs drop ます and add る. たべます→たべる",
+        tags:["ichidan-verbs"] },
+      { type:"transform", prompt:"Change to the dictionary (plain present) form",
+        sentence:"はなします (to speak)", accept:["はなす"],
+        explain:"Godan verbs change the i-sound before ます back to a u-sound. はなします→はなす",
+        tags:["godan-verbs"] },
+      { type:"identify", prompt:"What is this verb form here?",
+        sentence:"あの店ではおさけを<b>のまない</b>。",
+        options:["plain negative — casual speech, or before PF+expressions like ように/かもしれない","dictionary form (plain present)","plain past","plain past negative"],
+        answer:"plain negative — casual speech, or before PF+expressions like ように/かもしれない",
+        explain:"The plain negative ends in ない. It's the form ように, かもしれない and other PF+expressions attach to." },
+      { type:"transform", prompt:"Change to the plain negative (ない) form",
+        sentence:"いきます (to go)", accept:["いかない"],
+        explain:"Godan verbs change the final u-sound to an a-sound and add ない. いきます→いく→いかない",
+        tags:["godan-verbs"] },
+      { type:"transform", prompt:"Change to the plain negative (ない) form",
+        sentence:"みます (to watch/see)", accept:["みない"],
+        explain:"Ichidan verbs drop ます and add ない. みます→みない",
+        tags:["ichidan-verbs"] },
+      { type:"identify", prompt:"What is this verb form here?",
+        sentence:"きのう、友<ruby>達<rt>だち</rt></ruby>と<b>はなした</b>。",
+        options:["plain past — casual speech, or before PF+expressions like とき/し/と思った","dictionary form (plain present)","plain negative","plain past negative"],
+        answer:"plain past — casual speech, or before PF+expressions like とき/し/と思った",
+        explain:"The plain past ends in た/だ. It conjugates the same way as the て-form, swapping て→た and で→だ." },
+      { type:"transform", prompt:"Change to the plain past (た) form",
+        sentence:"のみます (to drink)", accept:["のんだ"],
+        explain:"Verbs ending in む become んだ in the plain past, the same pattern as the te-form. のみます→のんだ",
+        tags:["godan-verbs"] },
+      { type:"transform", prompt:"Change to the plain past (た) form",
+        sentence:"きます (来ます, to come)", accept:["きた","来た"],
+        explain:"来る is irregular. 来ます→来る→来た",
+        tags:["irregular-verbs"] },
+      { type:"identify", prompt:"What is this verb form here?",
+        sentence:"けさ、あさごはんを<b>たべなかった</b>。",
+        options:["plain past negative — casual speech, or before PF+expressions like かもしれない/と思った","plain past","plain negative","dictionary form (plain present)"],
+        answer:"plain past negative — casual speech, or before PF+expressions like かもしれない/と思った",
+        explain:"The plain past negative ends in なかった — take the plain negative (ない) and change い→かった." },
+      { type:"transform", prompt:"Change to the plain past negative (なかった) form",
+        sentence:"します (to do)", accept:["しなかった"],
+        explain:"する is irregular. します→する→しない→しなかった",
+        tags:["irregular-verbs"] },
+      { type:"identify", prompt:"What is happening to this い-adjective?",
+        sentence:"あのみせは<b>たかくなかった</b>。",
+        options:["plain past negative of an い-adjective","plain present of an い-adjective","plain past of an い-adjective","polite form"],
+        answer:"plain past negative of an い-adjective",
+        explain:"い-adjectives conjugate on their own, without だ or である. たかい→たかくない→たかくなかった." },
+      { type:"transform", prompt:"Change to the plain past (かった) form of this い-adjective",
+        sentence:"たかいです (is expensive)", accept:["たかかった"],
+        explain:"い-adjectives drop い and add かった for the plain past. たかい→たかかった" },
+      { type:"identify", prompt:"What is happening to this な-adjective/noun?",
+        sentence:"むかし、この町は<b>げんきだった</b>。",
+        options:["plain past of a な-adjective/noun — uses だ, not です","plain present of a な-adjective/noun","plain negative","polite form"],
+        answer:"plain past of a な-adjective/noun — uses だ, not です",
+        explain:"な-adjectives and nouns use だ/だった/ではない/ではなかった in the plain form — です is only for polite speech." }
+    ]
+  }
+);
+
+window.BANDS = ["script","words","sentences","choices","links","paragraphs","argument"];
+window.BAND_META = {
+  script:     { head:"Script",     long:"Sounds and script",                   teacher:"Foundation to Level 2", cur:"VIC", show:false },
+  words:      { head:"Words",      long:"Words and set phrases",               teacher:"Levels 3 and 4",        cur:"VIC", show:false },
+  sentences:  { head:"Sentences",  long:"Simple sentences",                    teacher:"Levels 5 and 6",        cur:"VIC", show:true  },
+  choices:    { head:"Choices",    long:"Choosing the right structure",        teacher:"Levels 7 and 8",        cur:"VIC", show:true  },
+  links:      { head:"Links",      long:"Joining and sequencing ideas",        teacher:"Levels 9 and 10",       cur:"VIC", show:true  },
+  paragraphs: { head:"Paragraphs", long:"Explaining and recounting at length", teacher:"VCE Units 1 and 2",     cur:"VCE", show:true  },
+  argument:   { head:"Argument",   long:"Evaluating and persuading",           teacher:"VCE Units 3 and 4",     cur:"VCE", show:true  }
+};
+window.CATEGORIES = ["Polite Finite Forms","Core Particles","Sentence-Final Particles","Words Indicating Extent","Plain Finite Forms","て-form I","て-form II","た／たら／たり forms","Verb Stem forms","Conjunctions","Nominalisers","ない-form","Miscellaneous","Plain Form + Expressions I","Plain Form + Expressions II","Persuasive & Evaluative Expressions","Comparative & Analytical Expressions"];
 window.POOLS = ["Reading Practice","Topic Vocabulary"];
+
+// Which document prescribes each row's grammar — drives the VIC/VCE "also on
+// this list" chip on a cell (DESIGN_BAND_LADDER.md §4.5). "VCE" = named in
+// the VCE Japanese SL prescribed grammar list (2019 study design). "PROGRAM"
+// = school-designed, not on the VCE list (still valid content; the app must
+// not over-claim it's externally prescribed).
+window.CATEGORY_META = {
+  "Polite Finite Forms": { prescribedBy:"VCE" },
+  "Core Particles": { prescribedBy:"VCE" },
+  "Sentence-Final Particles": { prescribedBy:"VCE" },
+  "Words Indicating Extent": { prescribedBy:"VCE" },
+  "Plain Finite Forms": { prescribedBy:"VCE" },
+  "て-form I": { prescribedBy:"VCE" },
+  "て-form II": { prescribedBy:"VCE" },
+  "た／たら／たり forms": { prescribedBy:"VCE" },
+  "Verb Stem forms": { prescribedBy:"VCE" },
+  "Conjunctions": { prescribedBy:"VCE" },
+  "Nominalisers": { prescribedBy:"VCE" },
+  "ない-form": { prescribedBy:"VCE" },
+  "Miscellaneous": { prescribedBy:"VCE" },
+  "Plain Form + Expressions I": { prescribedBy:"VCE" },
+  "Plain Form + Expressions II": { prescribedBy:"VCE" },
+  "Persuasive & Evaluative Expressions": { prescribedBy:"PROGRAM" },
+  "Comparative & Analytical Expressions": { prescribedBy:"PROGRAM" }
+};
