@@ -56,65 +56,85 @@
     return skill.items.filter((it) => it.type === typeFilter);
   }
 
+  /* ---------------- YEAR TIMELINE (the sequence view) ----------------
+     Prep to Year 12 across the top; one row per strand; each chunk is a
+     teaching step placed on the years it is taught across. A strand read
+     left to right is the same skill getting harder, which is the point of
+     the view. Ported from the non-EAL year view in Liam's English hub. */
+
+  function chunkSkills(chunk) {
+    return chunk.covers.map(skillById).filter(Boolean);
+  }
+  function chunkItemCount(chunk) {
+    return chunkSkills(chunk).reduce((n, s) => n + itemsFor(s).length, 0);
+  }
+  function chunkSelected(chunk) {
+    const ids = chunk.covers.filter((id) => skillById(id) && itemsFor(skillById(id)).length);
+    return ids.length > 0 && ids.every((id) => selectedSkills.has(id));
+  }
+
   function buildMatrix() {
     const wrap = $("matrix");
     wrap.innerHTML = "";
-    const bands = visibleBands();
-    document.documentElement.style.setProperty("--band-count", bands.length);
+    const years = window.JP_YEARS;
+    document.documentElement.style.setProperty("--year-count", years.length);
 
-    // header row
+    // header: the year axis
     const head = document.createElement("div");
-    head.className = "matrix-row matrix-head";
-    head.innerHTML = `<div class="matrix-cell rowlabel"></div>` +
-      bands.map((b) => {
-        const m = bandMeta(b);
-        return `<div class="matrix-cell colhead" data-cur="${m.cur}" title="${escapeHtmlE(m.teacher)}">${escapeHtmlE(m.head)}<span class="cur-tag">${m.cur}</span></div>`;
+    head.className = "tl-row tl-head";
+    head.innerHTML = `<div class="tl-label"></div>` +
+      years.map((y, i) => {
+        const cur = i <= 10 ? "VIC" : "VCE";
+        const label = y === "F" ? "Prep" : y;
+        const teacher = i <= 10 ? `Victorian Curriculum, Level ${y}` : `VCE Units ${i === 11 ? "1 and 2" : "3 and 4"}`;
+        return `<div class="tl-year" data-cur="${cur}" title="${escapeHtmlE(teacher)}">${escapeHtmlE(label)}</div>`;
       }).join("");
     wrap.appendChild(head);
 
-    window.CATEGORIES.forEach((cat) => {
+    Object.entries(window.JP_CHUNKS).forEach(([strand, chunks]) => {
       const row = document.createElement("div");
-      row.className = "matrix-row";
-      row.innerHTML = `<div class="matrix-cell rowlabel">${escapeHtmlE(cat)}</div>`;
-      const catMeta = (window.CATEGORY_META && window.CATEGORY_META[cat]) || { prescribedBy: "" };
-      const startBand = firstBandFor(cat);
-      bands.forEach((band) => {
-        const skill = window.SKILLS.find((s) => s.category === cat && s.band === band);
-        const cell = document.createElement("div");
-        cell.className = "matrix-cell";
-        const m = bandMeta(band);
-        if (!skill || !skill.introduced) {
-          cell.classList.add("empty");
-          const why = startBand
-            ? `Not introduced at this level. This row starts at ${bandMeta(startBand).head}.`
-            : `Not introduced at this level.`;
-          cell.title = why;
-          cell.setAttribute("aria-label", `${cat}, ${m.head}: ${why}`);
-          cell.innerHTML = `<span class="dash">—</span>`;
-        } else {
-          cell.dataset.cur = m.cur;
-          const n = itemsFor(skill).length;
-          cell.classList.add(n ? "has-items" : "no-items");
-          cell.dataset.id = skill.id;
-          let chip = "";
-          if (m.cur === "VIC" && catMeta.prescribedBy === "VCE") {
-            chip = `<span class="cell-chip dual-chip" title="Also on the VCE prescribed grammar list">VCE</span>`;
-          } else if (m.cur === "VCE" && catMeta.prescribedBy === "PROGRAM") {
-            chip = `<span class="cell-chip prog-chip" title="Not on the VCE prescribed grammar list. School-designed.">school</span>`;
-          }
-          cell.innerHTML = `<span class="cell-name">${escapeHtmlE(skill.name)}</span>` + chip +
-            (n ? `<span class="cell-count">${n}</span>` : `<span class="cell-count zero">0</span>`);
-          if (n) {
-            cell.addEventListener("click", () => {
-              if (selectedSkills.has(skill.id)) selectedSkills.delete(skill.id);
-              else selectedSkills.add(skill.id);
-              cell.classList.toggle("selected");
-              refreshCount();
-            });
-            if (selectedSkills.has(skill.id)) cell.classList.add("selected");
-          }
+      row.className = "tl-row";
+      const meta = (window.CATEGORY_META && window.CATEGORY_META[strand]) || { prescribedBy: "" };
+      row.innerHTML = `<div class="tl-label">${escapeHtmlE(strand)}</div>`;
+
+      chunks.forEach((chunk, ci) => {
+        const n = chunkItemCount(chunk);
+        const el = document.createElement("div");
+        el.className = "tl-chunk" + (n ? " has-items" : " no-items");
+        // +2: CSS grid is 1-indexed and column 1 is the strand label
+        el.style.gridColumn = `${chunk.y0 + 2} / ${chunk.y1 + 3}`;
+        el.dataset.cur = chunk.y0 <= 10 ? "VIC" : "VCE";
+        let chip = "";
+        if (chunk.y0 <= 10 && meta.prescribedBy === "VCE") {
+          chip = `<span class="cell-chip dual-chip" title="Also on the VCE prescribed grammar list">VCE</span>`;
+        } else if (chunk.y0 >= 11 && meta.prescribedBy === "PROGRAM") {
+          chip = `<span class="cell-chip prog-chip" title="Not on the VCE prescribed grammar list. School-designed.">school</span>`;
         }
-        row.appendChild(cell);
+        el.innerHTML = `<span class="tl-years">Year${chunk.years.indexOf("\u2013") > -1 ? "s" : ""} ${escapeHtmlE(chunk.years)}</span>` +
+          `<span class="tl-title">${escapeHtmlE(chunk.title)}</span>` + chip +
+          (n ? `<span class="cell-count">${n}</span>` : `<span class="cell-count zero">0</span>`);
+
+        if (n) {
+          const prev = ci > 0 ? chunks[ci - 1] : null;
+          if (prev) {
+            el.title = `Builds on: ${prev.title} (Year${prev.years.indexOf("\u2013") > -1 ? "s" : ""} ${prev.years}). ` +
+              `Picking this one brings that along as review.`;
+          }
+          el.addEventListener("click", () => {
+            const on = !chunkSelected(chunk);
+            const apply = (c) => c.covers.forEach((id) => {
+              const s = skillById(id);
+              if (!s || !itemsFor(s).length) return;
+              if (on) selectedSkills.add(id); else selectedSkills.delete(id);
+            });
+            apply(chunk);
+            // the step before it comes along as review (Liam's English hub rule)
+            if (on && prev && chunkItemCount(prev)) apply(prev);
+            buildMatrix();
+          });
+          if (chunkSelected(chunk)) el.classList.add("selected");
+        }
+        row.appendChild(el);
       });
       wrap.appendChild(row);
     });
@@ -123,17 +143,15 @@
   }
 
   function buildLegend() {
-    const bands = visibleBands();
-    const vic = bands.filter((b) => bandMeta(b).cur === "VIC").map((b) => bandMeta(b).head);
-    const vce = bands.filter((b) => bandMeta(b).cur === "VCE").map((b) => bandMeta(b).head);
-    let html = `Greyed cells aren't introduced at that level. Cells showing <b>0</b> exist in the sequence but have no items yet. `;
-    if (vic.length) html += `<span class="legend-vic">${vic.join(", ")}</span> come from the Victorian Curriculum F–10 Japanese. `;
-    if (vce.length) html += `<span class="legend-vce">${vce.join(", ")}</span> come from the VCE Japanese Second Language study design. `;
-    html += `Nothing is locked — work in any column you like.`;
-    $("matrixLegend").innerHTML = html;
-
+    $("matrixLegend").innerHTML =
+      `Each block is a teaching step, sitting on the years it is usually taught. ` +
+      `Read a row left to right and you are watching one skill get harder. ` +
+      `<span class="legend-vic">Prep to Year 10</span> follows the Victorian Curriculum F–10 Japanese; ` +
+      `<span class="legend-vce">Years 11 and 12</span> follow the VCE Japanese Second Language study design. ` +
+      `Click a step to practise it, and the step before it comes along as review. ` +
+      `Nothing is locked — pick any step in any row.`;
     const btn = $("bandToggleBtn");
-    btn.textContent = showAllBands ? "Hide Foundation–Level 6 columns" : "Show Foundation–Level 6 columns too";
+    if (btn) btn.style.display = "none";
   }
 
   function buildPools() {

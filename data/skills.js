@@ -1,29 +1,1021 @@
 /* ============================================================
    JAPANESE HUB — GRAMMAR CONTENT
    ------------------------------------------------------------
-   Instructional text (prompts, option labels, explanations) is
-   in English. Japanese is used only for the example sentences,
-   particles, and target vocabulary. See SPEC.md §6.
+   Instructional text (prompts, options, explanations) is English.
+   Japanese is used only for the sentences, particles and target
+   vocabulary. See SPEC.md §6.
 
-   STRUCTURE. Each entry is one cell of the matrix: a category
-   (row) at a band (column). A category appears at MORE THAN ONE
-   band on purpose — that is a skill getting harder across the
-   ladder, and it is the point of the grid. Never give two
-   entries the same category+band: the engine renders only the
-   first, and the second becomes unreachable.
+   THE SEQUENCE. window.JP_CHUNKS at the foot of this file is the
+   Prep-to-Year-12 timeline: one chunk per teaching step, placed on
+   the year axis, grouped into strands. A strand runs across several
+   years, each chunk building on the one before it — that is what
+   the year view renders, and what makes the order visible.
 
-   Bands, in order: script, words, sentences, choices, links,
-   paragraphs, argument. See window.BAND_META at the foot of this
-   file, and collab/research/DESIGN_BAND_LADDER.md for why each
-   row sits where it does.
+   RULE: within a strand the year axis must never contradict the
+   teaching order. The generator asserts this.
 
-   Before committing any change here, run the sanity check in
-   SPEC.md §9. It must print "problems 0".
+   PRIMARY CONTENT (Prep-Year 8) is a PROPOSAL for Andrew. The
+   Victorian Curriculum F-10 Japanese names no specific grammar at
+   any band, so only the SCRIPT strand's sequence is directly
+   curriculum-backed (recognise 3 scripts -> copy hiragana ->
+   familiar katakana and kanji -> role of each script -> compounds
+   and multiple readings). Everything else is standard Australian
+   primary Japanese scope and needs his tick. Primary cells use
+   identify/order tasks only — no typed Japanese, since a Year 2
+   has no IME and typing is not the skill being tested.
+
+   Before committing, run the sanity check in SPEC.md §9. It must
+   print "problems 0".
    ============================================================ */
 
 window.SKILLS = [
   {
-    id:"te-form-b2-core", category:"て-form I", band:"choices",
+    id:"script-f2", category:"Script and Sounds", band:"script",
+    name:"The three scripts, and the first hiragana sounds",
+    example:"あ ・ ア ・ 山",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"Which one of these is hiragana?",
+        sentence:"<b>あ</b> ・ ア ・ 山 ・ A",
+        options:["あ","ア","山","A"],
+        answer:"あ",
+        explain:"あ is hiragana. Hiragana letters have soft, curvy shapes."
+      },
+      {
+        type:"identify",
+        prompt:"Which one of these is katakana?",
+        sentence:"あ ・ <b>ア</b> ・ 山 ・ A",
+        options:["ア","あ","山","A"],
+        answer:"ア",
+        explain:"ア is katakana. Katakana letters have straight, sharp lines."
+      },
+      {
+        type:"identify",
+        prompt:"Which one of these is kanji?",
+        sentence:"あ ・ ア ・ <b>山</b> ・ A",
+        options:["山","あ","ア","A"],
+        answer:"山",
+        explain:"山 is a kanji. Kanji came from Chinese and each one carries a meaning — 山 means mountain."
+      },
+      {
+        type:"identify",
+        prompt:"How many scripts does Japanese use for writing?",
+        sentence:"あ ・ ア ・ 山",
+        options:["Three: hiragana, katakana and kanji","One","Two: hiragana and kanji","Four"],
+        answer:"Three: hiragana, katakana and kanji",
+        explain:"Japanese is written with three scripts together: hiragana, katakana and kanji."
+      },
+      {
+        type:"identify",
+        prompt:"What sound does this hiragana make?",
+        sentence:"<b>あ</b>",
+        options:["a","i","u","e"],
+        answer:"a",
+        explain:"あ says 'a', like the a in 'father'."
+      },
+      {
+        type:"identify",
+        prompt:"What sound does this hiragana make?",
+        sentence:"<b>か</b>",
+        options:["ka","sa","ta","na"],
+        answer:"ka",
+        explain:"か says 'ka'."
+      },
+      {
+        type:"identify",
+        prompt:"What sound does this hiragana make?",
+        sentence:"<b>ね</b>",
+        options:["ne","re","wa","me"],
+        answer:"ne",
+        explain:"ね says 'ne'. Look carefully — ね, れ and わ all start the same way but finish differently."
+      },
+      {
+        type:"order",
+        prompt:"Put these hiragana in the order they come in the あいうえお chart.",
+        words:["あ","い","う","え","お"],
+        answer:"あいうえお",
+        explain:"The first five sounds of the hiragana chart are あ・い・う・え・お (a, i, u, e, o)."
+      }
+    ]
+  },
+
+  {
+    id:"script-y34", category:"Script and Sounds", band:"words",
+    name:"Reading and writing hiragana",
+    example:"ねこ ・ さくら ・ きって",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"Read this hiragana word. What does it say?",
+        sentence:"<b>ねこ</b>",
+        options:["neko (cat)","inu (dog)","tori (bird)","sakana (fish)"],
+        answer:"neko (cat)",
+        explain:"ね + こ = ねこ, 'neko', which means cat."
+      },
+      {
+        type:"identify",
+        prompt:"Read this hiragana word. What does it say?",
+        sentence:"<b>やま</b>",
+        options:["yama (mountain)","umi (sea)","kawa (river)","sora (sky)"],
+        answer:"yama (mountain)",
+        explain:"や + ま = やま, 'yama', which means mountain."
+      },
+      {
+        type:"identify",
+        prompt:"Which hiragana is missing?",
+        sentence:"い＿う  (inu — dog)",
+        options:["ぬ","め","わ","れ"],
+        answer:"ぬ",
+        explain:"いぬ (inu) means dog. ぬ and め look similar — ぬ has a loop at the end."
+      },
+      {
+        type:"order",
+        prompt:"Build the word for 'sushi'.",
+        words:["す","し"],
+        answer:"すし",
+        explain:"す + し = すし."
+      },
+      {
+        type:"order",
+        prompt:"Build the word for 'sakura' (cherry blossom).",
+        words:["さ","く","ら"],
+        answer:"さくら",
+        explain:"さ + く + ら = さくら."
+      },
+      {
+        type:"identify",
+        prompt:"What is the small っ doing in this word?",
+        sentence:"き<b>っ</b>て (kitte — stamp)",
+        options:["it makes a short pause before the next sound","it is read as 'tsu'","it makes the word plural","it is silent and does nothing"],
+        answer:"it makes a short pause before the next sound",
+        explain:"A small っ doubles the next consonant and creates a tiny pause: きて (kite) and きって (kitte) are different words."
+      },
+      {
+        type:"identify",
+        prompt:"What do the two marks on this hiragana do?",
+        sentence:"か → <b>が</b>",
+        options:["they change 'ka' into 'ga'","they make the letter louder","they make the letter plural","they mark the end of a sentence"],
+        answer:"they change 'ka' into 'ga'",
+        explain:"Those two marks are called dakuten. They change か (ka) to が (ga), さ (sa) to ざ (za), and so on."
+      },
+      {
+        type:"identify",
+        prompt:"Which of these is written in hiragana?",
+        sentence:"<b>ともだち</b> ・ トマト ・ 日本",
+        options:["ともだち","トマト","日本","all of them"],
+        answer:"ともだち",
+        explain:"ともだち (friend) is hiragana. トマト is katakana, and 日本 is kanji."
+      }
+    ]
+  },
+
+  {
+    id:"script-y56", category:"Script and Sounds", band:"sentences",
+    name:"Katakana for borrowed words, and the first kanji",
+    example:"テニス ・ 日本 ・ 人",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"Why is this word written in katakana?",
+        sentence:"<b>テニス</b> (tennis)",
+        options:["it is a word borrowed from another language","it is a person's name","it is a place in Japan","katakana is used for all sports"],
+        answer:"it is a word borrowed from another language",
+        explain:"Katakana is used for words borrowed from other languages. テニス comes from English 'tennis'."
+      },
+      {
+        type:"identify",
+        prompt:"Which of these would be written in katakana?",
+        sentence:"chocolate ・ mountain ・ friend ・ cat",
+        options:["chocolate","mountain","friend","cat"],
+        answer:"chocolate",
+        explain:"チョコレート (chocolate) is borrowed from English, so it takes katakana. The others are ordinary Japanese words."
+      },
+      {
+        type:"identify",
+        prompt:"Read this katakana word.",
+        sentence:"<b>パン</b>",
+        options:["pan (bread)","pen","pin","pon"],
+        answer:"pan (bread)",
+        explain:"パン means bread. It came into Japanese from Portuguese, not English."
+      },
+      {
+        type:"identify",
+        prompt:"What does this kanji mean?",
+        sentence:"<b>日</b>",
+        options:["sun, or day","moon","mountain","person"],
+        answer:"sun, or day",
+        explain:"日 means sun or day. You can see it inside 日本 (Japan) and 日曜日 (Sunday)."
+      },
+      {
+        type:"identify",
+        prompt:"What does this kanji mean?",
+        sentence:"<b>人</b>",
+        options:["person","tree","river","big"],
+        answer:"person",
+        explain:"人 means person. It looks a little like someone standing with two legs."
+      },
+      {
+        type:"identify",
+        prompt:"What does this kanji word mean?",
+        sentence:"<b>日本</b>",
+        options:["Japan","Sunday","sunrise","this month"],
+        answer:"Japan",
+        explain:"日 (sun) + 本 (origin) together mean Japan — 'origin of the sun'."
+      },
+      {
+        type:"order",
+        prompt:"Put this sentence's punctuation in the right place: 'I am a student.'",
+        words:["わたしはがくせいです","。"],
+        answer:"わたしはがくせいです。",
+        explain:"Japanese sentences end with 。 (a maru), not a full stop."
+      },
+      {
+        type:"identify",
+        prompt:"What is this mark used for?",
+        sentence:"わたしは、がくせいです。 ← the <b>、</b>",
+        options:["a comma — a short pause inside a sentence","a full stop","a question mark","a quotation mark"],
+        answer:"a comma — a short pause inside a sentence",
+        explain:"、 is the Japanese comma. It marks a pause inside the sentence; 。 ends it."
+      }
+    ]
+  },
+
+  {
+    id:"script-y78", category:"Script and Sounds", band:"choices",
+    name:"Choosing the right script, and reading furigana",
+    example:"オーストラリアから来ました。",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"Why is this word written in katakana and not hiragana?",
+        sentence:"わたしは<b>オーストラリア</b>から来ました。",
+        options:["it is a foreign place name","it is the subject of the sentence","it is a polite form","place names always use katakana"],
+        answer:"it is a foreign place name",
+        explain:"Katakana is used for foreign words and foreign place names. Japanese place names use kanji: 東京, 大阪."
+      },
+      {
+        type:"identify",
+        prompt:"What job is hiragana doing in this sentence?",
+        sentence:"わたし<b>は</b>すし<b>を</b>たべ<b>ます</b>。",
+        options:["carrying the particles and verb endings","writing the borrowed words","writing the nouns","decorating the sentence"],
+        answer:"carrying the particles and verb endings",
+        explain:"Kanji usually carries the meaning of a word, and hiragana carries the grammar around it — particles like は and を, and endings like ます."
+      },
+      {
+        type:"identify",
+        prompt:"Which script would you expect for the underlined part?",
+        sentence:"I want to write the name of a Japanese city: <b>Tokyo</b>",
+        options:["kanji","katakana","hiragana only","romaji"],
+        answer:"kanji",
+        explain:"Japanese place names are written in kanji: 東京. Katakana is for foreign names, like シドニー (Sydney)."
+      },
+      {
+        type:"identify",
+        prompt:"What are the small letters above the kanji called, and what are they for?",
+        sentence:"<ruby>友達<rt>ともだち</rt></ruby>",
+        options:["furigana — they show how to read the kanji","katakana — they show it is a foreign word","a translation into English","a spelling mistake"],
+        answer:"furigana — they show how to read the kanji",
+        explain:"Small hiragana written above or beside a kanji is called furigana. It tells you the reading of a kanji you may not know yet."
+      },
+      {
+        type:"identify",
+        prompt:"Why might a writer choose to use hiragana instead of the kanji here?",
+        sentence:"ともだち  (instead of 友達)",
+        options:["the reader may not know that kanji yet","hiragana is more polite","the word is borrowed from English","kanji cannot be used for people"],
+        answer:"the reader may not know that kanji yet",
+        explain:"Writers choose the script to suit the reader. A book for young children uses more hiragana; a newspaper uses more kanji."
+      },
+      {
+        type:"identify",
+        prompt:"What does this kanji compound mean?",
+        sentence:"<b>学校</b>",
+        options:["school","study","teacher","classroom"],
+        answer:"school",
+        explain:"学 (study) + 校 (school building) = 学校, school. Kanji often combine to build a new word."
+      },
+      {
+        type:"identify",
+        prompt:"What does this kanji compound mean?",
+        sentence:"<b>日本語</b>",
+        options:["the Japanese language","a Japanese person","Japan","a Japanese book"],
+        answer:"the Japanese language",
+        explain:"日本 (Japan) + 語 (language) = 日本語, the Japanese language. 語 turns a place into its language: 英語 English, 中国語 Chinese."
+      },
+      {
+        type:"identify",
+        prompt:"Using the pattern 〜語 (language), what would 英語 mean?",
+        sentence:"日本語 = the Japanese language。 <b>英語</b> = ?",
+        options:["the English language","a foreign language","a spoken language","a written language"],
+        answer:"the English language",
+        explain:"英 stands for England/English, so 英語 is the English language. Once you know a kanji, you can often work out new words containing it."
+      }
+    ]
+  },
+
+  {
+    id:"script-y910", category:"Script and Sounds", band:"links",
+    name:"Kanji compounds and multiple readings",
+    example:"日本語 ・ 学生 ・ 電車",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"This kanji has two different readings. Which reading is used here?",
+        sentence:"<b>人</b>: 三人（さんにん）",
+        options:["にん — the reading used in compounds and counters","ひと — the reading used when it stands alone","both are used here","neither"],
+        answer:"にん — the reading used in compounds and counters",
+        explain:"人 is ひと on its own ('a person') but にん or じん inside a word: 三人 (three people), 日本人 (a Japanese person)."
+      },
+      {
+        type:"identify",
+        prompt:"Which reading of 日 is used here?",
+        sentence:"<b>日</b>本 (Japan)",
+        options:["に — a compound reading","ひ — the stand-alone reading","か — the counter reading","び — the ending reading"],
+        answer:"に — a compound reading",
+        explain:"日 is ひ alone ('sun, day'), but に in 日本, にち in 日曜日, か in 三日. Most kanji have several readings, chosen by the word."
+      },
+      {
+        type:"identify",
+        prompt:"Work out the meaning from the parts: 学 (study) + 生 (life, student)",
+        sentence:"<b>学生</b>",
+        options:["a student","a school","a teacher","a lesson"],
+        answer:"a student",
+        explain:"学生 is a student. Reading the parts of a compound is often enough to work out a word you have never met."
+      },
+      {
+        type:"identify",
+        prompt:"Work out the meaning from the parts: 電 (electricity) + 車 (vehicle)",
+        sentence:"<b>電車</b>",
+        options:["a train","a car","a bicycle","a battery"],
+        answer:"a train",
+        explain:"電車 is an electric train. 車 (vehicle) also appears in 自転車 (bicycle) and 自動車 (car)."
+      },
+      {
+        type:"identify",
+        prompt:"Work out the meaning from the parts: 手 (hand) + 紙 (paper)",
+        sentence:"<b>手紙</b>",
+        options:["a letter","a tissue","a glove","a notebook"],
+        answer:"a letter",
+        explain:"手紙 means a letter. The parts do not always add up literally, so check a compound you are unsure of."
+      },
+      {
+        type:"identify",
+        prompt:"You meet an unfamiliar kanji word in a reading passage. What is the best first step?",
+        sentence:"…<b>買物</b>に行きました。",
+        options:["look at the kanji you do know and at the rest of the sentence","skip the whole sentence","guess from the first letter","assume it is a foreign word"],
+        answer:"look at the kanji you do know and at the rest of the sentence",
+        explain:"買 means buy and 物 means thing, and に行きました means 'went to do'. 買物 (shopping) becomes readable from the parts plus the context."
+      },
+      {
+        type:"identify",
+        prompt:"Why is this word written in katakana here, even though it is a Japanese word?",
+        sentence:"この店のラーメンは<b>ウマイ</b>！",
+        options:["for emphasis, like italics in English","because it is borrowed from English","because it is a place name","because it is a formal word"],
+        answer:"for emphasis, like italics in English",
+        explain:"Katakana is also used for emphasis, the way English uses italics or capitals. Recognising this stops you hunting for a foreign origin that isn't there."
+      },
+      {
+        type:"identify",
+        prompt:"What does the script choice tell you about this text?",
+        sentence:"ぜんぶ ひらがな で かいて あります。",
+        options:["it is probably written for young children or beginners","it is a formal newspaper article","it is a foreign text","it contains a mistake"],
+        answer:"it is probably written for young children or beginners",
+        explain:"An all-hiragana text with spaces is aimed at early readers. The mix of scripts a writer chooses is itself information about audience."
+      }
+    ]
+  },
+
+  {
+    id:"greet-f2", category:"Greetings and Interaction", band:"script",
+    name:"Everyday greetings",
+    example:"おはようございます。",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"What does this greeting mean?",
+        sentence:"<b>おはようございます</b>",
+        options:["Good morning","Good evening","Goodbye","Thank you"],
+        answer:"Good morning",
+        explain:"おはようございます is the polite way to say good morning."
+      },
+      {
+        type:"identify",
+        prompt:"What does this greeting mean?",
+        sentence:"<b>こんにちは</b>",
+        options:["Hello / Good afternoon","Good morning","Good night","See you"],
+        answer:"Hello / Good afternoon",
+        explain:"こんにちは is used in the middle of the day."
+      },
+      {
+        type:"identify",
+        prompt:"What does this greeting mean?",
+        sentence:"<b>こんばんは</b>",
+        options:["Good evening","Good morning","Goodbye","Welcome"],
+        answer:"Good evening",
+        explain:"こんばんは is used in the evening."
+      },
+      {
+        type:"identify",
+        prompt:"What does this mean?",
+        sentence:"<b>ありがとうございます</b>",
+        options:["Thank you","Sorry","Please","Excuse me"],
+        answer:"Thank you",
+        explain:"ありがとうございます is a polite thank you."
+      },
+      {
+        type:"identify",
+        prompt:"What does this mean?",
+        sentence:"<b>さようなら</b>",
+        options:["Goodbye","Hello","Good night","Welcome back"],
+        answer:"Goodbye",
+        explain:"さようなら is goodbye."
+      },
+      {
+        type:"identify",
+        prompt:"Your teacher says おはようございます in the morning. What do you say back?",
+        sentence:"Teacher: <b>おはようございます</b>",
+        options:["おはようございます","さようなら","こんばんは","ありがとう"],
+        answer:"おはようございます",
+        explain:"You return the same greeting: おはようございます."
+      },
+      {
+        type:"identify",
+        prompt:"Which greeting would you use at 8 o'clock at night?",
+        sentence:"8:00 pm",
+        options:["こんばんは","おはようございます","こんにちは","いただきます"],
+        answer:"こんばんは",
+        explain:"こんばんは is the evening greeting."
+      }
+    ]
+  },
+
+  {
+    id:"greet-y34", category:"Greetings and Interaction", band:"words",
+    name:"Classroom language and meeting someone",
+    example:"はじめまして。どうぞよろしく。",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"Your teacher says this. What should you do?",
+        sentence:"<b>すわってください。</b>",
+        options:["Sit down","Stand up","Listen","Look"],
+        answer:"Sit down",
+        explain:"すわってください means 'please sit down'. ください makes it a polite request."
+      },
+      {
+        type:"identify",
+        prompt:"Your teacher says this. What should you do?",
+        sentence:"<b>たってください。</b>",
+        options:["Stand up","Sit down","Write","Read"],
+        answer:"Stand up",
+        explain:"たってください means 'please stand up'."
+      },
+      {
+        type:"identify",
+        prompt:"Your teacher says this. What should you do?",
+        sentence:"<b>きいてください。</b>",
+        options:["Listen","Speak","Sit","Leave"],
+        answer:"Listen",
+        explain:"きいてください means 'please listen'."
+      },
+      {
+        type:"identify",
+        prompt:"What does this mean?",
+        sentence:"<b>はじめまして。</b>",
+        options:["Nice to meet you (for the first time)","Goodbye","Thank you","Good morning"],
+        answer:"Nice to meet you (for the first time)",
+        explain:"はじめまして is said only when meeting someone for the first time."
+      },
+      {
+        type:"identify",
+        prompt:"What does this mean?",
+        sentence:"<b>どうぞよろしく。</b>",
+        options:["Pleased to meet you / please be kind to me","Goodbye for now","Thank you very much","Excuse me"],
+        answer:"Pleased to meet you / please be kind to me",
+        explain:"どうぞよろしく follows はじめまして when you introduce yourself. There is no exact English equivalent."
+      },
+      {
+        type:"order",
+        prompt:"Put this first meeting in the right order.",
+        words:["はじめまして。","どうぞよろしく。"],
+        answer:"はじめまして。どうぞよろしく。",
+        explain:"You open with はじめまして and close with どうぞよろしく."
+      },
+      {
+        type:"identify",
+        prompt:"What do you say before you start eating?",
+        sentence:"(before a meal)",
+        options:["いただきます","ごちそうさまでした","おやすみなさい","ただいま"],
+        answer:"いただきます",
+        explain:"いただきます is said before eating; ごちそうさまでした is said afterwards."
+      }
+    ]
+  },
+
+  {
+    id:"greet-y56", category:"Greetings and Interaction", band:"sentences",
+    name:"Introducing yourself, and choosing how polite to be",
+    example:"わたしはエマです。",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"order",
+        prompt:"Introduce yourself: 'I am Emma.'",
+        words:["わたし","は","エマ","です"],
+        answer:"わたしはエマです",
+        explain:"わたしは (as for me) + your name + です. Your name is written in katakana if it is not Japanese."
+      },
+      {
+        type:"identify",
+        prompt:"What is this person saying?",
+        sentence:"わたしは<b>十四さい</b>です。",
+        options:["I am 14 years old","I am in year 14","I have 14 friends","It is 14 o'clock"],
+        answer:"I am 14 years old",
+        explain:"〜さい gives an age: 十四さい is 14 years old."
+      },
+      {
+        type:"identify",
+        prompt:"What is this person saying?",
+        sentence:"<b>オーストラリアから来ました。</b>",
+        options:["I came from Australia","I am going to Australia","I like Australia","I live in Australia"],
+        answer:"I came from Australia",
+        explain:"〜から来ました means 'came from ~'. から marks the starting point."
+      },
+      {
+        type:"order",
+        prompt:"Say where you are from: 'I came from Australia.'",
+        words:["オーストラリア","から","来ました"],
+        answer:"オーストラリアから来ました",
+        explain:"Place + から + 来ました."
+      },
+      {
+        type:"identify",
+        prompt:"Which is the polite way to ask someone's name?",
+        sentence:"(meeting a teacher for the first time)",
+        options:["お名前は何ですか。","名前！","だれ？","何？"],
+        answer:"お名前は何ですか。",
+        explain:"お名前は何ですか。is the polite question. The お at the front makes it respectful."
+      },
+      {
+        type:"identify",
+        prompt:"What does どうぞよろしくおねがいします add, compared with どうぞよろしく?",
+        sentence:"<b>どうぞよろしくおねがいします。</b>",
+        options:["it is more polite","it means something completely different","it is more casual","it is a question"],
+        answer:"it is more polite",
+        explain:"おねがいします makes the phrase more polite — used with teachers and adults rather than close friends."
+      },
+      {
+        type:"identify",
+        prompt:"You are introduced to your friend's grandmother. Which greeting fits best?",
+        sentence:"(meeting an older person for the first time)",
+        options:["はじめまして。どうぞよろしくおねがいします。","やあ！","おっす","またね"],
+        answer:"はじめまして。どうぞよろしくおねがいします。",
+        explain:"Politeness in Japanese changes with who you are speaking to. The full polite form is right for an older person you have just met."
+      }
+    ]
+  },
+
+  {
+    id:"identity-f2", category:"Saying What Things Are", band:"script",
+    name:"これはXです",
+    example:"これはねこです。",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"What does this sentence mean?",
+        sentence:"<b>これはねこです。</b>",
+        options:["This is a cat","That is a dog","I like cats","Is this a cat?"],
+        answer:"This is a cat",
+        explain:"これ = this, は marks it as the topic, ねこ = cat, です = is."
+      },
+      {
+        type:"order",
+        prompt:"Build the sentence: 'This is a book.'",
+        words:["これ","は","ほん","です"],
+        answer:"これはほんです",
+        explain:"これは + the thing + です."
+      },
+      {
+        type:"order",
+        prompt:"Build the sentence: 'This is a dog.'",
+        words:["これ","は","いぬ","です"],
+        answer:"これはいぬです",
+        explain:"これは + いぬ + です."
+      },
+      {
+        type:"identify",
+        prompt:"What does です do at the end of the sentence?",
+        sentence:"これはねこ<b>です</b>。",
+        options:["it means 'is' and makes the sentence polite","it asks a question","it makes the word plural","it means 'not'"],
+        answer:"it means 'is' and makes the sentence polite",
+        explain:"です works like 'is' and marks the sentence as polite."
+      },
+      {
+        type:"identify",
+        prompt:"What does this sentence mean?",
+        sentence:"<b>わたしはがくせいです。</b>",
+        options:["I am a student","You are a student","This is a school","I go to school"],
+        answer:"I am a student",
+        explain:"わたし = I, は marks the topic, がくせい = student, です = am."
+      },
+      {
+        type:"identify",
+        prompt:"Which word means 'I'?",
+        sentence:"<b>わたし</b>はがくせいです。",
+        options:["わたし","は","がくせい","です"],
+        answer:"わたし",
+        explain:"わたし means I or me."
+      }
+    ]
+  },
+
+  {
+    id:"identity-y34", category:"Saying What Things Are", band:"words",
+    name:"これ・それ・あれ, and の for belonging",
+    example:"これはわたしのほんです。",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"What is the difference between これ and それ?",
+        sentence:"<b>これ</b> ・ <b>それ</b>",
+        options:["これ is near me; それ is near you","これ is near you; それ is near me","they mean the same thing","これ is a question word"],
+        answer:"これ is near me; それ is near you",
+        explain:"これ = this (near the speaker), それ = that (near the listener), あれ = that over there (away from both)."
+      },
+      {
+        type:"identify",
+        prompt:"Something is far from both you and the person you are talking to. Which word do you use?",
+        sentence:"(a building across the street)",
+        options:["あれ","これ","それ","どれ"],
+        answer:"あれ",
+        explain:"あれ is for something away from both speakers."
+      },
+      {
+        type:"identify",
+        prompt:"What does this question mean?",
+        sentence:"<b>これは何ですか。</b>",
+        options:["What is this?","Where is this?","Whose is this?","Is this yours?"],
+        answer:"What is this?",
+        explain:"何 (なに/なん) means 'what', and か at the end makes it a question."
+      },
+      {
+        type:"identify",
+        prompt:"What does の do here?",
+        sentence:"これはわたし<b>の</b>ほんです。",
+        options:["it shows the book belongs to me","it makes the sentence a question","it means 'and'","it makes the word plural"],
+        answer:"it shows the book belongs to me",
+        explain:"の links two nouns to show possession: わたしのほん = my book."
+      },
+      {
+        type:"order",
+        prompt:"Build the sentence: 'This is my pencil.'",
+        words:["これ","は","わたし","の","えんぴつ","です"],
+        answer:"これはわたしのえんぴつです",
+        explain:"これは + わたしの (my) + えんぴつ + です."
+      },
+      {
+        type:"identify",
+        prompt:"What does this sentence mean?",
+        sentence:"<b>それはせんせいのくるまです。</b>",
+        options:["That is the teacher's car","This is my car","That car is red","Is that the teacher's car?"],
+        answer:"That is the teacher's car",
+        explain:"それ = that (near you), せんせいの = the teacher's, くるま = car."
+      },
+      {
+        type:"identify",
+        prompt:"How would you answer this question?",
+        sentence:"これはあなたのかばんですか。 (Is this your bag?) — and it IS yours.",
+        options:["はい、わたしのです。","いいえ、わたしのです。","はい、ちがいます。","いいえ、そうです。"],
+        answer:"はい、わたしのです。",
+        explain:"はい = yes. わたしのです means 'it is mine' — の can stand in for the noun once it is obvious."
+      }
+    ]
+  },
+
+  {
+    id:"identity-y56", category:"Saying What Things Are", band:"sentences",
+    name:"Describing things with い- and な-adjectives",
+    example:"このほんはおもしろいです。",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"What is this sentence doing?",
+        sentence:"このねこは<b>大きい</b>です。",
+        options:["describing the cat","asking about the cat","saying the cat is not there","counting the cats"],
+        answer:"describing the cat",
+        explain:"大きい (big) is an adjective describing the cat. It sits before です."
+      },
+      {
+        type:"identify",
+        prompt:"What is the difference between これ and この?",
+        sentence:"<b>これ</b>はねこです。 ／ <b>この</b>ねこは大きいです。",
+        options:["これ stands alone; この must be followed by a noun","they are interchangeable","この is more polite","これ is plural"],
+        answer:"これ stands alone; この must be followed by a noun",
+        explain:"これ = 'this one' by itself. この always attaches to a noun: このねこ = this cat."
+      },
+      {
+        type:"order",
+        prompt:"Build the sentence: 'This book is interesting.'",
+        words:["この","ほん","は","おもしろい","です"],
+        answer:"このほんはおもしろいです",
+        explain:"この + noun + は + adjective + です."
+      },
+      {
+        type:"identify",
+        prompt:"Which type of adjective is きれい?",
+        sentence:"きれい<b>な</b>はな (a pretty flower)",
+        options:["a な-adjective — it needs な before a noun","an い-adjective","a verb","a noun"],
+        answer:"a な-adjective — it needs な before a noun",
+        explain:"Adjectives ending in い like 大きい attach directly (大きいねこ). な-adjectives like きれい need な: きれいなはな. きれい is a な-adjective even though it ends in い."
+      },
+      {
+        type:"identify",
+        prompt:"What does this sentence mean?",
+        sentence:"<b>わたしのへやはきれいではありません。</b>",
+        options:["My room is not clean","My room is clean","Is my room clean?","My room is big"],
+        answer:"My room is not clean",
+        explain:"ではありません is the polite negative of です — 'is not'."
+      },
+      {
+        type:"identify",
+        prompt:"How do you make this い-adjective negative?",
+        sentence:"大きいです → ?",
+        options:["大きくないです","大きいではありません","大きくです","大きなです"],
+        answer:"大きくないです",
+        explain:"い-adjectives drop the い and add くない: 大きい → 大きくないです. な-adjectives and nouns use ではありません instead."
+      },
+      {
+        type:"identify",
+        prompt:"What does this sentence mean?",
+        sentence:"きのう、てんきは<b>よかったです</b>。",
+        options:["The weather was good yesterday","The weather is good today","The weather will be good","The weather was bad"],
+        answer:"The weather was good yesterday",
+        explain:"いい becomes よかった in the past — an irregular one worth memorising."
+      }
+    ]
+  },
+
+  {
+    id:"identity-y78", category:"Saying What Things Are", band:"choices",
+    name:"Past and negative: でした・ではありません",
+    example:"きのうは日よう日でした。",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"What does this sentence mean?",
+        sentence:"きのうは日よう日<b>でした</b>。",
+        options:["Yesterday was Sunday","Today is Sunday","Tomorrow is Sunday","Yesterday was not Sunday"],
+        answer:"Yesterday was Sunday",
+        explain:"でした is the polite past of です — 'was'."
+      },
+      {
+        type:"identify",
+        prompt:"Which is the polite past negative?",
+        sentence:"がくせいです (is a student) → ?",
+        options:["がくせいではありませんでした","がくせいでした","がくせいではありません","がくせいじゃないです"],
+        answer:"がくせいではありませんでした",
+        explain:"Nouns and な-adjectives: です → でした (was) → ではありませんでした (was not)."
+      },
+      {
+        type:"identify",
+        prompt:"What is the difference in tone here?",
+        sentence:"きれい<b>ではありません</b> ／ きれい<b>じゃありません</b>",
+        options:["じゃ is the more casual contraction of では","they mean different things","じゃ is more polite","では is incorrect"],
+        answer:"じゃ is the more casual contraction of では",
+        explain:"じゃ is a spoken contraction of では. Both are polite enough for class, but では is the more formal written choice."
+      },
+      {
+        type:"order",
+        prompt:"Build: 'That was not my bag.'",
+        words:["それ","は","わたし","の","かばん","ではありませんでした"],
+        answer:"それはわたしのかばんではありませんでした",
+        explain:"それは + わたしの + かばん + ではありませんでした."
+      },
+      {
+        type:"identify",
+        prompt:"What does this sentence mean?",
+        sentence:"この店のケーキは<b>おいしくなかったです</b>。",
+        options:["The cake was not tasty","The cake is not tasty","The cake was tasty","The cake will not be tasty"],
+        answer:"The cake was not tasty",
+        explain:"い-adjectives: おいしい → おいしくない (is not) → おいしくなかった (was not)."
+      },
+      {
+        type:"identify",
+        prompt:"Which sentence correctly describes a past state with a な-adjective?",
+        sentence:"'The park was quiet.'",
+        options:["こうえんはしずかでした。","こうえんはしずかかったです。","こうえんはしずくなかったです。","こうえんはしずかいでした。"],
+        answer:"こうえんはしずかでした。",
+        explain:"な-adjectives behave like nouns: しずか + でした. Only い-adjectives take かった."
+      }
+    ]
+  },
+
+  {
+    id:"num-y34", category:"Numbers, Time and Counting", band:"words",
+    name:"Numbers",
+    example:"いち・に・さん",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"What number is this?",
+        sentence:"<b>さん</b>",
+        options:["3","1","4","8"],
+        answer:"3",
+        explain:"さん is 3, written 三."
+      },
+      {
+        type:"identify",
+        prompt:"What number is this?",
+        sentence:"<b>なな</b> (or しち)",
+        options:["7","4","8","9"],
+        answer:"7",
+        explain:"7 has two readings: なな and しち. Both are correct; なな is clearer when speaking."
+      },
+      {
+        type:"order",
+        prompt:"Put these numbers in order from 1 to 5.",
+        words:["いち","に","さん","し","ご"],
+        answer:"いちにさんしご",
+        explain:"1-5: いち, に, さん, し (or よん), ご."
+      },
+      {
+        type:"identify",
+        prompt:"What does this kanji number mean?",
+        sentence:"<b>十</b>",
+        options:["10","1","100","4"],
+        answer:"10",
+        explain:"十 is 10."
+      },
+      {
+        type:"identify",
+        prompt:"How do you say 12 in Japanese?",
+        sentence:"12 = 十 + ?",
+        options:["じゅうに","にじゅう","じゅうにじゅう","にじゅうに"],
+        answer:"じゅうに",
+        explain:"Japanese builds numbers by adding: じゅう (10) + に (2) = じゅうに (12). Note にじゅう is 20, the other way round."
+      },
+      {
+        type:"identify",
+        prompt:"How do you say 20?",
+        sentence:"20 = ?",
+        options:["にじゅう","じゅうに","にじゅうに","じゅうじゅう"],
+        answer:"にじゅう",
+        explain:"に (2) × じゅう (10) = にじゅう (20). The order tells you whether to add or multiply."
+      },
+      {
+        type:"identify",
+        prompt:"What does this mean?",
+        sentence:"<b>なんさいですか。</b>",
+        options:["How old are you?","What is your name?","How many are there?","What time is it?"],
+        answer:"How old are you?",
+        explain:"なん (what/how many) + さい (years of age) + ですか = How old are you?"
+      }
+    ]
+  },
+
+  {
+    id:"num-y56", category:"Numbers, Time and Counting", band:"sentences",
+    name:"Telling the time, and days of the week",
+    example:"七時に学校へ行きます。",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"What time is this?",
+        sentence:"<b>三時</b>",
+        options:["3 o'clock","3 minutes","the 3rd day","3 hours"],
+        answer:"3 o'clock",
+        explain:"〜時 (じ) makes a clock time: 三時 = 3 o'clock."
+      },
+      {
+        type:"identify",
+        prompt:"What does this mean?",
+        sentence:"<b>何時ですか。</b>",
+        options:["What time is it?","How many hours?","Which day is it?","How old are you?"],
+        answer:"What time is it?",
+        explain:"何時 (なんじ) = what time."
+      },
+      {
+        type:"identify",
+        prompt:"What day is this?",
+        sentence:"<b>月よう日</b>",
+        options:["Monday","Sunday","Moon day festival","Tuesday"],
+        answer:"Monday",
+        explain:"月 (moon) + よう日 = Monday. The days use 月火水木金土日 — moon, fire, water, wood, metal, earth, sun."
+      },
+      {
+        type:"identify",
+        prompt:"What day is 日よう日?",
+        sentence:"<b>日よう日</b>",
+        options:["Sunday","Monday","Saturday","Every day"],
+        answer:"Sunday",
+        explain:"日 (sun) + よう日 = Sunday."
+      },
+      {
+        type:"identify",
+        prompt:"What does this sentence mean?",
+        sentence:"<b>七時に学校へ行きます。</b>",
+        options:["I go to school at 7 o'clock","I go to school for 7 hours","School is 7 minutes away","I leave school at 7"],
+        answer:"I go to school at 7 o'clock",
+        explain:"に marks a point in time (七時に = at 7 o'clock) and へ marks the destination."
+      },
+      {
+        type:"order",
+        prompt:"Build: 'I get up at 6 o'clock.'",
+        words:["六時","に","おきます"],
+        answer:"六時におきます",
+        explain:"Time + に + verb. に is needed with clock times."
+      },
+      {
+        type:"identify",
+        prompt:"Which of these time words does NOT take に?",
+        sentence:"三時<b>に</b> ／ 月よう日<b>に</b> ／ きょう",
+        options:["きょう (today)","三時 (3 o'clock)","月よう日 (Monday)","they all take に"],
+        answer:"きょう (today)",
+        explain:"Specific clock times and dates take に. Relative words like きょう, あした, まいにち do not."
+      }
+    ]
+  },
+
+  {
+    id:"num-y78", category:"Numbers, Time and Counting", band:"choices",
+    name:"Counters, and how often you do something",
+    example:"一しゅうかんに三かいおよぎます。",
+    introduced:true, mode:"progression", assessed:true, resources:null,
+    items:[
+      {
+        type:"identify",
+        prompt:"Why is 三人 used here rather than 三?",
+        sentence:"学生が<b>三人</b>います。",
+        options:["〜人 is the counter for people","三人 means three times","it is more polite","it marks the subject"],
+        answer:"〜人 is the counter for people",
+        explain:"Japanese uses a counter word matched to what is being counted. 〜人 (にん) counts people."
+      },
+      {
+        type:"identify",
+        prompt:"Which counter would you use for two books?",
+        sentence:"ほんが ___ あります。",
+        options:["二さつ","二人","二まい","二ひき"],
+        answer:"二さつ",
+        explain:"〜さつ counts bound things like books. 〜まい counts flat things, 〜ひき small animals, 〜人 people."
+      },
+      {
+        type:"identify",
+        prompt:"Which counter would you use for three sheets of paper?",
+        sentence:"かみが ___ あります。",
+        options:["三まい","三さつ","三人","三本"],
+        answer:"三まい",
+        explain:"〜まい counts flat, thin things: paper, tickets, shirts, plates."
+      },
+      {
+        type:"identify",
+        prompt:"What does this mean?",
+        sentence:"<b>まいにち</b>日本語をべんきょうします。",
+        options:["I study Japanese every day","I studied Japanese yesterday","I will study Japanese tomorrow","I study Japanese once a week"],
+        answer:"I study Japanese every day",
+        explain:"まいにち (毎日) = every day. まいしゅう = every week, まいとし = every year."
+      },
+      {
+        type:"identify",
+        prompt:"What does this frequency expression mean?",
+        sentence:"一しゅうかんに<b>三かい</b>およぎます。",
+        options:["I swim three times a week","I swim for three hours a week","I swim on the third day","I swim three weeks a year"],
+        answer:"I swim three times a week",
+        explain:"〜かい counts occasions. 一しゅうかんに三かい = three times per week; に here marks the period the frequency applies to."
+      },
+      {
+        type:"identify",
+        prompt:"What does ときどき mean?",
+        sentence:"<b>ときどき</b>えいがを見ます。",
+        options:["sometimes","always","never","every day"],
+        answer:"sometimes",
+        explain:"Frequency words sit before the verb: いつも (always), よく (often), ときどき (sometimes), あまり〜ません (not often), ぜんぜん〜ません (never)."
+      },
+      {
+        type:"identify",
+        prompt:"What must the end of this sentence be?",
+        sentence:"わたしは<b>ぜんぜん</b>テレビを___。",
+        options:["見ません (negative)","見ます (positive)","見ました (past positive)","either positive or negative"],
+        answer:"見ません (negative)",
+        explain:"ぜんぜん and あまり must pair with a negative verb, the same way しか does."
+      }
+    ]
+  },
+
+  {
+    id:"te-form-b2-core", category:"The て-form", band:"choices",
     name:"Sequence, Request, Progressive",
     example:"手を洗って、ご飯を食べます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -125,7 +1117,7 @@ window.SKILLS = [
   },
 
   {
-    id:"te-form-2-choices", category:"て-form II", band:"choices",
+    id:"te-form-2-choices", category:"The て-form", band:"choices",
     name:"てもいい・てはいけない (permission and prohibition)",
     example:"もう帰ってもいいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -168,7 +1160,7 @@ window.SKILLS = [
   },
 
   {
-    id:"te-form-b2-extended", category:"て-form II", band:"links",
+    id:"te-form-b2-extended", category:"The て-form", band:"links",
     name:"てみる・てしまう・てくる／ていく・ても・てから",
     example:"しゅくだいをぜんぶしてしまいました。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -262,7 +1254,7 @@ window.SKILLS = [
   },
 
   {
-    id:"particles-sentences", category:"Core Particles", band:"sentences",
+    id:"particles-sentences", category:"Particles", band:"sentences",
     name:"は・の・を・に・へ・で・も (one particle at a time)",
     example:"わたしはがくせいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -358,7 +1350,7 @@ window.SKILLS = [
   },
 
   {
-    id:"particles-b1-core", category:"Core Particles", band:"choices",
+    id:"particles-b1-core", category:"Particles", band:"choices",
     name:"Choosing between は/が, に/で, と/や/か",
     example:"テニスが好きです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -475,7 +1467,7 @@ window.SKILLS = [
   },
 
   {
-    id:"ta-choices", category:"た／たら／たり forms", band:"choices",
+    id:"ta-choices", category:"Past, Experience and Conditions", band:"choices",
     name:"たことがある・たあとで (experience, and after doing)",
     example:"日本に行ったことがありますか。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -518,7 +1510,7 @@ window.SKILLS = [
   },
 
   {
-    id:"ta-tara-tari-b2", category:"た／たら／たり forms", band:"links",
+    id:"ta-tara-tari-b2", category:"Past, Experience and Conditions", band:"links",
     name:"たほうがいい・たら・たり〜たり",
     example:"雨がふったら、うちにいます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -749,7 +1741,7 @@ window.SKILLS = [
   },
 
   {
-    id:"pf-expr-1-links", category:"Plain Form + Expressions I", band:"links",
+    id:"pf-expr-1-links", category:"Plain Form + Expressions", band:"links",
     name:"とき・と思う／と言う (when, and reporting speech)",
     example:"日本に行ったとき、京都のお寺を見ました。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -792,7 +1784,7 @@ window.SKILLS = [
   },
 
   {
-    id:"plain-form-expr-1-b3", category:"Plain Form + Expressions I", band:"paragraphs",
+    id:"plain-form-expr-1-b3", category:"Plain Form + Expressions", band:"paragraphs",
     name:"そう（伝聞）・つもり・より・かもしれない・でしょう",
     example:"あした雨がふるそうです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -886,7 +1878,7 @@ window.SKILLS = [
   },
 
   {
-    id:"plain-form-expr-2-b3", category:"Plain Form + Expressions II", band:"paragraphs",
+    id:"plain-form-expr-2-b3", category:"Plain Form + Expressions", band:"paragraphs",
     name:"ために／ように・し・PF＋Noun・の／んです",
     example:"車を買うためにお金をためています。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -980,7 +1972,7 @@ window.SKILLS = [
   },
 
   {
-    id:"pf-expr-2-argument", category:"Plain Form + Expressions II", band:"argument",
+    id:"pf-expr-2-argument", category:"Plain Form + Expressions", band:"argument",
     name:"らしい・はず／べき (hedging and asserting)",
     example:"電車は八時に着くはずです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1023,7 +2015,7 @@ window.SKILLS = [
   },
 
   {
-    id:"nai-form-b3", category:"ない-form", band:"links",
+    id:"nai-form-b3", category:"Not Doing, and Having To", band:"links",
     name:"ないほうがいい・なければならない・なくてもいい",
     example:"コーラはあまり飲まないほうがいいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1083,7 +2075,7 @@ window.SKILLS = [
   },
 
   {
-    id:"extent-sentences", category:"Words Indicating Extent", band:"sentences",
+    id:"extent-sentences", category:"Saying How Much", band:"sentences",
     name:"ごろ・ぐらい／くらい (about, roughly)",
     example:"姉は三時ごろ帰ります。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1126,7 +2118,7 @@ window.SKILLS = [
   },
 
   {
-    id:"extent-b3", category:"Words Indicating Extent", band:"choices",
+    id:"extent-b3", category:"Saying How Much", band:"choices",
     name:"しか・だけ・より・一番 (only, than, the most)",
     example:"車はバスより早いです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1203,7 +2195,7 @@ window.SKILLS = [
   },
 
   {
-    id:"conjunctions-choices", category:"Conjunctions", band:"choices",
+    id:"conjunctions-choices", category:"Joining Ideas", band:"choices",
     name:"が・から (but, because)",
     example:"つかれたからもうねます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1246,7 +2238,7 @@ window.SKILLS = [
   },
 
   {
-    id:"conjunctions-b4", category:"Conjunctions", band:"links",
+    id:"conjunctions-b4", category:"Joining Ideas", band:"links",
     name:"けれども・ので・と・のに (shading the join)",
     example:"雨がふったので行きませんでした。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1323,7 +2315,7 @@ window.SKILLS = [
   },
 
   {
-    id:"nominalisers-b4", category:"Nominalisers", band:"links",
+    id:"nominalisers-b4", category:"Turning Verbs into Nouns", band:"links",
     name:"の・こと・ことができる",
     example:"漢字を読むことができますか。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1383,7 +2375,7 @@ window.SKILLS = [
   },
 
   {
-    id:"nominalisers-paragraphs", category:"Nominalisers", band:"paragraphs",
+    id:"nominalisers-paragraphs", category:"Turning Verbs into Nouns", band:"paragraphs",
     name:"ことにする・ことになる (deciding vs being decided)",
     example:"来年、日本に行くことになりました。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1426,7 +2418,7 @@ window.SKILLS = [
   },
 
   {
-    id:"sfp-sentences", category:"Sentence-Final Particles", band:"sentences",
+    id:"sfp-sentences", category:"Asking Questions", band:"sentences",
     name:"か (asking a question)",
     example:"何年生ですか。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1469,7 +2461,7 @@ window.SKILLS = [
   },
 
   {
-    id:"sentence-final-b4", category:"Sentence-Final Particles", band:"choices",
+    id:"sentence-final-b4", category:"Asking Questions", band:"choices",
     name:"ね／ねえ・よ (agreement vs assurance)",
     example:"日本語は楽しいですね。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1512,7 +2504,7 @@ window.SKILLS = [
   },
 
   {
-    id:"sfp-links", category:"Sentence-Final Particles", band:"links",
+    id:"sfp-links", category:"Asking Questions", band:"links",
     name:"の (soft question — register and tone)",
     example:"あした来るの？",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1538,7 +2530,7 @@ window.SKILLS = [
   },
 
   {
-    id:"misc-choices", category:"Miscellaneous", band:"choices",
+    id:"misc-choices", category:"Saying You Can, and Other Structures", band:"choices",
     name:"のほう (the softer comparison)",
     example:"バナナよりりんごのほうが好きです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1579,7 +2571,7 @@ window.SKILLS = [
   },
 
   {
-    id:"misc-b4", category:"Miscellaneous", band:"links",
+    id:"misc-b4", category:"Saying You Can, and Other Structures", band:"links",
     name:"potential form (can do)",
     example:"弟は日本語がちょっと読めます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1672,7 +2664,7 @@ window.SKILLS = [
   },
 
   {
-    id:"misc-paragraphs", category:"Miscellaneous", band:"paragraphs",
+    id:"misc-paragraphs", category:"Saying You Can, and Other Structures", band:"paragraphs",
     name:"ば・というNoun",
     example:"時間があれば、日本へ行きたいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1715,7 +2707,7 @@ window.SKILLS = [
   },
 
   {
-    id:"particles-harder-b2", category:"Core Particles", band:"links",
+    id:"particles-harder-b2", category:"Particles", band:"links",
     name:"existence vs action vs destination vs time vs indirect object",
     example:"こうえんで子供たちがあそんでいます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1910,7 +2902,7 @@ window.SKILLS = [
   },
 
   {
-    id:"persuasive-paragraphs", category:"Persuasive & Evaluative Expressions", band:"paragraphs",
+    id:"persuasive-paragraphs", category:"Evaluating and Persuading", band:"paragraphs",
     name:"一方で・たしかに〜ですが (setting up two sides)",
     example:"一方で、ごみがふえるというもんだいがあります。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1953,7 +2945,7 @@ window.SKILLS = [
   },
 
   {
-    id:"persuasive-evaluative-b4", category:"Persuasive & Evaluative Expressions", band:"argument",
+    id:"persuasive-evaluative-b4", category:"Evaluating and Persuading", band:"argument",
     name:"という点でこうかてき・とはかぎりません・全体的に考えると・ぜひ〜てください・のではなく",
     example:"ぜんたいてきに考えると、こうかてきです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2436,7 +3428,7 @@ window.SKILLS = [
   },
 
   {
-    id:"comparative-paragraphs", category:"Comparative & Analytical Expressions", band:"paragraphs",
+    id:"comparative-paragraphs", category:"Explaining and Comparing", band:"paragraphs",
     name:"によると・ことが分かります (citing, and concluding)",
     example:"この文章によると、いろいろなもくてきがあります。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2479,7 +3471,7 @@ window.SKILLS = [
   },
 
   {
-    id:"comparative-analytical-b4", category:"Comparative & Analytical Expressions", band:"argument",
+    id:"comparative-analytical-b4", category:"Explaining and Comparing", band:"argument",
     name:"という点では・をとおして〜学べます・めん・はるかに",
     example:"当番をすることをとおして、せきにんかんを学ぶことができます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2556,7 +3548,7 @@ window.SKILLS = [
   },
 
   {
-    id:"polite-finite-s", category:"Polite Finite Forms", band:"sentences",
+    id:"polite-finite-s", category:"Verbs: Polite Forms", band:"sentences",
     name:"ます・ません・ました・ませんでした, い-adjectives, な-adjectives/nouns",
     example:"きのう、すしをたべました。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2800,40 +3792,191 @@ window.SKILLS = [
 
 window.BANDS = ["script","words","sentences","choices","links","paragraphs","argument"];
 window.BAND_META = {
-  script:     { head:"Script",     long:"Sounds and script",                   teacher:"Foundation to Level 2", cur:"VIC", show:false },
-  words:      { head:"Words",      long:"Words and set phrases",               teacher:"Levels 3 and 4",        cur:"VIC", show:false },
-  sentences:  { head:"Sentences",  long:"Simple sentences",                    teacher:"Levels 5 and 6",        cur:"VIC", show:true  },
-  choices:    { head:"Choices",    long:"Choosing the right structure",        teacher:"Levels 7 and 8",        cur:"VIC", show:true  },
-  links:      { head:"Links",      long:"Joining and sequencing ideas",        teacher:"Levels 9 and 10",       cur:"VIC", show:true  },
-  paragraphs: { head:"Paragraphs", long:"Explaining and recounting at length", teacher:"VCE Units 1 and 2",     cur:"VCE", show:true  },
-  argument:   { head:"Argument",   long:"Evaluating and persuading",           teacher:"VCE Units 3 and 4",     cur:"VCE", show:true  }
+  "script": {
+    "head": "Script",
+    "long": "Sounds and script",
+    "teacher": "Foundation to Level 2",
+    "cur": "VIC",
+    "show": false
+  },
+  "words": {
+    "head": "Words",
+    "long": "Words and set phrases",
+    "teacher": "Levels 3 and 4",
+    "cur": "VIC",
+    "show": false
+  },
+  "sentences": {
+    "head": "Sentences",
+    "long": "Simple sentences",
+    "teacher": "Levels 5 and 6",
+    "cur": "VIC",
+    "show": true
+  },
+  "choices": {
+    "head": "Choices",
+    "long": "Choosing the right structure",
+    "teacher": "Levels 7 and 8",
+    "cur": "VIC",
+    "show": true
+  },
+  "links": {
+    "head": "Links",
+    "long": "Joining and sequencing ideas",
+    "teacher": "Levels 9 and 10",
+    "cur": "VIC",
+    "show": true
+  },
+  "paragraphs": {
+    "head": "Paragraphs",
+    "long": "Explaining and recounting at length",
+    "teacher": "VCE Units 1 and 2",
+    "cur": "VCE",
+    "show": true
+  },
+  "argument": {
+    "head": "Argument",
+    "long": "Evaluating and persuading",
+    "teacher": "VCE Units 3 and 4",
+    "cur": "VCE",
+    "show": true
+  }
 };
 
-// Row order = the teaching sequence, read top to bottom.
-window.CATEGORIES = ["Polite Finite Forms","Core Particles","Sentence-Final Particles","Words Indicating Extent","Plain Finite Forms","て-form I","て-form II","た／たら／たり forms","Verb Stem forms","Conjunctions","Nominalisers","ない-form","Miscellaneous","Plain Form + Expressions I","Plain Form + Expressions II","Persuasive & Evaluative Expressions","Comparative & Analytical Expressions"];
+window.CATEGORIES = [
+  "Script and Sounds",
+  "Greetings and Interaction",
+  "Saying What Things Are",
+  "Numbers, Time and Counting",
+  "Verbs: Polite Forms",
+  "Particles",
+  "Asking Questions",
+  "Saying How Much",
+  "Plain Finite Forms",
+  "The て-form",
+  "Past, Experience and Conditions",
+  "Verb Stem Forms",
+  "Joining Ideas",
+  "Saying You Can, and Other Structures",
+  "Not Doing, and Having To",
+  "Turning Verbs into Nouns",
+  "Plain Form + Expressions",
+  "Explaining and Comparing",
+  "Evaluating and Persuading"
+];
 window.POOLS = ["Reading Practice","Topic Vocabulary"];
 
-// Which document prescribes each row's grammar — drives the "also on this
-// list" chip on a cell (DESIGN_BAND_LADDER.md §4.5). "VCE" = named in the VCE
-// Japanese SL prescribed grammar list (2019 study design). "PROGRAM" =
-// school-designed, not on that list (valid content; the app must not
-// over-claim that it is externally prescribed).
+// Which document prescribes a strand. "VCE" = on the VCE Japanese SL
+// prescribed grammar list. "VIC" = Victorian Curriculum F-10 territory.
+// "PROGRAM" = school-designed, on neither list (valid content; the app must
+// not over-claim that it is externally prescribed).
 window.CATEGORY_META = {
-  "Polite Finite Forms": { prescribedBy:"VCE" },
-  "Core Particles": { prescribedBy:"VCE" },
-  "Sentence-Final Particles": { prescribedBy:"VCE" },
-  "Words Indicating Extent": { prescribedBy:"VCE" },
+  "Script and Sounds": { prescribedBy:"VIC" },
+  "Greetings and Interaction": { prescribedBy:"VIC" },
+  "Saying What Things Are": { prescribedBy:"VIC" },
+  "Numbers, Time and Counting": { prescribedBy:"VIC" },
+  "Verbs: Polite Forms": { prescribedBy:"VCE" },
+  "Particles": { prescribedBy:"VCE" },
+  "Asking Questions": { prescribedBy:"VCE" },
+  "Saying How Much": { prescribedBy:"VCE" },
   "Plain Finite Forms": { prescribedBy:"VCE" },
-  "て-form I": { prescribedBy:"VCE" },
-  "て-form II": { prescribedBy:"VCE" },
-  "た／たら／たり forms": { prescribedBy:"VCE" },
-  "Verb Stem forms": { prescribedBy:"VCE" },
-  "Conjunctions": { prescribedBy:"VCE" },
-  "Nominalisers": { prescribedBy:"VCE" },
-  "ない-form": { prescribedBy:"VCE" },
-  "Miscellaneous": { prescribedBy:"VCE" },
-  "Plain Form + Expressions I": { prescribedBy:"VCE" },
-  "Plain Form + Expressions II": { prescribedBy:"VCE" },
-  "Persuasive & Evaluative Expressions": { prescribedBy:"PROGRAM" },
-  "Comparative & Analytical Expressions": { prescribedBy:"PROGRAM" }
+  "The て-form": { prescribedBy:"VCE" },
+  "Past, Experience and Conditions": { prescribedBy:"VCE" },
+  "Verb Stem Forms": { prescribedBy:"VCE" },
+  "Joining Ideas": { prescribedBy:"VCE" },
+  "Saying You Can, and Other Structures": { prescribedBy:"VCE" },
+  "Not Doing, and Having To": { prescribedBy:"VCE" },
+  "Turning Verbs into Nouns": { prescribedBy:"VCE" },
+  "Plain Form + Expressions": { prescribedBy:"VCE" },
+  "Explaining and Comparing": { prescribedBy:"PROGRAM" },
+  "Evaluating and Persuading": { prescribedBy:"PROGRAM" }
+};
+
+// The Prep-to-Year-12 sequence. Year axis: 0 = Prep(F) … 12 = Year 12.
+window.JP_YEARS = ["F","1","2","3","4","5","6","7","8","9","10","11","12"];
+window.JP_CHUNKS = {
+  "Script and Sounds": [
+    { title:"The three scripts", y0:0, y1:2, years:"F–2", covers:["script-f2"] },
+    { title:"Reading and writing hiragana", y0:3, y1:4, years:"3–4", covers:["script-y34"] },
+    { title:"Katakana and first kanji", y0:5, y1:6, years:"5–6", covers:["script-y56"] },
+    { title:"Choosing the right script", y0:7, y1:8, years:"7–8", covers:["script-y78"] },
+    { title:"Kanji compounds and readings", y0:9, y1:10, years:"9–10", covers:["script-y910"] }
+  ],
+  "Greetings and Interaction": [
+    { title:"Everyday greetings", y0:0, y1:2, years:"F–2", covers:["greet-f2"] },
+    { title:"Classroom language", y0:3, y1:4, years:"3–4", covers:["greet-y34"] },
+    { title:"Introducing yourself", y0:5, y1:6, years:"5–6", covers:["greet-y56"] }
+  ],
+  "Saying What Things Are": [
+    { title:"これはXです", y0:0, y1:2, years:"F–2", covers:["identity-f2"] },
+    { title:"これ・それ・あれ, and の", y0:3, y1:4, years:"3–4", covers:["identity-y34"] },
+    { title:"Describing with adjectives", y0:5, y1:6, years:"5–6", covers:["identity-y56"] },
+    { title:"Past and negative", y0:7, y1:8, years:"7–8", covers:["identity-y78"] },
+    { title:"Plain forms (casual, and before expressions)", y0:9, y1:10, years:"9–10", covers:["plain-finite-l"] }
+  ],
+  "Numbers, Time and Counting": [
+    { title:"Numbers", y0:3, y1:4, years:"3–4", covers:["num-y34"] },
+    { title:"Time and days", y0:5, y1:6, years:"5–6", covers:["num-y56"] },
+    { title:"Counters and frequency", y0:7, y1:8, years:"7–8", covers:["num-y78"] }
+  ],
+  "Verbs: Polite Forms": [
+    { title:"ます・ません・ました・ませんでした", y0:5, y1:6, years:"5–6", covers:["polite-finite-s"] }
+  ],
+  "Particles": [
+    { title:"One particle at a time", y0:5, y1:6, years:"5–6", covers:["particles-sentences"] },
+    { title:"Choosing between は/が, に/で", y0:7, y1:8, years:"7–8", covers:["particles-b1-core"] },
+    { title:"に vs で vs へ in context", y0:9, y1:10, years:"9–10", covers:["particles-harder-b2"] }
+  ],
+  "Asking Questions": [
+    { title:"か", y0:5, y1:6, years:"5–6", covers:["sfp-sentences"] },
+    { title:"ね・よ", y0:7, y1:8, years:"7–8", covers:["sentence-final-b4"] },
+    { title:"の, and how casual to sound", y0:9, y1:10, years:"9–10", covers:["sfp-links"] }
+  ],
+  "Saying How Much": [
+    { title:"ごろ・ぐらい (about, roughly)", y0:5, y1:6, years:"5–6", covers:["extent-sentences"] },
+    { title:"しか・だけ・より・一番", y0:7, y1:8, years:"7–8", covers:["extent-b3"] }
+  ],
+  "The て-form": [
+    { title:"Making the て-form", y0:7, y1:7, years:"7", covers:["te-form-b2-core"] },
+    { title:"Permission and prohibition", y0:8, y1:8, years:"8", covers:["te-form-2-choices"] },
+    { title:"てみる・てしまう・ても・てから", y0:9, y1:10, years:"9–10", covers:["te-form-b2-extended"] }
+  ],
+  "Past, Experience and Conditions": [
+    { title:"たことがある・たあとで", y0:8, y1:8, years:"8", covers:["ta-choices"] },
+    { title:"たほうがいい・たら・たり〜たり", y0:9, y1:10, years:"9–10", covers:["ta-tara-tari-b2"] }
+  ],
+  "Verb Stem Forms": [
+    { title:"たい・に行く", y0:8, y1:8, years:"8", covers:["verb-stem-choices"] },
+    { title:"そう・かた・やすい/にくい・ながら・すぎる", y0:9, y1:10, years:"9–10", covers:["verb-stem-b2"] }
+  ],
+  "Joining Ideas": [
+    { title:"が・から (but, because)", y0:7, y1:8, years:"7–8", covers:["conjunctions-choices"] },
+    { title:"けれども・ので・と・のに", y0:9, y1:10, years:"9–10", covers:["conjunctions-b4"] }
+  ],
+  "Saying You Can, and Other Structures": [
+    { title:"のほう (softer comparison)", y0:8, y1:8, years:"8", covers:["misc-choices"] },
+    { title:"The potential form (can do)", y0:9, y1:10, years:"9–10", covers:["misc-b4"] },
+    { title:"ば・というNoun", y0:11, y1:11, years:"11", covers:["misc-paragraphs"] }
+  ],
+  "Not Doing, and Having To": [
+    { title:"ないほうがいい・なければならない・なくてもいい", y0:9, y1:10, years:"9–10", covers:["nai-form-b3"] }
+  ],
+  "Turning Verbs into Nouns": [
+    { title:"の・こと・ことができる", y0:9, y1:10, years:"9–10", covers:["nominalisers-b4"] },
+    { title:"ことにする・ことになる", y0:11, y1:11, years:"11", covers:["nominalisers-paragraphs"] }
+  ],
+  "Plain Form + Expressions": [
+    { title:"とき・と思う／と言う", y0:9, y1:10, years:"9–10", covers:["pf-expr-1-links"] },
+    { title:"そう（伝聞）・つもり・かもしれない・でしょう", y0:11, y1:11, years:"11", covers:["plain-form-expr-1-b3"] },
+    { title:"ために／ように・し・PF＋Noun・んです", y0:11, y1:11, years:"11", covers:["plain-form-expr-2-b3"] },
+    { title:"らしい・はず／べき", y0:12, y1:12, years:"12", covers:["pf-expr-2-argument"] }
+  ],
+  "Explaining and Comparing": [
+    { title:"によると・ことが分かります", y0:11, y1:11, years:"11", covers:["comparative-paragraphs"] },
+    { title:"という点では・をとおして・めん・はるかに", y0:12, y1:12, years:"12", covers:["comparative-analytical-b4"] }
+  ],
+  "Evaluating and Persuading": [
+    { title:"一方で・たしかに〜ですが", y0:11, y1:11, years:"11", covers:["persuasive-paragraphs"] },
+    { title:"とはかぎりません・全体的に考えると・ぜひ・のではなく", y0:12, y1:12, years:"12", covers:["persuasive-evaluative-b4"] }
+  ]
 };
