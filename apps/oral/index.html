@@ -49,19 +49,20 @@
 </head>
 <body>
 <div class="container">
-  <h1>話す練習 · Oral Practice</h1>
-  <p class="subtitle">The 47 oral exam questions, with audio. Listen, then answer out loud.</p>
+  <h1 class="jt-tap" data-jt="title">話す練習</h1>
+  <p class="subtitle jt-tap" data-jt="subtitle">The 47 oral exam questions, with audio</p>
   <span class="poc"><b>Proof of concept</b> for Andrew's review — his question set and TTS audio, three tiers.</span>
-  <div class="honest">This app never judges your speaking — a computer can't, honestly. Play the question, answer aloud,
-    and tick your own boxes. The real test is a partner or your teacher hearing you.</div>
+  <div class="honest jt-tap" data-jt="honest">This app never judges your speaking.</div>
 
   <div class="tier-row" id="tiers"></div>
   <p class="tier-note" id="tierNote"></p>
-  <div class="rand-row"><button class="btn btn-primary" id="randBtn">ランダム · random question</button></div>
+  <div class="rand-row"><button class="btn btn-primary" id="randBtn" data-jt="random">ランダム</button>
+    <span id="listLever" data-scope="#qlist" title="Pull down for more help with the question list. It lets go slowly."></span></div>
   <div class="qlist" id="qlist"></div>
 </div>
 <div class="build-tag">Oral PoC 2026-08-18</div>
 
+<script src="lever.js"></script>
 <script>
 const QUESTIONS = ["なまえは何ですか。","今、何年生ですか。","かぞくは何人いますか。","おとうさんの仕事は何ですか。","おかあさんの仕事は何ですか。","きょうだいがいますか。","だれと一番なかがいいですか。どうしてですか。","どんな学校の行事がすきですか。","学校でどんな科目をべんきょうしていますか。","一番すきな科目は何ですか。どうしてですか。","一番にがてな科目は何ですか。どうしてですか。","学校生活で一番たいへんなことは何ですか。","友だちと何をするのがすきですか。","いい友だちとはどんな人だと思いますか。","しゅみは何ですか。","いつからそのしゅみを始めましたか。","どうしてそのしゅみがすきなのですか。","週末は何をしますか。","毎日どんな生活をしていますか。","アルバイトをしていますか。","アルバイトはどうですか。たいへんですか、たのしいですか。","将来のゆめは何ですか。","どうしてその仕事をえらびましたか。","大学で何をべんきょうしたいですか。","将来、日本とかんけいがある仕事をしたいですか。","十年後、どんな生活をしていると思いますか。","日本に行ったことがありますか。","日本のどこに行きたいですか。どうしてですか。","日本の文化について何をしっていますか。","日本と自分の国とどうちがいますか。","日本語をべんきょうするりゆうは何ですか。","日本語をべんきょうしていて、一番むずかしいことは何ですか。","これから日本語をどうやってつづけたいですか。","今の日本のわかものについてどう思いますか。","テクノロジーは生活をどうかえたと思いますか。","学生にとってスマホはひつようだと思いますか。どうしてですか。","かんきょうもんだいについてどう思いますか。","かんきょうをまもるために何ができると思いますか。","学校できゅう食（べんとう）を食べたほうがいいと思いますか。","オンライン学習についてどう思いますか。","今の教育せいどについてどう思いますか。何かかえたほうがいいですか。","社会でSNSはいいえいきょうをあたえると思いますか、それとも わるいえいきょうをあたえると思いますか。","もし十年前にもどれたら、何をしますか。","もし日本に一年間住めたら、何をしたいですか。","もしお金がたくさんあったら、何をしますか。","どんな大人になりたいですか。","人生で一番大切なことは何だと思いますか。どうしてですか。"];
 const TIERS = [
@@ -69,6 +70,24 @@ const TIERS = [
   { name:"Tier 2 · しゅみと将来", note:"Hobbies, daily life and your future. Expect どうしてですか follow-ups.", from:15, to:30 },
   { name:"Tier 3 · いけんを言う", note:"Opinions and hypotheticals. This is where the top marks live.", from:30, to:47 },
 ];
+/* Japanese-led chrome, four forms each: [kanji, kana, romaji, English]. */
+const UI = {
+  title:    ["話す練習","はなすれんしゅう","hanasu renshū","Oral Practice"],
+  subtitle: ["口頭試験の47問、音声つき","こうとうしけんの47もん、おんせいつき","kōtō shiken no 47 mon, onsei tsuki",
+             "the 47 oral exam questions, with audio"],
+  honest:   ["このアプリは話し方を採点しません","このアプリははなしかたをさいてんしません",
+             "kono apuri wa hanashikata o saiten shimasen",
+             "This app never judges your speaking. A computer can't, honestly. Play the question, answer aloud, and tick your own boxes."],
+  random:   ["ランダム","ランダム","randamu","random question"],
+  got:      ["わかった","わかった","wakatta","understood"],
+  said:     ["こたえた","こたえた","kotaeta","answered aloud"],
+};
+const UI_RUBY = {
+  title: "<ruby>話<rt>はな</rt></ruby>す<ruby>練習<rt>れんしゅう</rt></ruby>",
+  subtitle: "<ruby>口頭試験<rt>こうとうしけん</rt></ruby>の47<ruby>問<rt>もん</rt></ruby>、<ruby>音声<rt>おんせい</rt></ruby>つき",
+  honest: "このアプリは<ruby>話<rt>はな</rt></ruby>し<ruby>方<rt>かた</rt></ruby>を<ruby>採点<rt>さいてん</rt></ruby>しません",
+};
+
 (function(){
   const $=(id)=>document.getElementById(id);
   let tier=0;
@@ -85,8 +104,8 @@ const TIERS = [
         <button class="play" title="play the question">▶</button>
         <span class="qtext">${QUESTIONS[i]}</span>
         <span class="checks">
-          <label class="chk"><input type="checkbox">わかった<br>understood</label>
-          <label class="chk"><input type="checkbox">こたえた<br>answered aloud</label>
+          <label class="chk"><input type="checkbox"><span data-jt="got">わかった</span></label>
+          <label class="chk"><input type="checkbox"><span data-jt="said">こたえた</span></label>
         </span>`;
       row.querySelector(".play").addEventListener("click",()=>{
         audio.src="audio/qa-"+pad(i)+".mp3";
@@ -94,6 +113,7 @@ const TIERS = [
       });
       list.appendChild(row);
     }
+    if (window.HubLever) window.HubLever.apply(list);
   }
   TIERS.forEach((t,i)=>{
     const b=document.createElement("button");b.className="tier-btn";b.textContent=t.name;
@@ -110,6 +130,7 @@ const TIERS = [
     row.querySelector(".play").click();
   });
   build();
+  window.HubLever.init({ strings: UI, ruby: UI_RUBY });
 })();
 </script>
 </body>

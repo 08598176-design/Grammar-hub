@@ -152,21 +152,22 @@
 <body class="showfuri">
 <div class="wrap">
 <div class="container">
-  <h1>レベルアップの壁 · Level Up Wall</h1>
-  <p class="subtitle">One task, answered at every level from Prep to Year 12. Find your rung, then look at the one above it.</p>
+  <h1 class="jt-tap" data-jt="title">レベルアップの壁</h1>
+  <p class="subtitle jt-tap" data-jt="subtitle">One task, answered at every level</p>
   <span class="poc"><b>Proof of concept</b> for Andrew's review — the model answers and the five criteria are proposed, not ratified (see Q17).</span>
 
-  <p class="task"><b>The task:</b> 自己しょうかい。はじめて会う日本語のクラスに、自分をしょうかいしてください。
-    <br>Introduce yourself to a Japanese class you are meeting for the first time. Every rung below answers this same task.</p>
+  <p class="task"><b data-jt="taskLabel">課題</b> 自己しょうかい。はじめて会う日本語のクラスに、自分をしょうかいしてください。
+    <br><span class="jt-tap" data-jt="taskLine">Introduce yourself to a class you are meeting for the first time.</span></p>
 
   <div class="rail" id="rail"></div>
   <p class="rail-note" id="railNote"></p>
 
-  <div class="controls">
-    <button class="tog on" id="furiBtn">ふりがな</button>
-    <button class="tog" id="enBtn">English</button>
-    <button class="tog" id="cmpBtn">つぎのレベルとくらべる · compare with the rung above</button>
-    <button class="tog" id="printBtn">print all rungs</button>
+  <div class="controls" id="controls">
+    <button class="tog on" id="furiBtn" data-jt="furi">ふりがな</button>
+    <button class="tog" id="enBtn" data-jt="english">English</button>
+    <button class="tog" id="cmpBtn" data-jt="compare">くらべる</button>
+    <button class="tog" id="printBtn" data-jt="print">印刷</button>
+    <span id="ctrlLever" data-scope="#controls" title="Pull down for more help with these buttons. It lets go slowly."></span>
   </div>
 
   <div class="sheets" id="sheets"></div>
@@ -180,6 +181,7 @@
 <div id="printAll"></div>
 <div class="build-tag">LevelUp PoC 2026-08-18</div>
 
+<script src="lever.js"></script>
 <script>
 /* ============================================================
    CONTENT
@@ -329,6 +331,38 @@ const RUNGS = [
 /* ============================================================
    RENDER
    ============================================================ */
+/* Four-form chrome: [kanji, kana, romaji, English]. The wall is
+   Japanese-led like the rest of the hub; the analytical explanations stay
+   in English, which is the teaching medium (SPEC §6). */
+const UI = {
+  title:     ["レベルアップの壁","レベルアップのかべ","reberu appu no kabe","Level Up Wall"],
+  subtitle:  ["一つの課題を、学年ごとに","ひとつのかだいを、がくねんごとに","hitotsu no kadai o, gakunen goto ni",
+              "one task, answered at every level from Prep to Year 12"],
+  taskLabel: ["課題","かだい","kadai","The task:"],
+  taskLine:  ["はじめて会うクラスに自分をしょうかいします","はじめてあうクラスにじぶんをしょうかいします",
+              "hajimete au kurasu ni jibun o shōkai shimasu",
+              "Introduce yourself to a class you are meeting for the first time."],
+  furi:      ["ふりがな","ふりがな","furigana","furigana"],
+  english:   ["英語","えいご","eigo","English"],
+  compare:   ["くらべる","くらべる","kuraberu","compare with the rung above"],
+  print:     ["印刷","いんさつ","insatsu","print all rungs"],
+  adds:      ["この段でふえること","このだんでふえること","kono dan de fueru koto","What this rung adds"],
+  answered:  ["同じ課題、この段の答え","おなじかだい、このだんのこたえ","onaji kadai, kono dan no kotae",
+              "The same task, answered here"],
+  proves:    ["しるしのついた表現が示すこと","しるしのついたひょうげんがしめすこと",
+              "shirushi no tsuita hyōgen ga shimesu koto","What each marked phrase proves"],
+};
+const UI_RUBY = {
+  title: "レベルアップの<ruby>壁<rt>かべ</rt></ruby>",
+  taskLabel: "<ruby>課題<rt>かだい</rt></ruby>",
+  english: "<ruby>英語<rt>えいご</rt></ruby>",
+  print: "<ruby>印刷<rt>いんさつ</rt></ruby>",
+  adds: "この<ruby>段<rt>だん</rt></ruby>でふえること",
+  answered: "<ruby>同<rt>おな</rt></ruby>じ<ruby>課題<rt>かだい</rt></ruby>、この<ruby>段<rt>だん</rt></ruby>の<ruby>答<rt>こた</rt></ruby>え",
+  proves: "しるしのついた<ruby>表現<rt>ひょうげん</rt></ruby>が<ruby>示<rt>しめ</rt></ruby>すこと",
+  subtitle: "<ruby>一<rt>ひと</rt></ruby>つの<ruby>課題<rt>かだい</rt></ruby>を、<ruby>学年<rt>がくねん</rt></ruby>ごとに",
+};
+
 (function(){
   const $ = (id) => document.getElementById(id);
   const CRIT = {}; CRITERIA.forEach((c) => { CRIT[c.key] = c; });
@@ -370,13 +404,13 @@ const RUNGS = [
         <h2>${forPrint ? "自己しょうかい · " : ""}${r.sub}</h2>
         <span class="cur-chip ${curClass}">${curWord}</span>
       </div>
-      <h3>What this rung adds</h3>
+      <h3 data-jt="adds">この段でふえること</h3>
       ${nw}
-      <h3>The same task, answered here</h3>
+      <h3 data-jt="answered">同じ課題、この段の答え</h3>
       ${keyRow(r)}
       <p class="jp">${render(r.text)}</p>
       <p class="en">${r.en}</p>
-      <h3>What each marked phrase proves</h3>
+      <h3 data-jt="proves">しるしのついた表現が示すこと</h3>
       <div class="proves">${proves}</div>
     </section>`;
   }
@@ -415,6 +449,7 @@ const RUNGS = [
     wrap.className = "sheets" + (compare && at < RUNGS.length - 1 ? " compare" : "");
     wrap.innerHTML = sheet(at, false) + (compare && at < RUNGS.length - 1 ? sheet(at + 1, true) : "");
     wire(wrap);
+    if (window.HubLever) window.HubLever.apply(wrap);
   }
 
   $("furiBtn").addEventListener("click", () => {
@@ -436,6 +471,10 @@ const RUNGS = [
   $("printAll").innerHTML = RUNGS.map((r, i) => sheet(i, false, true)).join("");
 
   draw();
+
+  // the shared lever: big one for the page, a forgiving little one on the
+  // controls row
+  window.HubLever.init({ strings: UI, ruby: UI_RUBY });
 })();
 </script>
 </body>

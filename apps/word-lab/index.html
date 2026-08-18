@@ -91,8 +91,8 @@
 </head>
 <body>
 <div class="container">
-  <h1>ことばラボ · Word Lab</h1>
-  <p class="subtitle">Kanji families: one shared kanji, many words. Learn the part, unlock the family.</p>
+  <h1 class="jt-tap" data-jt="title">ことばラボ</h1>
+  <p class="subtitle jt-tap" data-jt="subtitle">Kanji families: one shared kanji, many words</p>
   <span class="poc"><b>Proof of concept</b> for Andrew's review — three families from the 給食 unit. The mechanic is Liam's morpheme word-builder, ported to kanji compounds.</span>
 
   <section class="screen active" id="pick">
@@ -101,21 +101,23 @@
   </section>
 
   <section class="screen" id="meet">
-    <button class="back" id="backBtn">← families</button>
+    <button class="back" id="backBtn" data-jt="back">← かぞく</button>
     <div class="map-head"><span class="fam-kanji" id="meetKanji"></span></div>
     <p class="map-note" id="meetNote"></p>
     <div class="words" id="meetWords"></div>
     <p class="tap-hint">Tap a word: reading first, then meaning. It fades back to kanji by itself — like the lever in the Grammar Hub.</p>
-    <div class="actions"><button class="btn btn-primary" id="toBuild">つぎへ · Build the words</button></div>
+    <div class="actions" id="meetActions"><button class="btn btn-primary" id="toBuild" data-jt="toBuild">つぎへ</button>
+      <span id="meetLever" data-scope="#meet" title="Pull down for more help with this family. It lets go slowly."></span></div>
   </section>
 
   <section class="screen" id="task">
-    <button class="back" id="backBtn2">← families</button>
+    <button class="back" id="backBtn2" data-jt="back">← かぞく</button>
     <div id="taskArea"></div>
     <div class="feedback" id="feedback"></div>
     <div class="actions">
-      <button class="btn btn-primary" id="checkBtn" disabled>チェック</button>
-      <button class="btn btn-primary" id="nextBtn" style="display:none">つぎへ</button>
+      <button class="btn btn-primary" id="checkBtn" data-jt="check" disabled>チェック</button>
+      <button class="btn btn-primary" id="nextBtn" data-jt="next" style="display:none">つぎへ</button>
+      <span id="taskLever" data-scope="#task" title="Pull down for more help with this task. It lets go slowly."></span>
     </div>
   </section>
 
@@ -123,13 +125,14 @@
     <div class="big-stat" id="stat"></div>
     <div class="stat-label">correct first try · every word was mastered</div>
     <div class="actions">
-      <button class="btn btn-ghost" id="againBtn">もう一度</button>
-      <button class="btn btn-primary" id="homeBtn">families</button>
+      <button class="btn btn-ghost" id="againBtn" data-jt="again">もう一度</button>
+      <button class="btn btn-primary" id="homeBtn" data-jt="home">かぞくへ</button>
     </div>
   </section>
 </div>
 <div class="build-tag">WordLab PoC 2026-08-18</div>
 
+<script src="lever.js"></script>
 <script>
 /* ============================================================
    CONTENT — three kanji families from the 給食 unit vocabulary
@@ -174,6 +177,24 @@ const FAMILIES = [
    ENGINE — pick family -> meet -> build each word -> meaning quiz
    -> report. First-try scoring, wrong items come back (mastery).
    ============================================================ */
+/* Japanese-led chrome. Task prompts stay English for now (J11). */
+const UI = {
+  title:    ["ことばラボ","ことばラボ","kotoba rabo","Word Lab"],
+  subtitle: ["漢字のかぞく：一つの漢字、たくさんのことば","かんじのかぞく：ひとつのかんじ、たくさんのことば",
+             "kanji no kazoku: hitotsu no kanji, takusan no kotoba",
+             "kanji families: one shared kanji, many words"],
+  back:     ["← かぞく","← かぞく","← kazoku","← families"],
+  toBuild:  ["つぎへ","つぎへ","tsugi e","Build the words"],
+  check:    ["チェック","チェック","chekku","Check"],
+  next:     ["つぎへ","つぎへ","tsugi e","Next"],
+  again:    ["もう一度","もういちど","mō ichido","Run again"],
+  home:     ["かぞくへ","かぞくへ","kazoku e","families"],
+};
+const UI_RUBY = {
+  subtitle: "<ruby>漢字<rt>かんじ</rt></ruby>のかぞく：<ruby>一<rt>ひと</rt></ruby>つの<ruby>漢字<rt>かんじ</rt></ruby>、たくさんのことば",
+  again: "もう<ruby>一度<rt>いちど</rt></ruby>",
+};
+
 (function(){
   const $=(id)=>document.getElementById(id);
   const screens={pick:$("pick"),meet:$("meet"),task:$("task"),report:$("report")};
@@ -305,6 +326,7 @@ const FAMILIES = [
       show("report");
     } else render();
   });
+  window.HubLever.init({ strings: UI, ruby: UI_RUBY });
   $("againBtn").addEventListener("click",startTasks);
   $("homeBtn").addEventListener("click",()=>show("pick"));
 })();
