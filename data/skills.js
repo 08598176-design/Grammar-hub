@@ -6,23 +6,27 @@
    vocabulary. See SPEC.md §6.
 
    THE SEQUENCE. window.JP_CHUNKS at the foot of this file is the
-   Prep-to-Year-12 timeline: one chunk per teaching step, placed on
-   the year axis, grouped into strands. A strand runs across several
-   years, each chunk building on the one before it — that is what
-   the year view renders, and what makes the order visible.
+   Prep-to-Year-12 timeline. THIRTEEN STRANDS, one per grammatical
+   system (the same logic as the English hub's Tenses / Modality /
+   Questions rows): Script, Everyday Language, Sentences, Particles,
+   Questions, Comparing, Verb Forms, Verb Endings, Past and If,
+   Can and Must, Joining Ideas, Reporting and Guessing, Analysing
+   and Persuading. A chunk may cover several skill nodes — that is
+   how systems were consolidated without moving any item.
 
-   RULE: within a strand the year axis must never contradict the
-   teaching order. The generator asserts this.
+   RULES (asserted by the generator): within a strand the year axis
+   never contradicts the teaching order, and chunks in a strand
+   never overlap on the year axis.
 
-   PRIMARY CONTENT (Prep-Year 8) is a PROPOSAL for Andrew. The
-   Victorian Curriculum F-10 Japanese names no specific grammar at
-   any band, so only the SCRIPT strand's sequence is directly
-   curriculum-backed (recognise 3 scripts -> copy hiragana ->
-   familiar katakana and kanji -> role of each script -> compounds
-   and multiple readings). Everything else is standard Australian
-   primary Japanese scope and needs his tick. Primary cells use
-   identify/order tasks only — no typed Japanese, since a Year 2
-   has no IME and typing is not the skill being tested.
+   A node's `band` is now informational only — it feeds the teacher
+   export's curriculum label. The timeline (JP_CHUNKS) is what
+   renders and what defines the sequence.
+
+   PRIMARY CONTENT (Prep-Year 8) is a PROPOSAL for Andrew: only the
+   Script strand's sequence is directly curriculum-backed (the VIC
+   F-10 document names no specific grammar at any band). Primary
+   cells use identify/order tasks only — no typed Japanese below
+   Year 5.
 
    Before committing, run the sanity check in SPEC.md §9. It must
    print "problems 0".
@@ -30,7 +34,7 @@
 
 window.SKILLS = [
   {
-    id:"script-f2", category:"Script and Sounds", band:"script",
+    id:"script-f2", category:"Script", band:"script",
     name:"The three scripts, and the first hiragana sounds",
     example:"あ ・ ア ・ 山",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -102,7 +106,7 @@ window.SKILLS = [
   },
 
   {
-    id:"script-y34", category:"Script and Sounds", band:"words",
+    id:"script-y34", category:"Script", band:"words",
     name:"Reading and writing hiragana",
     example:"ねこ ・ さくら ・ きって",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -173,7 +177,7 @@ window.SKILLS = [
   },
 
   {
-    id:"script-y56", category:"Script and Sounds", band:"sentences",
+    id:"script-y56", category:"Script", band:"sentences",
     name:"Katakana for borrowed words, and the first kanji",
     example:"テニス ・ 日本 ・ 人",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -245,7 +249,7 @@ window.SKILLS = [
   },
 
   {
-    id:"script-y78", category:"Script and Sounds", band:"choices",
+    id:"script-y78", category:"Script", band:"choices",
     name:"Choosing the right script, and reading furigana",
     example:"オーストラリアから来ました。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -318,7 +322,7 @@ window.SKILLS = [
   },
 
   {
-    id:"script-y910", category:"Script and Sounds", band:"links",
+    id:"script-y910", category:"Script", band:"links",
     name:"Kanji compounds and multiple readings",
     example:"日本語 ・ 学生 ・ 電車",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -391,7 +395,7 @@ window.SKILLS = [
   },
 
   {
-    id:"greet-f2", category:"Greetings and Interaction", band:"script",
+    id:"greet-f2", category:"Everyday Language", band:"script",
     name:"Everyday greetings",
     example:"おはようございます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -456,7 +460,7 @@ window.SKILLS = [
   },
 
   {
-    id:"greet-y34", category:"Greetings and Interaction", band:"words",
+    id:"greet-y34", category:"Everyday Language", band:"words",
     name:"Classroom language and meeting someone",
     example:"はじめまして。どうぞよろしく。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -520,7 +524,7 @@ window.SKILLS = [
   },
 
   {
-    id:"greet-y56", category:"Greetings and Interaction", band:"sentences",
+    id:"greet-y56", category:"Everyday Language", band:"sentences",
     name:"Introducing yourself, and choosing how polite to be",
     example:"わたしはエマです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -583,7 +587,7 @@ window.SKILLS = [
   },
 
   {
-    id:"identity-f2", category:"Saying What Things Are", band:"script",
+    id:"identity-f2", category:"Sentences", band:"script",
     name:"これはXです",
     example:"これはねこです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -638,7 +642,7 @@ window.SKILLS = [
   },
 
   {
-    id:"identity-y34", category:"Saying What Things Are", band:"words",
+    id:"identity-y34", category:"Sentences", band:"words",
     name:"これ・それ・あれ, and の for belonging",
     example:"これはわたしのほんです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -702,7 +706,7 @@ window.SKILLS = [
   },
 
   {
-    id:"identity-y56", category:"Saying What Things Are", band:"sentences",
+    id:"identity-y56", category:"Sentences", band:"sentences",
     name:"Describing things with い- and な-adjectives",
     example:"このほんはおもしろいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -766,7 +770,7 @@ window.SKILLS = [
   },
 
   {
-    id:"identity-y78", category:"Saying What Things Are", band:"choices",
+    id:"identity-y78", category:"Sentences", band:"choices",
     name:"Past and negative: でした・ではありません",
     example:"きのうは日よう日でした。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -822,7 +826,7 @@ window.SKILLS = [
   },
 
   {
-    id:"num-y34", category:"Numbers, Time and Counting", band:"words",
+    id:"num-y34", category:"Everyday Language", band:"words",
     name:"Numbers",
     example:"いち・に・さん",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -886,7 +890,7 @@ window.SKILLS = [
   },
 
   {
-    id:"num-y56", category:"Numbers, Time and Counting", band:"sentences",
+    id:"num-y56", category:"Everyday Language", band:"sentences",
     name:"Telling the time, and days of the week",
     example:"七時に学校へ行きます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -950,7 +954,7 @@ window.SKILLS = [
   },
 
   {
-    id:"num-y78", category:"Numbers, Time and Counting", band:"choices",
+    id:"num-y78", category:"Everyday Language", band:"choices",
     name:"Counters, and how often you do something",
     example:"一しゅうかんに三かいおよぎます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1015,7 +1019,7 @@ window.SKILLS = [
   },
 
   {
-    id:"te-form-b2-core", category:"The て-form", band:"choices",
+    id:"te-form-b2-core", category:"Verb Forms", band:"choices",
     name:"Sequence, Request, Progressive",
     example:"手を洗って、ご飯を食べます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1117,7 +1121,7 @@ window.SKILLS = [
   },
 
   {
-    id:"te-form-2-choices", category:"The て-form", band:"choices",
+    id:"te-form-2-choices", category:"Verb Forms", band:"choices",
     name:"てもいい・てはいけない (permission and prohibition)",
     example:"もう帰ってもいいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1160,7 +1164,7 @@ window.SKILLS = [
   },
 
   {
-    id:"te-form-b2-extended", category:"The て-form", band:"links",
+    id:"te-form-b2-extended", category:"Verb Forms", band:"links",
     name:"てみる・てしまう・てくる／ていく・ても・てから",
     example:"しゅくだいをぜんぶしてしまいました。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1467,7 +1471,7 @@ window.SKILLS = [
   },
 
   {
-    id:"ta-choices", category:"Past, Experience and Conditions", band:"choices",
+    id:"ta-choices", category:"Past and If", band:"choices",
     name:"たことがある・たあとで (experience, and after doing)",
     example:"日本に行ったことがありますか。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1510,7 +1514,7 @@ window.SKILLS = [
   },
 
   {
-    id:"ta-tara-tari-b2", category:"Past, Experience and Conditions", band:"links",
+    id:"ta-tara-tari-b2", category:"Past and If", band:"links",
     name:"たほうがいい・たら・たり〜たり",
     example:"雨がふったら、うちにいます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1570,7 +1574,7 @@ window.SKILLS = [
   },
 
   {
-    id:"verb-stem-choices", category:"Verb Stem forms", band:"choices",
+    id:"verb-stem-choices", category:"Verb Endings", band:"choices",
     name:"たい・に行く (what you want, why you go)",
     example:"このシャツを買いたいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1613,7 +1617,7 @@ window.SKILLS = [
   },
 
   {
-    id:"verb-stem-b2", category:"Verb Stem forms", band:"links",
+    id:"verb-stem-b2", category:"Verb Endings", band:"links",
     name:"そう・かた・やすい／にくい・たいと思っている・ながら・すぎる",
     example:"テレビを見ながら、ばんごはんを食べます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1741,7 +1745,7 @@ window.SKILLS = [
   },
 
   {
-    id:"pf-expr-1-links", category:"Plain Form + Expressions", band:"links",
+    id:"pf-expr-1-links", category:"Reporting and Guessing", band:"links",
     name:"とき・と思う／と言う (when, and reporting speech)",
     example:"日本に行ったとき、京都のお寺を見ました。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1784,7 +1788,7 @@ window.SKILLS = [
   },
 
   {
-    id:"plain-form-expr-1-b3", category:"Plain Form + Expressions", band:"paragraphs",
+    id:"plain-form-expr-1-b3", category:"Reporting and Guessing", band:"paragraphs",
     name:"そう（伝聞）・つもり・より・かもしれない・でしょう",
     example:"あした雨がふるそうです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1878,7 +1882,7 @@ window.SKILLS = [
   },
 
   {
-    id:"plain-form-expr-2-b3", category:"Plain Form + Expressions", band:"paragraphs",
+    id:"plain-form-expr-2-b3", category:"Joining Ideas", band:"paragraphs",
     name:"ために／ように・し・PF＋Noun・の／んです",
     example:"車を買うためにお金をためています。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1972,7 +1976,7 @@ window.SKILLS = [
   },
 
   {
-    id:"pf-expr-2-argument", category:"Plain Form + Expressions", band:"argument",
+    id:"pf-expr-2-argument", category:"Reporting and Guessing", band:"argument",
     name:"らしい・はず／べき (hedging and asserting)",
     example:"電車は八時に着くはずです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2015,7 +2019,7 @@ window.SKILLS = [
   },
 
   {
-    id:"nai-form-b3", category:"Not Doing, and Having To", band:"links",
+    id:"nai-form-b3", category:"Can and Must", band:"links",
     name:"ないほうがいい・なければならない・なくてもいい",
     example:"コーラはあまり飲まないほうがいいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2075,7 +2079,7 @@ window.SKILLS = [
   },
 
   {
-    id:"extent-sentences", category:"Saying How Much", band:"sentences",
+    id:"extent-sentences", category:"Comparing", band:"sentences",
     name:"ごろ・ぐらい／くらい (about, roughly)",
     example:"姉は三時ごろ帰ります。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2118,7 +2122,7 @@ window.SKILLS = [
   },
 
   {
-    id:"extent-b3", category:"Saying How Much", band:"choices",
+    id:"extent-b3", category:"Comparing", band:"choices",
     name:"しか・だけ・より・一番 (only, than, the most)",
     example:"車はバスより早いです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2315,7 +2319,7 @@ window.SKILLS = [
   },
 
   {
-    id:"nominalisers-b4", category:"Turning Verbs into Nouns", band:"links",
+    id:"nominalisers-b4", category:"Can and Must", band:"links",
     name:"の・こと・ことができる",
     example:"漢字を読むことができますか。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2375,7 +2379,7 @@ window.SKILLS = [
   },
 
   {
-    id:"nominalisers-paragraphs", category:"Turning Verbs into Nouns", band:"paragraphs",
+    id:"nominalisers-paragraphs", category:"Can and Must", band:"paragraphs",
     name:"ことにする・ことになる (deciding vs being decided)",
     example:"来年、日本に行くことになりました。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2418,7 +2422,7 @@ window.SKILLS = [
   },
 
   {
-    id:"sfp-sentences", category:"Asking Questions", band:"sentences",
+    id:"sfp-sentences", category:"Questions", band:"sentences",
     name:"か (asking a question)",
     example:"何年生ですか。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2461,7 +2465,7 @@ window.SKILLS = [
   },
 
   {
-    id:"sentence-final-b4", category:"Asking Questions", band:"choices",
+    id:"sentence-final-b4", category:"Questions", band:"choices",
     name:"ね／ねえ・よ (agreement vs assurance)",
     example:"日本語は楽しいですね。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2504,7 +2508,7 @@ window.SKILLS = [
   },
 
   {
-    id:"sfp-links", category:"Asking Questions", band:"links",
+    id:"sfp-links", category:"Questions", band:"links",
     name:"の (soft question — register and tone)",
     example:"あした来るの？",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2530,7 +2534,7 @@ window.SKILLS = [
   },
 
   {
-    id:"misc-choices", category:"Saying You Can, and Other Structures", band:"choices",
+    id:"misc-choices", category:"Comparing", band:"choices",
     name:"のほう (the softer comparison)",
     example:"バナナよりりんごのほうが好きです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2571,7 +2575,7 @@ window.SKILLS = [
   },
 
   {
-    id:"misc-b4", category:"Saying You Can, and Other Structures", band:"links",
+    id:"misc-b4", category:"Can and Must", band:"links",
     name:"potential form (can do)",
     example:"弟は日本語がちょっと読めます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2664,7 +2668,7 @@ window.SKILLS = [
   },
 
   {
-    id:"misc-paragraphs", category:"Saying You Can, and Other Structures", band:"paragraphs",
+    id:"misc-paragraphs", category:"Past and If", band:"paragraphs",
     name:"ば・というNoun",
     example:"時間があれば、日本へ行きたいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2902,7 +2906,7 @@ window.SKILLS = [
   },
 
   {
-    id:"persuasive-paragraphs", category:"Evaluating and Persuading", band:"paragraphs",
+    id:"persuasive-paragraphs", category:"Analysing and Persuading", band:"paragraphs",
     name:"一方で・たしかに〜ですが (setting up two sides)",
     example:"一方で、ごみがふえるというもんだいがあります。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2945,7 +2949,7 @@ window.SKILLS = [
   },
 
   {
-    id:"persuasive-evaluative-b4", category:"Evaluating and Persuading", band:"argument",
+    id:"persuasive-evaluative-b4", category:"Analysing and Persuading", band:"argument",
     name:"という点でこうかてき・とはかぎりません・全体的に考えると・ぜひ〜てください・のではなく",
     example:"ぜんたいてきに考えると、こうかてきです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -3428,7 +3432,7 @@ window.SKILLS = [
   },
 
   {
-    id:"comparative-paragraphs", category:"Explaining and Comparing", band:"paragraphs",
+    id:"comparative-paragraphs", category:"Analysing and Persuading", band:"paragraphs",
     name:"によると・ことが分かります (citing, and concluding)",
     example:"この文章によると、いろいろなもくてきがあります。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -3471,7 +3475,7 @@ window.SKILLS = [
   },
 
   {
-    id:"comparative-analytical-b4", category:"Explaining and Comparing", band:"argument",
+    id:"comparative-analytical-b4", category:"Analysing and Persuading", band:"argument",
     name:"という点では・をとおして〜学べます・めん・はるかに",
     example:"当番をすることをとおして、せきにんかんを学ぶことができます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -3548,7 +3552,7 @@ window.SKILLS = [
   },
 
   {
-    id:"polite-finite-s", category:"Verbs: Polite Forms", band:"sentences",
+    id:"polite-finite-s", category:"Verb Forms", band:"sentences",
     name:"ます・ません・ました・ませんでした, い-adjectives, な-adjectives/nouns",
     example:"きのう、すしをたべました。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -3670,7 +3674,7 @@ window.SKILLS = [
   },
 
   {
-    id:"plain-finite-l", category:"Plain Finite Forms", band:"links",
+    id:"plain-finite-l", category:"Sentences", band:"links",
     name:"dictionary form・ない・た・なかった, い-adjectives, な-adjectives/nouns",
     example:"きのう、テストがあったから、べんきょうした。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -3844,139 +3848,109 @@ window.BAND_META = {
 };
 
 window.CATEGORIES = [
-  "Script and Sounds",
-  "Greetings and Interaction",
-  "Saying What Things Are",
-  "Numbers, Time and Counting",
-  "Verbs: Polite Forms",
+  "Script",
+  "Everyday Language",
+  "Sentences",
   "Particles",
-  "Asking Questions",
-  "Saying How Much",
-  "Plain Finite Forms",
-  "The て-form",
-  "Past, Experience and Conditions",
-  "Verb Stem Forms",
+  "Questions",
+  "Comparing",
+  "Verb Forms",
+  "Verb Endings",
+  "Past and If",
+  "Can and Must",
   "Joining Ideas",
-  "Saying You Can, and Other Structures",
-  "Not Doing, and Having To",
-  "Turning Verbs into Nouns",
-  "Plain Form + Expressions",
-  "Explaining and Comparing",
-  "Evaluating and Persuading"
+  "Reporting and Guessing",
+  "Analysing and Persuading"
 ];
 window.POOLS = ["Reading Practice","Topic Vocabulary"];
 
 // Which document prescribes a strand. "VCE" = on the VCE Japanese SL
 // prescribed grammar list. "VIC" = Victorian Curriculum F-10 territory.
-// "PROGRAM" = school-designed, on neither list (valid content; the app must
-// not over-claim that it is externally prescribed).
+// "PROGRAM" = school-designed, on neither list.
 window.CATEGORY_META = {
-  "Script and Sounds": { prescribedBy:"VIC" },
-  "Greetings and Interaction": { prescribedBy:"VIC" },
-  "Saying What Things Are": { prescribedBy:"VIC" },
-  "Numbers, Time and Counting": { prescribedBy:"VIC" },
-  "Verbs: Polite Forms": { prescribedBy:"VCE" },
+  "Script": { prescribedBy:"VIC" },
+  "Everyday Language": { prescribedBy:"VIC" },
+  "Sentences": { prescribedBy:"VCE" },
   "Particles": { prescribedBy:"VCE" },
-  "Asking Questions": { prescribedBy:"VCE" },
-  "Saying How Much": { prescribedBy:"VCE" },
-  "Plain Finite Forms": { prescribedBy:"VCE" },
-  "The て-form": { prescribedBy:"VCE" },
-  "Past, Experience and Conditions": { prescribedBy:"VCE" },
-  "Verb Stem Forms": { prescribedBy:"VCE" },
+  "Questions": { prescribedBy:"VCE" },
+  "Comparing": { prescribedBy:"VCE" },
+  "Verb Forms": { prescribedBy:"VCE" },
+  "Verb Endings": { prescribedBy:"VCE" },
+  "Past and If": { prescribedBy:"VCE" },
+  "Can and Must": { prescribedBy:"VCE" },
   "Joining Ideas": { prescribedBy:"VCE" },
-  "Saying You Can, and Other Structures": { prescribedBy:"VCE" },
-  "Not Doing, and Having To": { prescribedBy:"VCE" },
-  "Turning Verbs into Nouns": { prescribedBy:"VCE" },
-  "Plain Form + Expressions": { prescribedBy:"VCE" },
-  "Explaining and Comparing": { prescribedBy:"PROGRAM" },
-  "Evaluating and Persuading": { prescribedBy:"PROGRAM" }
+  "Reporting and Guessing": { prescribedBy:"VCE" },
+  "Analysing and Persuading": { prescribedBy:"PROGRAM" }
 };
 
 // The Prep-to-Year-12 sequence. Year axis: 0 = Prep(F) … 12 = Year 12.
 window.JP_YEARS = ["F","1","2","3","4","5","6","7","8","9","10","11","12"];
 window.JP_CHUNKS = {
-  "Script and Sounds": [
+  "Script": [
     { title:"The three scripts", y0:0, y1:2, years:"F–2", covers:["script-f2"] },
     { title:"Reading and writing hiragana", y0:3, y1:4, years:"3–4", covers:["script-y34"] },
     { title:"Katakana and first kanji", y0:5, y1:6, years:"5–6", covers:["script-y56"] },
     { title:"Choosing the right script", y0:7, y1:8, years:"7–8", covers:["script-y78"] },
     { title:"Kanji compounds and readings", y0:9, y1:10, years:"9–10", covers:["script-y910"] }
   ],
-  "Greetings and Interaction": [
+  "Everyday Language": [
     { title:"Everyday greetings", y0:0, y1:2, years:"F–2", covers:["greet-f2"] },
-    { title:"Classroom language", y0:3, y1:4, years:"3–4", covers:["greet-y34"] },
-    { title:"Introducing yourself", y0:5, y1:6, years:"5–6", covers:["greet-y56"] }
+    { title:"Classroom language, and numbers", y0:3, y1:4, years:"3–4", covers:["greet-y34","num-y34"] },
+    { title:"Introducing yourself; time and days", y0:5, y1:6, years:"5–6", covers:["greet-y56","num-y56"] },
+    { title:"Counters, and how often", y0:7, y1:8, years:"7–8", covers:["num-y78"] }
   ],
-  "Saying What Things Are": [
+  "Sentences": [
     { title:"これはXです", y0:0, y1:2, years:"F–2", covers:["identity-f2"] },
     { title:"これ・それ・あれ, and の", y0:3, y1:4, years:"3–4", covers:["identity-y34"] },
     { title:"Describing with adjectives", y0:5, y1:6, years:"5–6", covers:["identity-y56"] },
     { title:"Past and negative", y0:7, y1:8, years:"7–8", covers:["identity-y78"] },
     { title:"Plain forms (casual, and before expressions)", y0:9, y1:10, years:"9–10", covers:["plain-finite-l"] }
   ],
-  "Numbers, Time and Counting": [
-    { title:"Numbers", y0:3, y1:4, years:"3–4", covers:["num-y34"] },
-    { title:"Time and days", y0:5, y1:6, years:"5–6", covers:["num-y56"] },
-    { title:"Counters and frequency", y0:7, y1:8, years:"7–8", covers:["num-y78"] }
-  ],
-  "Verbs: Polite Forms": [
-    { title:"ます・ません・ました・ませんでした", y0:5, y1:6, years:"5–6", covers:["polite-finite-s"] }
-  ],
   "Particles": [
     { title:"One particle at a time", y0:5, y1:6, years:"5–6", covers:["particles-sentences"] },
     { title:"Choosing between は/が, に/で", y0:7, y1:8, years:"7–8", covers:["particles-b1-core"] },
     { title:"に vs で vs へ in context", y0:9, y1:10, years:"9–10", covers:["particles-harder-b2"] }
   ],
-  "Asking Questions": [
-    { title:"か", y0:5, y1:6, years:"5–6", covers:["sfp-sentences"] },
-    { title:"ね・よ", y0:7, y1:8, years:"7–8", covers:["sentence-final-b4"] },
+  "Questions": [
+    { title:"か (asking)", y0:5, y1:6, years:"5–6", covers:["sfp-sentences"] },
+    { title:"ね・よ (agreement, assurance)", y0:7, y1:8, years:"7–8", covers:["sentence-final-b4"] },
     { title:"の, and how casual to sound", y0:9, y1:10, years:"9–10", covers:["sfp-links"] }
   ],
-  "Saying How Much": [
+  "Comparing": [
     { title:"ごろ・ぐらい (about, roughly)", y0:5, y1:6, years:"5–6", covers:["extent-sentences"] },
-    { title:"しか・だけ・より・一番", y0:7, y1:8, years:"7–8", covers:["extent-b3"] }
+    { title:"しか・だけ・より・一番・のほう", y0:7, y1:8, years:"7–8", covers:["extent-b3","misc-choices"] }
   ],
-  "The て-form": [
+  "Verb Forms": [
+    { title:"ます・ません・ました", y0:5, y1:6, years:"5–6", covers:["polite-finite-s"] },
     { title:"Making the て-form", y0:7, y1:7, years:"7", covers:["te-form-b2-core"] },
     { title:"Permission and prohibition", y0:8, y1:8, years:"8", covers:["te-form-2-choices"] },
     { title:"てみる・てしまう・ても・てから", y0:9, y1:10, years:"9–10", covers:["te-form-b2-extended"] }
   ],
-  "Past, Experience and Conditions": [
-    { title:"たことがある・たあとで", y0:8, y1:8, years:"8", covers:["ta-choices"] },
-    { title:"たほうがいい・たら・たり〜たり", y0:9, y1:10, years:"9–10", covers:["ta-tara-tari-b2"] }
-  ],
-  "Verb Stem Forms": [
-    { title:"たい・に行く", y0:8, y1:8, years:"8", covers:["verb-stem-choices"] },
+  "Verb Endings": [
+    { title:"たい・に行く (wanting, going to do)", y0:8, y1:8, years:"8", covers:["verb-stem-choices"] },
     { title:"そう・かた・やすい/にくい・ながら・すぎる", y0:9, y1:10, years:"9–10", covers:["verb-stem-b2"] }
+  ],
+  "Past and If": [
+    { title:"たことがある・たあとで (experience, after)", y0:8, y1:8, years:"8", covers:["ta-choices"] },
+    { title:"たほうがいい・たら・たり〜たり", y0:9, y1:10, years:"9–10", covers:["ta-tara-tari-b2"] },
+    { title:"ば・というNoun", y0:11, y1:11, years:"11", covers:["misc-paragraphs"] }
+  ],
+  "Can and Must": [
+    { title:"できる・ことができる・なければならない", y0:9, y1:10, years:"9–10", covers:["misc-b4","nai-form-b3","nominalisers-b4"] },
+    { title:"ことにする・ことになる (deciding, being decided)", y0:11, y1:11, years:"11", covers:["nominalisers-paragraphs"] }
   ],
   "Joining Ideas": [
     { title:"が・から (but, because)", y0:7, y1:8, years:"7–8", covers:["conjunctions-choices"] },
-    { title:"けれども・ので・と・のに", y0:9, y1:10, years:"9–10", covers:["conjunctions-b4"] }
+    { title:"けれども・ので・と・のに", y0:9, y1:10, years:"9–10", covers:["conjunctions-b4"] },
+    { title:"ために・ように・し・んです (purpose, reasons)", y0:11, y1:11, years:"11", covers:["plain-form-expr-2-b3"] }
   ],
-  "Saying You Can, and Other Structures": [
-    { title:"のほう (softer comparison)", y0:8, y1:8, years:"8", covers:["misc-choices"] },
-    { title:"The potential form (can do)", y0:9, y1:10, years:"9–10", covers:["misc-b4"] },
-    { title:"ば・というNoun", y0:11, y1:11, years:"11", covers:["misc-paragraphs"] }
-  ],
-  "Not Doing, and Having To": [
-    { title:"ないほうがいい・なければならない・なくてもいい", y0:9, y1:10, years:"9–10", covers:["nai-form-b3"] }
-  ],
-  "Turning Verbs into Nouns": [
-    { title:"の・こと・ことができる", y0:9, y1:10, years:"9–10", covers:["nominalisers-b4"] },
-    { title:"ことにする・ことになる", y0:11, y1:11, years:"11", covers:["nominalisers-paragraphs"] }
-  ],
-  "Plain Form + Expressions": [
-    { title:"とき・と思う／と言う", y0:9, y1:10, years:"9–10", covers:["pf-expr-1-links"] },
+  "Reporting and Guessing": [
+    { title:"と思う・と言う・とき", y0:9, y1:10, years:"9–10", covers:["pf-expr-1-links"] },
     { title:"そう（伝聞）・つもり・かもしれない・でしょう", y0:11, y1:11, years:"11", covers:["plain-form-expr-1-b3"] },
-    { title:"ために／ように・し・PF＋Noun・んです", y0:11, y1:11, years:"11", covers:["plain-form-expr-2-b3"] },
-    { title:"らしい・はず／べき", y0:12, y1:12, years:"12", covers:["pf-expr-2-argument"] }
+    { title:"らしい・はず・べき", y0:12, y1:12, years:"12", covers:["pf-expr-2-argument"] }
   ],
-  "Explaining and Comparing": [
-    { title:"によると・ことが分かります", y0:11, y1:11, years:"11", covers:["comparative-paragraphs"] },
-    { title:"という点では・をとおして・めん・はるかに", y0:12, y1:12, years:"12", covers:["comparative-analytical-b4"] }
-  ],
-  "Evaluating and Persuading": [
-    { title:"一方で・たしかに〜ですが", y0:11, y1:11, years:"11", covers:["persuasive-paragraphs"] },
-    { title:"とはかぎりません・全体的に考えると・ぜひ・のではなく", y0:12, y1:12, years:"12", covers:["persuasive-evaluative-b4"] }
+  "Analysing and Persuading": [
+    { title:"によると・ことが分かります・一方で・たしかに", y0:11, y1:11, years:"11", covers:["comparative-paragraphs","persuasive-paragraphs"] },
+    { title:"という点では・とはかぎりません・全体的に・ぜひ", y0:12, y1:12, years:"12", covers:["comparative-analytical-b4","persuasive-evaluative-b4"] }
   ]
 };
