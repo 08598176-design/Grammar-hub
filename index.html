@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-AU">
+<html lang="en-AU" translate="no" class="notranslate">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,15 +50,38 @@
   .btn-ghost:hover{color:var(--ink);border-color:var(--ink)}
   .linkbtn{background:none;border:none;color:var(--accent);font-weight:600;font-size:13px;cursor:pointer;padding:4px 8px}
   .linkbtn:hover{text-decoration:underline}
-  /* ---- language cycler: the chrome is Japanese-first; this cycles it
-     kanji -> kana -> romaji -> English. Static labels also cycle when
-     tapped individually. Item content is untouched here. */
-  .lang-cycle{position:absolute;top:14px;right:16px;z-index:5;border:1px solid var(--line);
-       background:var(--bg);color:var(--muted);font-size:11px;font-weight:700;border-radius:14px;
-       padding:4px 12px;cursor:pointer;letter-spacing:.3px}
-  .lang-cycle:hover{border-color:var(--accent);color:var(--accent)}
+  /* ---- the language lever ----
+     The chrome is Japanese-first. Pulling the lever down adds support one
+     stop at a time — kanji, +kana, romaji, English — and it is ELASTIC:
+     let go and it recoils back up through the stops. The page lever snaps
+     back in about a second; a section lever relaxes over about five, long
+     enough to read. Support that fades is the point: English is a glance,
+     not a state. Tapping a static label bumps just that label down one
+     stop, with the same slow recoil. */
+  .lever{position:absolute;z-index:6;display:flex;flex-direction:column;align-items:center;
+       gap:2px;user-select:none;touch-action:none}
+  .lever-page{top:12px;right:18px}
+  .lever-mini{position:relative;top:auto;right:auto;display:inline-flex;vertical-align:middle;margin-left:10px}
+  .lever-track{position:relative;width:18px;border-radius:9px;background:var(--bg);
+       border:1px solid var(--line)}
+  .lever-page .lever-track{height:76px}
+  .lever-mini .lever-track{height:52px;width:14px}
+  .lever-notch{position:absolute;left:50%;transform:translateX(-50%);width:6px;height:1px;
+       background:var(--line)}
+  .lever-handle{position:absolute;left:50%;transform:translate(-50%,-50%);width:22px;height:14px;
+       border-radius:7px;background:var(--paper);border:1px solid var(--line);cursor:grab;
+       box-shadow:0 1px 3px rgba(0,0,0,.12);transition:top .28s ease}
+  .lever-mini .lever-handle{width:18px;height:12px}
+  .lever.dragging .lever-handle{cursor:grabbing;transition:none}
+  .lever-handle:hover,.lever:focus-visible .lever-handle{border-color:var(--accent)}
+  .lever:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:10px}
+  .lever-stage{font-size:8.5px;font-weight:800;letter-spacing:.3px;color:var(--muted);
+       min-height:11px;text-align:center}
+  @media (prefers-reduced-motion: reduce){ .lever-handle{transition:none} }
   .jt-tap{cursor:pointer}
   .jt-tap:hover{text-decoration:underline dashed var(--line);text-underline-offset:4px}
+  .jt-sub{display:block;font-size:.55em;font-weight:400;color:var(--muted);letter-spacing:.4px;margin-top:2px}
+  [data-jt] rt{font-size:.5em;font-weight:400;color:var(--muted)}
 
   /* ---- select: filter + matrix ---- */
   .filter-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
@@ -211,7 +234,11 @@
 </head>
 <body>
 <div class="container">
-<button class="lang-cycle" id="langCycle" title="Change the language of the menus. Tap the title or subtitle to change just that label."></button>
+<div class="lever lever-page" id="pageLever" tabindex="0" role="slider" aria-label="Language support lever for the whole page"
+     aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"
+     title="Pull down: kanji, kana, romaji, English. It springs back — arrow keys work too.">
+  <div class="lever-track"></div><div class="lever-stage"></div>
+</div>
   <h1 class="jt-tap" data-jt="title">Japanese Grammar Hub</h1>
   <p class="subtitle jt-tap" data-jt="subtitle">Japanese grammar progression · pick skills, practise, get a report</p>
 
@@ -257,6 +284,11 @@
       <span>
         <button class="btn btn-primary" id="checkBtn" data-jt="check" disabled>Check</button>
         <button class="btn btn-primary" id="nextBtn" data-jt="next" style="display:none">Next</button>
+        <span class="lever lever-mini" id="taskLever" tabindex="0" role="slider" aria-label="Language support lever for these buttons"
+              aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"
+              title="Pull down: kana, romaji, English for these buttons. Relaxes back over a few seconds.">
+          <span class="lever-track"></span>
+        </span>
       </span>
     </div>
   </section>
@@ -277,6 +309,11 @@
       <button class="btn btn-ghost" id="copyTsvBtn">Copy row for sheet</button>
       <button class="btn btn-ghost" id="reviewBtn" data-jt="again">Run again</button>
       <button class="btn btn-primary" id="restartBtn" data-jt="newSel">New selection</button>
+      <span class="lever lever-mini" id="reportLever" tabindex="0" role="slider" aria-label="Language support lever for these buttons"
+            aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"
+            title="Pull down: kana, romaji, English for these buttons. Relaxes back over a few seconds.">
+        <span class="lever-track"></span>
+      </span>
     </div>
     <div id="copyNote"></div>
   </section>

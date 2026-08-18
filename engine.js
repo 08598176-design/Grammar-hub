@@ -60,27 +60,151 @@
     poolReading:["読む練習", "よむれんしゅう", "yomu renshū", "Reading Practice"],
     poolVocab:  ["トピックの言葉", "トピックのことば", "topikku no kotoba", "Topic Vocabulary"],
   };
-  const LANG_NAMES = ["日本語", "かな", "ローマ字", "English"];
+  const STAGE_NAMES = ["\u6f22\u5b57", "\u304b\u306a", "abc", "EN"];
+  const STAGE_ARIA = ["kanji", "kana", "romaji", "English"];
   let uiForm = 0; // kanji by default
 
+  // Stage 1 is ADDITIVE where the label has kanji: furigana appears above it.
+  const RUBY = {
+    title: "<ruby>\u65e5\u672c\u8a9e<rt>\u306b\u307b\u3093\u3054</rt></ruby><ruby>\u6587\u6cd5<rt>\u3076\u3093\u307d\u3046</rt></ruby>\u30cf\u30d6",
+    subtitle: "\u30b9\u30ad\u30eb\u3092<ruby>\u9078<rt>\u3048\u3089</rt></ruby>\u3093\u3067\u3001<ruby>\u7df4\u7fd2<rt>\u308c\u3093\u3057\u3085\u3046</rt></ruby>\u3057\u3066\u3001\u30ec\u30dd\u30fc\u30c8",
+    selectAll: "<ruby>\u5168\u90e8<rt>\u305c\u3093\u3076</rt></ruby><ruby>\u9078<rt>\u3048\u3089</rt></ruby>\u3076",
+    start: "<ruby>\u7df4\u7fd2<rt>\u308c\u3093\u3057\u3085\u3046</rt></ruby>\u30b9\u30bf\u30fc\u30c8",
+    next: "<ruby>\u6b21<rt>\u3064\u304e</rt></ruby>\u3078",
+    done: "<ruby>\u7d42<rt>\u304a</rt></ruby>\u308f\u308a\u307e\u3057\u305f\uff01",
+    again: "\u3082\u3046<ruby>\u4e00\u5ea6<rt>\u3044\u3061\u3069</rt></ruby>",
+    newSel: "<ruby>\u9078<rt>\u3048\u3089</rt></ruby>\u3073<ruby>\u76f4<rt>\u306a\u304a</rt></ruby>\u3059",
+    allTasks: "<ruby>\u5168\u90e8<rt>\u305c\u3093\u3076</rt></ruby>",
+    identify: "<ruby>\u898b\u5206<rt>\u307f\u308f</rt></ruby>\u3051\u308b",
+    gapfill: "<ruby>\u7a74\u57cb<rt>\u3042\u306a\u3046</rt></ruby>\u3081",
+    transform: "<ruby>\u5909<rt>\u304b</rt></ruby>\u3048\u308b",
+    order: "<ruby>\u4e26<rt>\u306a\u3089</rt></ruby>\u3079\u308b",
+    poolReading: "<ruby>\u8aad<rt>\u3088</rt></ruby>\u3080<ruby>\u7df4\u7fd2<rt>\u308c\u3093\u3057\u3085\u3046</rt></ruby>",
+    poolVocab: "\u30c8\u30d4\u30c3\u30af\u306e<ruby>\u8a00\u8449<rt>\u3053\u3068\u3070</rt></ruby>",
+  };
+
+  // pick from a four-form [kanji, kana, romaji, English] array by stage
+  function tForm(arr, stage) {
+    if (!arr) return null;
+    const f = stage === undefined ? uiForm : stage;
+    return arr[f] || arr[3];
+  }
   function jtText(key, formOverride) {
     const forms = UI_STRINGS[key];
     if (!forms) return null;
     const f = formOverride === undefined ? uiForm : formOverride;
     return forms[f] || forms[3];
   }
+  // HTML per stage. 0 = kanji. 1 = kanji with furigana where authored (additive),
+  // else the kana form. 2 = romaji (title/subtitle keep the ruby and ADD romaji).
+  // 3 = English (title/subtitle keep the Japanese and ADD romaji + English).
+  function jtHtml(key, stage, stacked) {
+    const forms = UI_STRINGS[key];
+    if (!forms) return null;
+    if (stage === 0) return escapeHtmlE(forms[0]);
+    if (stage === 1) return RUBY[key] || escapeHtmlE(forms[1]);
+    if (stacked) {
+      const base = RUBY[key] || escapeHtmlE(forms[1]);
+      let out = base + `<span class="jt-sub">${escapeHtmlE(forms[2])}</span>`;
+      if (stage === 3) out += `<span class="jt-sub">${escapeHtmlE(forms[3])}</span>`;
+      return out;
+    }
+    return escapeHtmlE(forms[stage]);
+  }
   function applyLang() {
     document.querySelectorAll("[data-jt]").forEach((el) => {
       const key = el.dataset.jt;
       if (!UI_STRINGS[key]) return;
       const own = el.dataset.form !== undefined ? parseInt(el.dataset.form, 10) : undefined;
-      el.textContent = jtText(key, own);
-      el.title = UI_STRINGS[key][3]; // English always one hover away — honest UI
+      const stage = own === undefined ? uiForm : own;
+      el.innerHTML = jtHtml(key, stage, el.classList.contains("jt-tap"));
+      el.title = UI_STRINGS[key][3]; // English always one hover away
     });
-    const chip = $("langCycle");
-    if (chip) chip.textContent = LANG_NAMES[uiForm];
   }
 
+  /* The elastic lever. Pull down through the stops; on release it recoils
+     one stop at a time back to `floor()`. stepMs is the recoil per stop:
+     fast for the page lever, slow (readable) for section levers. */
+  function createLever(root, opts) {
+    if (!root) return null;
+    const track = root.querySelector(".lever-track");
+    const stageEl = root.querySelector(".lever-stage");
+    const pct = (i) => 12 + i * (76 / 3);
+    for (let i = 0; i < 4; i++) {
+      const n = document.createElement("span");
+      n.className = "lever-notch";
+      n.style.top = pct(i) + "%";
+      track.appendChild(n);
+    }
+    const handle = document.createElement("span");
+    handle.className = "lever-handle";
+    handle.style.top = pct(0) + "%";
+    track.appendChild(handle);
+
+    let stage = 0, timer = null, dragging = false;
+    const floor = opts.floor || (() => 0);
+    function render() {
+      handle.style.top = pct(stage) + "%";
+      root.setAttribute("aria-valuenow", stage);
+      root.setAttribute("aria-valuetext", STAGE_ARIA[stage]);
+      if (stageEl) stageEl.textContent = stage > 0 ? STAGE_NAMES[stage] : "";
+    }
+    function set(s, fromRecoil) {
+      s = Math.max(floor(), Math.min(3, s));
+      if (s === stage) { if (!fromRecoil) armRecoil(); return; }
+      stage = s;
+      render();
+      opts.onStage(stage);
+      if (!fromRecoil) armRecoil();
+    }
+    function armRecoil() {
+      clearTimeout(timer);
+      if (dragging) return;
+      if (stage > floor()) timer = setTimeout(() => { set(stage - 1, true); armRecoil(); }, opts.stepMs);
+    }
+    root.addEventListener("pointerdown", (e) => {
+      dragging = true;
+      root.classList.add("dragging");
+      try { root.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+      clearTimeout(timer);
+      onMove(e);
+      e.preventDefault();
+    });
+    function onMove(e) {
+      if (!dragging) return;
+      const r = track.getBoundingClientRect();
+      const frac = Math.max(0, Math.min(1, (e.clientY - r.top) / r.height));
+      set(Math.round(frac * 3));
+    }
+    root.addEventListener("pointermove", onMove);
+    const release = () => { if (!dragging) return; dragging = false; root.classList.remove("dragging"); armRecoil(); };
+    root.addEventListener("pointerup", release);
+    root.addEventListener("pointercancel", release);
+    root.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") { set(stage + 1); e.preventDefault(); }
+      else if (e.key === "ArrowUp" || e.key === "ArrowLeft") { set(stage - 1); e.preventDefault(); }
+      else if (e.key === "End") { set(3); e.preventDefault(); }
+      else if (e.key === "Home" || e.key === "Escape") { set(floor()); e.preventDefault(); }
+    });
+    return { set: (s) => set(s), get: () => stage };
+  }
+
+  // Per-label taps use the same elastic idea: one stop down, slow recoil.
+  const tapTimers = new WeakMap();
+  function tapBump(el) {
+    const own = el.dataset.form !== undefined ? parseInt(el.dataset.form, 10) : uiForm;
+    el.dataset.form = Math.min(3, own + 1);
+    applyLang();
+    clearTimeout(tapTimers.get(el));
+    const decay = () => {
+      const cur = parseInt(el.dataset.form, 10);
+      if (isNaN(cur) || cur <= uiForm) { delete el.dataset.form; applyLang(); return; }
+      el.dataset.form = cur - 1;
+      applyLang();
+      tapTimers.set(el, setTimeout(decay, 1667));
+    };
+    tapTimers.set(el, setTimeout(decay, 1667));
+  }
 
   function visibleBands() {
     return window.BANDS.filter((b) => showAllBands || (window.BAND_META[b] && window.BAND_META[b].show));
@@ -135,7 +259,7 @@
     head.className = "tl-row tl-head";
     head.innerHTML = `<div class="tl-label"></div>` +
       years.map((y, i) => {
-        const label = y === "F" ? "Prep" : y;
+        const label = y === "F" ? ["\u30d7\u30ec\u30c3\u30d7", "\u30d7\u30ec\u30c3\u30d7", "pureppu", "Prep"][uiForm] : y;
         const teacher = i <= 10 ? `Victorian Curriculum, Level ${y}` : `VCE Units ${i === 11 ? "1 and 2" : "3 and 4"}`;
         return `<div class="tl-year" title="${escapeHtmlE(teacher)}">${escapeHtmlE(label)}</div>`;
       }).join("");
@@ -144,7 +268,7 @@
     const bars = document.createElement("div");
     bars.className = "tl-row tl-bars";
     bars.innerHTML = `<div class="tl-label"></div>` +
-      `<div class="tl-bar" data-cur="VIC" style="grid-column:2 / 13" title="Prep to Year 10 follow the Victorian Curriculum F\u201310 Japanese"><span>Victorian Curriculum F\u201310</span></div>` +
+      `<div class="tl-bar" data-cur="VIC" style="grid-column:2 / 13" title="Prep to Year 10 follow the Victorian Curriculum F\u201310 Japanese"><span>${["\u30d3\u30af\u30c8\u30ea\u30a2\u5dde\u30ab\u30ea\u30ad\u30e5\u30e9\u30e0 F\u201310", "\u30d3\u30af\u30c8\u30ea\u30a2\u3057\u3085\u3046\u30ab\u30ea\u30ad\u30e5\u30e9\u30e0 F\u201310", "Bikutoria-sh\u016b karikyuramu F\u201310", "Victorian Curriculum F\u201310"][uiForm]}</span></div>` +
       `<div class="tl-bar" data-cur="VCE" style="grid-column:13 / 15" title="Years 11 and 12 follow the VCE Japanese Second Language study design"><span>VCE</span></div>`;
     wrap.appendChild(bars);
 
@@ -153,12 +277,17 @@
       row.className = "tl-row";
       const meta = (window.CATEGORY_META && window.CATEGORY_META[strand]) || { prescribedBy: "" };
       // row-level fact, shown once on the label instead of on every card
+      const chipWords = {
+        VCE: ["VCE\u30ea\u30b9\u30c8", "VCE\u30ea\u30b9\u30c8", "VCE risuto", "VCE list"],
+        PROGRAM: ["\u5b66\u6821", "\u304c\u3063\u3053\u3046", "gakk\u014d", "school"],
+      };
       const chip = meta.prescribedBy === "VCE"
-        ? `<span class="row-chip chip-vce" title="On the VCE prescribed grammar list">VCE list</span>`
+        ? `<span class="row-chip chip-vce" title="On the VCE prescribed grammar list">${chipWords.VCE[uiForm]}</span>`
         : meta.prescribedBy === "PROGRAM"
-          ? `<span class="row-chip chip-prog" title="School-designed. Not on the VCE prescribed grammar list.">school</span>`
+          ? `<span class="row-chip chip-prog" title="School-designed. Not on the VCE prescribed grammar list.">${chipWords.PROGRAM[uiForm]}</span>`
           : "";
-      row.innerHTML = `<div class="tl-label"><span class="tl-strand">${escapeHtmlE(strand)}</span>${chip}</div>`;
+      const strandLabel = tForm(window.JT_STRANDS && window.JT_STRANDS[strand]) || strand;
+      row.innerHTML = `<div class="tl-label"><span class="tl-strand" title="${escapeHtmlE((window.JT_STRANDS && window.JT_STRANDS[strand] || [strand])[3] || strand)}">${escapeHtmlE(strandLabel)}</span>${chip}</div>`;
 
       chunks.forEach((chunk, ci) => {
         const n = chunkItemCount(chunk);
@@ -166,9 +295,11 @@
         el.className = "tl-chunk" + (n ? " has-items" : " no-items");
         // +2: CSS grid is 1-indexed and column 1 is the strand label
         el.style.gridColumn = `${chunk.y0 + 2} / ${chunk.y1 + 3}`;
-        const yearsLabel = `Year${chunk.years.indexOf("\u2013") > -1 ? "s" : ""} ${chunk.years}`;
-        el.innerHTML = `<span class="tl-title">${escapeHtmlE(chunk.title)}</span>` +
-          `<span class="tl-meta">${escapeHtmlE(yearsLabel)}${n ? ` \u00b7 ${n}` : " \u00b7 no items yet"}</span>`;
+        const yearsLabel = uiForm <= 1 ? `${chunk.years}\u5e74` : `Year${chunk.years.indexOf("\u2013") > -1 ? "s" : ""} ${chunk.years}`;
+        const chunkTitle = tForm(chunk.t) || chunk.title;
+        const noneWord = ["\u307e\u3060\u306a\u3057", "\u307e\u3060\u306a\u3057", "mada nashi", "no items yet"][uiForm];
+        el.innerHTML = `<span class="tl-title">${escapeHtmlE(chunkTitle)}</span>` +
+          `<span class="tl-meta">${escapeHtmlE(yearsLabel)}${n ? ` \u00b7 ${n}` : ` \u00b7 ${noneWord}`}</span>`;
 
         if (n) {
           const prev = ci > 0 ? chunks[ci - 1] : null;
@@ -202,11 +333,13 @@
   }
 
   function buildLegend() {
-    $("matrixLegend").innerHTML =
-      `Each block is a teaching step, placed on the years it is usually taught. ` +
-      `Read a row left to right and you are watching one skill get harder. ` +
-      `Click a step to practise it \u2014 the step before comes along as review. ` +
-      `Nothing is locked.`;
+    const legends = [
+      "\u30d6\u30ed\u30c3\u30af\u306f\u3001\u306a\u3089\u3046\u5e74\u306b\u7f6e\u304b\u308c\u305f\u5b66\u7fd2\u30b9\u30c6\u30c3\u30d7\u3067\u3059\u3002\u884c\u3092\u5de6\u304b\u3089\u53f3\u3078\u8aad\u3080\u3068\u3001\u540c\u3058\u30b9\u30ad\u30eb\u304c\u3060\u3093\u3060\u3093\u96e3\u3057\u304f\u306a\u308a\u307e\u3059\u3002\u30b9\u30c6\u30c3\u30d7\u3092\u30af\u30ea\u30c3\u30af\u3059\u308b\u3068\u7df4\u7fd2\u3067\u304d\u307e\u3059\u3002\u524d\u306e\u30b9\u30c6\u30c3\u30d7\u3082\u5fa9\u7fd2\u3068\u3057\u3066\u4e00\u7dd2\u306b\u5165\u308a\u307e\u3059\u3002\u30ed\u30c3\u30af\u306f\u3042\u308a\u307e\u305b\u3093\u3002",
+      "\u30d6\u30ed\u30c3\u30af\u306f\u3001\u306a\u3089\u3046\u3068\u3057\u306b\u304a\u304b\u308c\u305f\u304c\u304f\u3057\u3085\u3046\u30b9\u30c6\u30c3\u30d7\u3067\u3059\u3002\u304e\u3087\u3046\u3092\u3072\u3060\u308a\u304b\u3089\u307f\u304e\u3078\u3088\u3080\u3068\u3001\u304a\u306a\u3058\u30b9\u30ad\u30eb\u304c\u3060\u3093\u3060\u3093\u3080\u305a\u304b\u3057\u304f\u306a\u308a\u307e\u3059\u3002\u30b9\u30c6\u30c3\u30d7\u3092\u30af\u30ea\u30c3\u30af\u3059\u308b\u3068\u308c\u3093\u3057\u3085\u3046\u3067\u304d\u307e\u3059\u3002\u307e\u3048\u306e\u30b9\u30c6\u30c3\u30d7\u3082\u3075\u304f\u3057\u3085\u3046\u3068\u3057\u3066\u3044\u3063\u3057\u3087\u306b\u306f\u3044\u308a\u307e\u3059\u3002\u30ed\u30c3\u30af\u306f\u3042\u308a\u307e\u305b\u3093\u3002",
+      "Burokku wa, narau toshi ni okareta gakush\u016b suteppu desu. Gy\u014d o hidari kara migi e yomu to, onaji sukiru ga dandan muzukashiku narimasu. Suteppu o kurikku suru to rensh\u016b dekimasu. Mae no suteppu mo fukush\u016b to shite issho ni hairimasu. Rokku wa arimasen.",
+      "Each block is a teaching step, placed on the years it is usually taught. Read a row left to right and you are watching one skill get harder. Click a step to practise it \u2014 the step before comes along as review. Nothing is locked.",
+    ];
+    $("matrixLegend").textContent = legends[uiForm];
     const btn = $("bandToggleBtn");
     if (btn) btn.style.display = "none";
   }
@@ -232,8 +365,8 @@
         const n = itemsFor(skill).length;
         const card = document.createElement("div");
         card.className = "pool-card" + (n ? " has-items" : " no-items");
-        card.innerHTML = `<span class="pool-name">${skill.name}</span>` +
-          (n ? `<span class="pool-count">${n} question${n === 1 ? "" : "s"}</span>` : `<span class="pool-count zero">0</span>`);
+        card.innerHTML = `<span class="pool-name" title="${escapeHtmlE((skill.nameT || [skill.name])[3] || skill.name)}">${escapeHtmlE(tForm(skill.nameT) || skill.name)}</span>` +
+          (n ? `<span class="pool-count">${uiForm <= 1 ? `${n}\u554f` : uiForm === 2 ? `mondai ${n}` : `${n} question${n === 1 ? "" : "s"}`}</span>` : `<span class="pool-count zero">0</span>`);
         if (n) {
           card.addEventListener("click", () => {
             if (selectedSkills.has(skill.id)) selectedSkills.delete(skill.id);
@@ -253,7 +386,12 @@
   function refreshCount() {
     let items = 0;
     selectedSkills.forEach((id) => { items += itemsFor(skillById(id)).length; });
-    $("selCount").textContent = `${selectedSkills.size} skill${selectedSkills.size === 1 ? "" : "s"} · ${items} item${items === 1 ? "" : "s"}`;
+    const k = selectedSkills.size;
+    $("selCount").textContent = uiForm <= 1
+      ? `スキル${k}・${items}問`
+      : uiForm === 2
+        ? `sukiru ${k} · mondai ${items}`
+        : `${k} skill${k === 1 ? "" : "s"} · ${items} item${items === 1 ? "" : "s"}`;
     $("startBtn").disabled = items === 0;
   }
 
@@ -562,17 +700,33 @@
 
     $("bandToggleBtn").addEventListener("click", () => { showAllBands = !showAllBands; buildMatrix(); });
 
-    $("langCycle").addEventListener("click", () => {
-      uiForm = (uiForm + 1) % 4;
-      document.querySelectorAll("[data-jt]").forEach((el) => delete el.dataset.form);
-      applyLang();
-    });
-    document.querySelectorAll(".jt-tap").forEach((el) => {
-      el.addEventListener("click", () => {
-        const own = el.dataset.form !== undefined ? parseInt(el.dataset.form, 10) : uiForm;
-        el.dataset.form = (own + 1) % 4;
+    // page lever: whole chrome, fast recoil (~1s from full pull)
+    createLever($("pageLever"), {
+      stepMs: 333,
+      onStage: (s) => {
+        uiForm = s;
+        document.querySelectorAll("[data-jt]").forEach((el) => delete el.dataset.form);
         applyLang();
-      });
+        if ($("selectScreen").classList.contains("active")) { buildMatrix(); buildPools(); }
+        else refreshCount();
+      },
+    });
+    // section levers: just their screen's buttons, slow readable recoil (~5s)
+    const sectionLever = (leverId, scopeId) => createLever($(leverId), {
+      stepMs: 1667,
+      floor: () => uiForm,
+      onStage: (s) => {
+        document.querySelectorAll(`#${scopeId} [data-jt]`).forEach((el) => {
+          if (s <= uiForm) delete el.dataset.form; else el.dataset.form = s;
+        });
+        applyLang();
+      },
+    });
+    sectionLever("taskLever", "taskScreen");
+    sectionLever("reportLever", "reportScreen");
+
+    document.querySelectorAll(".jt-tap").forEach((el) => {
+      el.addEventListener("click", () => tapBump(el));
     });
     applyLang();
 

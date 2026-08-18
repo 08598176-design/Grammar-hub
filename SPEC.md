@@ -24,55 +24,79 @@ blocks in index.html; the engine toggles `.active`).
 
 ```
 index.html       markup + all CSS + design tokens. Loads the three scripts in order:
-data/skills.js   ALL content → window.SKILLS, window.BANDS, window.CATEGORIES, window.POOLS
+data/skills.js   ALL content → window.SKILLS, window.JT_STRANDS, window.JP_YEARS,
+                 window.JP_CHUNKS, plus window.BANDS/BAND_META/CATEGORIES/
+                 CATEGORY_META/POOLS (labels for reports and chips)
 tasktypes.js     task-type registry → window.TASK_TYPES
-engine.js        matrix, drill loop, mastery rounds, scoring, report. Content-agnostic.
+engine.js        timeline, drill loop, mastery rounds, scoring, report,
+                 language lever. Content-agnostic.
+```
+
+Not loaded by the app:
+
+```
+data/script-bank.js  the parked Script strand (5 nodes, 40 items) →
+                     window.SCRIPT_BANK. Grammar hub is grammar only; this
+                     is the seed bank for a future stand-alone script app.
+apps/                stand-alone proof-of-concept apps (word-lab, oral,
+                     writing-wall), each a single self-contained index.html.
+                     They share the design tokens but none of the hub's JS.
 ```
 
 The lane rule in DESIGN_RULES.md §0 applies: a commit touches one of these
 lanes only.
 
-## 3. The grid (current state)
+## 3. The year timeline (the select view)
 
-- `window.BANDS = ["script","words","sentences","choices","links","paragraphs","argument"]`
-  — matrix columns, internal ids (stable, no spaces — survive URLs, CSS
-  selectors, localStorage, CSV). **Never render an id directly** — always go
-  through `window.BAND_META[id]`.
-- `window.BAND_META[id] = { head, long, teacher, cur, show }`:
-  `head` = one-word student-facing column heading (e.g. "Choices"); `long` =
-  the legend's fuller form ("Choosing the right structure"); `teacher` = the
-  real curriculum label written to teacher exports ("Levels 7 and 8"), never
-  shown to students; `cur` = `"VIC"` or `"VCE"`, drives the colour axis (§4
-  below); `show` = whether the column renders by default (`script` and
-  `words` — VIC F–2 and 3–4 — are defined but hidden: the F–10 curriculum
-  names no grammar at those bands, so there's nothing honest to put there
-  yet. A "Show Foundation–Level 6 columns too" toggle reveals them).
-- `window.CATEGORIES` — 17 matrix rows. `window.CATEGORY_META[category] =
-  { prescribedBy }`, `"VCE"` (on the VCE Japanese SL prescribed grammar
-  list) or `"PROGRAM"` (school-designed, not on that list — still valid
-  content, just not externally prescribed). Drives the dual-chip / "school"
-  chip on a cell when a row's prescribing document differs from its
-  column's curriculum (e.g. a VCE-prescribed row sitting in a VIC-curriculum
-  column shows a small "VCE" chip).
-- `window.POOLS = ["Reading Practice","Topic Vocabulary"]` — rendered as card
-  lists **below** the matrix, not band-tracked.
-- The engine renders one cell per `category × band`; it finds **the first**
-  skill matching both (`SKILLS.find`), so **do not create two skill nodes with
-  the same category and band** — the second is unreachable from the matrix.
-  A category *can* and often should have skill nodes at more than one band —
-  that's a row spanning bands (e.g. "Core Particles" has nodes at `choices`
-  and `links`), the intended shape, not a bug.
-- A cell with no matching skill, or a skill with `introduced:false`, renders
-  greyed with a dash and a `title`/`aria-label` explaining why (e.g. "This
-  row starts at Choices"). A skill with `items:[]` renders as `0` (exists, no
-  content yet). Never locked — every band is always clickable.
+The select screen is a **Prep→Year 12 timeline**: one row per grammatical
+system (strand), a column per year, and each teaching step drawn as a block
+spanning the years it is taught across. Read a row left to right and you are
+watching one skill get harder — the same shape as the non-EAL year view in
+Liam's English hub. (This replaced the earlier category × band grid; the
+band vocabulary survives only as report/export labels, below.)
 
-Full grounding, evidence and the coverage map (which row belongs at which
-band, and why) is `collab/research/DESIGN_BAND_LADDER.md`. Placement there is
+- `window.JP_YEARS = ["F","1",…,"12"]` — the year axis. Index 0 is Prep.
+- `window.JT_STRANDS[strand] = [kanji, kana, romaji, English]` — the 13
+  strand row labels, one entry per language-lever stage (§7). Keys are the
+  English names and must match `SKILLS[].category`.
+- `window.JP_CHUNKS[strand] = [chunk, …]` — the strand's teaching steps in
+  year order. Chunk schema:
+
+  ```js
+  {
+    title: "Classroom requests: 〜てください",   // canonical English (aria, tooltips)
+    t: [kanji, kana, romaji, English],          // lever forms of the title
+    y0: 3, y1: 4,                               // first/last year index (inclusive)
+    years: "3–4",                               // display label
+    covers: ["greet-y34"],                      // skill-node ids this step drills
+    needs: ["Verb Forms: Making the て-form"],  // optional cross-strand prerequisites,
+  }                                             // surfaced in the tooltip
+  ```
+
+- Clicking a chunk selects every item of every node in `covers`; selecting a
+  chunk also pulls in the previous chunk of the strand **as review**. Chunks
+  with no items render greyed ("まだなし") but are never locked.
+- Curriculum colour axis: grouped bars above the rows mark Prep–10 as
+  Victorian Curriculum (`--vic`) and 11–12 as VCE (`--vce`); the encoding is
+  lightness + fill + a word, never hue (DESIGN_RULES §4 — the warm hues
+  belong to correctness). `window.CATEGORY_META[category] = { prescribedBy }`
+  (`"VCE"` or `"PROGRAM"`) still drives the per-row VCE-list/school chip.
+- Because chunks address nodes **by id**, two skill nodes may now share a
+  `category`+`band` pair — the old grid's one-cell-per-pair constraint is
+  retired. Reports group by node id, so nothing collides.
+- `window.BANDS` / `window.BAND_META[id] = { head, long, teacher, cur, show }`
+  are **retained for reporting only**: `teacher` is the curriculum label
+  written to CSV/TSV exports, `head` appears in the drill-screen skill tag.
+  Nothing renders a band column any more.
+- `window.POOLS = ["Reading Practice","Topic Vocabulary"]` — card lists
+  below the timeline, not year-tracked.
+
+Full grounding, evidence and the coverage map (which step belongs at which
+years, and why) is `collab/research/DESIGN_BAND_LADDER.md`. Placement is
 best-effort against the VIC F–10 sequence and the VCE study design, cross-
 checked against Andrew's own files — not his ratification. **[DECISION
 NEEDED]**: Q2/Q3/Q15 in `collab/QUESTIONS_FOR_ANDREW.md` stay open (is the
-F–10 or 7–10 sequence the right one; do the seven column names read right to
+F–10 or 7–10 sequence the right one; do the strand names read right to
 a Year 7 and a Year 12; may "VCE" appear on a student's screen; per-item
 splitting within a row, e.g. Conjunctions' が/から vs ので/のに, is queued as
 a follow-up rather than rushed).
@@ -200,15 +224,32 @@ or should romaji input be auto-converted/accepted at lower bands? Affects
   name field feeds the exports; nothing is stored.
 - No persistence. Closing the tab loses the run. (localStorage is allowed on
   the deployed site only — DESIGN_RULES.md §7 — but is not implemented.)
+- **Language lever (Japanese-first chrome):** every piece of interface text
+  carries four forms — kanji / kana / romaji / English — and the page
+  defaults to kanji. UI strings live in `UI_STRINGS` in engine.js (elements
+  opt in with `data-jt="key"`); content-side strings carry their own forms
+  (`JT_STRANDS`, `chunk.t`, pool `nameT`). `RUBY` adds furigana at the kana
+  stage instead of replacing the kanji. The lever (`createLever`) is an ARIA
+  slider: drag or Arrow keys pull it down a stop at a time
+  (kanji→+kana→+romaji→English), **it holds wherever it is held**, and on
+  release it recoils one stop at a time back to its floor — ~1 s/stop for
+  the page lever (`#pageLever`, rebuilds the whole screen per stop), ~1.7
+  s/stop for section levers (`#taskLever`, `#reportLever`, floored at the
+  page stage so they never show *less* support than the page). Home/Escape
+  drops to the floor, End pulls to full English. Individual labels can also
+  be tapped (`jt-tap`) for a one-stop bump with the same elastic decay.
+  English is always one hover away (`title` attributes). Google Translate is
+  blocked (`translate="no"`, `notranslate`) because machine translation of
+  the interface would silently break the whole mechanic.
 
 ## 8. Content that exists outside the app (not yet wired in)
 
 - `audio/qa-01.mp3 … qa-47.mp3` + `generate-audio.js`: TTS audio for a
   47-question Oral Exam Q&A set (Tier 1: 1–15, Tier 2: 16–30, Tier 3: 31–47).
-  The question text lives in `generate-audio.js`. **Nothing in the app plays
-  these yet** — the Oral Exam section they belong to exists only in a newer
-  local build (`vce-grammar-hub-test_17` lineage). See
-  `collab/QUESTIONS_FOR_ANDREW.md` before rebuilding it from scratch.
+  The question text lives in `generate-audio.js`. The grammar hub itself
+  does not play these; `apps/oral/` is a stand-alone PoC player for the set
+  (tiers, per-question audio, self-check boxes). Whether it merges into the
+  hub or stays separate is Q1 in `collab/QUESTIONS_FOR_ANDREW.md`.
 - `Unit 10 Abilities and preferences/` — a fully differentiated Year 9-10
   topic unit (readings at MODIFIED / INTERMEDIATE / ADVANCED tiers, plain-form
   grammar, jobs vocab). Prime source material for future topic modules.
@@ -231,7 +272,22 @@ console.log("items",n,"problems",bad)'
 (The model answer is `answer` where the item has one — identify, order —
 otherwise `accept[0]`.) Must print `problems 0`.
 
-Also check: no duplicate `category`+`band` pair across skill nodes (§3).
+Also check: every id in every chunk's `covers` (§3) resolves to a skill
+node, and every non-pool skill node is covered by some chunk — an uncovered
+node is unreachable from the timeline:
+
+```bash
+node -e 'global.window={};require("./data/skills.js");
+const ids=new Set(window.SKILLS.map(s=>s.id));const covered=new Set();let bad=0;
+Object.entries(window.JP_CHUNKS).forEach(([st,cs])=>cs.forEach(c=>c.covers.forEach(id=>{
+covered.add(id);if(!ids.has(id)){bad++;console.log("DANGLING",st,c.title,id)}})));
+window.SKILLS.filter(s=>!window.POOLS.includes(s.category)&&!covered.has(s.id))
+.forEach(s=>{bad++;console.log("UNCOVERED",s.id)});
+console.log("cover problems",bad)'
+```
+
+Must print `cover problems 0`. (The old "no duplicate category+band" rule is
+retired — chunks address nodes by id, §3.)
 
 ## 10. Roadmap
 

@@ -97,11 +97,11 @@ specifically so it composes with the curriculum border instead of fighting it.
 
 ## 5. Content rules (for the content lane)
 
-- **Canonical mapping is the band ladder in `data/skills.js`** (`window.BANDS`,
-  currently Band 1–4; being renamed to a shared F–10 ↔ VCE ladder — see SPEC §3
-  and Q2 in collab/QUESTIONS_FOR_ANDREW.md). Do not move a skill to a different
-  band without a Decision Log entry. Never two skill nodes with the same
-  category + band (the matrix can only render one).
+- **Canonical mapping is the year timeline in `data/skills.js`**
+  (`window.JP_CHUNKS` — see SPEC §3; `window.BANDS` survives as report/export
+  labels only). Do not move a chunk to different years, or a skill node to a
+  different chunk, without a Decision Log entry. Every non-pool node must be
+  reachable through some chunk's `covers` (SPEC §9's cover check).
 - In a bundled cell (e.g. て-form I covering sequence/request/progressive) tag
   which sub-skill each item targets (`tags`) so the report can diagnose the
   part that was missed. (Tag support lands with the engine port, job J2.)
