@@ -193,10 +193,18 @@ Done when: Andrew can mark up and share one model 400-ji piece.
 Model: Opus (port of a complex reference app).
 Size: M
 
-### J12. Levelled WAGOLL ladder ("bump it up") for Japanese writing   QUEUED
-Status: QUEUED — Liam's call, 2026-08-18: build this as its own PoC app, not
-inside the grammar hub. Can start on placeholder content; Andrew's models
-(Q9) replace it later without touching the engine.
+### J12. Levelled WAGOLL ladder ("bump it up") for Japanese writing   PoC SHIPPED (2026-08-18)
+Status: **Wall + print view shipped** — `apps/level-up/`, live at `/levelup/`.
+The task chosen is 自己しょうかい, because it is the one task the program asks
+for in every year: nine rungs (F–2, 3–4, 5–6, then each year 7 to 12), four
+set phrases at the bottom and a hedged argument at the top. Five proposed
+criteria, each on three channels (colour, underline style, glyph); compare
+mode against the rung above; ふりがな and English toggles; print gives one
+rung per A4 page. Content is a fictional composite, and both the criteria
+(Q17) and the model answers await Andrew.
+Still open from the original spec: the teacher-facing mark-up tool (a
+teacher pasting their own model and tagging phrases), `#ex=` URL sharing,
+and the assemble-your-own task built from collected moves.
 What: Port the pattern Liam already runs in Year 7 Humanities and in the ELC
 analytical-writing WAGOLL — **the same task answered at every level of a
 ladder**, so a student sees the rung they are on and the rung above, and

@@ -10,6 +10,7 @@ from the public repo `liaminhawai-cmd/japanese-hub` via GitHub Pages:
 | https://liaminhawai-cmd.github.io/japanese-hub/words/ | Word Lab (kanji families) — PoC, Q5 |
 | https://liaminhawai-cmd.github.io/japanese-hub/oral/ | Oral practice player (47 questions + audio) — PoC, Q1 |
 | https://liaminhawai-cmd.github.io/japanese-hub/writing/ | Writing Wall (marked-up model text) — PoC, Q9 |
+| https://liaminhawai-cmd.github.io/japanese-hub/levelup/ | Level Up Wall (one task, nine rungs) — PoC, Q17 |
 
 The repo is named for the whole suite, not just grammar: each new tool gets
 its **own folder** (`/oral/`, `/topics/`, `/writing/`, `/kanji/`) plus a card
@@ -29,8 +30,8 @@ when in doubt, the URL wins.
   one folder per tool (`grammar/` holds `index.html`, `engine.js`,
   `tasktypes.js`, `data/skills.js`; the PoC folders `words/`, `oral/`
   (+ its `audio/`), `writing/` are each a single `index.html` copied from
-  this repo's `apps/`). Because it's public: no teaching materials, no
-  textbook scans, no
+  this repo's `apps/`; `levelup/` likewise). Because it's public: no
+  teaching materials, no textbook scans, no
   student anything, no internal links, ever. Item content itself must be
   original or paraphrased, not copied from copyrighted texts (see Q7).
 
@@ -48,7 +49,7 @@ when in doubt, the URL wins.
 5. Spot-check the live URL (hard refresh) and confirm the build tag.
 
 PoC apps deploy the same way: copy `apps/<name>/index.html` verbatim to the
-matching live folder (`words/`, `oral/`, `writing/`). The oral player also
+matching live folder (`words/`, `oral/`, `writing/`, `levelup/`). The oral player also
 needs `audio/qa-01.mp3 … qa-47.mp3` copied to `oral/audio/` once (they
 rarely change). (The favicon line previously noted as live-only is now in
 both copies of `grammar/index.html`.)

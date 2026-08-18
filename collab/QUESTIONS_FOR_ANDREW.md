@@ -202,10 +202,17 @@ those don't transfer to Japanese. The VCE Japanese equivalent is probably
 something like task fulfilment, structure and coherence, range of language,
 accuracy, and register — but that's a guess, and guesses are exactly what
 this file exists to prevent.
-**Ask:** Name the 4–6 things you actually mark a piece of Japanese writing
+**There is now a working proof of concept to react to:**
+https://liaminhawai-cmd.github.io/japanese-hub/levelup/ — 自己しょうかい
+answered at nine rungs from Prep to Year 12, with five *proposed*
+criteria: the frame (型), what you say (情報), joining ideas (つなぐ),
+grammar reached for (ぶんぽう), and who you are talking to (相手).
+**Ask:** Open the link and use the rung rail. Do those five name the right
+things? Name the 4–6 you actually mark a piece of Japanese writing
 against, in the words you'd say to a student. If you use the VCAA criteria
 verbatim, say so and we'll use those; if you have a rubric sheet, drop it
-in `inbox/`.
+in `inbox/`. Second question while you are there: are the nine model
+answers accurate, and is each one pitched at the right year?
 
 ### Q16. The language lever: does any student need English that *stays*?
 **Context:** The whole site is now Japanese-first. Any text can be pulled
