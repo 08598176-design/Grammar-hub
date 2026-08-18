@@ -79,16 +79,21 @@ single card shadow already defined.
 
 ## 5. Content rules (for the content lane)
 
-- **Canonical mapping is the marking grid.** 4 bands: C1, C2, C3, C4/C4+. 8 progression
-  strands + 2 pools. Do not re-add a separate C4+ column. Do not move a skill to a
-  different band than the grid without changing the grid and the pretest first.
-- Every item needs `tags`. In a bundled cell (e.g. Present Simple/Continuous) tag which
-  sub-skill each item targets so the report can diagnose the half that was missed.
+- **Canonical mapping is the band ladder in `data/skills.js`** (`window.BANDS`,
+  currently Band 1–4; being renamed to a shared F–10 ↔ VCE ladder — see SPEC §3
+  and Q2 in collab/QUESTIONS_FOR_ANDREW.md). Do not move a skill to a different
+  band without a Decision Log entry. Never two skill nodes with the same
+  category + band (the matrix can only render one).
+- In a bundled cell (e.g. て-form I covering sequence/request/progressive) tag
+  which sub-skill each item targets (`tags`) so the report can diagnose the
+  part that was missed. (Tag support lands with the engine port, job J2.)
 - `identify`: exactly one defensible answer. No distractor may also be arguable.
-- `gapfill`: `accept` must list every valid answer, lowercase, including contractions
-  (`will go` AND `ll go`) and reasonable spellings.
-- AU spelling. No em dashes in any learner-facing text.
-- EAL Year 7 register: short, concrete, classroom-safe. Vary subjects and verbs.
+- `gapfill`: `accept` must list every valid answer a student could reasonably
+  type — kana AND common kanji spellings (`["よんで","読んで"]`).
+- Instructions/options/explanations in English; Japanese only in sentences,
+  particles and cues. Off-list kanji: avoid, or add furigana via `<ruby>`.
+- AU spelling in English text. No em dashes in any learner-facing text.
+- Classroom-safe register; vary subjects and verbs across items.
 - Before committing a content batch, run the sanity check (README) and confirm
   `key problems: 0`.
 

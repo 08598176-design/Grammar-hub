@@ -1,0 +1,184 @@
+# SPEC.md — Japanese Grammar Hub (reconstructed)
+
+> The original SPEC.md from the ELC Grammar Hub did not survive the fork, but
+> README.md and DESIGN_RULES.md still refer to it. This is a reconstruction
+> written **from the actual code as it stands** (index.html, engine.js,
+> tasktypes.js, data/skills.js as of Aug 2026). Where the Japanese hub has
+> diverged from the ELC original, this document describes the Japanese hub.
+> Open questions that need Andrew's decision are marked **[DECISION NEEDED]**
+> and mirrored in `collab/QUESTIONS_FOR_ANDREW.md`.
+
+---
+
+## 1. What this is
+
+A zero-dependency, offline-capable practice hub for Japanese grammar.
+Students pick cells from a progression matrix, drill them in a mastery loop,
+and get a first-try report they can copy to the teacher. Plain HTML + JS,
+`window` globals, no build step, opens by double-click.
+
+Screen flow: **select → task → report** (three `<section class="screen">`
+blocks in index.html; the engine toggles `.active`).
+
+## 2. File architecture (load order matters)
+
+```
+index.html       markup + all CSS + design tokens. Loads the three scripts in order:
+data/skills.js   ALL content → window.SKILLS, window.BANDS, window.CATEGORIES, window.POOLS
+tasktypes.js     task-type registry → window.TASK_TYPES
+engine.js        matrix, drill loop, mastery rounds, scoring, report. Content-agnostic.
+```
+
+The lane rule in DESIGN_RULES.md §0 applies: a commit touches one of these
+lanes only.
+
+## 3. The grid (current state)
+
+- `window.BANDS = ["Band 1","Band 2","Band 3","Band 4"]` — matrix columns.
+- `window.CATEGORIES` — 16 matrix rows (Core Particles, て-form I/II,
+  た/たら/たり, Verb Stem forms, Plain Form + Expressions I/II, ない-form,
+  Extent, Conjunctions, Nominalisers, Sentence-Final Particles, Miscellaneous,
+  Core Particles Harder, Persuasive & Evaluative, Comparative & Analytical).
+- `window.POOLS = ["Reading Practice","Topic Vocabulary"]` — rendered as card
+  lists **below** the matrix, not band-tracked.
+- The engine renders one cell per `category × band`; it finds **the first**
+  skill matching both (`SKILLS.find`), so **do not create two skill nodes with
+  the same category and band** — the second is unreachable from the matrix.
+- A cell with no matching skill, or a skill with `introduced:false`, renders
+  greyed with a dash. A skill with `items:[]` renders as `0` (exists, no
+  content yet).
+
+**[DECISION NEEDED]** What the bands mean. Right now "Band 1–4" is implicit
+(roughly: early → VCE Units 3&4). For the combined 10/11/12 class the bands
+should probably be named so both curricula map onto them (e.g. Band 1 ≈ F–10
+Levels 7–8, Band 2 ≈ Levels 9–10 / VCE U1&2 entry, Band 3 ≈ VCE U1&2,
+Band 4 ≈ VCE U3&4). Only Andrew can rule on this mapping. Renaming bands is a
+one-line change in skills.js plus updating each skill's `band` string.
+
+## 4. Skill node schema
+
+```js
+{
+  id: "te-form-b2-core",        // unique, kebab-case, stable once published
+  category: "て-form I",        // must match an entry in CATEGORIES or POOLS
+  band: "Band 2",               // must match an entry in BANDS (pools may use any label)
+  name: "Sequence, Request, Progressive",   // shown in the cell and reports
+  example: "手を洗って、ご飯を食べます。",     // representative sentence (not currently rendered)
+  introduced: true,             // false → greyed cell
+  mode: "progression",          // informational; pools vs progression is decided by category
+  assessed: true,               // informational
+  resources: null,              // or { video:"url", sheets:[{name,url}] } → live links in report
+  items: [ ... ]                // the question bank for this cell
+}
+```
+
+## 5. Task-type interface
+
+Each entry in `window.TASK_TYPES` implements:
+
+```
+render(item)          -> html string for #taskArea (reuse existing CSS classes)
+wire(area)            -> attach listeners; dispatch "gh:ready" (bubbles) once an
+                         answer exists, "gh:submit" on Enter
+collect(area)         -> the current response, or null if nothing entered
+check(item, response) -> { correct: bool, expected: string }
+mark(area, item, res) -> paint correct/incorrect state onto the inputs
+label                 -> string used by the task-type filter buttons
+```
+
+Implemented: **identify** (MCQ; options shuffled per render) and **gapfill**
+(typed answer; `accept` array of valid strings). The engine falls back to
+`TASK_TYPES.produce` for unknown types — that stub must keep existing.
+
+The select screen's filter row is hard-coded to `["all","identify","gapfill"]`
+in `buildTypeFilter()` (engine.js). Adding a task type currently requires
+adding it to that list too — this is the one place the lane rule leaks;
+flag it in the commit when it happens.
+
+Planned/possible types (stubs not yet written): `choose`, `order` (particle /
+word ordering — a natural fit for Japanese), `transform` (conjugation drills),
+`listen` (play an mp3 from `audio/`, answer a question), `produce`.
+
+## 6. Item schemas (the two live types)
+
+```js
+// identify — MCQ over a highlighted feature in a sentence
+{ type:"identify",
+  prompt:"What is て doing here?",
+  sentence:"手を<b>洗って</b>、ご飯を食べます。",   // <b> = the target; <ruby> allowed for furigana
+  options:["sequence (do X, then Y)", ...],        // exactly one defensible answer
+  answer:"sequence (do X, then Y)",                // must appear verbatim in options
+  explain:"て links two actions in order..." }
+
+// gapfill — type the missing form
+{ type:"gapfill",
+  prompt:"Change to the te-form",
+  before:"まどを", after:"ください。",              // rendered around the input
+  cue:"あける",                                    // dictionary-form cue under the gap
+  accept:["あけて"],                               // EVERY valid answer: kana AND common kanji forms
+  explain:"る-verbs drop る and add て。..." }
+```
+
+Conventions already in the bank (keep them):
+- Instructional text (prompts, options, explanations) in **English**; Japanese
+  only in sentences, particles and cues. "Hints in English, language content
+  in Japanese."
+- `accept` lists both kana and kanji spellings where students could reasonably
+  type either (e.g. `["よんで","読んで"]`).
+- Kanji beyond the prescribed VCE list is avoided or given furigana via
+  `<ruby>…<rt>…</rt></ruby>`; where a kanji is off-list, the explain note says
+  so (see を通して item).
+- AU spelling in English text. No em dashes in learner-facing text.
+
+**[DECISION NEEDED]** Typed-input policy: must students type in Japanese IME,
+or should romaji input be auto-converted/accepted at lower bands? Affects
+`gapfill.accept` and possibly a helper in tasktypes.js.
+
+## 7. Engine behaviour (what content authors can rely on)
+
+- **Mastery loop:** round 1 runs every selected item shuffled; items answered
+  wrong queue for mastery rounds until each item has been correct once.
+- **Scoring:** first-ever attempt per item is the score (`firstPass`); total
+  attempts tracked separately.
+- **Report:** big first-try stat, per-skill breakdown (100% green / ≥50%
+  amber / else red), "Practise next" list of sub-100% skills with links if
+  `resources` is populated, and **Copy teacher results** (plain-text export
+  including a full item log: round, type, response, result).
+- No persistence. Closing the tab loses the run. (localStorage is allowed on
+  the deployed site only — DESIGN_RULES.md §7 — but is not implemented.)
+
+## 8. Content that exists outside the app (not yet wired in)
+
+- `audio/qa-01.mp3 … qa-47.mp3` + `generate-audio.js`: TTS audio for a
+  47-question Oral Exam Q&A set (Tier 1: 1–15, Tier 2: 16–30, Tier 3: 31–47).
+  The question text lives in `generate-audio.js`. **Nothing in the app plays
+  these yet** — the Oral Exam section they belong to exists only in a newer
+  local build (`vce-grammar-hub-test_17` lineage). See
+  `collab/QUESTIONS_FOR_ANDREW.md` before rebuilding it from scratch.
+- `Unit 10 Abilities and preferences/` — a fully differentiated Year 9-10
+  topic unit (readings at MODIFIED / INTERMEDIATE / ADVANCED tiers, plain-form
+  grammar, jobs vocab). Prime source material for future topic modules.
+- `2019JapaneseSLSD.pdf` — VCE Japanese SL study design (prescribed grammar &
+  kanji lists live here).
+- `Japanese F–10 Sequence...docx` — the other curriculum the combined class
+  straddles.
+
+## 9. Sanity check (run before every content commit)
+
+```bash
+node -e 'global.window={};require("./data/skills.js");require("./tasktypes.js");
+const S=window.SKILLS,T=window.TASK_TYPES;let n=0,bad=0;
+S.forEach(s=>s.items.forEach((it,i)=>{n++;const p=it.type==="identify"?it.answer:it.accept[0];
+if(!T[it.type].check(it,p).correct){bad++;console.log("BAD",s.id,i,it.type)}}));
+console.log("items",n,"problems",bad)'
+```
+
+Must print `problems 0`. (246 items, 0 problems as of this writing.)
+
+Also check: no duplicate `category`+`band` pair across skill nodes (§3).
+
+## 10. Roadmap
+
+Lives in `collab/PROPOSAL.md` (phases) and `collab/JOBS_FOR_LIAM.md`
+(actionable build queue). This file stays descriptive: update it **in the same
+commit** as any change to a schema, token, or interface it describes.
