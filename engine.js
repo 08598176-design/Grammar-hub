@@ -175,6 +175,9 @@
           el.title = prev
             ? `${yearsLabel}, ${n} items. Builds on: ${prev.title}. Picking this one brings that along as review.`
             : `${yearsLabel}, ${n} items. The first step in this row.`;
+          if (chunk.needs && chunk.needs.length) {
+            el.title += ` Also builds on ${chunk.needs.join("; ")}.`;
+          }
           el.setAttribute("aria-label", `${strand}: ${chunk.title}. ${el.title}`);
           el.addEventListener("click", () => {
             const on = !chunkSelected(chunk);
