@@ -46,12 +46,18 @@ than primary (if so, VCAA's separate 7–10 Sequence, not the F–10 one, is
 the governing document and the placements shift — we don't have that file)?
 May the word "VCE" stay visible on a student's screen?
 
-### Q3. Are the 13 strands the right systems, and is the primary content usable?
-**Context:** Strands were consolidated to one row per grammatical system:
-Script, Everyday Language, Sentences, Particles, Questions, Comparing,
-Verb Forms, Verb Endings, Past and If, Can and Must, Joining Ideas,
-Reporting and Guessing, Analysing and Persuading. Three tag-alongs from
-the consolidation need your eye: とき sits in Reporting and Guessing,
+### Q3. Are the 14 strands the right systems, and is the primary content usable?
+**Context:** One row per grammatical system: Script, Requests and
+Politeness, Counting and Time, Sentences, Particles, Questions, Amounts
+and Comparing, Verb Forms, Verb Endings, Past and If, Can and Must,
+Joining Ideas, Reporting and Guessing, Analysing and Persuading.
+Two design calls to check: (a) Requests and Politeness is the
+directive/register ladder — greetings (F–2) → 〜てください as a set
+phrase (3–4) → introductions (5–6) → てもいい・てはいけない (8), with the
+て-form itself analysed in Verb Forms at 7–8 and the tooltip naming the
+formulaic-to-analytic link. (b) Counting and Time treats counters and
+temporal expressions as one classifier/temporal system. Three
+tag-alongs also need your eye: とき sits in Reporting and Guessing,
 というNoun in Past and If, の・こと nominalising in Can and Must. The
 Prep–Year 8 cells (108 items: script, greetings, これはXです, numbers,
 counters) are proposed content — only the Script strand's sequence is
@@ -171,6 +177,13 @@ Paragraphs/Argument: only beyond the VCE list."
 ## Decision log
 
 *(newest first — record: date · question · Andrew's decision)*
+
+- **2026-08-18 (Liam):** "Everyday Language is not a grammar category" —
+  dissolved into **Counting and Time** (numeral classifiers + temporal
+  system) and **Requests and Politeness** (directives/register, absorbing
+  てもいい・てはいけない from Verb Forms). Every strand is now a grammatical
+  system; chunks may carry cross-strand `needs` links shown in tooltips
+  ("where a skill builds naturally we should show that"). 14 strands.
 
 - **2026-08-18 (Liam):** Strands consolidated to **13 grammatical systems**
   (one row per system, the English hub's Tenses/Modality/Questions logic):
