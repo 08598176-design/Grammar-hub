@@ -94,3 +94,23 @@ continuum-style 'I can' statements, not curriculum band codes (Liam's decision, 
 - QUALITY FLAG for Andrew (Q14): some statements look aspirational rather than realistic
   (e.g. Year 11 'translate ... legal texts, and technical manuals'). The hub will quote the
   continuum as-is; if a statement is wrong, fix the continuum, then the hub follows.
+## VC1 vs VC2 strand mismatch (noted 2026-08-18, after Liam's VCAA uploads)
+
+The continuum's Japanese strands (Socialising, Informing, Creating, Translating,
+Reflecting, Systems of Language, Language Variation and Change, Role of Language
+and Culture) are the **Version 1.0** sub-strands. Victorian Curriculum **2.0**
+Japanese (the current F-10 sequence, in this repo) restructures these into 5
+sub-strands under 2 strands (+ an F-2 entry strand):
+
+- Communicating Meaning in Japanese: **Interacting in Japanese** ·
+  **Mediating meaning in and between languages** · **Creating text in Japanese**
+- Understanding Language and Culture: **Understanding systems of language** ·
+  **Understanding the interrelationship of language and culture**
+- (F-2 only) Engaging with Japanese Language and Culture: Engaging with
+  Japanese language · Engaging with Japanese culture
+
+The VCAA mapping between old and new lives in `VC2_COMPARISON.md`. Impact on
+the hub: the grammar skills sit under "Understanding systems of language"
+(VC1: "Systems of language" — effectively the same strand), so the build is
+largely unaffected; only the strand labels shown in the year-level view depend
+on Q15.
