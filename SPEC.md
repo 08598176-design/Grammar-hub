@@ -86,18 +86,24 @@ mark(area, item, res) -> paint correct/incorrect state onto the inputs
 label                 -> string used by the task-type filter buttons
 ```
 
-Implemented: **identify** (MCQ; options shuffled per render) and **gapfill**
-(typed answer; `accept` array of valid strings). The engine falls back to
-`TASK_TYPES.produce` for unknown types — that stub must keep existing.
+Implemented: **identify** (MCQ; options shuffled per render), **gapfill**
+(typed answer), **transform** (typed conjugation/rewrite), **order**
+(word/particle tiles into sequence), and a **produce** stub (the engine's
+fallback for unknown types — renders a note instead of crashing; must keep
+existing).
 
-The select screen's filter row is hard-coded to `["all","identify","gapfill"]`
-in `buildTypeFilter()` (engine.js). Adding a task type currently requires
-adding it to that list too — this is the one place the lane rule leaks;
-flag it in the commit when it happens.
+Typed answers (gapfill, transform) are compared via `normJa()`: NFKC
+normalisation, all spaces removed (incl. full-width), trailing punctuation
+forgiven, Latin lowercased. Kana vs kanji is **not** unified — `accept`
+lists still spell out both.
 
-Planned/possible types (stubs not yet written): `choose`, `order` (particle /
-word ordering — a natural fit for Japanese), `transform` (conjugation drills),
-`listen` (play an mp3 from `audio/`, answer a question), `produce`.
+The select screen's filter row is **derived from the content**: any type
+that appears in an item and exists in the registry gets a filter button
+automatically. Adding a task type no longer requires an engine edit.
+
+Planned/possible types: `choose`, `listen` (play an mp3 from `audio/`,
+answer a question — see J1), `match`, `clickword` (reference implementations
+in Bone-Sparrow's GrammarHuboffline).
 
 ## 6. Item schemas (the two live types)
 
@@ -117,6 +123,28 @@ word ordering — a natural fit for Japanese), `transform` (conjugation drills),
   cue:"あける",                                    // dictionary-form cue under the gap
   accept:["あけて"],                               // EVERY valid answer: kana AND common kanji forms
   explain:"る-verbs drop る and add て。..." }
+
+// transform — type the whole transformed form from a source stimulus
+{ type:"transform",
+  prompt:"Change to the て-form",
+  sentence:"たべる (to eat)",                      // the source form shown large
+  accept:["たべて","食べて"],
+  explain:"る-verbs (ichidan) drop る and add て。たべる → たべて" }
+
+// order — tap tiles into sequence (particle placement, verb-final order)
+{ type:"order",
+  prompt:"Build the sentence: (I) read a book.",
+  words:["ほん","を","よみます"],                  // tiles, listed in A correct order; display shuffles
+  answer:"ほんをよみます",                          // spacing never matters (normJa strips it)
+  accept:[],                                       // optional: other orderings Japanese genuinely allows
+  explain:"The object takes を and the verb goes last: ほんを よみます。" }
+```
+
+Any item may also carry `tags:["sub-skill"]`. In a bundled cell, tag which
+sub-skill each item targets; when a skill's items span more than one tag,
+the teacher exports break the skill's score down per tag.
+
+```js
 ```
 
 Conventions already in the bank (keep them):
@@ -142,8 +170,12 @@ or should romaji input be auto-converted/accepted at lower bands? Affects
   attempts tracked separately.
 - **Report:** big first-try stat, per-skill breakdown (100% green / ≥50%
   amber / else red), "Practise next" list of sub-100% skills with links if
-  `resources` is populated, and **Copy teacher results** (plain-text export
-  including a full item log: round, type, response, result).
+  `resources` is populated, and three teacher exports: **Copy teacher
+  results** (plain text incl. full item log), **Download CSV**
+  (name,date,category,band,skill,sub_skill,first_try,out_of — with per-tag
+  sub-rows; UTF-8 BOM so Excel renders the Japanese), and **Copy row for
+  sheet** (TSV header+row for pasting into a marks spreadsheet). An optional
+  name field feeds the exports; nothing is stored.
 - No persistence. Closing the tab loses the run. (localStorage is allowed on
   the deployed site only — DESIGN_RULES.md §7 — but is not implemented.)
 
@@ -168,12 +200,14 @@ or should romaji input be auto-converted/accepted at lower bands? Affects
 ```bash
 node -e 'global.window={};require("./data/skills.js");require("./tasktypes.js");
 const S=window.SKILLS,T=window.TASK_TYPES;let n=0,bad=0;
-S.forEach(s=>s.items.forEach((it,i)=>{n++;const p=it.type==="identify"?it.answer:it.accept[0];
+S.forEach(s=>s.items.forEach((it,i)=>{n++;
+const p=(it.answer!==undefined)?it.answer:it.accept[0];
 if(!T[it.type].check(it,p).correct){bad++;console.log("BAD",s.id,i,it.type)}}));
 console.log("items",n,"problems",bad)'
 ```
 
-Must print `problems 0`. (246 items, 0 problems as of this writing.)
+(The model answer is `answer` where the item has one — identify, order —
+otherwise `accept[0]`.) Must print `problems 0`.
 
 Also check: no duplicate `category`+`band` pair across skill nodes (§3).
 

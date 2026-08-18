@@ -113,6 +113,20 @@
   .option.correct{background:var(--okbg);border-color:var(--correct);color:var(--correct)}
   .option.incorrect{background:var(--badbg);border-color:var(--wrong);color:var(--wrong)}
   @media(max-width:480px){.options{grid-template-columns:1fr}}
+  /* ---- order (tap word/particle tiles between bank and sentence line) ---- */
+  .order-line{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center;min-height:54px;
+       padding:12px;border:2px dashed var(--line);border-radius:10px;background:var(--bg);margin:6px 0}
+  .order-line.correct{border-style:solid;border-color:var(--correct);background:var(--okbg)}
+  .order-line.incorrect{border-style:solid;border-color:var(--wrong);background:var(--badbg)}
+  .order-placeholder{color:var(--muted);font-size:13px;font-weight:600}
+  .order-bank{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px 0}
+  .order-word{padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:var(--paper);
+       color:var(--ink);font-size:18px;font-weight:700;cursor:pointer;transition:all .15s ease}
+  .order-word:hover:not(:disabled){border-color:var(--accent)}
+  .order-word.in-line{border-color:var(--accent);background:#faf5f0}
+  .order-word:disabled{cursor:default;opacity:.9}
+  .order-hint{font-size:12px;color:var(--muted);text-align:center;margin-top:4px}
+
   .feedback{font-size:14px;line-height:1.5;margin-top:14px;padding:14px;border-radius:10px;min-height:20px;color:var(--muted)}
   .feedback.good{background:var(--okbg);color:#234e2c}
   .feedback.bad{background:var(--badbg);color:#7a2020}
@@ -136,6 +150,14 @@
   .remed-row a{color:var(--accent);margin-right:8px}
   .report-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px}
   #copyNote{text-align:center;font-size:12px;color:var(--muted);margin-top:8px;min-height:14px}
+  .name-row{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:16px;font-size:13px;color:var(--muted)}
+  .name-input{font-family:inherit;font-size:14px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;
+       background:var(--paper);color:var(--ink);min-width:180px}
+  .name-input:focus{outline:none;border-color:var(--accent)}
+
+  /* always-on build marker, faint bottom-left (canonical version = the live site) */
+  .build-tag{position:fixed;left:6px;bottom:5px;z-index:70;font-family:monospace;font-size:9px;
+       letter-spacing:.3px;color:var(--muted);opacity:.45;pointer-events:none;user-select:none}
 </style>
 </head>
 <body>
@@ -194,14 +216,21 @@
     <div id="reportSummary"></div>
     <div id="reportSkills"></div>
     <div id="reportRemediation"></div>
+    <div class="name-row">
+      <label for="studentName">Name for the report:</label>
+      <input type="text" id="studentName" class="name-input" autocomplete="off" placeholder="optional">
+    </div>
     <div class="report-actions">
       <button class="btn btn-ghost" id="copyBtn">Copy teacher results</button>
+      <button class="btn btn-ghost" id="downloadCsvBtn">Download CSV</button>
+      <button class="btn btn-ghost" id="copyTsvBtn">Copy row for sheet</button>
       <button class="btn btn-ghost" id="reviewBtn">Run again</button>
       <button class="btn btn-primary" id="restartBtn">New selection</button>
     </div>
     <div id="copyNote"></div>
   </section>
 </div>
+<div class="build-tag" aria-hidden="true">JGH build 2026-08-18</div>
 
 <!-- load order matters: content, then task types, then engine -->
 <script src="data/skills.js"></script>

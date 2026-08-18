@@ -134,7 +134,14 @@
 
   function buildTypeFilter() {
     const wrap = $("typeFilter");
-    const types = ["all", "identify", "gapfill"];
+    // Derived from the content, so a new task type appears in the filter
+    // the moment an item uses it — no engine edit needed (closes the lane
+    // leak noted in SPEC §5). Order follows first appearance in the bank.
+    const present = [];
+    window.SKILLS.forEach((s) => s.items.forEach((it) => {
+      if (window.TASK_TYPES[it.type] && !present.includes(it.type)) present.push(it.type);
+    }));
+    const types = ["all"].concat(present);
     wrap.innerHTML = types.map((t) =>
       `<button class="filter-btn${t === typeFilter ? " active" : ""}" data-t="${t}">${t === "all" ? "All tasks" : window.TASK_TYPES[t].label}</button>`
     ).join("");
@@ -209,7 +216,7 @@
     if (result.correct) correctEver[entry.uid] = true;
 
     log.push({ round, skill: entry.skillName, type: entry.item.type,
-               stimulus: stripTags(entry.item.sentence || (entry.item.before + " ___ " + entry.item.after)),
+               stimulus: stimulusOf(entry.item),
                response, result: result.correct ? "correct" : "incorrect" });
 
     const fb = $("feedback");
@@ -257,13 +264,19 @@
       `<div class="stat-label">correct first try</div>` +
       `<p class="muted">Mastered all ${total} after ${totalAttempts} total attempt${totalAttempts === 1 ? "" : "s"}.</p>`;
 
-    // per-skill breakdown
+    // per-skill breakdown, with per-tag sub-rows where items carry `tags`
     const bySkill = {};
     pool.forEach((e) => {
-      bySkill[e.skillId] = bySkill[e.skillId] || { name: e.skillName, cat: e.category, band: e.band, total: 0, right: 0 };
-      bySkill[e.skillId].total++;
-      if (firstPass[e.uid]) bySkill[e.skillId].right++;
+      const s = bySkill[e.skillId] = bySkill[e.skillId] || { name: e.skillName, cat: e.category, band: e.band, total: 0, right: 0, tags: {} };
+      s.total++;
+      if (firstPass[e.uid]) s.right++;
+      (e.item.tags || []).forEach((tag) => {
+        const t = s.tags[tag] = s.tags[tag] || { right: 0, total: 0 };
+        t.total++;
+        if (firstPass[e.uid]) t.right++;
+      });
     });
+    lastReport = { bySkill, firstRight, total };
     let rows = Object.values(bySkill).map((s) => {
       const pct = Math.round((s.right / s.total) * 100);
       const cls = pct === 100 ? "ok" : pct >= 50 ? "mid" : "low";
@@ -298,11 +311,18 @@
   }
 
   let teacherText = "";
+  let lastReport = null;
   function buildTeacherExport(firstRight, total, totalAttempts, bySkill) {
-    let t = `GRAMMAR HUB — Teacher results\n`;
+    let t = `JAPANESE GRAMMAR HUB — Teacher results\n`;
+    const name = studentName();
+    if (name) t += `Student: ${name}\n`;
     t += `First try: ${firstRight}/${total}   Total attempts: ${totalAttempts}\n\n`;
     t += `By skill (first try):\n`;
-    Object.values(bySkill).forEach((s) => { t += `  ${s.band ? s.cat + " · " + s.band + " · " + s.name : s.cat + " · " + s.name}: ${s.right}/${s.total}\n`; });
+    Object.values(bySkill).forEach((s) => {
+      t += `  ${s.band ? s.cat + " · " + s.band + " · " + s.name : s.cat + " · " + s.name}: ${s.right}/${s.total}\n`;
+      const tags = Object.entries(s.tags || {});
+      if (tags.length > 1) tags.forEach(([tag, x]) => { t += `      - ${tag}: ${x.right}/${x.total}\n`; });
+    });
     t += `\nItem log:\n`;
     log.forEach((r) => { t += `  [r${r.round}] (${r.type}) ${r.skill} — "${r.response}" → ${r.result}\n`; });
     teacherText = t;
@@ -310,9 +330,70 @@
 
   function copyTeacher() {
     if (!teacherText) return;
+    buildTeacherExport(lastReport.firstRight, lastReport.total,
+      Object.values(attempts).reduce((a, b) => a + b, 0), lastReport.bySkill); // refresh: name may have been typed after the report rendered
     navigator.clipboard.writeText(teacherText)
       .then(() => { $("copyNote").textContent = "Copied to clipboard."; })
       .catch(() => { $("copyNote").textContent = "Copy failed — select the report text manually."; });
+  }
+
+  /* ---- CSV / sheet-row exports (ported from the Bone-Sparrow build) ---- */
+  function studentName() {
+    const el = $("studentName");
+    return el ? el.value.trim() : "";
+  }
+  function csvCell(v) {
+    const s = String(v == null ? "" : v);
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  }
+  function todayStr() { return new Date().toISOString().slice(0, 10); }
+
+  function buildCsv() {
+    if (!lastReport) return "";
+    const { bySkill, firstRight, total } = lastReport;
+    const name = studentName(), date = todayStr();
+    let csv = "name,date,category,band,skill,sub_skill,first_try,out_of\n";
+    csv += [name, date, "OVERALL", "", "", "", firstRight, total].map(csvCell).join(",") + "\n";
+    Object.values(bySkill).forEach((s) => {
+      csv += [name, date, s.cat, s.band, s.name, "", s.right, s.total].map(csvCell).join(",") + "\n";
+      const tags = Object.entries(s.tags || {});
+      if (tags.length > 1) tags.forEach(([tag, t]) => {
+        csv += [name, date, s.cat, s.band, s.name, tag, t.right, t.total].map(csvCell).join(",") + "\n";
+      });
+    });
+    return csv;
+  }
+  function buildTsvRow() {
+    if (!lastReport) return "";
+    const { bySkill, firstRight, total } = lastReport;
+    const header = ["name", "date", "first_try", "out_of"].concat(Object.values(bySkill).map((s) => `${s.cat} ${s.band || ""}`.trim()));
+    const values = [studentName(), todayStr(), firstRight, total].concat(Object.values(bySkill).map((s) => `${s.right}/${s.total}`));
+    return header.join("\t") + "\n" + values.join("\t");
+  }
+  function downloadCsv() {
+    const csv = buildCsv(); if (!csv) return;
+    const safe = (studentName().replace(/[^a-z0-9]+/gi, "-").toLowerCase() || "student");
+    const filename = `japanese-hub-${safe}-${todayStr()}.csv`;
+    try {
+      const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" }); // BOM so Excel reads the Japanese as UTF-8
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = filename; a.style.display = "none";
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => { a.remove(); URL.revokeObjectURL(url); }, 3000);
+      $("copyNote").textContent = "CSV downloaded.";
+    } catch (e) {
+      navigator.clipboard.writeText(csv)
+        .then(() => { $("copyNote").textContent = "Download blocked — CSV text copied to clipboard instead. Paste into a text file and save as .csv."; })
+        .catch(() => { $("copyNote").textContent = "Download failed. Use 'Copy row for sheet' instead."; });
+    }
+  }
+  function copyTsv() {
+    const tsv = buildTsvRow(); if (!tsv) return;
+    navigator.clipboard.writeText(tsv)
+      .then(() => { $("copyNote").textContent = "Row copied — paste into your sheet."; })
+      .catch(() => { $("copyNote").textContent = "Copy failed — try Download CSV instead."; });
   }
 
   /* ---------------- helpers ---------------- */
@@ -324,6 +405,13 @@
     return arr;
   }
   function stripTags(s) { return (s || "").replace(/<[^>]*>/g, ""); }
+  // One readable line per item shape, for the teacher log.
+  function stimulusOf(item) {
+    if (item.sentence) return stripTags(item.sentence);
+    if (item.before !== undefined || item.after !== undefined) return stripTags((item.before || "") + " ___ " + (item.after || ""));
+    if (item.words) return item.words.join(" / ");
+    return stripTags(item.prompt || "");
+  }
   function escapeHtmlE(s) { return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
   /* ---------------- boot ---------------- */
@@ -353,6 +441,8 @@
     $("quitBtn").addEventListener("click", () => show("select"));
 
     $("copyBtn").addEventListener("click", copyTeacher);
+    $("downloadCsvBtn").addEventListener("click", downloadCsv);
+    $("copyTsvBtn").addEventListener("click", copyTsv);
     $("reviewBtn").addEventListener("click", () => { startSession(); }); // re-run same selection
     $("restartBtn").addEventListener("click", () => show("select"));
   });

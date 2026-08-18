@@ -51,7 +51,8 @@ Unit 10 .../        a tiered Year 9–10 topic unit (source material for topic m
 ## Adding content (no code needed)
 
 1. Open `data/skills.js`, find the skill node (e.g. `te-form-b2-core`).
-2. Add items to its `items:[]` array using the shapes in `SPEC.md` §6.
+2. Add items to its `items:[]` array using the shapes in `SPEC.md` §6
+   (identify, gapfill, transform, order).
 3. Run the sanity check (`SPEC.md` §9) — it must print `problems 0`.
 4. Reload `index.html` and click through your new items before committing.
 
