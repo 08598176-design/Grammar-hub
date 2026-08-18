@@ -193,6 +193,69 @@ Done when: Andrew can mark up and share one model 400-ji piece.
 Model: Opus (port of a complex reference app).
 Size: M
 
+### J12. Levelled WAGOLL ladder ("bump it up") for Japanese writing   QUEUED
+Status: QUEUED — Liam's call, 2026-08-18: build this as its own PoC app, not
+inside the grammar hub. Can start on placeholder content; Andrew's models
+(Q9) replace it later without touching the engine.
+What: Port the pattern Liam already runs in Year 7 Humanities and in the ELC
+analytical-writing WAGOLL — **the same task answered at every level of a
+ladder**, so a student sees the rung they are on and the rung above, and
+what exactly changes between them. Two views over ONE content file:
+1. **The wall** (`bump-it-up.html` pattern): every level's worked answer on
+   one scrolling page, marked up phrase by phrase.
+2. **Level anchor sheets** (`level-sheets.html` pattern): one printable A4
+   sheet per level — worked example, "what each marked phrase proves", and
+   that level's continuum descriptors, with the type auto-scaled so a short
+   level still fills its page.
+Reference implementations (Liam's, public):
+- https://liaminhawai-cmd.github.io/Year-7-Humanities-Pages/history/batman/bump-it-up.html
+- https://liaminhawai-cmd.github.io/Year-7-Humanities-Pages/history/batman/level-sheets.html
+- Bone-Sparrow: `EAL analytical writing WAGOLL .pdf` (the analytical-writing
+  version of the same idea, on paper).
+Data contract to copy verbatim (from the humanities `content.js`), because
+both views and any future view read it and nothing else:
+```js
+WALL = { title, task/inquiry, expected: "<the year level this class is in>", foot }
+CRITERIA = [{ key, glyph, name, row }]      // glyph is the second channel
+LEVELS = ["Grade 5","Year 6",…]             // the continuum's own columns
+EARLY_LEVELS = [...]                        // optional access rungs below it
+EXAMPLES[level]      = "prose with {key|marked phrase} spans"
+EXPLANATIONS[level]  = { key: "what that marked phrase proves" }
+CONTINUUM[key][level]= "the I-can descriptor at that level"
+```
+Hard requirements:
+- **Two channels, never colour alone**: each criterion gets a colour AND a
+  line style (solid/dashed/dotted/double/wavy) AND a glyph — the humanities
+  sheet does all three, and DESIGN_RULES §2 requires it here too.
+- Criterion colours must not collide with the hub's correctness hues or the
+  VIC/VCE curriculum axis.
+- Zero dependencies, one self-contained file per view plus the shared
+  content file, same tokens as the rest of the suite, print CSS that
+  actually paginates (`break-after:page`, `print-color-adjust:exact`).
+- Japanese-side additions the humanities version has no need for: the
+  worked examples are Japanese prose, so the marked spans must survive the
+  hub's furigana conventions, and the level ladder is **Prep→Year 12**, i.e.
+  it should share `JP_YEARS`/strand vocabulary rather than inventing a
+  second ladder.
+Decisions this depends on: **Q9** (which writing form first, and 2–3
+teacher-written models per form — no student work), **Q3/Q15** (which
+continuum wording the level rows quote), plus a new question worth asking
+when this starts: what *is* the criterion set for Japanese writing? The
+humanities four (origin/context/interpretations/reliability) do not
+transfer; the VCE Japanese equivalent is likely something like task
+fulfilment / structure / range of language / accuracy / register, and that
+list is Andrew's to name, not ours to invent.
+Why: This is the single most requested pattern from Liam's own teaching —
+it makes "what does better look like" concrete instead of abstract, and it
+is the natural home for the `apps/writing-wall/` PoC's move annotations
+once there is more than one level of them.
+Done when: both views render one full ladder from one content file, the
+print output paginates one level per page, and Andrew can see his own level
+descriptors down the side.
+Model: **Opus** — Liam's explicit call. Port of two linked reference apps
+plus a genuine pedagogy design decision (the criterion set).
+Size: L
+
 ### J7. Purge flagged files from git history   NEEDS-INFO (Q10)
 Status: NEEDS-INFO (Q10) — do not do this without Andrew's explicit go-ahead
 What: Three files are already deleted from the tree but remain in history:

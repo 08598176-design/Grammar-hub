@@ -192,6 +192,21 @@ bands are now named Sentences/Choices/Links/Paragraphs/Argument — see Q2.)
 furigana on everything beyond X; Links: only beyond the Year 10 list;
 Paragraphs/Argument: only beyond the VCE list."
 
+### Q17. What are the criteria for Japanese writing, in your words?
+**Context:** The next writing build (J12) is a levelled WAGOLL ladder: the
+same task answered at every level, each answer marked up phrase by phrase,
+so a student sees the rung above theirs and exactly what changes. It needs
+a criterion set — the marked-up phrase types. Liam's humanities version
+uses four (origin and purpose / context / interpretations / reliability);
+those don't transfer to Japanese. The VCE Japanese equivalent is probably
+something like task fulfilment, structure and coherence, range of language,
+accuracy, and register — but that's a guess, and guesses are exactly what
+this file exists to prevent.
+**Ask:** Name the 4–6 things you actually mark a piece of Japanese writing
+against, in the words you'd say to a student. If you use the VCAA criteria
+verbatim, say so and we'll use those; if you have a rubric sheet, drop it
+in `inbox/`.
+
 ### Q16. The language lever: does any student need English that *stays*?
 **Context:** The whole site is now Japanese-first. Any text can be pulled
 toward English with an elastic lever (page lever and per-section levers) —
