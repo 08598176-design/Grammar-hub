@@ -6,13 +6,18 @@
    vocabulary. See SPEC.md §6.
 
    THE SEQUENCE. window.JP_CHUNKS at the foot of this file is the
-   Prep-to-Year-12 timeline. THIRTEEN STRANDS, one per grammatical
+   Prep-to-Year-12 timeline. FOURTEEN STRANDS, one per grammatical
    system (the same logic as the English hub's Tenses / Modality /
-   Questions rows): Script, Everyday Language, Sentences, Particles,
-   Questions, Comparing, Verb Forms, Verb Endings, Past and If,
-   Can and Must, Joining Ideas, Reporting and Guessing, Analysing
-   and Persuading. A chunk may cover several skill nodes — that is
-   how systems were consolidated without moving any item.
+   Questions rows): Script, Sentences, Particles, Counting and
+   Time, Requests and Politeness, Questions, Amounts and Comparing,
+   Verb Forms, Verb Endings, Past and If, Can and Must, Joining
+   Ideas, Reporting and Guessing, Analysing and Persuading. Every
+   strand is a grammatical system — Counting and Time is the
+   numeral-classifier and temporal system; Requests and Politeness
+   is the directive/register system, where the formulaic 〜てください
+   of Year 3 becomes the analysed て-form of Year 7. A chunk may
+   cover several skill nodes, and may carry needs:[] — the
+   cross-strand prerequisites its tooltip names.
 
    RULES (asserted by the generator): within a strand the year axis
    never contradicts the teaching order, and chunks in a strand
@@ -395,7 +400,7 @@ window.SKILLS = [
   },
 
   {
-    id:"greet-f2", category:"Everyday Language", band:"script",
+    id:"greet-f2", category:"Requests and Politeness", band:"script",
     name:"Everyday greetings",
     example:"おはようございます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -460,7 +465,7 @@ window.SKILLS = [
   },
 
   {
-    id:"greet-y34", category:"Everyday Language", band:"words",
+    id:"greet-y34", category:"Requests and Politeness", band:"words",
     name:"Classroom language and meeting someone",
     example:"はじめまして。どうぞよろしく。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -524,7 +529,7 @@ window.SKILLS = [
   },
 
   {
-    id:"greet-y56", category:"Everyday Language", band:"sentences",
+    id:"greet-y56", category:"Requests and Politeness", band:"sentences",
     name:"Introducing yourself, and choosing how polite to be",
     example:"わたしはエマです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -826,7 +831,7 @@ window.SKILLS = [
   },
 
   {
-    id:"num-y34", category:"Everyday Language", band:"words",
+    id:"num-y34", category:"Counting and Time", band:"words",
     name:"Numbers",
     example:"いち・に・さん",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -890,7 +895,7 @@ window.SKILLS = [
   },
 
   {
-    id:"num-y56", category:"Everyday Language", band:"sentences",
+    id:"num-y56", category:"Counting and Time", band:"sentences",
     name:"Telling the time, and days of the week",
     example:"七時に学校へ行きます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -954,7 +959,7 @@ window.SKILLS = [
   },
 
   {
-    id:"num-y78", category:"Everyday Language", band:"choices",
+    id:"num-y78", category:"Counting and Time", band:"choices",
     name:"Counters, and how often you do something",
     example:"一しゅうかんに三かいおよぎます。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -1121,7 +1126,7 @@ window.SKILLS = [
   },
 
   {
-    id:"te-form-2-choices", category:"Verb Forms", band:"choices",
+    id:"te-form-2-choices", category:"Requests and Politeness", band:"choices",
     name:"てもいい・てはいけない (permission and prohibition)",
     example:"もう帰ってもいいです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2079,7 +2084,7 @@ window.SKILLS = [
   },
 
   {
-    id:"extent-sentences", category:"Comparing", band:"sentences",
+    id:"extent-sentences", category:"Amounts and Comparing", band:"sentences",
     name:"ごろ・ぐらい／くらい (about, roughly)",
     example:"姉は三時ごろ帰ります。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2122,7 +2127,7 @@ window.SKILLS = [
   },
 
   {
-    id:"extent-b3", category:"Comparing", band:"choices",
+    id:"extent-b3", category:"Amounts and Comparing", band:"choices",
     name:"しか・だけ・より・一番 (only, than, the most)",
     example:"車はバスより早いです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -2534,7 +2539,7 @@ window.SKILLS = [
   },
 
   {
-    id:"misc-choices", category:"Comparing", band:"choices",
+    id:"misc-choices", category:"Amounts and Comparing", band:"choices",
     name:"のほう (the softer comparison)",
     example:"バナナよりりんごのほうが好きです。",
     introduced:true, mode:"progression", assessed:true, resources:null,
@@ -3849,11 +3854,12 @@ window.BAND_META = {
 
 window.CATEGORIES = [
   "Script",
-  "Everyday Language",
+  "Requests and Politeness",
+  "Counting and Time",
   "Sentences",
   "Particles",
   "Questions",
-  "Comparing",
+  "Amounts and Comparing",
   "Verb Forms",
   "Verb Endings",
   "Past and If",
@@ -3869,11 +3875,12 @@ window.POOLS = ["Reading Practice","Topic Vocabulary"];
 // "PROGRAM" = school-designed, on neither list.
 window.CATEGORY_META = {
   "Script": { prescribedBy:"VIC" },
-  "Everyday Language": { prescribedBy:"VIC" },
+  "Requests and Politeness": { prescribedBy:"VCE" },
+  "Counting and Time": { prescribedBy:"VIC" },
   "Sentences": { prescribedBy:"VCE" },
   "Particles": { prescribedBy:"VCE" },
   "Questions": { prescribedBy:"VCE" },
-  "Comparing": { prescribedBy:"VCE" },
+  "Amounts and Comparing": { prescribedBy:"VCE" },
   "Verb Forms": { prescribedBy:"VCE" },
   "Verb Endings": { prescribedBy:"VCE" },
   "Past and If": { prescribedBy:"VCE" },
@@ -3893,10 +3900,15 @@ window.JP_CHUNKS = {
     { title:"Choosing the right script", y0:7, y1:8, years:"7–8", covers:["script-y78"] },
     { title:"Kanji compounds and readings", y0:9, y1:10, years:"9–10", covers:["script-y910"] }
   ],
-  "Everyday Language": [
-    { title:"Everyday greetings", y0:0, y1:2, years:"F–2", covers:["greet-f2"] },
-    { title:"Classroom language, and numbers", y0:3, y1:4, years:"3–4", covers:["greet-y34","num-y34"] },
-    { title:"Introducing yourself; time and days", y0:5, y1:6, years:"5–6", covers:["greet-y56","num-y56"] },
+  "Requests and Politeness": [
+    { title:"Greetings and set phrases", y0:0, y1:2, years:"F–2", covers:["greet-f2"] },
+    { title:"Classroom requests: 〜てください", y0:3, y1:4, years:"3–4", covers:["greet-y34"] },
+    { title:"Introducing yourself politely", y0:5, y1:6, years:"5–6", covers:["greet-y56"] },
+    { title:"てもいい・てはいけない (may, must not)", y0:8, y1:8, years:"8", covers:["te-form-2-choices"], needs:["Verb Forms: Making the て-form"] }
+  ],
+  "Counting and Time": [
+    { title:"Numbers", y0:3, y1:4, years:"3–4", covers:["num-y34"] },
+    { title:"Time and days", y0:5, y1:6, years:"5–6", covers:["num-y56"], needs:["Particles: に for points in time"] },
     { title:"Counters, and how often", y0:7, y1:8, years:"7–8", covers:["num-y78"] }
   ],
   "Sentences": [
@@ -3916,36 +3928,35 @@ window.JP_CHUNKS = {
     { title:"ね・よ (agreement, assurance)", y0:7, y1:8, years:"7–8", covers:["sentence-final-b4"] },
     { title:"の, and how casual to sound", y0:9, y1:10, years:"9–10", covers:["sfp-links"] }
   ],
-  "Comparing": [
+  "Amounts and Comparing": [
     { title:"ごろ・ぐらい (about, roughly)", y0:5, y1:6, years:"5–6", covers:["extent-sentences"] },
     { title:"しか・だけ・より・一番・のほう", y0:7, y1:8, years:"7–8", covers:["extent-b3","misc-choices"] }
   ],
   "Verb Forms": [
     { title:"ます・ません・ました", y0:5, y1:6, years:"5–6", covers:["polite-finite-s"] },
-    { title:"Making the て-form", y0:7, y1:7, years:"7", covers:["te-form-b2-core"] },
-    { title:"Permission and prohibition", y0:8, y1:8, years:"8", covers:["te-form-2-choices"] },
+    { title:"Making the て-form", y0:7, y1:8, years:"7–8", covers:["te-form-b2-core"], needs:["Requests and Politeness: 〜てください, used as a set phrase since Year 3"] },
     { title:"てみる・てしまう・ても・てから", y0:9, y1:10, years:"9–10", covers:["te-form-b2-extended"] }
   ],
   "Verb Endings": [
-    { title:"たい・に行く (wanting, going to do)", y0:8, y1:8, years:"8", covers:["verb-stem-choices"] },
-    { title:"そう・かた・やすい/にくい・ながら・すぎる", y0:9, y1:10, years:"9–10", covers:["verb-stem-b2"] }
+    { title:"たい・に行く (wanting, going to do)", y0:8, y1:8, years:"8", covers:["verb-stem-choices"], needs:["Verb Forms: the ます-stem"] },
+    { title:"そう・かた・やすい/にくい・ながら・すぎる", y0:9, y1:10, years:"9–10", covers:["verb-stem-b2"], needs:["Verb Forms: the ます-stem"] }
   ],
   "Past and If": [
     { title:"たことがある・たあとで (experience, after)", y0:8, y1:8, years:"8", covers:["ta-choices"] },
-    { title:"たほうがいい・たら・たり〜たり", y0:9, y1:10, years:"9–10", covers:["ta-tara-tari-b2"] },
+    { title:"たほうがいい・たら・たり〜たり", y0:9, y1:10, years:"9–10", covers:["ta-tara-tari-b2"], needs:["Verb Forms: the て-form (た conjugates the same way)"] },
     { title:"ば・というNoun", y0:11, y1:11, years:"11", covers:["misc-paragraphs"] }
   ],
   "Can and Must": [
-    { title:"できる・ことができる・なければならない", y0:9, y1:10, years:"9–10", covers:["misc-b4","nai-form-b3","nominalisers-b4"] },
+    { title:"できる・ことができる・なければならない", y0:9, y1:10, years:"9–10", covers:["misc-b4","nai-form-b3","nominalisers-b4"], needs:["Sentences: plain forms"] },
     { title:"ことにする・ことになる (deciding, being decided)", y0:11, y1:11, years:"11", covers:["nominalisers-paragraphs"] }
   ],
   "Joining Ideas": [
     { title:"が・から (but, because)", y0:7, y1:8, years:"7–8", covers:["conjunctions-choices"] },
-    { title:"けれども・ので・と・のに", y0:9, y1:10, years:"9–10", covers:["conjunctions-b4"] },
+    { title:"けれども・ので・と・のに", y0:9, y1:10, years:"9–10", covers:["conjunctions-b4"], needs:["Sentences: plain forms (ので and のに attach to them)"] },
     { title:"ために・ように・し・んです (purpose, reasons)", y0:11, y1:11, years:"11", covers:["plain-form-expr-2-b3"] }
   ],
   "Reporting and Guessing": [
-    { title:"と思う・と言う・とき", y0:9, y1:10, years:"9–10", covers:["pf-expr-1-links"] },
+    { title:"と思う・と言う・とき", y0:9, y1:10, years:"9–10", covers:["pf-expr-1-links"], needs:["Sentences: plain forms"] },
     { title:"そう（伝聞）・つもり・かもしれない・でしょう", y0:11, y1:11, years:"11", covers:["plain-form-expr-1-b3"] },
     { title:"らしい・はず・べき", y0:12, y1:12, years:"12", covers:["pf-expr-2-argument"] }
   ],
