@@ -41,18 +41,30 @@ when in doubt, the URL wins.
    click through the change in a browser.
 2. Bump the build tag date in `index.html` (`JGH build YYYY-MM-DD`) if this
    deploy changes anything a teacher could notice.
-3. Copy `index.html`, `engine.js`, `tasktypes.js`, `data/skills.js` verbatim
+3. Copy `index.html`, `engine.js`, `lever.js`, `tasktypes.js`, `data/skills.js` verbatim
    into the live repo's **`grammar/`** folder (keeping `data/skills.js`
    under it). Relative paths inside the app don't change, so no rewriting.
 4. Commit there with a one-line summary + the build tag, push to `main`.
    Pages redeploys automatically within a minute or two.
 5. Spot-check the live URL (hard refresh) and confirm the build tag.
 
-PoC apps deploy the same way: copy `apps/<name>/index.html` verbatim to the
-matching live folder (`words/`, `oral/`, `writing/`, `levelup/`). The oral player also
-needs `audio/qa-01.mp3 … qa-47.mp3` copied to `oral/audio/` once (they
-rarely change). (The favicon line previously noted as live-only is now in
-both copies of `grammar/index.html`.)
+PoC apps deploy the same way: copy `apps/<name>/index.html` **and its
+`lever.js`** verbatim to the matching live folder (`words/`, `oral/`,
+`writing/`, `levelup/`), and keep a copy of `lever.js` at the live root for
+the landing page.
+
+**`lever.js` is one file with several copies on purpose.** The canonical
+copy is this repo's root; `apps/*/lever.js` are copies of it, so that each
+app stays a folder you can delete or hand over whole. After editing the
+canonical one, redistribute and check they match:
+
+```bash
+for d in apps/*/; do cp lever.js "$d"; done
+md5sum lever.js apps/*/lever.js | awk '{print $1}' | sort -u | wc -l   # must print 1
+```
+
+The oral player also needs `audio/qa-01.mp3 … qa-47.mp3` copied to
+`oral/audio/` once (they rarely change).
 
 Deploy from the dev repo's default branch once work is merged; don't deploy
 half-finished branches. Content-only updates (new items) are safe to deploy

@@ -60,10 +60,6 @@
     poolReading:["読む練習", "よむれんしゅう", "yomu renshū", "Reading Practice"],
     poolVocab:  ["トピックの言葉", "トピックのことば", "topikku no kotoba", "Topic Vocabulary"],
   };
-  const STAGE_NAMES = ["\u6f22\u5b57", "\u304b\u306a", "abc", "EN"];
-  const STAGE_ARIA = ["kanji", "kana", "romaji", "English"];
-  let uiForm = 0; // kanji by default
-
   // Stage 1 is ADDITIVE where the label has kanji: furigana appears above it.
   const RUBY = {
     title: "<ruby>\u65e5\u672c\u8a9e<rt>\u306b\u307b\u3093\u3054</rt></ruby><ruby>\u6587\u6cd5<rt>\u3076\u3093\u307d\u3046</rt></ruby>\u30cf\u30d6",
@@ -83,6 +79,8 @@
     poolVocab: "\u30c8\u30d4\u30c3\u30af\u306e<ruby>\u8a00\u8449<rt>\u3053\u3068\u3070</rt></ruby>",
   };
 
+  let uiForm = 0; // the page stage, kept in step with the lever
+
   // pick from a four-form [kanji, kana, romaji, English] array by stage
   function tForm(arr, stage) {
     if (!arr) return null;
@@ -95,166 +93,7 @@
     const f = formOverride === undefined ? uiForm : formOverride;
     return forms[f] || forms[3];
   }
-  // HTML per stage. 0 = kanji. 1 = kanji with furigana where authored (additive),
-  // else the kana form. 2 = romaji (title/subtitle keep the ruby and ADD romaji).
-  // 3 = English (title/subtitle keep the Japanese and ADD romaji + English).
-  function jtHtml(key, stage, stacked) {
-    const forms = UI_STRINGS[key];
-    if (!forms) return null;
-    if (stage === 0) return escapeHtmlE(forms[0]);
-    if (stage === 1) return RUBY[key] || escapeHtmlE(forms[1]);
-    if (stacked) {
-      const base = RUBY[key] || escapeHtmlE(forms[1]);
-      let out = base + `<span class="jt-sub">${escapeHtmlE(forms[2])}</span>`;
-      if (stage === 3) out += `<span class="jt-sub">${escapeHtmlE(forms[3])}</span>`;
-      return out;
-    }
-    return escapeHtmlE(forms[stage]);
-  }
-  function applyLang() {
-    document.querySelectorAll("[data-jt]").forEach((el) => {
-      const key = el.dataset.jt;
-      if (!UI_STRINGS[key]) return;
-      const own = el.dataset.form !== undefined ? parseInt(el.dataset.form, 10) : undefined;
-      const stage = own === undefined ? uiForm : own;
-      el.innerHTML = jtHtml(key, stage, el.classList.contains("jt-tap"));
-      el.title = UI_STRINGS[key][3]; // English always one hover away
-    });
-  }
-
-  /* The elastic lever. Pull down through the stops; on release it recoils
-     one stop at a time back to `floor()`. stepMs is the recoil per stop:
-     fast for the page lever, slow (readable) for section levers. */
-  function createLever(root, opts) {
-    if (!root) return null;
-    const track = root.querySelector(".lever-track");
-    const stageEl = root.querySelector(".lever-stage");
-    const pct = (i) => 12 + i * (76 / 3);
-    const notchLabels = [];
-    for (let i = 0; i < 4; i++) {
-      const n = document.createElement("span");
-      n.className = "lever-notch";
-      n.style.top = pct(i) + "%";
-      track.appendChild(n);
-      if (root.classList.contains("lever-page")) {
-        const lab = document.createElement("span");
-        lab.className = "lever-notch-label";
-        lab.style.top = pct(i) + "%";
-        lab.textContent = STAGE_NAMES[i];
-        track.appendChild(lab);
-        notchLabels.push(lab);
-      }
-    }
-    const handle = document.createElement("span");
-    handle.className = "lever-handle";
-    handle.style.top = pct(0) + "%";
-    track.appendChild(handle);
-
-    let stage = 0, timer = null, timer2 = null, dragging = false;
-    const floor = opts.floor || (() => 0);
-    const calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    // Position and stage are separate: during a recoil the handle creeps
-    // part of the way on its own before the catch lets go, so where the
-    // handle IS and which stage is APPLIED are briefly different things.
-    function place(topPct, ms, ease) {
-      handle.style.transition = calm ? "none" : `top ${ms}ms ${ease}`;
-      handle.style.top = topPct + "%";
-    }
-    function wobble() {
-      if (calm) return;
-      handle.classList.remove("wobble");
-      void handle.offsetWidth; // restart the animation
-      handle.classList.add("wobble");
-      const hit = track.querySelectorAll(".lever-notch")[stage];
-      if (hit) { hit.classList.remove("hit"); void hit.offsetWidth; hit.classList.add("hit"); }
-    }
-    function render() {
-      root.setAttribute("aria-valuenow", stage);
-      root.setAttribute("aria-valuetext", STAGE_ARIA[stage]);
-      if (stageEl) stageEl.textContent = stage > 0 ? STAGE_NAMES[stage] : "";
-      notchLabels.forEach((lab, i) => lab.classList.toggle("on", i === stage));
-    }
-    function set(s, fromRecoil, snapped) {
-      s = Math.max(floor(), Math.min(3, s));
-      if (s === stage) { if (!fromRecoil) armRecoil(); return; }
-      stage = s;
-      render();
-      // A stage the user drove (drag, arrow key) snaps to its notch at once
-      // and bounces on arrival; a recoil step has already been placed there.
-      if (!snapped) { place(pct(stage), 110, "cubic-bezier(.2,.9,.3,1.5)"); wobble(); }
-      opts.onStage(stage);
-      if (!fromRecoil) armRecoil();
-    }
-    /* The recoil is a spring-loaded catch, not a slide. Each stop: the
-       handle creeps a third of the way back under tension, the catch lets
-       go, it SNAPS onto the next notch and wobbles there, then the whole
-       thing loads up again. The language changes on the snap, because that
-       is the moment the mechanism actually moves. */
-    function armRecoil() {
-      clearTimeout(timer); clearTimeout(timer2);
-      if (dragging || stage <= floor()) return;
-      const holdMs = Math.round(opts.stepMs * 0.28);
-      const creepMs = opts.stepMs - holdMs;
-      // 1. sit on the notch while the wobble settles and the spring loads
-      timer2 = setTimeout(() => {
-        const from = pct(stage), to = pct(stage - 1);
-        // 2. creep a third of the way, slowly, still caught
-        place(from + (to - from) * 0.3, creepMs, "cubic-bezier(.7,0,.9,.2)");
-        timer = setTimeout(() => {
-          // 3. the catch lets go: snap onto the notch, wobble, load again
-          place(to, 90, "cubic-bezier(.2,.9,.3,1.6)");
-          set(stage - 1, true, true);
-          wobble();
-          armRecoil();
-        }, creepMs);
-      }, holdMs);
-    }
-    root.addEventListener("pointerdown", (e) => {
-      dragging = true;
-      root.classList.add("dragging");
-      try { root.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
-      clearTimeout(timer); clearTimeout(timer2);
-      onMove(e);
-      e.preventDefault();
-    });
-    function onMove(e) {
-      if (!dragging) return;
-      const r = track.getBoundingClientRect();
-      const frac = Math.max(0, Math.min(1, (e.clientY - r.top) / r.height));
-      set(Math.round(frac * 3));
-    }
-    root.addEventListener("pointermove", onMove);
-    const release = () => { if (!dragging) return; dragging = false; root.classList.remove("dragging"); armRecoil(); };
-    root.addEventListener("pointerup", release);
-    root.addEventListener("pointercancel", release);
-    root.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") { set(stage + 1); e.preventDefault(); }
-      else if (e.key === "ArrowUp" || e.key === "ArrowLeft") { set(stage - 1); e.preventDefault(); }
-      else if (e.key === "End") { set(3); e.preventDefault(); }
-      else if (e.key === "Home" || e.key === "Escape") { set(floor()); e.preventDefault(); }
-    });
-    render();
-    place(pct(0), 0, "linear");
-    return { set: (s) => set(s), get: () => stage };
-  }
-
-  // Per-label taps use the same elastic idea: one stop down, slow recoil.
-  const tapTimers = new WeakMap();
-  function tapBump(el) {
-    const own = el.dataset.form !== undefined ? parseInt(el.dataset.form, 10) : uiForm;
-    el.dataset.form = Math.min(3, own + 1);
-    applyLang();
-    clearTimeout(tapTimers.get(el));
-    const decay = () => {
-      const cur = parseInt(el.dataset.form, 10);
-      if (isNaN(cur) || cur <= uiForm) { delete el.dataset.form; applyLang(); return; }
-      el.dataset.form = cur - 1;
-      applyLang();
-      tapTimers.set(el, setTimeout(decay, 1667));
-    };
-    tapTimers.set(el, setTimeout(decay, 1667));
-  }
+  const applyLang = () => window.HubLever.apply();
 
   function visibleBands() {
     return window.BANDS.filter((b) => showAllBands || (window.BAND_META[b] && window.BAND_META[b].show));
@@ -750,35 +589,19 @@
 
     $("bandToggleBtn").addEventListener("click", () => { showAllBands = !showAllBands; buildMatrix(); });
 
-    // page lever: whole chrome, recoil ~2s from full pull
-    createLever($("pageLever"), {
-      stepMs: 845,
-      onStage: (s) => {
+    // The lever itself lives in lever.js, shared by every page of the hub.
+    // This page hands it its own four-form strings; it mounts the big page
+    // lever, discovers section levers from data-scope, and wires tap bumps.
+    window.HubLever.init({
+      strings: UI_STRINGS,
+      ruby: RUBY,
+      onChange: (s) => {
         uiForm = s;
-        document.querySelectorAll("[data-jt]").forEach((el) => delete el.dataset.form);
-        applyLang();
         if ($("selectScreen").classList.contains("active")) { buildMatrix(); buildPools(); }
         else refreshCount();
       },
     });
-    // section levers: just their screen's buttons, slow readable recoil (~6s)
-    const sectionLever = (leverId, scopeId) => createLever($(leverId), {
-      stepMs: 2600,
-      floor: () => uiForm,
-      onStage: (s) => {
-        document.querySelectorAll(`#${scopeId} [data-jt]`).forEach((el) => {
-          if (s <= uiForm) delete el.dataset.form; else el.dataset.form = s;
-        });
-        applyLang();
-      },
-    });
-    sectionLever("taskLever", "taskScreen");
-    sectionLever("reportLever", "reportScreen");
 
-    document.querySelectorAll(".jt-tap").forEach((el) => {
-      el.addEventListener("click", () => tapBump(el));
-    });
-    applyLang();
 
     // task area emits gh:ready when an answer is entered, gh:submit on Enter
     $("taskArea").addEventListener("gh:ready", () => { if (!graded) $("checkBtn").disabled = false; });

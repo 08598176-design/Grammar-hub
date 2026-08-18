@@ -27,9 +27,10 @@ index.html       markup + all CSS + design tokens. Loads the three scripts in or
 data/skills.js   ALL content → window.SKILLS, window.JT_STRANDS, window.JP_YEARS,
                  window.JP_CHUNKS, plus window.BANDS/BAND_META/CATEGORIES/
                  CATEGORY_META/POOLS (labels for reports and chips)
+lever.js         the shared language lever + four-form text → window.HubLever
 tasktypes.js     task-type registry → window.TASK_TYPES
-engine.js        timeline, drill loop, mastery rounds, scoring, report,
-                 language lever. Content-agnostic.
+engine.js        timeline, drill loop, mastery rounds, scoring, report.
+                 Content-agnostic; hands its own strings to lever.js.
 ```
 
 Not loaded by the app:
@@ -39,8 +40,10 @@ data/script-bank.js  the parked Script strand (5 nodes, 40 items) →
                      window.SCRIPT_BANK. Grammar hub is grammar only; this
                      is the seed bank for a future stand-alone script app.
 apps/                stand-alone proof-of-concept apps (word-lab, oral,
-                     writing-wall), each a single self-contained index.html.
-                     They share the design tokens but none of the hub's JS.
+                     writing-wall, level-up), each an index.html plus its
+                     own copy of lever.js, so a folder can be deleted or
+                     handed over whole. They share the design tokens and
+                     the lever, but none of the hub's other JS.
 ```
 
 The lane rule in DESIGN_RULES.md §0 applies: a commit touches one of these
@@ -224,30 +227,39 @@ or should romaji input be auto-converted/accepted at lower bands? Affects
   name field feeds the exports; nothing is stored.
 - No persistence. Closing the tab loses the run. (localStorage is allowed on
   the deployed site only — DESIGN_RULES.md §7 — but is not implemented.)
-- **Language lever (Japanese-first chrome):** every piece of interface text
-  carries four forms — kanji / kana / romaji / English — and the page
-  defaults to kanji. UI strings live in `UI_STRINGS` in engine.js (elements
-  opt in with `data-jt="key"`); content-side strings carry their own forms
-  (`JT_STRANDS`, `chunk.t`, pool `nameT`). `RUBY` adds furigana at the kana
-  stage instead of replacing the kanji. The lever (`createLever`) is an ARIA
-  slider: drag or Arrow keys pull it down a stop at a time
-  (kanji→+kana→+romaji→English), **it holds wherever it is held**, and on
-  release it recoils one stop at a time back to its floor. The recoil is a
-  spring-loaded catch rather than a slide: each stop **holds** while the
-  wobble settles (28% of `stepMs`), **creeps** a third of the way back
-  under tension (the remaining 72%), then **snaps** onto the notch and
-  wobbles there. The stage changes on the snap, because that is the moment
-  the mechanism moves. `stepMs` is ~845 ms for the page lever
-  (`#pageLever`, rebuilds the whole screen per stop; its notches carry
-  stage labels 漢字/かな/abc/EN and ping when hit) and ~2600 ms for section
-  levers (`#taskLever`, `#reportLever`, floored at the page stage so they
-  never show *less* support than the page). Home/Escape releases straight
-  to the floor (the accessibility escape hatch, not the spring), End pulls
-  to full English. `prefers-reduced-motion` drops the creep and the wobble. Individual labels can also
-  be tapped (`jt-tap`) for a one-stop bump with the same elastic decay.
-  English is always one hover away (`title` attributes). Google Translate is
-  blocked (`translate="no"`, `notranslate`) because machine translation of
-  the interface would silently break the whole mechanic.
+- **Language lever (Japanese-first chrome):** every page of the hub is
+  Japanese-led and every piece of interface text carries four forms
+  (kanji / kana / romaji / English). The mechanism lives in **`lever.js`**,
+  one shared file included by every page (landing, grammar, and each app),
+  which injects its own CSS and needs no build step. A page calls
+  `HubLever.init({strings, ruby, onChange})` with its own dictionary; the
+  component then mounts the page lever, discovers section levers, wires tap
+  bumps, and swaps text on every `[data-jt]` element. `HubLever.apply(root)`
+  re-applies after a page redraws its own markup.
+
+  - **Page lever** (mounted automatically as `#pageLever`): a plate fixed in
+    the margin beside the card, vertically centred, following you down the
+    page. Notches are labelled 漢字/かな/abc/EN with the live one in accent.
+    `stepMs` ~845 ms.
+  - **Section levers**: any element with `data-scope="#id"` becomes a small
+    lever governing just that section. They are deliberately **more
+    forgiving**: `stepMs` ~4000 ms, they are floored at the page stage so
+    they can never show *less* support than the page, and while the pointer
+    is inside their section the spring **pauses entirely** (`.resting`)
+    rather than counting down while you read.
+  - **The recoil** is a spring-loaded catch, not a slide: each stop holds
+    while the wobble settles (28% of `stepMs`), creeps a third of the way
+    back under tension (72%), then snaps onto the notch and wobbles. The
+    stage changes on the snap, because that is when the mechanism moves.
+  - Keyboard: arrows step, End pulls to full English, Home/Escape releases
+    straight to the floor (accessibility escape hatch, not the spring).
+    `prefers-reduced-motion` drops the creep and the wobble.
+  - Individual labels can be tapped (`.jt-tap`) for a one-stop bump with the
+    same elastic decay, and English is always one hover away (`title`).
+  - Google Translate is blocked site-wide (`translate="no"`, `notranslate`):
+    machine translation of the interface would silently break the mechanic.
+  - Item content and analytical explanations stay English for now (J11);
+    the lever governs chrome.
 
 ## 8. Content that exists outside the app (not yet wired in)
 
