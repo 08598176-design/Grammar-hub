@@ -140,6 +140,19 @@ app.
 statement you'd rewrite. If you update the master sheet, tell your assistant
 so the hub copy follows.
 
+### Q15. VC1 or VC2 strand labels in the student view?
+**Context:** The school continuum's Japanese strands are Victorian Curriculum
+**1.0** names (Socialising, Informing, Creating, Translating, Reflecting…).
+The current F–10 Japanese curriculum is **Version 2.0**, which restructures
+those into 5 sub-strands (Interacting / Mediating meaning / Creating text /
+Understanding systems of language / Understanding the interrelationship of
+language and culture). The hub's year-level view quotes the continuum, so it
+inherits whichever naming the continuum uses. Grammar sits in "systems of
+language" under both versions, so nothing is blocked — this is about labels.
+**Ask:** Is the school updating the continuum to VC2? Should the hub's year
+view show the continuum's current VC1 strand names as-is, or the VC2
+sub-strand names? (VCAA's own mapping is in `collab/research/VC2_COMPARISON.md`.)
+
 ### Q11. Furigana policy
 **Context:** Items currently use `<ruby>` furigana ad hoc and avoid off-list
 kanji. A per-band rule would let content generation scale consistently.

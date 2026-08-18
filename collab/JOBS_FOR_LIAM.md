@@ -135,13 +135,18 @@ Done when: Andrew can mark up and share one model 400-ji piece.
 Model: Opus (port of a complex reference app).
 Size: M
 
-### J7. Purge student-scan PDFs from git history   NEEDS-INFO (Q10)
+### J7. Purge flagged files from git history   NEEDS-INFO (Q10)
 Status: NEEDS-INFO (Q10) — do not do this without Andrew's explicit go-ahead
-What: The two PDFs are already deleted from the tree (commit 0841177 on the
-proposal branch). Remaining: after Andrew confirms, rewrite history
-(git filter-repo) and force-push so they're gone from history too; everyone
-re-clones after. Coordinate timing with Andrew. Confirming the repo is set
-to Private covers the risk in the meantime.
+What: Three files are already deleted from the tree but remain in history:
+the two student-scan PDFs (commit 0841177) and "Senior Japanese.html"
+(GitHub secret scanning flagged a Google API key at L14 — likely the Google
+Sites frontend's own browser key from a saved page, but treat as live).
+After Andrew confirms: rewrite history (git filter-repo) to drop all three,
+force-push, everyone re-clones, then resolve the GitHub secret-scanning
+alert. Coordinate timing with Andrew. Confirming the repo is set to Private
+covers the risk in the meantime. Andrew should also skim Google Cloud
+Console → Credentials for any key of his starting AIzaSyChg3 and rotate it
+if — unexpectedly — it's his.
 Model: Sonnet (mechanical, but follow the coordination steps exactly).
 Size: S, but disruptive — schedule it, don't spring it.
 
