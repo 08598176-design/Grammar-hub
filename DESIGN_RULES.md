@@ -54,6 +54,24 @@ This palette is shared with the Aussie Phonics Trainer on purpose: the two tools
 read as one suite. Do not introduce a new palette, gradients, or shadows beyond the
 single card shadow already defined.
 
+**Curriculum axis (VIC vs VCE), added for the band ladder:**
+
+```
+--vic #2f6fa8     VIC F-10 column rule/tag       --vce-ink #fbf7ee  text on the VCE fill
+--vce #16375e     VCE column fill + rule         --prog #6b6256     school-designed, no curriculum claim (= --muted)
+```
+
+These are a **separate axis from correctness** (§0 of this rule: the correctness
+green/red/amber already owns every colour-blind-safe warm hue in this palette — see
+`collab/research/DESIGN_BAND_LADDER.md` §4.2 for the measurements). VIC vs VCE is
+carried by **lightness + fill + a literal word**, never by hue, and never by
+`--accent`/`--correct`/`--wrong`. If you ever adjust `--vic` or `--vce`, they must stay
+at least 2:1 luminance contrast from each other and must never approach `--correct`,
+`--wrong`, or the report's amber (`#8a6d1e`) — a "just for aesthetics" tweak here
+silently breaks the distinction for colour-blind users with no visible symptom for
+anyone else. Selection uses an **outline**, not a background fill (`.has-items.selected`),
+specifically so it composes with the curriculum border instead of fighting it.
+
 ---
 
 ## 3. Typography — two fonts, fixed scale

@@ -14,6 +14,13 @@
     --bg:#f4efe6; --paper:#fbf7ee; --ink:#1f1f1f; --muted:#6b6256;
     --line:#d8cfbb; --line-soft:#e8e0cd; --accent:#a83232;
     --correct:#2f6a3e; --wrong:#a83232; --okbg:#eef5ee; --badbg:#f7ecec;
+
+    /* ---- curriculum axis: WHICH DOCUMENT defines a band column ----
+       One hue family on purpose: the correctness axis above already owns
+       every colour-blind-safe warm hue (see DESIGN_RULES.md). VIC and VCE
+       are separated by lightness + fill treatment + a literal word, never
+       by hue. Never reuse these for correctness or for selection. */
+    --vic:#2f6fa8; --vce:#16375e; --vce-ink:#fbf7ee; --prog:#6b6256;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);
@@ -46,25 +53,44 @@
   .filter-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 
   .matrix{display:flex;flex-direction:column;gap:4px;overflow-x:auto}
-  .matrix-row{display:grid;grid-template-columns:128px repeat(5,1fr);gap:4px;min-width:620px}
+  .matrix-row{display:grid;
+       grid-template-columns:var(--label-w,128px) repeat(var(--band-count,5),minmax(84px,1fr));
+       gap:4px;min-width:calc(var(--label-w,128px) + var(--band-count,5) * 96px)}
   .matrix-cell{border:1px solid var(--line-soft);border-radius:7px;background:var(--paper);
        padding:7px 6px;min-height:52px;display:flex;flex-direction:column;justify-content:center;gap:3px}
   .matrix-head .matrix-cell{min-height:0;background:transparent;border:none;padding:2px 6px}
-  .colhead{text-align:center;font-weight:800;font-size:12px;color:var(--muted)}
+  .colhead{text-align:center;font-weight:800;font-size:12px;color:var(--muted);padding-bottom:4px}
+  .colhead[data-cur="VIC"]{border-bottom:3px solid var(--vic);color:var(--ink)}
+  .colhead[data-cur="VCE"]{background:var(--vce);color:var(--vce-ink);border-bottom:3px double var(--vce);
+       border-radius:7px 7px 0 0;padding-top:4px}
+  .cur-tag{display:block;font-size:8px;font-weight:800;letter-spacing:.5px;margin-top:1px}
+  .colhead[data-cur="VIC"] .cur-tag{color:var(--vic)}
+  .colhead[data-cur="VCE"] .cur-tag{color:var(--vce-ink);opacity:.85}
   .rowlabel{justify-content:center;font-weight:700;font-size:11px;color:var(--ink);
-       background:var(--bg);text-transform:uppercase;letter-spacing:.3px;text-align:left}
+       background:var(--bg);text-transform:uppercase;letter-spacing:.3px;text-align:left;
+       position:sticky;left:0;z-index:2}
   .cell-name{font-size:11px;font-weight:600;line-height:1.25}
   .cell-count{font-size:10px;font-weight:700;color:var(--accent);align-self:flex-start;
        background:var(--bg);border-radius:10px;padding:0 6px}
   .cell-count.zero{color:var(--muted)}
-  .has-items{cursor:pointer}
+  .has-items{cursor:pointer;outline-offset:-2px}
   .has-items:hover{border-color:var(--accent);background:#faf5f0}
-  .has-items.selected{border-color:var(--accent);background:var(--accent)}
-  .has-items.selected .cell-name{color:#fff}
-  .has-items.selected .cell-count{background:rgba(255,255,255,.85)}
+  .has-items.selected{outline:2px solid var(--accent);background:#faf5f0}
+  .matrix-cell[data-cur="VIC"]{border-top:3px solid var(--vic)}
+  .matrix-cell[data-cur="VCE"]{border-top:3px double var(--vce)}
+  .cell-chip{font-size:8px;font-weight:800;letter-spacing:.3px;border-radius:8px;padding:0 5px;
+       align-self:flex-start;margin-top:1px}
+  .dual-chip{border:1px solid var(--vce);color:var(--vce)}
+  .prog-chip{border:1px dotted var(--prog);color:var(--prog)}
   .no-items{opacity:.65}
   .empty{background:var(--bg);align-items:center;opacity:.5}
-  .empty .dash{color:var(--muted)}
+  .empty .dash{color:var(--muted);cursor:help}
+
+  .matrix-legend{font-size:11px;color:var(--muted);line-height:1.6;margin-top:10px;text-align:center}
+  .matrix-legend b{font-weight:800}
+  .legend-vic{color:var(--vic);font-weight:800}
+  .legend-vce{color:var(--vce);font-weight:800}
+  .band-toggle-row{text-align:center;margin-top:10px}
 
   .select-toolbar{display:flex;justify-content:space-between;align-items:center;margin:16px 0 0;flex-wrap:wrap;gap:8px}
   .count-pill{background:var(--bg);color:var(--accent);border:1px solid var(--line);border-radius:20px;
@@ -113,7 +139,7 @@
   .option.chosen{border-color:var(--accent);background:#faf5f0}
   .option.correct{background:var(--okbg);border-color:var(--correct);color:var(--correct)}
   .option.incorrect{background:var(--badbg);border-color:var(--wrong);color:var(--wrong)}
-  @media(max-width:480px){.options{grid-template-columns:1fr}}
+  @media(max-width:480px){.options{grid-template-columns:1fr}.container{padding:14px}}
   /* ---- order (tap word/particle tiles between bank and sentence line) ---- */
   .order-line{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center;min-height:54px;
        padding:12px;border:2px dashed var(--line);border-radius:10px;background:var(--bg);margin:6px 0}
@@ -170,6 +196,10 @@
   <section class="screen active" id="selectScreen">
     <div class="filter-row" id="typeFilter"></div>
     <div class="matrix" id="matrix"></div>
+    <p class="matrix-legend" id="matrixLegend"></p>
+    <div class="band-toggle-row">
+      <button class="linkbtn" id="bandToggleBtn"></button>
+    </div>
     <div class="select-toolbar">
       <span class="count-pill" id="selCount">0 skills · 0 items</span>
       <span>

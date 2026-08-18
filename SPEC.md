@@ -34,26 +34,48 @@ lanes only.
 
 ## 3. The grid (current state)
 
-- `window.BANDS = ["Band 1","Band 2","Band 3","Band 4"]` — matrix columns.
-- `window.CATEGORIES` — 16 matrix rows (Core Particles, て-form I/II,
-  た/たら/たり, Verb Stem forms, Plain Form + Expressions I/II, ない-form,
-  Extent, Conjunctions, Nominalisers, Sentence-Final Particles, Miscellaneous,
-  Core Particles Harder, Persuasive & Evaluative, Comparative & Analytical).
+- `window.BANDS = ["script","words","sentences","choices","links","paragraphs","argument"]`
+  — matrix columns, internal ids (stable, no spaces — survive URLs, CSS
+  selectors, localStorage, CSV). **Never render an id directly** — always go
+  through `window.BAND_META[id]`.
+- `window.BAND_META[id] = { head, long, teacher, cur, show }`:
+  `head` = one-word student-facing column heading (e.g. "Choices"); `long` =
+  the legend's fuller form ("Choosing the right structure"); `teacher` = the
+  real curriculum label written to teacher exports ("Levels 7 and 8"), never
+  shown to students; `cur` = `"VIC"` or `"VCE"`, drives the colour axis (§4
+  below); `show` = whether the column renders by default (`script` and
+  `words` — VIC F–2 and 3–4 — are defined but hidden: the F–10 curriculum
+  names no grammar at those bands, so there's nothing honest to put there
+  yet. A "Show Foundation–Level 6 columns too" toggle reveals them).
+- `window.CATEGORIES` — 17 matrix rows. `window.CATEGORY_META[category] =
+  { prescribedBy }`, `"VCE"` (on the VCE Japanese SL prescribed grammar
+  list) or `"PROGRAM"` (school-designed, not on that list — still valid
+  content, just not externally prescribed). Drives the dual-chip / "school"
+  chip on a cell when a row's prescribing document differs from its
+  column's curriculum (e.g. a VCE-prescribed row sitting in a VIC-curriculum
+  column shows a small "VCE" chip).
 - `window.POOLS = ["Reading Practice","Topic Vocabulary"]` — rendered as card
   lists **below** the matrix, not band-tracked.
 - The engine renders one cell per `category × band`; it finds **the first**
   skill matching both (`SKILLS.find`), so **do not create two skill nodes with
   the same category and band** — the second is unreachable from the matrix.
+  A category *can* and often should have skill nodes at more than one band —
+  that's a row spanning bands (e.g. "Core Particles" has nodes at `choices`
+  and `links`), the intended shape, not a bug.
 - A cell with no matching skill, or a skill with `introduced:false`, renders
-  greyed with a dash. A skill with `items:[]` renders as `0` (exists, no
-  content yet).
+  greyed with a dash and a `title`/`aria-label` explaining why (e.g. "This
+  row starts at Choices"). A skill with `items:[]` renders as `0` (exists, no
+  content yet). Never locked — every band is always clickable.
 
-**[DECISION NEEDED]** What the bands mean. Right now "Band 1–4" is implicit
-(roughly: early → VCE Units 3&4). For the combined 10/11/12 class the bands
-should probably be named so both curricula map onto them (e.g. Band 1 ≈ F–10
-Levels 7–8, Band 2 ≈ Levels 9–10 / VCE U1&2 entry, Band 3 ≈ VCE U1&2,
-Band 4 ≈ VCE U3&4). Only Andrew can rule on this mapping. Renaming bands is a
-one-line change in skills.js plus updating each skill's `band` string.
+Full grounding, evidence and the coverage map (which row belongs at which
+band, and why) is `collab/research/DESIGN_BAND_LADDER.md`. Placement there is
+best-effort against the VIC F–10 sequence and the VCE study design, cross-
+checked against Andrew's own files — not his ratification. **[DECISION
+NEEDED]**: Q2/Q3/Q15 in `collab/QUESTIONS_FOR_ANDREW.md` stay open (is the
+F–10 or 7–10 sequence the right one; do the seven column names read right to
+a Year 7 and a Year 12; may "VCE" appear on a student's screen; per-item
+splitting within a row, e.g. Conjunctions' が/から vs ので/のに, is queued as
+a follow-up rather than rushed).
 
 ## 4. Skill node schema
 

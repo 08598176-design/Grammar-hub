@@ -28,6 +28,20 @@
   let log = [];           // {round, skill, type, stimulus, response, result}
   let selectedSkills = new Set();
   let typeFilter = "all";
+  let showAllBands = false; // teacher toggle: reveal script/words (VIC F-2, 3-4) columns
+
+  function visibleBands() {
+    return window.BANDS.filter((b) => showAllBands || (window.BAND_META[b] && window.BAND_META[b].show));
+  }
+  function bandMeta(b) { return (window.BAND_META && window.BAND_META[b]) || { head: b, long: b, teacher: b, cur: "", show: true }; }
+  // First band (in curriculum order) at which a category has any items, for
+  // the "this row starts at X" message on cells before that band.
+  function firstBandFor(cat) {
+    for (const b of window.BANDS) {
+      if (window.SKILLS.some((s) => s.category === cat && s.band === b)) return b;
+    }
+    return null;
+  }
 
   function show(name) {
     Object.values(screens).forEach((s) => s.classList.remove("active"));
@@ -45,30 +59,50 @@
   function buildMatrix() {
     const wrap = $("matrix");
     wrap.innerHTML = "";
+    const bands = visibleBands();
+    document.documentElement.style.setProperty("--band-count", bands.length);
 
     // header row
     const head = document.createElement("div");
     head.className = "matrix-row matrix-head";
     head.innerHTML = `<div class="matrix-cell rowlabel"></div>` +
-      window.BANDS.map((b) => `<div class="matrix-cell colhead">${b}</div>`).join("");
+      bands.map((b) => {
+        const m = bandMeta(b);
+        return `<div class="matrix-cell colhead" data-cur="${m.cur}" title="${escapeHtmlE(m.teacher)}">${escapeHtmlE(m.head)}<span class="cur-tag">${m.cur}</span></div>`;
+      }).join("");
     wrap.appendChild(head);
 
     window.CATEGORIES.forEach((cat) => {
       const row = document.createElement("div");
       row.className = "matrix-row";
-      row.innerHTML = `<div class="matrix-cell rowlabel">${cat}</div>`;
-      window.BANDS.forEach((band) => {
+      row.innerHTML = `<div class="matrix-cell rowlabel">${escapeHtmlE(cat)}</div>`;
+      const catMeta = (window.CATEGORY_META && window.CATEGORY_META[cat]) || { prescribedBy: "" };
+      const startBand = firstBandFor(cat);
+      bands.forEach((band) => {
         const skill = window.SKILLS.find((s) => s.category === cat && s.band === band);
         const cell = document.createElement("div");
         cell.className = "matrix-cell";
+        const m = bandMeta(band);
         if (!skill || !skill.introduced) {
           cell.classList.add("empty");
+          const why = startBand
+            ? `Not introduced at this level. This row starts at ${bandMeta(startBand).head}.`
+            : `Not introduced at this level.`;
+          cell.title = why;
+          cell.setAttribute("aria-label", `${cat}, ${m.head}: ${why}`);
           cell.innerHTML = `<span class="dash">—</span>`;
         } else {
+          cell.dataset.cur = m.cur;
           const n = itemsFor(skill).length;
           cell.classList.add(n ? "has-items" : "no-items");
           cell.dataset.id = skill.id;
-          cell.innerHTML = `<span class="cell-name">${skill.name}</span>` +
+          let chip = "";
+          if (m.cur === "VIC" && catMeta.prescribedBy === "VCE") {
+            chip = `<span class="cell-chip dual-chip" title="Also on the VCE prescribed grammar list">VCE</span>`;
+          } else if (m.cur === "VCE" && catMeta.prescribedBy === "PROGRAM") {
+            chip = `<span class="cell-chip prog-chip" title="Not on the VCE prescribed grammar list. School-designed.">school</span>`;
+          }
+          cell.innerHTML = `<span class="cell-name">${escapeHtmlE(skill.name)}</span>` + chip +
             (n ? `<span class="cell-count">${n}</span>` : `<span class="cell-count zero">0</span>`);
           if (n) {
             cell.addEventListener("click", () => {
@@ -84,7 +118,22 @@
       });
       wrap.appendChild(row);
     });
+    buildLegend();
     refreshCount();
+  }
+
+  function buildLegend() {
+    const bands = visibleBands();
+    const vic = bands.filter((b) => bandMeta(b).cur === "VIC").map((b) => bandMeta(b).head);
+    const vce = bands.filter((b) => bandMeta(b).cur === "VCE").map((b) => bandMeta(b).head);
+    let html = `Greyed cells aren't introduced at that level. Cells showing <b>0</b> exist in the sequence but have no items yet. `;
+    if (vic.length) html += `<span class="legend-vic">${vic.join(", ")}</span> come from the Victorian Curriculum F–10 Japanese. `;
+    if (vce.length) html += `<span class="legend-vce">${vce.join(", ")}</span> come from the VCE Japanese Second Language study design. `;
+    html += `Nothing is locked — work in any column you like.`;
+    $("matrixLegend").innerHTML = html;
+
+    const btn = $("bandToggleBtn");
+    btn.textContent = showAllBands ? "Hide Foundation–Level 6 columns" : "Show Foundation–Level 6 columns too";
   }
 
   function buildPools() {
@@ -181,7 +230,7 @@
 
     $("promptText").textContent = entry.item.prompt || type.label;
     $("skillTag").textContent = entry.band
-      ? `${entry.category} · ${entry.band} · ${entry.skillName}`
+      ? `${entry.category} · ${bandMeta(entry.band).head} · ${entry.skillName}`
       : `${entry.category} · ${entry.skillName}`;
 
     const area = $("taskArea");
@@ -281,7 +330,7 @@
       const pct = Math.round((s.right / s.total) * 100);
       const cls = pct === 100 ? "ok" : pct >= 50 ? "mid" : "low";
       return `<div class="skill-row">
-                <span class="skill-name">${s.band ? s.cat + " · " + s.band + " · " + s.name : s.cat + " · " + s.name}</span>
+                <span class="skill-name">${s.band ? s.cat + " · " + bandMeta(s.band).head + " · " + s.name : s.cat + " · " + s.name}</span>
                 <span class="skill-score ${cls}">${s.right}/${s.total}</span>
               </div>`;
     }).join("");
@@ -319,7 +368,7 @@
     t += `First try: ${firstRight}/${total}   Total attempts: ${totalAttempts}\n\n`;
     t += `By skill (first try):\n`;
     Object.values(bySkill).forEach((s) => {
-      t += `  ${s.band ? s.cat + " · " + s.band + " · " + s.name : s.cat + " · " + s.name}: ${s.right}/${s.total}\n`;
+      t += `  ${s.band ? s.cat + " · " + bandMeta(s.band).teacher + " · " + s.name : s.cat + " · " + s.name}: ${s.right}/${s.total}\n`;
       const tags = Object.entries(s.tags || {});
       if (tags.length > 1) tags.forEach(([tag, x]) => { t += `      - ${tag}: ${x.right}/${x.total}\n`; });
     });
@@ -355,10 +404,11 @@
     let csv = "name,date,category,band,skill,sub_skill,first_try,out_of\n";
     csv += [name, date, "OVERALL", "", "", "", firstRight, total].map(csvCell).join(",") + "\n";
     Object.values(bySkill).forEach((s) => {
-      csv += [name, date, s.cat, s.band, s.name, "", s.right, s.total].map(csvCell).join(",") + "\n";
+      const bandLabel = s.band ? bandMeta(s.band).teacher : "";
+      csv += [name, date, s.cat, bandLabel, s.name, "", s.right, s.total].map(csvCell).join(",") + "\n";
       const tags = Object.entries(s.tags || {});
       if (tags.length > 1) tags.forEach(([tag, t]) => {
-        csv += [name, date, s.cat, s.band, s.name, tag, t.right, t.total].map(csvCell).join(",") + "\n";
+        csv += [name, date, s.cat, bandLabel, s.name, tag, t.right, t.total].map(csvCell).join(",") + "\n";
       });
     });
     return csv;
@@ -366,7 +416,7 @@
   function buildTsvRow() {
     if (!lastReport) return "";
     const { bySkill, firstRight, total } = lastReport;
-    const header = ["name", "date", "first_try", "out_of"].concat(Object.values(bySkill).map((s) => `${s.cat} ${s.band || ""}`.trim()));
+    const header = ["name", "date", "first_try", "out_of"].concat(Object.values(bySkill).map((s) => `${s.cat} ${s.band ? bandMeta(s.band).teacher : ""}`.trim()));
     const values = [studentName(), todayStr(), firstRight, total].concat(Object.values(bySkill).map((s) => `${s.right}/${s.total}`));
     return header.join("\t") + "\n" + values.join("\t");
   }
@@ -431,6 +481,8 @@
     });
     $("selectNoneBtn").addEventListener("click", () => { selectedSkills.clear(); buildMatrix(); buildPools(); });
     $("startBtn").addEventListener("click", startSession);
+
+    $("bandToggleBtn").addEventListener("click", () => { showAllBands = !showAllBands; buildMatrix(); });
 
     // task area emits gh:ready when an answer is entered, gh:submit on Enter
     $("taskArea").addEventListener("gh:ready", () => { if (!graded) $("checkBtn").disabled = false; });
