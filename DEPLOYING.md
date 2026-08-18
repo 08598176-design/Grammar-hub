@@ -7,6 +7,9 @@ from the public repo `liaminhawai-cmd/japanese-hub` via GitHub Pages:
 |---|---|
 | https://liaminhawai-cmd.github.io/japanese-hub/ | hub landing page |
 | https://liaminhawai-cmd.github.io/japanese-hub/grammar/ | Japanese Grammar Hub |
+| https://liaminhawai-cmd.github.io/japanese-hub/words/ | Word Lab (kanji families) — PoC, Q5 |
+| https://liaminhawai-cmd.github.io/japanese-hub/oral/ | Oral practice player (47 questions + audio) — PoC, Q1 |
+| https://liaminhawai-cmd.github.io/japanese-hub/writing/ | Writing Wall (marked-up model text) — PoC, Q9 |
 
 The repo is named for the whole suite, not just grammar: each new tool gets
 its **own folder** (`/oral/`, `/topics/`, `/writing/`, `/kanji/`) plus a card
@@ -24,8 +27,10 @@ when in doubt, the URL wins.
   materials, all discussion. Nothing student-facing links here.
 - **The live repo (public):** the running apps only — the landing page, and
   one folder per tool (`grammar/` holds `index.html`, `engine.js`,
-  `tasktypes.js`, `data/skills.js`; app audio joins it when the oral module
-  lands). Because it's public: no teaching materials, no textbook scans, no
+  `tasktypes.js`, `data/skills.js`; the PoC folders `words/`, `oral/`
+  (+ its `audio/`), `writing/` are each a single `index.html` copied from
+  this repo's `apps/`). Because it's public: no teaching materials, no
+  textbook scans, no
   student anything, no internal links, ever. Item content itself must be
   original or paraphrased, not copied from copyrighted texts (see Q7).
 
@@ -42,9 +47,11 @@ when in doubt, the URL wins.
    Pages redeploys automatically within a minute or two.
 5. Spot-check the live URL (hard refresh) and confirm the build tag.
 
-Note: the live repo's `grammar/index.html` carries a favicon line the dev
-copy doesn't have. Re-add it after copying, or (better) add the same line to
-the dev repo's index.html so the two stop diverging.
+PoC apps deploy the same way: copy `apps/<name>/index.html` verbatim to the
+matching live folder (`words/`, `oral/`, `writing/`). The oral player also
+needs `audio/qa-01.mp3 … qa-47.mp3` copied to `oral/audio/` once (they
+rarely change). (The favicon line previously noted as live-only is now in
+both copies of `grammar/index.html`.)
 
 Deploy from the dev repo's default branch once work is merged; don't deploy
 half-finished branches. Content-only updates (new items) are safe to deploy

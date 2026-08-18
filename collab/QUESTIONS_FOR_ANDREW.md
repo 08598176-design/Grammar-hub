@@ -31,6 +31,10 @@ belong to seems to exist only in a later local build.
 **Ask:** Is there a `vce-grammar-hub-test_18` (or later) with the Oral Exam
 section — or any other sections — that isn't in the repo? If yes, zip the whole
 folder into `inbox/` before anyone rebuilds it from scratch.
+(Meanwhile a simple stand-alone player for the 47 questions is live at
+https://liaminhawai-cmd.github.io/japanese-hub/oral/ — tiers, audio,
+self-check boxes, deliberately no fake speech grading. If your newer build
+did it differently, that build wins.)
 
 ### Q2. Does the Prep-to-12 year timeline look right?
 **Context:** The app is **live** — https://liaminhawai-cmd.github.io/japanese-hub/grammar/
@@ -46,11 +50,14 @@ than primary (if so, VCAA's separate 7–10 Sequence, not the F–10 one, is
 the governing document and the placements shift — we don't have that file)?
 May the word "VCE" stay visible on a student's screen?
 
-### Q3. Are the 14 strands the right systems, and is the primary content usable?
-**Context:** One row per grammatical system: Script, Requests and
+### Q3. Are the 13 strands the right systems, and is the primary content usable?
+**Context:** One row per grammatical system: Requests and
 Politeness, Counting and Time, Sentences, Particles, Questions, Amounts
 and Comparing, Verb Forms, Verb Endings, Past and If, Can and Must,
 Joining Ideas, Reporting and Guessing, Analysing and Persuading.
+(Script is no longer a grammar-hub row — Liam's call, "don't force
+scripts onto grammar hub". Its 5 nodes/40 items are parked in
+`data/script-bank.js` as the seed for a stand-alone script app.)
 Two design calls to check: (a) Requests and Politeness is the
 directive/register ladder — greetings (F–2) → 〜てください as a set
 phrase (3–4) → introductions (5–6) → てもいい・てはいけない (8), with the
@@ -81,11 +88,15 @@ should lower bands lean on tap-to-choose task types instead of typing?
 shared components/radicals (e.g. 日 → 明・時・曜, semantic radical + phonetic
 component patterns). You've said kana isn't worth building (apps abound) —
 kanji may be different because it could tie to *your* prescribed lists.
-**Ask:** Would a component-based kanji module actually help your students, or
-do apps (WaniKani etc.) already own this space too? If yes: which list first —
-the VCE prescribed kanji, or Obento chapter kanji by year level? One
-worked example from you (a component family you'd teach) would seed the
-prototype.
+**There is now a working proof of concept to react to:**
+https://liaminhawai-cmd.github.io/japanese-hub/words/ — three kanji
+families (食・費・調) built from the 給食 unit's own vocabulary: meet the
+family, build each word from its parts, then derive meanings. Delete-able.
+**Ask:** Open the link and try one family. Does part-by-part word building
+match how you'd teach kanji vocabulary, or do apps (WaniKani etc.) already
+own this space? If it's worth growing: which list first — the VCE
+prescribed kanji, or Obento chapter kanji by year level? Are the three
+families' readings/glosses/part-glosses accurate as shipped?
 
 ### Q6. Topic map: what does each year level do, roughly when?
 **Context:** The plan's second layer is topic modules (vocab frontloading +
@@ -117,8 +128,17 @@ build-analysis-from-evidence tasks. The Japanese analogue would be model
 answers for VCE writing (e.g. the 400-ji letter/article/story) annotated by
 feature — students see *what good looks like*, then assemble their own from
 sentence-level moves.
-**Ask:** Which writing form first? Do you have (or can you write) 2–3 model
-answers per form? Teacher-written models only — no real student work.
+**There is now a working proof of concept to react to:**
+https://liaminhawai-cmd.github.io/japanese-hub/writing/ — one model
+evaluative text (the U4O3 convenience-store piece, paraphrased) marked up
+by three rhetorical moves (examples / balance / judgement), each
+annotation naming the grammar that powers the move (たり〜たり, てしまう,
+べきでしょう, のではなく…ことです). Delete-able.
+**Ask:** Open the link. Is move-by-move markup the right way in for your
+students? Which writing form first? Do you have (or can you write) 2–3
+model answers per form? Teacher-written models only — no real student
+work. And: is the paraphrased convenience-store text itself accurate
+Japanese you'd stand behind?
 
 ### Q10. Privacy state of the repo
 **Context:** Two PDFs in `Unit 10 Abilities and preferences/` contained
@@ -172,11 +192,53 @@ bands are now named Sentences/Choices/Links/Paragraphs/Argument — see Q2.)
 furigana on everything beyond X; Links: only beyond the Year 10 list;
 Paragraphs/Argument: only beyond the VCE list."
 
+### Q16. The language lever: does any student need English that *stays*?
+**Context:** The whole site is now Japanese-first. Any text can be pulled
+toward English with an elastic lever (page lever and per-section levers) —
+it holds where you hold it, then recoils stop by stop back to Japanese
+(kanji ← kana ← romaji ← English). Pedagogically the recoil is the point:
+English is scaffolding you reach for, not a mode you live in. But it means
+no student can *set* the interface to English and leave it there, and a
+student who genuinely needs sustained English support (learning-support
+adjustment, new arrival, low vision + screen reader) has to keep pulling.
+Hover always shows English, and the lever is keyboard-accessible, but
+that's not the same as a persistent setting.
+**Ask:** Do you teach anyone for whom the recoil is a genuine barrier
+rather than healthy friction? If yes, we'll add a quiet "hold at English"
+teacher setting; if no, we keep the mechanic pure.
+
 ---
 
 ## Decision log
 
 *(newest first — record: date · question · Andrew's decision)*
+
+- **2026-08-18 (Liam):** **Grammar hub is grammar only.** "Don't force
+  scripts onto grammar hub — a word builder can be its own app." The Script
+  strand's 5 nodes/40 items are parked in `data/script-bank.js` (not loaded
+  by the app) as the seed bank for a future stand-alone script/word app.
+  Final strand count: **13**. The live landing page gains sections beyond
+  grammar (words and vocab, speaking and listening, writing).
+
+- **2026-08-18 (Liam):** Every idea ships as a **small stand-alone proof of
+  concept for Andrew to review, not a feature bolted into the hub**: "make
+  demo proof of concept... andrew can delete if he doesn't like." Shipped:
+  `/words/` word-lab (kanji families 食・費・調 from the 給食 unit — Q5),
+  `/oral/` player for the 47 oral questions (Q1), `/writing/` writing wall
+  (one marked-up model text — Q9). Each is one self-contained HTML file
+  under `apps/` in this repo; deleting one deletes cleanly.
+
+- **2026-08-18 (Liam):** The language toggle is an **elastic lever**, not a
+  cycler chip (supersedes the earlier chrome decision below): a page lever
+  and small section levers pull through kanji → +kana → +romaji → English;
+  the handle **stays where it's held** ("that's important"), and on release
+  recoils stop by stop — ~1 s per stop for the page, ~1.7 s per stop
+  (readable) for sections. Applies to *everything* on the page: menus,
+  strand names, chunk titles, legends, counts. Keyboard: arrows step,
+  End = full English, Home/Escape = release. Google Translate is hard
+  blocked (`translate="no"` + `notranslate` — it would silently destroy
+  the mechanic). Accessibility caveat recorded as Q16 (sustained-English
+  learners).
 
 - **2026-08-18 (Liam):** "Everyday Language is not a grammar category" —
   dissolved into **Counting and Time** (numeral classifiers + temporal

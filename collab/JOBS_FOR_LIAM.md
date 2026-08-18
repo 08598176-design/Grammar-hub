@@ -43,8 +43,11 @@ hash; append new questions to QUESTIONS_FOR_ANDREW.md rather than guessing.
 
 ## Queue
 
-### J1. Recover or rebuild the Oral Exam Q&A section   NEEDS-INFO (Q1)
-Status: NEEDS-INFO (Q1)
+### J1. Recover or rebuild the Oral Exam Q&A section   PoC SHIPPED, NEEDS-INFO (Q1)
+Status: Stand-alone PoC player shipped 2026-08-18 (`apps/oral/`, live at
+`/oral/` with the 47 MP3s) — tiers, per-question audio, self-check boxes,
+honest no-fake-grading banner. Still NEEDS-INFO (Q1): if Andrew has a newer
+local build with his own Oral section, that build wins and this PoC yields.
 What: The repo has `audio/qa-01..47.mp3` and the generating script (question
 text + tier structure included in `generate-audio.js`) but no UI that plays
 them. If Andrew's newer local build (`vce-grammar-hub-test_18+`) already has
@@ -160,21 +163,28 @@ to teach; he field-tests it and the next topic takes <1 day to stamp out.
 Model: Opus for the template; Sonnet for stamping out later topics.
 Size: L
 
-### J5. Kanji component workbench prototype   NEEDS-INFO (Q5)
-Status: NEEDS-INFO (Q5)
-What: A small prototype porting the morpheme-matrix idea to kanji: component
-families (semantic radical + phonetic component), colour-bound like
-prefix/root/suffix in Liam's word builder, with build-from-parts as the
-first-attempt rule. One family from Andrew seeds it; VCE prescribed list
-scopes it.
+### J5. Kanji component workbench prototype   PoC SHIPPED, awaiting verdict (Q5)
+Status: PoC shipped 2026-08-18 (`apps/word-lab/`, live at `/words/`) —
+three families (食・費・調) from the 給食 unit's own vocab: meet the family
+(tap-reveal with elastic decay) → build each word from part tiles → derive
+its meaning, mastery loop, first-try report. Morpheme roles colour-bound
+(head kanji vs other parts). Awaiting Andrew's build/kill verdict and
+accuracy check on readings/glosses (Q5). If "build": next steps are more
+families, his chosen list (VCE vs Obento), and possibly radical-level
+decomposition.
 Why: Possibly the only kanji angle the app stores don't already own — tied to
 Andrew's exact lists and his morphology-style teaching.
-Done when: Andrew looks at a 1-family prototype and says build/kill.
+Done when: Andrew looks at the prototype and says build/kill.
 Model: Opus (novel module design).
 Size: M (prototype)
 
-### J6. WAGOLL wall for VCE Japanese writing   NEEDS-INFO (Q9)
-Status: NEEDS-INFO (Q9)
+### J6. WAGOLL wall for VCE Japanese writing   PoC SHIPPED, NEEDS-INFO (Q9)
+Status: Read-only PoC shipped 2026-08-18 (`apps/writing-wall/`, live at
+`/writing/`) — one model evaluative text marked up by three colour-bound
+rhetorical moves (examples / balance / judgement), each annotation naming
+the grammar powering the move. The full port (teacher mark-up tool, `#ex=`
+sharing, assemble-your-own) stays NEEDS-INFO until Andrew supplies model
+answers per form (Q9).
 What: Port the writing-wall pattern (teacher marks up a model answer with
 colour-bound features, shares via `#ex=` URL, students collect examples and
 assemble their own from sentence-level moves) for one VCE writing form.
