@@ -145,6 +145,79 @@ Model: Sonnet once Andrew supplies the pattern wordings; the mechanical
 application is scriptable.
 Size: M
 
+### J13. Unit hub PoC: Unit 10 できること・すきなこと   SCOPED, READY TO BUILD
+Status: Scoped 2026-08-18 (this entry IS the build spec — supersedes J4's
+wait-for-Q6: Liam's call, "if you've got enough, have a go". Unit 10 is the
+one unit with enough in-repo material to build honestly.)
+
+**What it is:** a Bone Sparrow-style unit hub for Andrew's Year 9 Unit 10
+(Abilities and Preferences: sports, jobs, plain form, ことができる・
+ことが好き・とくい), proving the whole connection story: frontloaded vocab
+→ stepped tasks → tiered reading → first-try report, with the vocab bank
+shaped exactly as the future site-wide vocab hub will read it, and the
+grammar steps deep-linking into the Grammar Hub instead of duplicating it.
+
+**Source material verified extractable** (Unit 10 folder, ~35 files):
+- p203 plain-form verb table: full text extracts (17+ verbs, group +
+  ます形 + plain form). Verb lists are facts — usable as data.
+- Andrew's own worksheets and readings extract cleanly: ことができる・好き
+  ・とくい Worksheet 1 (the 山本やすし motorbike passage + vocab box),
+  suru koto ga suki practices, INTERMEDIATE/ADVANCED CATs + model
+  answers, soccer JOB AD + answers, MODIFIED research task.
+- Obento page scans (p204/p212/p216, WB 201-202) are images and
+  copyrighted: NEVER deployed, not even paraphrased layouts. Item
+  sentences are authored fresh; Andrew's own authored passages may be
+  adapted (they are his), flagged for his accuracy check.
+
+**Structure** (port of `bonesparrowtrainer` in Bone-Sparrow, hub-ified):
+1. HOME — stepped cards with progress tags like the original, but NO hard
+   locks (hub rule: never lock content; the original locks steps — we keep
+   the numbered recommended order and a "start here" affordance instead).
+2. STUDY (frontload) — ~18-20 unit words as `window.U10_VOCAB`, the
+   proto-schema for the future vocab hub: {jp, read, gloss, pos, example,
+   exampleGloss, families?}. Sports katakana + activities + ability words
+   + jobs. Cross-link the 手 kanji family (選手・歌手・運転手) to
+   /words/ word-lab — that is the vocab-hub connection made visible.
+3. VOCAB TASKS — one task per word, mixed types dealt once per student
+   (Bone Sparrow's fixed-once random assignment), mastery loop, first-try
+   scored.
+4. GRAMMAR GYM — three stages matching the unit spine, each REUSING the
+   tasktypes contract (identify/gapfill/transform/order) with fresh items:
+   (a) ます形 → plain form (transform; verbs from the p203 list),
+   (b) ことができる (order + gapfill),
+   (c) ことが好き・とくい・にがて (identify + gapfill).
+   Each stage footer deep-links to the Grammar Hub timeline chunks that
+   own the skill: plain-finite-l (ふつう体 14 items), nominalisers-b4
+   (の・こと・ことができる), misc-b4 (potential form) — proving unit hubs
+   link to the grammar hub rather than fork it.
+5. READING — one fresh job-suitability passage (a person, their likes and
+   abilities, which part-time job suits) written in the style of Andrew's
+   CAT sequence, offered at THREE TIERS as tabs (MODIFIED short /
+   INTERMEDIATE / ADVANCED with たり〜たり), all tiers always open,
+   4-6 comprehension items per tier.
+6. REPORT — hub conventions, not Bone Sparrow's: first-try scoring,
+   per-step breakdown, optional name only (no student ID), copy-text +
+   print, nothing stored, unfinished steps say so.
+Plus: lever.js included (own copy), Japanese-first chrome with four-form
+strings, section levers on the step screens, notranslate hardening,
+build tag, PoC banner naming the open questions.
+
+**Where:** `apps/unit10/` in this repo; `/unit10/` live; landing page
+gains a 単元 (Units) section with the card, ためし中 chip.
+
+**Also update:** Q6 (note the PoC pre-empts it with Unit 10 — his topic
+map now slots future units into a proven shell), Q7 (this build follows
+the paraphrase rule — confirm), new Q asking Andrew to accuracy-check the
+authored items and passage, DEPLOYING.md URL table, SPEC §8.
+
+Done when: live at /unit10/, smoke-tested (steps, mastery, report,
+tiers, lever), committed in lanes, Andrew pointed at it via the
+questions file.
+Model: Opus (large multi-screen app; every pattern it needs is already
+in the repo — bonesparrowtrainer for structure, apps/* for house style,
+tasktypes.js for the item contract).
+Size: L
+
 ### J4. First topic module: digitise the Unit 10 pattern   NEEDS-INFO (Q6, Q7)
 Status: NEEDS-INFO (Q6, Q7)
 What: Take the `Unit 10 Abilities and preferences/` materials (tiered reading
