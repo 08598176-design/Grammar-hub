@@ -232,11 +232,12 @@ or should romaji input be auto-converted/accepted at lower bands? Affects
   stage instead of replacing the kanji. The lever (`createLever`) is an ARIA
   slider: drag or Arrow keys pull it down a stop at a time
   (kanji→+kana→+romaji→English), **it holds wherever it is held**, and on
-  release it recoils one stop at a time back to its floor — ~1 s/stop for
-  the page lever (`#pageLever`, rebuilds the whole screen per stop), ~1.7
-  s/stop for section levers (`#taskLever`, `#reportLever`, floored at the
-  page stage so they never show *less* support than the page). Home/Escape
-  drops to the floor, End pulls to full English. Individual labels can also
+  release it recoils one stop at a time back to its floor — ~0.65 s/stop
+  for the page lever (`#pageLever`, rebuilds the whole screen per stop;
+  its notches carry stage labels 漢字/かな/abc/EN), ~2 s/stop for section
+  levers (`#taskLever`, `#reportLever`, floored at the page stage so they
+  never show *less* support than the page). Home/Escape drops to the
+  floor, End pulls to full English. Individual labels can also
   be tapped (`jt-tap`) for a one-stop bump with the same elastic decay.
   English is always one hover away (`title` attributes). Google Translate is
   blocked (`translate="no"`, `notranslate`) because machine translation of

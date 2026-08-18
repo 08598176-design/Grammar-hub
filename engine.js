@@ -130,11 +130,20 @@
     const track = root.querySelector(".lever-track");
     const stageEl = root.querySelector(".lever-stage");
     const pct = (i) => 12 + i * (76 / 3);
+    const notchLabels = [];
     for (let i = 0; i < 4; i++) {
       const n = document.createElement("span");
       n.className = "lever-notch";
       n.style.top = pct(i) + "%";
       track.appendChild(n);
+      if (root.classList.contains("lever-page")) {
+        const lab = document.createElement("span");
+        lab.className = "lever-notch-label";
+        lab.style.top = pct(i) + "%";
+        lab.textContent = STAGE_NAMES[i];
+        track.appendChild(lab);
+        notchLabels.push(lab);
+      }
     }
     const handle = document.createElement("span");
     handle.className = "lever-handle";
@@ -148,6 +157,7 @@
       root.setAttribute("aria-valuenow", stage);
       root.setAttribute("aria-valuetext", STAGE_ARIA[stage]);
       if (stageEl) stageEl.textContent = stage > 0 ? STAGE_NAMES[stage] : "";
+      notchLabels.forEach((lab, i) => lab.classList.toggle("on", i === stage));
     }
     function set(s, fromRecoil) {
       s = Math.max(floor(), Math.min(3, s));
@@ -186,6 +196,7 @@
       else if (e.key === "End") { set(3); e.preventDefault(); }
       else if (e.key === "Home" || e.key === "Escape") { set(floor()); e.preventDefault(); }
     });
+    render();
     return { set: (s) => set(s), get: () => stage };
   }
 
@@ -700,9 +711,9 @@
 
     $("bandToggleBtn").addEventListener("click", () => { showAllBands = !showAllBands; buildMatrix(); });
 
-    // page lever: whole chrome, fast recoil (~1s from full pull)
+    // page lever: whole chrome, recoil ~2s from full pull
     createLever($("pageLever"), {
-      stepMs: 333,
+      stepMs: 650,
       onStage: (s) => {
         uiForm = s;
         document.querySelectorAll("[data-jt]").forEach((el) => delete el.dataset.form);
@@ -711,9 +722,9 @@
         else refreshCount();
       },
     });
-    // section levers: just their screen's buttons, slow readable recoil (~5s)
+    // section levers: just their screen's buttons, slow readable recoil (~6s)
     const sectionLever = (leverId, scopeId) => createLever($(leverId), {
-      stepMs: 1667,
+      stepMs: 2000,
       floor: () => uiForm,
       onStage: (s) => {
         document.querySelectorAll(`#${scopeId} [data-jt]`).forEach((el) => {
