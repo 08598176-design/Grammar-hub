@@ -60,14 +60,25 @@
      stop, with the same slow recoil. */
   .lever{position:absolute;z-index:6;display:flex;flex-direction:column;align-items:center;
        gap:3px;user-select:none;touch-action:none}
-  .lever-page{top:14px;right:22px}
+  /* The page lever is a machine bolted to the side of the page, not a
+     control hiding in a corner. It rides in the gutter beside the card,
+     stays put while you scroll, and is big enough to read from across a
+     classroom when it is on the board. */
+  /* padding-left leaves room for the notch labels, which hang off the
+     track's left edge — they belong inside the plate, not spilling onto
+     the page behind it */
+  .lever-page{position:fixed;top:50%;right:14px;transform:translateY(-50%);
+       background:var(--paper);border:2px solid var(--line);border-radius:18px;
+       padding:13px 13px 9px 50px;box-shadow:0 4px 18px rgba(0,0,0,.13);gap:6px}
+  .lever-cap{font-size:9.5px;font-weight:800;letter-spacing:.14em;color:var(--muted);
+       text-transform:uppercase;line-height:1.1;text-align:center}
   .lever-mini{position:relative;top:auto;right:auto;display:inline-flex;vertical-align:middle;margin-left:10px}
-  .lever-track{position:relative;width:26px;border-radius:13px;
+  .lever-track{position:relative;width:26px;border-radius:15px;
        background:linear-gradient(180deg,var(--bg),var(--line-soft));
-       border:2px solid var(--line);box-shadow:inset 0 2px 4px rgba(0,0,0,.10)}
-  .lever-page .lever-track{height:132px}
+       border:2px solid var(--line);box-shadow:inset 0 2px 5px rgba(0,0,0,.13)}
+  .lever-page .lever-track{height:196px;width:30px}
   .lever-mini .lever-track{height:64px;width:18px;border-width:1px}
-  .lever-notch{position:absolute;left:50%;transform:translate(-50%,-50%);width:8px;height:8px;
+  .lever-notch{position:absolute;left:50%;transform:translate(-50%,-50%);width:9px;height:9px;
        border-radius:50%;background:var(--line);box-shadow:inset 0 1px 1px rgba(0,0,0,.15)}
   .lever-mini .lever-notch{width:5px;height:5px}
   /* the notch the catch just dropped into gives a little ping */
@@ -78,9 +89,9 @@
   .lever-notch.hit{animation:lever-hit .38s ease-out}
   /* stage labels beside the page lever's notches — the corner space says
      what each stop does instead of leaving the lever cryptic */
-  .lever-notch-label{position:absolute;right:calc(100% + 9px);transform:translateY(-50%);
-       font-size:10px;font-weight:800;letter-spacing:.4px;color:var(--muted);white-space:nowrap;
-       opacity:.55;transition:opacity .2s,color .2s;pointer-events:none}
+  .lever-notch-label{position:absolute;right:calc(100% + 11px);transform:translateY(-50%);
+       font-size:11.5px;font-weight:800;letter-spacing:.4px;color:var(--muted);white-space:nowrap;
+       opacity:.5;transition:opacity .2s,color .2s;pointer-events:none}
   .lever-notch-label.on{opacity:1;color:var(--accent)}
   /* the knob: a big cartoony ball with a glint, squashes while you grab it */
   .lever-handle{position:absolute;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;
@@ -88,8 +99,11 @@
        background:radial-gradient(circle at 32% 28%, #d96a5a, var(--accent) 55%, #7c2424);
        box-shadow:0 3px 6px rgba(0,0,0,.25), inset 0 -3px 5px rgba(0,0,0,.18);
        transition:top .45s cubic-bezier(.34,1.56,.64,1), transform .15s ease}
+  .lever-page .lever-handle{width:46px;height:46px;border-width:3px;
+       box-shadow:0 5px 10px rgba(0,0,0,.28), inset 0 -4px 7px rgba(0,0,0,.2)}
   .lever-handle::after{content:"";position:absolute;top:5px;left:8px;width:9px;height:6px;
        border-radius:50%;background:rgba(255,255,255,.55);transform:rotate(-25deg)}
+  .lever-page .lever-handle::after{top:7px;left:11px;width:13px;height:8px}
   .lever-mini .lever-handle{width:22px;height:22px;border-width:1px}
   .lever-mini .lever-handle::after{top:3px;left:5px;width:6px;height:4px}
   /* landing wobble: squash on impact, overshoot, settle. The handle's base
@@ -107,9 +121,20 @@
   .lever-handle:hover,.lever:focus-visible .lever-handle{border-color:#5d1a1a;
        box-shadow:0 3px 8px rgba(0,0,0,.3), inset 0 -3px 5px rgba(0,0,0,.18)}
   .lever:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:16px}
-  .lever-stage{font-size:11px;font-weight:800;letter-spacing:.3px;color:var(--accent);
-       min-height:14px;text-align:center}
+  .lever-stage{font-size:13px;font-weight:800;letter-spacing:.3px;color:var(--accent);
+       min-height:17px;text-align:center}
   .lever-mini .lever-stage{font-size:8.5px;min-height:11px;color:var(--muted)}
+  /* Narrow screens have no gutter to live in, so it comes inboard and
+     shrinks rather than sitting on top of the content. */
+  @media (max-width:1100px){
+    .lever-page{top:12px;right:10px;transform:none;padding:9px 9px 6px 42px;border-radius:14px}
+    .lever-page .lever-track{height:120px;width:24px}
+    .lever-page .lever-handle{width:32px;height:32px;border-width:2px}
+    .lever-page .lever-handle::after{top:5px;left:8px;width:9px;height:6px}
+    .lever-notch-label{font-size:9.5px;right:calc(100% + 8px)}
+    .lever-cap{display:none}
+    .lever-stage{font-size:10.5px;min-height:13px}
+  }
   @media (prefers-reduced-motion: reduce){
     .lever-handle{transition:none}
     .lever-handle.wobble,.lever-notch.hit{animation:none}
@@ -273,6 +298,7 @@
 <div class="lever lever-page" id="pageLever" tabindex="0" role="slider" aria-label="Language support lever for the whole page"
      aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"
      title="Pull down: kanji, kana, romaji, English. It springs back — arrow keys work too.">
+  <div class="lever-cap" aria-hidden="true">ことば<br>レバー</div>
   <div class="lever-track"></div><div class="lever-stage"></div>
 </div>
   <h1 class="jt-tap" data-jt="title">Japanese Grammar Hub</h1>
@@ -354,7 +380,7 @@
     <div id="copyNote"></div>
   </section>
 </div>
-<div class="build-tag" aria-hidden="true">JGH build 2026-08-18b</div>
+<div class="build-tag" aria-hidden="true">JGH build 2026-08-18c</div>
 
 <!-- load order matters: content, then task types, then engine -->
 <script src="data/skills.js"></script>
