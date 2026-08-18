@@ -232,12 +232,18 @@ or should romaji input be auto-converted/accepted at lower bands? Affects
   stage instead of replacing the kanji. The lever (`createLever`) is an ARIA
   slider: drag or Arrow keys pull it down a stop at a time
   (kanji→+kana→+romaji→English), **it holds wherever it is held**, and on
-  release it recoils one stop at a time back to its floor — ~0.65 s/stop
-  for the page lever (`#pageLever`, rebuilds the whole screen per stop;
-  its notches carry stage labels 漢字/かな/abc/EN), ~2 s/stop for section
+  release it recoils one stop at a time back to its floor. The recoil is a
+  spring-loaded catch rather than a slide: each stop **holds** while the
+  wobble settles (28% of `stepMs`), **creeps** a third of the way back
+  under tension (the remaining 72%), then **snaps** onto the notch and
+  wobbles there. The stage changes on the snap, because that is the moment
+  the mechanism moves. `stepMs` is ~845 ms for the page lever
+  (`#pageLever`, rebuilds the whole screen per stop; its notches carry
+  stage labels 漢字/かな/abc/EN and ping when hit) and ~2600 ms for section
   levers (`#taskLever`, `#reportLever`, floored at the page stage so they
-  never show *less* support than the page). Home/Escape drops to the
-  floor, End pulls to full English. Individual labels can also
+  never show *less* support than the page). Home/Escape releases straight
+  to the floor (the accessibility escape hatch, not the spring), End pulls
+  to full English. `prefers-reduced-motion` drops the creep and the wobble. Individual labels can also
   be tapped (`jt-tap`) for a one-stop bump with the same elastic decay.
   English is always one hover away (`title` attributes). Google Translate is
   blocked (`translate="no"`, `notranslate`) because machine translation of

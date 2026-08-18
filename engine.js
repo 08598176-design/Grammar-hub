@@ -150,33 +150,71 @@
     handle.style.top = pct(0) + "%";
     track.appendChild(handle);
 
-    let stage = 0, timer = null, dragging = false;
+    let stage = 0, timer = null, timer2 = null, dragging = false;
     const floor = opts.floor || (() => 0);
+    const calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Position and stage are separate: during a recoil the handle creeps
+    // part of the way on its own before the catch lets go, so where the
+    // handle IS and which stage is APPLIED are briefly different things.
+    function place(topPct, ms, ease) {
+      handle.style.transition = calm ? "none" : `top ${ms}ms ${ease}`;
+      handle.style.top = topPct + "%";
+    }
+    function wobble() {
+      if (calm) return;
+      handle.classList.remove("wobble");
+      void handle.offsetWidth; // restart the animation
+      handle.classList.add("wobble");
+      const hit = track.querySelectorAll(".lever-notch")[stage];
+      if (hit) { hit.classList.remove("hit"); void hit.offsetWidth; hit.classList.add("hit"); }
+    }
     function render() {
-      handle.style.top = pct(stage) + "%";
       root.setAttribute("aria-valuenow", stage);
       root.setAttribute("aria-valuetext", STAGE_ARIA[stage]);
       if (stageEl) stageEl.textContent = stage > 0 ? STAGE_NAMES[stage] : "";
       notchLabels.forEach((lab, i) => lab.classList.toggle("on", i === stage));
     }
-    function set(s, fromRecoil) {
+    function set(s, fromRecoil, snapped) {
       s = Math.max(floor(), Math.min(3, s));
       if (s === stage) { if (!fromRecoil) armRecoil(); return; }
       stage = s;
       render();
+      // A stage the user drove (drag, arrow key) snaps to its notch at once
+      // and bounces on arrival; a recoil step has already been placed there.
+      if (!snapped) { place(pct(stage), 110, "cubic-bezier(.2,.9,.3,1.5)"); wobble(); }
       opts.onStage(stage);
       if (!fromRecoil) armRecoil();
     }
+    /* The recoil is a spring-loaded catch, not a slide. Each stop: the
+       handle creeps a third of the way back under tension, the catch lets
+       go, it SNAPS onto the next notch and wobbles there, then the whole
+       thing loads up again. The language changes on the snap, because that
+       is the moment the mechanism actually moves. */
     function armRecoil() {
-      clearTimeout(timer);
-      if (dragging) return;
-      if (stage > floor()) timer = setTimeout(() => { set(stage - 1, true); armRecoil(); }, opts.stepMs);
+      clearTimeout(timer); clearTimeout(timer2);
+      if (dragging || stage <= floor()) return;
+      const holdMs = Math.round(opts.stepMs * 0.28);
+      const creepMs = opts.stepMs - holdMs;
+      // 1. sit on the notch while the wobble settles and the spring loads
+      timer2 = setTimeout(() => {
+        const from = pct(stage), to = pct(stage - 1);
+        // 2. creep a third of the way, slowly, still caught
+        place(from + (to - from) * 0.3, creepMs, "cubic-bezier(.7,0,.9,.2)");
+        timer = setTimeout(() => {
+          // 3. the catch lets go: snap onto the notch, wobble, load again
+          place(to, 90, "cubic-bezier(.2,.9,.3,1.6)");
+          set(stage - 1, true, true);
+          wobble();
+          armRecoil();
+        }, creepMs);
+      }, holdMs);
     }
     root.addEventListener("pointerdown", (e) => {
       dragging = true;
       root.classList.add("dragging");
       try { root.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
-      clearTimeout(timer);
+      clearTimeout(timer); clearTimeout(timer2);
       onMove(e);
       e.preventDefault();
     });
@@ -197,6 +235,7 @@
       else if (e.key === "Home" || e.key === "Escape") { set(floor()); e.preventDefault(); }
     });
     render();
+    place(pct(0), 0, "linear");
     return { set: (s) => set(s), get: () => stage };
   }
 
@@ -713,7 +752,7 @@
 
     // page lever: whole chrome, recoil ~2s from full pull
     createLever($("pageLever"), {
-      stepMs: 650,
+      stepMs: 845,
       onStage: (s) => {
         uiForm = s;
         document.querySelectorAll("[data-jt]").forEach((el) => delete el.dataset.form);
@@ -724,7 +763,7 @@
     });
     // section levers: just their screen's buttons, slow readable recoil (~6s)
     const sectionLever = (leverId, scopeId) => createLever($(leverId), {
-      stepMs: 2000,
+      stepMs: 2600,
       floor: () => uiForm,
       onStage: (s) => {
         document.querySelectorAll(`#${scopeId} [data-jt]`).forEach((el) => {
