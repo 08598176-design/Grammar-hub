@@ -109,28 +109,19 @@ answer; it's a starting point he can argue with directly instead of in the
 abstract.
 Model: Sonnet for any corrections once he rules.
 
-### J10. Split existing rows across the bands they actually span   QUEUED
-Status: QUEUED — safe to run any time; not blocking, not blocked
-What: `DESIGN_BAND_LADDER.md` §6.4 identifies several rows whose *existing*
-items cleanly split across two bands by the specific structure each item
-drills (verifiable from the item's own `explain` text, not a new judgement
-call): Conjunctions (が/から → choices; ので/のに/けれども → links, already
-placed), Sentence-Final Particles (か → sentences; ね/よ → choices, already
-placed; の as soft question → links, STRETCH), Words Indicating Extent
-(ごろ/ぐらい → sentences; しか/だけ/より/一番 → choices, already placed),
-て-form II (てもいい/てはいけない → choices; てから/ても/てしまう/てみる →
-links, already placed), Verb Stem forms (たい/に行く → choices; ながら/すぎる/
-やすい・にくい/かた → links, already placed). Each split moves items between
-two skill-node objects sharing a category, no new Japanese content invented.
-Why: turns 5 more rows into genuine two-band staircases instead of single
-blocks parked at their median band — the point of the whole ladder.
-Inputs in repo: DESIGN_BAND_LADDER.md §6.4, data/skills.js.
-Decisions made: none needed — this is re-sorting Andrew's own vetted items
-by the difficulty his own explain text already states.
-Done when: sanity check `problems 0`; the 5 rows above render as two live
-cells each; browser click-through of one split row.
-Model: Sonnet (mechanical once the split boundary is identified per row).
-Size: S–M
+### J10. Split existing rows across the bands they actually span   DONE (commit 83c73e3)
+Status: DONE 2026-08-18. 13 rows split; live cells 19 -> 33; every grammar
+row except the three entry rows (Polite Finite Forms, Plain Finite Forms,
+ない-form) now spans 2-3 bands. Done by script — item objects copied by
+reference, with an assertion that all 280 originals survive exactly once —
+so no Japanese was rewritten in the process. 12 new items added for cells
+the split left too thin: the potential-form paradigm (う-verb / る-verb /
+irregular + the を→が shift), plus か and のほう.
+Follow-up worth doing, not urgent: the three single-band rows could each
+justify a second cell (ない-form's ないほうがいい vs なければならない split by
+register; Polite Finite Forms extending into `choices` for polite-vs-plain
+register choice). Left alone deliberately — those are judgement calls about
+sequence, which is Andrew's (Q3), not mechanical re-sorting.
 
 ### J4. First topic module: digitise the Unit 10 pattern   NEEDS-INFO (Q6, Q7)
 Status: NEEDS-INFO (Q6, Q7)
