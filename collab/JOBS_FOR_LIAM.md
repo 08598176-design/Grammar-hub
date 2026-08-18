@@ -123,6 +123,25 @@ register; Polite Finite Forms extending into `choices` for polite-vs-plain
 register choice). Left alone deliberately — those are judgement calls about
 sequence, which is Andrew's (Q3), not mechanical re-sorting.
 
+### J11. Japanese-first item content (prompts in four forms)   NEEDS-INFO (Andrew)
+Status: NEEDS-INFO — needs Andrew's ruling on wording and scope
+What: The chrome now cycles kanji/kana/romaji/English (engine commit
+911351d) and the mechanism (UI_STRINGS + data-jt + applyLang) is ready for
+item content. The job: author the 400 items' prompts (and possibly option
+labels) in the four forms, so questions themselves read Japanese-first,
+per Liam's 'get em used to japanese... for all questions'. This reverses
+the recorded 'instructions in English' convention, so Andrew must rule:
+which bands get Japanese-first prompts, whether romaji belongs in the
+chain for his students (many teachers ban it early), and the standard
+wording for each prompt pattern ('Fill in the correct particle' ->
+ただしい助詞を入れましょう etc — one ruling per pattern, ~20 patterns,
+not 400 separate rulings).
+Inputs in repo: engine.js UI_STRINGS block (the shape to follow),
+data/skills.js prompt patterns.
+Model: Sonnet once Andrew supplies the pattern wordings; the mechanical
+application is scriptable.
+Size: M
+
 ### J4. First topic module: digitise the Unit 10 pattern   NEEDS-INFO (Q6, Q7)
 Status: NEEDS-INFO (Q6, Q7)
 What: Take the `Unit 10 Abilities and preferences/` materials (tiered reading

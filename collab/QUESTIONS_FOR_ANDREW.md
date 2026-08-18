@@ -180,6 +180,21 @@ Paragraphs/Argument: only beyond the VCE list."
 
 *(newest first — record: date · question · Andrew's decision)*
 
+- **2026-08-18 (Liam):** Strands consolidated to **13 grammatical systems**
+  (one row per system, the English hub's Tenses/Modality/Questions logic):
+  Script, Everyday Language, Sentences, Particles, Questions, Comparing,
+  Verb Forms, Verb Endings, Past and If, Can and Must, Joining Ideas,
+  Reporting and Guessing, Analysing and Persuading. Three node-granularity
+  tag-alongs need Andrew's eye when he reviews Q3: とき sits in Reporting
+  and Guessing, というNoun in Past and If, and の・こと nominalising in Can
+  and Must.
+- **2026-08-18 (Liam):** The site chrome is **Japanese-first** with a
+  four-form cycle: kanji, then hiragana, then romaji, then English — a
+  global cycler chip, plus per-label tap on static text. English is always
+  one hover away. Item content (the 400 prompts/options/explanations) stays
+  English for now; converting it is queued as J11 and needs Andrew's ruling
+  on wording and on romaji's place in the chain.
+
 - **2026-08-18 (Liam):** Build-then-ratify, not ratify-then-build, for the
   Prep-12 band ladder (Q2/Q3): "don't be shy about live pushing stuff cos we
   aren't showing kids yet." So the ladder, the row placements and the two new
