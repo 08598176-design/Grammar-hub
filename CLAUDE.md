@@ -73,3 +73,7 @@ Claude** (ask if unclear — they have different jobs):
 - **No new dependencies, no build step, no accounts, no analytics.**
   localStorage only, and only in deployed builds.
 - Update `SPEC.md` in the same commit as any schema/interface/token change.
+- **One live version.** The app deploys to a single public URL (see
+  `DEPLOYING.md`); the live repo gets whole-file copies only, and nothing
+  non-app ever goes there. Don't hand out copies of index.html — hand out
+  the URL.

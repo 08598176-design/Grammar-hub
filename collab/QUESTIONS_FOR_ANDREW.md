@@ -105,15 +105,17 @@ sentence-level moves.
 answers per form? Teacher-written models only — no real student work.
 
 ### Q10. Privacy state of the repo
-**Context:** Two PDFs in `Unit 10 Abilities and preferences/` contain scanned
-student work with feedback ("…job application letter feedback and student
-scans.pdf" and "…2.pdf"). Even in a private repo this is the category you said
-you wanted to keep out.
-**Ask:** (a) Confirm the GitHub repo is set to Private (Settings → General →
-visibility). (b) OK to delete those two PDFs from the repo? (c) Deleting only
-hides them going forward — they stay in git history. Do you want Liam's Claude
-to do a history purge as well (it rewrites history and force-pushes; a
-one-time disruption, best done early while there's only one fork)?
+**Context:** Two PDFs in `Unit 10 Abilities and preferences/` contained
+scanned student work with feedback. They are now **deleted from the current
+files** (Liam's side, Aug 18), but git keeps old versions in history, so
+they're recoverable until a one-time "history purge" is run. Also: the app
+now deploys to a public URL from a separate repo, so this repo can and
+should be fully private.
+**Ask:** (a) Please set this repo to Private: Settings → General → Danger
+Zone → Change visibility. (b) OK for Liam's Claude to run the history purge?
+It rewrites the repo's history and everyone re-clones afterwards — a small
+one-time disruption, best done early. Pick a day; nothing else should be
+mid-flight when it runs.
 
 ### Q11. Furigana policy
 **Context:** Items currently use `<ruby>` furigana ad hoc and avoid off-list
@@ -122,19 +124,17 @@ kanji. A per-band rule would let content generation scale consistently.
 everything beyond X; Band 3: only beyond the Year 10 list; Band 4: only
 beyond the VCE list."
 
-### Q12. Will students use this from home?
-**Context:** Right now the hub runs by double-clicking index.html. Deploying
-it (GitHub Pages on a separate public repo containing only the app files) would
-give students a URL — which raises the copyright/privacy bar for what goes in
-the app itself.
-**Ask:** Classroom-only for now, or aim for a student URL? This decides
-whether we split "app" from "teacher archive" into two repos later.
-
 ---
 
 ## Decision log
 
 *(newest first — record: date · question · Andrew's decision)*
+
+- **2026-08-18 (Liam):** The app deploys to one public live URL from day one
+  (`liaminhawai-cmd/japanese-grammar-hub` via GitHub Pages) so there's a
+  single canonical version — see DEPLOYING.md. Consequence: everything in the
+  *app* is public (original/paraphrased content only), and this dev repo goes
+  fully private (Q10). This replaces former Q12 ("classroom-only or URL?").
 
 - **2026-08 (pre-existing, inferred from the bank):** Instructional text in
   English, Japanese only in sentences/particles/cues; accept kana and kanji

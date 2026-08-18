@@ -1,5 +1,9 @@
 # Japanese Grammar Hub
 
+**Live site (the canonical version):**
+https://liaminhawai-cmd.github.io/japanese-grammar-hub/ — how it updates is
+in `DEPLOYING.md`. This repo is the private development side.
+
 A practice hub for secondary Japanese (Years 7–12 / VCE), forked from the ELC
 Grammar Hub and being rebuilt around Japanese content. Students pick cells
 from a skills × bands matrix, drill them in a mastery loop (missed items come
