@@ -30,6 +30,58 @@
   let typeFilter = "all";
   let showAllBands = false; // teacher toggle: reveal script/words (VIC F-2, 3-4) columns
 
+  /* ---------------- JAPANESE-FIRST CHROME ----------------
+     The menus default to Japanese; the cycler steps every label through
+     kanji -> kana -> romaji -> English (Liam's spec). Static labels (title,
+     subtitle, report heading) also cycle individually when tapped. Action
+     buttons follow the global mode only, because clicking them has to fire
+     the action. Item content (prompts, options, explanations) is not
+     touched here — that is a content-lane job (J11).
+     Forms: [kanji, kana, romaji, English]. For katakana loanwords the kanji
+     and kana forms are identical — katakana IS the phonetic script there. */
+  const UI_STRINGS = {
+    title:      ["日本語文法ハブ", "にほんごぶんぽうハブ", "Nihongo Bunpō Hub", "Japanese Grammar Hub"],
+    subtitle:   ["スキルを選んで、練習して、レポート", "スキルをえらんで、れんしゅうして、レポート",
+                 "sukiru o erande, renshū shite, repōto", "pick a skill, practise, get a report"],
+    selectAll:  ["全部選ぶ", "ぜんぶえらぶ", "zenbu erabu", "Select all ready"],
+    clear:      ["クリア", "クリア", "kuria", "Clear"],
+    start:      ["練習スタート", "れんしゅうスタート", "renshū sutāto", "Start practising"],
+    exit:       ["やめる", "やめる", "yameru", "Exit"],
+    check:      ["チェック", "チェック", "chekku", "Check"],
+    next:       ["次へ", "つぎへ", "tsugi e", "Next"],
+    done:       ["終わりました！", "おわりました！", "owarimashita!", "Session complete"],
+    again:      ["もう一度", "もういちど", "mō ichido", "Run again"],
+    newSel:     ["選び直す", "えらびなおす", "erabinaosu", "New selection"],
+    allTasks:   ["全部", "ぜんぶ", "zenbu", "All tasks"],
+    identify:   ["見分ける", "みわける", "miwakeru", "Identify"],
+    gapfill:    ["穴埋め", "あなうめ", "anaume", "Gap fill"],
+    transform:  ["変える", "かえる", "kaeru", "Transform"],
+    order:      ["並べる", "ならべる", "naraberu", "Order"],
+    poolReading:["読む練習", "よむれんしゅう", "yomu renshū", "Reading Practice"],
+    poolVocab:  ["トピックの言葉", "トピックのことば", "topikku no kotoba", "Topic Vocabulary"],
+  };
+  const LANG_NAMES = ["日本語", "かな", "ローマ字", "English"];
+  let uiForm = 0; // kanji by default
+
+  function jtText(key, formOverride) {
+    const forms = UI_STRINGS[key];
+    if (!forms) return null;
+    const f = formOverride === undefined ? uiForm : formOverride;
+    return forms[f] || forms[3];
+  }
+  function applyLang() {
+    document.querySelectorAll("[data-jt]").forEach((el) => {
+      const key = el.dataset.jt;
+      if (!UI_STRINGS[key]) return;
+      const own = el.dataset.form !== undefined ? parseInt(el.dataset.form, 10) : undefined;
+      el.textContent = jtText(key, own);
+      el.title = UI_STRINGS[key][3]; // English always one hover away — honest UI
+    });
+    const chip = $("langCycle");
+    if (chip) chip.textContent = LANG_NAMES[uiForm];
+  }
+
+
   function visibleBands() {
     return window.BANDS.filter((b) => showAllBands || (window.BAND_META[b] && window.BAND_META[b].show));
   }
@@ -77,25 +129,36 @@
     const wrap = $("matrix");
     wrap.innerHTML = "";
     const years = window.JP_YEARS;
-    document.documentElement.style.setProperty("--year-count", years.length);
 
-    // header: the year axis
+    // the year axis: quiet numbers, then two grouped curriculum bars
     const head = document.createElement("div");
     head.className = "tl-row tl-head";
     head.innerHTML = `<div class="tl-label"></div>` +
       years.map((y, i) => {
-        const cur = i <= 10 ? "VIC" : "VCE";
         const label = y === "F" ? "Prep" : y;
         const teacher = i <= 10 ? `Victorian Curriculum, Level ${y}` : `VCE Units ${i === 11 ? "1 and 2" : "3 and 4"}`;
-        return `<div class="tl-year" data-cur="${cur}" title="${escapeHtmlE(teacher)}">${escapeHtmlE(label)}</div>`;
+        return `<div class="tl-year" title="${escapeHtmlE(teacher)}">${escapeHtmlE(label)}</div>`;
       }).join("");
     wrap.appendChild(head);
+
+    const bars = document.createElement("div");
+    bars.className = "tl-row tl-bars";
+    bars.innerHTML = `<div class="tl-label"></div>` +
+      `<div class="tl-bar" data-cur="VIC" style="grid-column:2 / 13" title="Prep to Year 10 follow the Victorian Curriculum F\u201310 Japanese"><span>Victorian Curriculum F\u201310</span></div>` +
+      `<div class="tl-bar" data-cur="VCE" style="grid-column:13 / 15" title="Years 11 and 12 follow the VCE Japanese Second Language study design"><span>VCE</span></div>`;
+    wrap.appendChild(bars);
 
     Object.entries(window.JP_CHUNKS).forEach(([strand, chunks]) => {
       const row = document.createElement("div");
       row.className = "tl-row";
       const meta = (window.CATEGORY_META && window.CATEGORY_META[strand]) || { prescribedBy: "" };
-      row.innerHTML = `<div class="tl-label">${escapeHtmlE(strand)}</div>`;
+      // row-level fact, shown once on the label instead of on every card
+      const chip = meta.prescribedBy === "VCE"
+        ? `<span class="row-chip chip-vce" title="On the VCE prescribed grammar list">VCE list</span>`
+        : meta.prescribedBy === "PROGRAM"
+          ? `<span class="row-chip chip-prog" title="School-designed. Not on the VCE prescribed grammar list.">school</span>`
+          : "";
+      row.innerHTML = `<div class="tl-label"><span class="tl-strand">${escapeHtmlE(strand)}</span>${chip}</div>`;
 
       chunks.forEach((chunk, ci) => {
         const n = chunkItemCount(chunk);
@@ -103,23 +166,16 @@
         el.className = "tl-chunk" + (n ? " has-items" : " no-items");
         // +2: CSS grid is 1-indexed and column 1 is the strand label
         el.style.gridColumn = `${chunk.y0 + 2} / ${chunk.y1 + 3}`;
-        el.dataset.cur = chunk.y0 <= 10 ? "VIC" : "VCE";
-        let chip = "";
-        if (chunk.y0 <= 10 && meta.prescribedBy === "VCE") {
-          chip = `<span class="cell-chip dual-chip" title="Also on the VCE prescribed grammar list">VCE</span>`;
-        } else if (chunk.y0 >= 11 && meta.prescribedBy === "PROGRAM") {
-          chip = `<span class="cell-chip prog-chip" title="Not on the VCE prescribed grammar list. School-designed.">school</span>`;
-        }
-        el.innerHTML = `<span class="tl-years">Year${chunk.years.indexOf("\u2013") > -1 ? "s" : ""} ${escapeHtmlE(chunk.years)}</span>` +
-          `<span class="tl-title">${escapeHtmlE(chunk.title)}</span>` + chip +
-          (n ? `<span class="cell-count">${n}</span>` : `<span class="cell-count zero">0</span>`);
+        const yearsLabel = `Year${chunk.years.indexOf("\u2013") > -1 ? "s" : ""} ${chunk.years}`;
+        el.innerHTML = `<span class="tl-title">${escapeHtmlE(chunk.title)}</span>` +
+          `<span class="tl-meta">${escapeHtmlE(yearsLabel)}${n ? ` \u00b7 ${n}` : " \u00b7 no items yet"}</span>`;
 
         if (n) {
           const prev = ci > 0 ? chunks[ci - 1] : null;
-          if (prev) {
-            el.title = `Builds on: ${prev.title} (Year${prev.years.indexOf("\u2013") > -1 ? "s" : ""} ${prev.years}). ` +
-              `Picking this one brings that along as review.`;
-          }
+          el.title = prev
+            ? `${yearsLabel}, ${n} items. Builds on: ${prev.title}. Picking this one brings that along as review.`
+            : `${yearsLabel}, ${n} items. The first step in this row.`;
+          el.setAttribute("aria-label", `${strand}: ${chunk.title}. ${el.title}`);
           el.addEventListener("click", () => {
             const on = !chunkSelected(chunk);
             const apply = (c) => c.covers.forEach((id) => {
@@ -144,12 +200,10 @@
 
   function buildLegend() {
     $("matrixLegend").innerHTML =
-      `Each block is a teaching step, sitting on the years it is usually taught. ` +
+      `Each block is a teaching step, placed on the years it is usually taught. ` +
       `Read a row left to right and you are watching one skill get harder. ` +
-      `<span class="legend-vic">Prep to Year 10</span> follows the Victorian Curriculum F–10 Japanese; ` +
-      `<span class="legend-vce">Years 11 and 12</span> follow the VCE Japanese Second Language study design. ` +
-      `Click a step to practise it, and the step before it comes along as review. ` +
-      `Nothing is locked — pick any step in any row.`;
+      `Click a step to practise it \u2014 the step before comes along as review. ` +
+      `Nothing is locked.`;
     const btn = $("bandToggleBtn");
     if (btn) btn.style.display = "none";
   }
@@ -167,7 +221,8 @@
       if (!catSkills.length) return;
       const group = document.createElement("div");
       group.className = "pools-group";
-      group.innerHTML = `<h3>${cat}</h3>`;
+      const poolKey = cat === "Reading Practice" ? "poolReading" : cat === "Topic Vocabulary" ? "poolVocab" : "";
+      group.innerHTML = `<h3${poolKey ? ` data-jt="${poolKey}"` : ""}>${escapeHtmlE(jtText(poolKey) || cat)}</h3>`;
       const list = document.createElement("div");
       list.className = "pools-list";
       catSkills.forEach((skill) => {
@@ -209,9 +264,11 @@
       if (window.TASK_TYPES[it.type] && !present.includes(it.type)) present.push(it.type);
     }));
     const types = ["all"].concat(present);
-    wrap.innerHTML = types.map((t) =>
-      `<button class="filter-btn${t === typeFilter ? " active" : ""}" data-t="${t}">${t === "all" ? "All tasks" : window.TASK_TYPES[t].label}</button>`
-    ).join("");
+    wrap.innerHTML = types.map((t) => {
+      const key = t === "all" ? "allTasks" : t;
+      const label = jtText(key) || window.TASK_TYPES[t].label;
+      return `<button class="filter-btn${t === typeFilter ? " active" : ""}" data-t="${t}" data-jt="${UI_STRINGS[key] ? key : ""}">${escapeHtmlE(label)}</button>`;
+    }).join("");
     wrap.querySelectorAll(".filter-btn").forEach((b) => {
       b.addEventListener("click", () => {
         typeFilter = b.dataset.t;
@@ -501,6 +558,20 @@
     $("startBtn").addEventListener("click", startSession);
 
     $("bandToggleBtn").addEventListener("click", () => { showAllBands = !showAllBands; buildMatrix(); });
+
+    $("langCycle").addEventListener("click", () => {
+      uiForm = (uiForm + 1) % 4;
+      document.querySelectorAll("[data-jt]").forEach((el) => delete el.dataset.form);
+      applyLang();
+    });
+    document.querySelectorAll(".jt-tap").forEach((el) => {
+      el.addEventListener("click", () => {
+        const own = el.dataset.form !== undefined ? parseInt(el.dataset.form, 10) : uiForm;
+        el.dataset.form = (own + 1) % 4;
+        applyLang();
+      });
+    });
+    applyLang();
 
     // task area emits gh:ready when an answer is entered, gh:submit on Enter
     $("taskArea").addEventListener("gh:ready", () => { if (!graded) $("checkBtn").disabled = false; });

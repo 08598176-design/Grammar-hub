@@ -29,7 +29,7 @@
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);
        min-height:100vh;padding:16px;display:flex;justify-content:center;align-items:flex-start;color:var(--ink)}
-  .container{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  .container{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:12px;
        max-width:1120px;width:100%;padding:26px;margin-top:12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
   /* the drill and report read better narrow; only the timeline needs the width */
   #taskScreen,#reportScreen{max-width:760px;margin:0 auto}
@@ -50,6 +50,15 @@
   .btn-ghost:hover{color:var(--ink);border-color:var(--ink)}
   .linkbtn{background:none;border:none;color:var(--accent);font-weight:600;font-size:13px;cursor:pointer;padding:4px 8px}
   .linkbtn:hover{text-decoration:underline}
+  /* ---- language cycler: the chrome is Japanese-first; this cycles it
+     kanji -> kana -> romaji -> English. Static labels also cycle when
+     tapped individually. Item content is untouched here. */
+  .lang-cycle{position:absolute;top:14px;right:16px;z-index:5;border:1px solid var(--line);
+       background:var(--bg);color:var(--muted);font-size:11px;font-weight:700;border-radius:14px;
+       padding:4px 12px;cursor:pointer;letter-spacing:.3px}
+  .lang-cycle:hover{border-color:var(--accent);color:var(--accent)}
+  .jt-tap{cursor:pointer}
+  .jt-tap:hover{text-decoration:underline dashed var(--line);text-underline-offset:4px}
 
   /* ---- select: filter + matrix ---- */
   .filter-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
@@ -58,45 +67,49 @@
   .filter-btn:hover{border-color:var(--accent);color:var(--accent)}
   .filter-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 
-  /* ---- year timeline: Prep to Year 12, one row per strand ---- */
-  .matrix{display:flex;flex-direction:column;gap:5px;overflow-x:auto;padding-bottom:4px}
-  /* Prep-Year 10 are 2-year bands so their chunks span two columns; Years 11
-     and 12 are single years carrying the densest VCE content, so they get
-     wider tracks or the Japanese wraps to unreadable slivers. */
-  .tl-row{display:grid;
-       grid-template-columns:var(--label-w,112px) repeat(11,minmax(50px,1fr)) repeat(2,minmax(104px,1.7fr));
-       gap:4px;min-width:1020px;align-items:stretch}
-  .tl-head{position:sticky;top:0;z-index:3;background:var(--paper);padding-bottom:2px}
-  .tl-year{text-align:center;font-weight:800;font-size:11px;color:var(--muted);padding:3px 2px 4px}
-  .tl-year[data-cur="VIC"]{border-bottom:3px solid var(--vic);color:var(--ink)}
-  .tl-year[data-cur="VCE"]{background:var(--vce);color:var(--vce-ink);border-bottom:3px double var(--vce);
-       border-radius:6px 6px 0 0}
-  .tl-label{display:flex;align-items:center;font-weight:700;font-size:10.5px;color:var(--ink);
-       background:var(--bg);border:1px solid var(--line-soft);border-radius:7px;padding:6px 8px;
-       text-transform:uppercase;letter-spacing:.2px;line-height:1.25;
-       position:sticky;left:0;z-index:2}
-  .tl-head .tl-label{background:var(--paper);border:none}
-  .tl-chunk{display:flex;flex-direction:column;justify-content:center;gap:2px;
-       border:1px solid var(--line-soft);border-radius:7px;background:var(--paper);
-       padding:6px 8px;min-height:52px;outline-offset:-2px}
-  .tl-chunk[data-cur="VIC"]{border-top:3px solid var(--vic)}
-  .tl-chunk[data-cur="VCE"]{border-top:3px double var(--vce)}
+  /* ---- year timeline: Prep to Year 12, one row per strand ----
+     The axis does the talking: year numbers with two grouped curriculum
+     bars (VIC outlined, VCE filled — same lightness+fill+word encoding as
+     the report exports), a faint line behind each row anchoring the steps,
+     and quiet cards: title plus one muted meta line. Row-level facts (on
+     the VCE prescribed list / school-designed) sit once on the strand
+     label, not on every card. */
+  .matrix{display:flex;flex-direction:column;gap:6px;overflow-x:auto;padding-bottom:4px}
+  .tl-row{display:grid;position:relative;
+       grid-template-columns:var(--label-w,118px) repeat(11,minmax(50px,1fr)) repeat(2,minmax(104px,1.7fr));
+       gap:4px 6px;min-width:1020px;align-items:stretch}
+  .tl-row:not(.tl-head):not(.tl-bars)::before{content:"";position:absolute;z-index:0;
+       left:calc(var(--label-w,118px) + 10px);right:4px;top:50%;
+       border-top:1px solid var(--line-soft)}
+  .tl-head{margin-bottom:-4px}
+  .tl-year{text-align:center;font-weight:700;font-size:11px;color:var(--muted);padding:2px 0}
+  .tl-bars{margin-bottom:6px}
+  .tl-bar{position:relative;text-align:center;padding-bottom:1px}
+  .tl-bar span{font-size:8.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;
+       border-radius:8px;padding:0 7px;line-height:1.6;display:inline-block}
+  .tl-bar[data-cur="VIC"]{border-bottom:3px solid var(--vic)}
+  .tl-bar[data-cur="VIC"] span{color:var(--vic)}
+  .tl-bar[data-cur="VCE"]{border-bottom:3px double var(--vce)}
+  .tl-bar[data-cur="VCE"] span{background:var(--vce);color:var(--vce-ink)}
+  .tl-label{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:3px;
+       background:var(--paper);padding:4px 10px 4px 0;position:sticky;left:0;z-index:2}
+  .tl-strand{font-weight:700;font-size:11px;line-height:1.3;color:var(--ink)}
+  .row-chip{font-size:8px;font-weight:800;letter-spacing:.4px;border-radius:8px;padding:0 5px;
+       text-transform:uppercase}
+  .chip-vce{border:1px solid var(--vce);color:var(--vce)}
+  .chip-prog{border:1px dotted var(--prog);color:var(--prog)}
+  .tl-chunk{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;gap:3px;
+       border:1px solid var(--line-soft);border-radius:8px;background:var(--bg);
+       padding:7px 9px;min-height:48px;outline-offset:-2px}
   .tl-chunk.has-items{cursor:pointer;transition:border-color .12s ease,background .12s ease}
   .tl-chunk.has-items:hover{border-color:var(--accent);background:#faf5f0}
   .tl-chunk.has-items.selected{outline:2px solid var(--accent);background:#faf5f0}
-  .tl-chunk.no-items{opacity:.6}
-  .tl-years{font-size:8.5px;font-weight:800;letter-spacing:.3px;color:var(--accent);text-transform:uppercase}
-  .tl-title{font-size:11px;font-weight:600;line-height:1.25}
-  .cell-count{font-size:10px;font-weight:700;color:var(--accent);align-self:flex-start;
-       background:var(--bg);border-radius:10px;padding:0 6px}
-  .cell-count.zero{color:var(--muted)}
-  .cell-chip{font-size:8px;font-weight:800;letter-spacing:.3px;border-radius:8px;padding:0 5px;
-       align-self:flex-start}
-  .dual-chip{border:1px solid var(--vce);color:var(--vce)}
-  .prog-chip{border:1px dotted var(--prog);color:var(--prog)}
+  .tl-chunk.no-items{border-style:dashed;opacity:.7}
+  .tl-title{font-size:11px;font-weight:600;line-height:1.3;color:var(--ink)}
+  .tl-meta{font-size:8.5px;font-weight:600;letter-spacing:.2px;color:var(--muted)}
 
-  .matrix-legend{font-size:11px;color:var(--muted);line-height:1.6;margin-top:12px;text-align:center}
-  .matrix-legend b{font-weight:800}
+  .matrix-legend{font-size:11px;color:var(--muted);line-height:1.6;margin:14px auto 0;
+       text-align:center;max-width:640px}
   .legend-vic{color:var(--vic);font-weight:800}
   .legend-vce{color:var(--vce);font-weight:800}
   .band-toggle-row{text-align:center;margin-top:10px}
@@ -198,8 +211,9 @@
 </head>
 <body>
 <div class="container">
-  <h1>Japanese Grammar Hub</h1>
-  <p class="subtitle">Japanese grammar progression · pick skills, practise, get a report</p>
+<button class="lang-cycle" id="langCycle" title="Change the language of the menus. Tap the title or subtitle to change just that label."></button>
+  <h1 class="jt-tap" data-jt="title">Japanese Grammar Hub</h1>
+  <p class="subtitle jt-tap" data-jt="subtitle">Japanese grammar progression · pick skills, practise, get a report</p>
 
   <!-- ============ SELECT ============ -->
   <section class="screen active" id="selectScreen">
@@ -212,15 +226,15 @@
     <div class="select-toolbar">
       <span class="count-pill" id="selCount">0 skills · 0 items</span>
       <span>
-        <button class="linkbtn" id="selectAllBtn">Select all ready</button>
-        <button class="linkbtn" id="selectNoneBtn">Clear</button>
+        <button class="linkbtn" id="selectAllBtn" data-jt="selectAll">Select all ready</button>
+        <button class="linkbtn" id="selectNoneBtn" data-jt="clear">Clear</button>
       </span>
     </div>
     <div class="pools-section" id="poolsSection">
       <div id="poolsList"></div>
     </div>
     <div class="start-bar">
-      <button class="btn btn-primary" id="startBtn" disabled>Start practising</button>
+      <button class="btn btn-primary" id="startBtn" data-jt="start" disabled>Start practising</button>
     </div>
   </section>
 
@@ -228,7 +242,7 @@
   <section class="screen" id="taskScreen">
     <div class="progress-row">
       <span id="roundText">Main round</span>
-      <button class="exit-btn" id="quitBtn">Exit</button>
+      <button class="exit-btn" id="quitBtn" data-jt="exit">Exit</button>
     </div>
     <div class="progress-track"><div class="progress-fill" id="bar"></div></div>
     <div class="progress-row"><span></span><span id="remainText"></span></div>
@@ -241,15 +255,15 @@
     <div class="action-row">
       <span></span>
       <span>
-        <button class="btn btn-primary" id="checkBtn" disabled>Check</button>
-        <button class="btn btn-primary" id="nextBtn" style="display:none">Next</button>
+        <button class="btn btn-primary" id="checkBtn" data-jt="check" disabled>Check</button>
+        <button class="btn btn-primary" id="nextBtn" data-jt="next" style="display:none">Next</button>
       </span>
     </div>
   </section>
 
   <!-- ============ REPORT ============ -->
   <section class="screen" id="reportScreen">
-    <div class="report-title">Session complete</div>
+    <div class="report-title jt-tap" data-jt="done">Session complete</div>
     <div id="reportSummary"></div>
     <div id="reportSkills"></div>
     <div id="reportRemediation"></div>
@@ -261,8 +275,8 @@
       <button class="btn btn-ghost" id="copyBtn">Copy teacher results</button>
       <button class="btn btn-ghost" id="downloadCsvBtn">Download CSV</button>
       <button class="btn btn-ghost" id="copyTsvBtn">Copy row for sheet</button>
-      <button class="btn btn-ghost" id="reviewBtn">Run again</button>
-      <button class="btn btn-primary" id="restartBtn">New selection</button>
+      <button class="btn btn-ghost" id="reviewBtn" data-jt="again">Run again</button>
+      <button class="btn btn-primary" id="restartBtn" data-jt="newSel">New selection</button>
     </div>
     <div id="copyNote"></div>
   </section>
