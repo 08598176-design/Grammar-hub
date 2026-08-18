@@ -32,42 +32,34 @@ belong to seems to exist only in a later local build.
 section — or any other sections — that isn't in the repo? If yes, zip the whole
 folder into `inbox/` before anyone rebuilds it from scratch.
 
-### Q2. What should the bands mean? — now a "does this look right?" rather than a blank page
-**Context:** This is now **live** — https://liaminhawai-cmd.github.io/japanese-hub/grammar/
-— as a seven-column ladder: Sentences / Choices / Links / Paragraphs /
-Argument shown by default (a "Show Foundation–Level 6 columns" toggle
-reveals Script and Words too), mapped to VIC F–10 Levels 5–6 through 9–10
-plus VCE Units 1&2 and 3&4, colour-coded VIC vs VCE. Built ahead of your
-answer, on Liam's call ("don't be shy about pushing live, we aren't showing
-kids yet") — see the Decision Log below. The full reasoning and page
-citations are in `collab/research/DESIGN_BAND_LADDER.md`.
-**Ask:** Open the link and look at the column headers and the legend. Do the
-names read right to a Year 7 and a Year 12 without either feeling singled
-out? Is the VIC/Levels 5–6 through 9–10 assumption correct for your
-students, or do they start Japanese in Year 7 (in which case VCAA's separate
-7–10 Sequence, not the F–10 one, is the document we should be citing —
-DESIGN_BAND_LADDER.md §7 item 1)? May the word "VCE" stay visible on a
-student's screen, or should it move to teacher-only/legend-only?
+### Q2. Does the Prep-to-12 year timeline look right?
+**Context:** The app is **live** — https://liaminhawai-cmd.github.io/japanese-hub/grammar/
+— and has moved twice since this question was first written; ignore older
+descriptions. It is now a **year timeline**: Prep to Year 12 across the top,
+13 strand rows (one per grammatical system), each block a teaching step
+placed on the years it is usually taught, VIC and VCE marked by the two
+bars on the axis. Built ahead of your answer on Liam's call — see the
+Decision Log.
+**Ask:** Open the link. Are the year placements roughly right for how your
+program actually runs? Do your students start Japanese in Year 7 rather
+than primary (if so, VCAA's separate 7–10 Sequence, not the F–10 one, is
+the governing document and the placements shift — we don't have that file)?
+May the word "VCE" stay visible on a student's screen?
 
-### Q3. Are the 17 category rows the right spine? — now a real matrix, not a list
-**Context:** This is **live** now too. Every row moved to the band the study
-design's own page citations best support (not a blind rename — the worst
-mislabel is fixed: Sentence-Final Particles and basic Conjunctions were
-sitting in the old top band despite being Year 7–10 material). Core
-Particles genuinely spans two bands now (Choices → Links) — the first row
-that actually shows "same skill, harder version" rather than one cell per
-row. Two new rows were added: Polite Finite Forms and Plain Finite Forms —
-the ます/ない/た conjugation base every existing PF+expression item already
-assumes a student can produce.
-**Ask:** Click through the matrix (collab/research/DESIGN_BAND_LADDER.md §6.4
-has the full coverage map with page citations if you want the reasoning
-per row). Anything placed at the wrong level? Any row that should merge,
-split further, or get a different name? Which three rows would you fill at
-the lower bands *first* — i.e. where do your Year 10s actually bleed marks
-when they hit VCE? (Not urgent: a handful of rows — Conjunctions, Sentence-
-Final Particles, Words Indicating Extent, て-form II, Verb Stem forms —
-have their *existing* items ready to split across two bands each the moment
-someone runs job J10; that's mechanical and doesn't need your input first.)
+### Q3. Are the 13 strands the right systems, and is the primary content usable?
+**Context:** Strands were consolidated to one row per grammatical system:
+Script, Everyday Language, Sentences, Particles, Questions, Comparing,
+Verb Forms, Verb Endings, Past and If, Can and Must, Joining Ideas,
+Reporting and Guessing, Analysing and Persuading. Three tag-alongs from
+the consolidation need your eye: とき sits in Reporting and Guessing,
+というNoun in Past and If, の・こと nominalising in Can and Must. The
+Prep–Year 8 cells (108 items: script, greetings, これはXです, numbers,
+counters) are proposed content — only the Script strand's sequence is
+directly curriculum-backed, and every item there needs your accuracy
+check before a class sees it.
+**Ask:** Would you merge, split, rename or re-order any strand? Are the
+primary items accurate and pitched right? Which strand would you extend
+first — where do your Year 10s actually bleed marks when they hit VCE?
 
 ### Q4. Typed answers: kana, kanji, romaji?
 **Context:** Gapfill items accept typed answers; the bank currently accepts
