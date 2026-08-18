@@ -122,6 +122,24 @@ It rewrites the repo's history and everyone re-clones afterwards — a small
 one-time disruption, best done early. Pick a day; nothing else should be
 mid-flight when it runs.
 
+### Q13. Which year levels actually run?
+**Context:** The school learning continuum (Languages tab) carries Japanese
+"I can" statements for Years 6–11 only. The hub's student view will be
+organised by year level, so we need the real span.
+**Ask:** Which year levels do you actually teach Japanese at (does it start
+in primary? does Year 12 = VCE Units 3&4 only)? Should the hub's year view
+run 7–12, 6–12, or F–12?
+
+### Q14. Continuum accuracy check
+**Context:** The hub's student view quotes the school continuum's Japanese
+"I can" statements per year level. A few look aspirational rather than
+realistic (e.g. Year 11 Translating: "…legal texts, and technical manuals").
+The hub will quote the continuum as-is, so errors there become errors in the
+app.
+**Ask:** Skim `collab/research/SCHOOL_CONTINUUM_JAPANESE.md` and mark any
+statement you'd rewrite. If you update the master sheet, tell your assistant
+so the hub copy follows.
+
 ### Q11. Furigana policy
 **Context:** Items currently use `<ruby>` furigana ad hoc and avoid off-list
 kanji. A per-band rule would let content generation scale consistently.
@@ -134,6 +152,13 @@ beyond the VCE list."
 ## Decision log
 
 *(newest first — record: date · question · Andrew's decision)*
+
+- **2026-08-18 (Liam):** The **student-facing view is organised by year
+  level**, framed by the school Learning Continuum's Japanese "I can"
+  statements (see `collab/research/SCHOOL_CONTINUUM_JAPANESE.md`) — not by
+  curriculum band codes. The skills-matrix view stays as the teacher/deep
+  view. Rows should span levels where a Year 12 does the same kind of thing
+  as a Year 9 with more sophisticated construction (the EAL-hub pattern).
 
 - **2026-08-18 (Liam):** The app deploys to one public live URL from day one
   (`liaminhawai-cmd/japanese-hub` via GitHub Pages) so there's a
