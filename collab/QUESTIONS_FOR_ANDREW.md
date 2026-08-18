@@ -32,29 +32,42 @@ belong to seems to exist only in a later local build.
 section — or any other sections — that isn't in the repo? If yes, zip the whole
 folder into `inbox/` before anyone rebuilds it from scratch.
 
-### Q2. What should the bands mean?
-**Context:** The matrix columns are currently "Band 1–4", roughly early → VCE
-Units 3&4. Liam's suggestion is a skill-based ladder that runs the whole way
-down, so the combined 10/11/12 class can drill from **one matrix at different
-columns** — that's the tool's answer to the two-curriculums problem.
-**Ask:** How should the columns map onto F–10 levels and VCE units? Do four
-bands cover it, or do you want five or six (e.g. reaching down to Years 7–8)?
-What would you *call* the columns so students self-select the right one
-without stigma? (Liam's EAL hub uses curriculum codes; yours could use
-"Foundations / Building / VCE 1&2 / VCE 3&4" or similar.)
+### Q2. What should the bands mean? — now a "does this look right?" rather than a blank page
+**Context:** This is now **live** — https://liaminhawai-cmd.github.io/japanese-hub/grammar/
+— as a seven-column ladder: Sentences / Choices / Links / Paragraphs /
+Argument shown by default (a "Show Foundation–Level 6 columns" toggle
+reveals Script and Words too), mapped to VIC F–10 Levels 5–6 through 9–10
+plus VCE Units 1&2 and 3&4, colour-coded VIC vs VCE. Built ahead of your
+answer, on Liam's call ("don't be shy about pushing live, we aren't showing
+kids yet") — see the Decision Log below. The full reasoning and page
+citations are in `collab/research/DESIGN_BAND_LADDER.md`.
+**Ask:** Open the link and look at the column headers and the legend. Do the
+names read right to a Year 7 and a Year 12 without either feeling singled
+out? Is the VIC/Levels 5–6 through 9–10 assumption correct for your
+students, or do they start Japanese in Year 7 (in which case VCAA's separate
+7–10 Sequence, not the F–10 one, is the document we should be citing —
+DESIGN_BAND_LADDER.md §7 item 1)? May the word "VCE" stay visible on a
+student's screen, or should it move to teacher-only/legend-only?
 
-### Q3. Are the 16 category rows the right spine?
-**Context:** Current rows (particles, て-form I/II, た/たら/たり, plain form,
-ない-form, nominalisers, …) are VCE-shaped. That's fine for the top bands, but
-a Year 7–10 student reads that left column too. Worth knowing: right now
-**every row has content in exactly one band**, so the "matrix" is really a
-staircase — a list of 16 topics, each pinned to one level. The wall only
-starts doing its job (same skill, harder version, one row) when at least a
-few rows exist at two or three bands. Your answer to this and Q2 decides
-which rows get that treatment first.
-**Ask:** Keep this spine and extend rows downward? Merge/rename any rows?
-Which three rows would you fill at the lower bands *first* — i.e. where do
-your Year 10s actually bleed marks when they hit VCE?
+### Q3. Are the 17 category rows the right spine? — now a real matrix, not a list
+**Context:** This is **live** now too. Every row moved to the band the study
+design's own page citations best support (not a blind rename — the worst
+mislabel is fixed: Sentence-Final Particles and basic Conjunctions were
+sitting in the old top band despite being Year 7–10 material). Core
+Particles genuinely spans two bands now (Choices → Links) — the first row
+that actually shows "same skill, harder version" rather than one cell per
+row. Two new rows were added: Polite Finite Forms and Plain Finite Forms —
+the ます/ない/た conjugation base every existing PF+expression item already
+assumes a student can produce.
+**Ask:** Click through the matrix (collab/research/DESIGN_BAND_LADDER.md §6.4
+has the full coverage map with page citations if you want the reasoning
+per row). Anything placed at the wrong level? Any row that should merge,
+split further, or get a different name? Which three rows would you fill at
+the lower bands *first* — i.e. where do your Year 10s actually bleed marks
+when they hit VCE? (Not urgent: a handful of rows — Conjunctions, Sentence-
+Final Particles, Words Indicating Extent, て-form II, Verb Stem forms —
+have their *existing* items ready to split across two bands each the moment
+someone runs job J10; that's mechanical and doesn't need your input first.)
 
 ### Q4. Typed answers: kana, kanji, romaji?
 **Context:** Gapfill items accept typed answers; the bank currently accepts
@@ -155,16 +168,25 @@ sub-strand names? (VCAA's own mapping is in `collab/research/VC2_COMPARISON.md`.
 
 ### Q11. Furigana policy
 **Context:** Items currently use `<ruby>` furigana ad hoc and avoid off-list
-kanji. A per-band rule would let content generation scale consistently.
-**Ask:** State the rule you already use in class, e.g. "Band 1–2: furigana on
-everything beyond X; Band 3: only beyond the Year 10 list; Band 4: only
-beyond the VCE list."
+kanji. A per-band rule would let content generation scale consistently. (The
+bands are now named Sentences/Choices/Links/Paragraphs/Argument — see Q2.)
+**Ask:** State the rule you already use in class, e.g. "Sentences/Choices:
+furigana on everything beyond X; Links: only beyond the Year 10 list;
+Paragraphs/Argument: only beyond the VCE list."
 
 ---
 
 ## Decision log
 
 *(newest first — record: date · question · Andrew's decision)*
+
+- **2026-08-18 (Liam):** Build-then-ratify, not ratify-then-build, for the
+  Prep-12 band ladder (Q2/Q3): "don't be shy about live pushing stuff cos we
+  aren't showing kids yet." So the ladder, the row placements and the two new
+  finite-forms rows are live at the URL in Q2 as a concrete proposal Andrew
+  can react to directly, rather than an abstract question waiting on him
+  first. Nothing here overrides his answers when he gives them — see J3 in
+  JOBS_FOR_LIAM.md for exactly what shipped and why each placement was made.
 
 - **2026-08-18 (Liam):** The **student-facing view is organised by year
   level**, framed by the school Learning Continuum's Japanese "I can"

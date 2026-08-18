@@ -82,17 +82,55 @@ Done when (stage 2): a student can take a placement run on any category and
 get routed with the four plain-English outcomes; sanity check passes.
 Size: M (stage 2)
 
-### J3. Restructure the matrix to the agreed band ladder   NEEDS-INFO (Q2, Q3)
-Status: NEEDS-INFO (Q2, Q3)
-What: Rename/extend BANDS per Andrew's mapping (F–10 levels ↔ VCE units),
-re-band existing skill nodes, add greyed placeholder cells for the rows Andrew
-wants filled downward first, and write the column names students will see.
-Why: This is the "one matrix for three year levels" backbone.
-Inputs in repo: data/skills.js, SPEC §3, Decision Log.
-Done when: matrix renders the new ladder; every existing skill still
-reachable; no duplicate category×band cells.
-Model: Sonnet (mechanical rename against a recorded decision).
-Size: S (code) — the real work is Andrew's mapping.
+### J3. Restructure the matrix to the Prep-12 band ladder   DONE, awaiting ratification (commits eae5f48, 227286e)
+Status: Shipped live 2026-08-18 (Liam: "don't be shy about pushing live stuff,
+we aren't showing kids yet") — built ahead of Q2/Q3/Q15 rather than blocked
+on them, on the reasoning that Andrew reacting to something concrete beats
+another round of questions. **Still needs his read before real classroom
+use.**
+What shipped: `window.BANDS` is now the 7-id ladder (script/words/sentences/
+choices/links/paragraphs/argument) from `collab/research/DESIGN_BAND_LADDER.md`,
+grounded in `VIC_F10_JAPANESE.md` + `VCE_STUDY_DESIGN.md`; every existing row
+moved to the single band its content best matches per that design's SD-page
+citations (not a blind rename — the worst mislabel is fixed: Sentence-Final
+Particles and basic Conjunctions were sitting in the old top band despite
+being Year 7-10 material); Core Particles now genuinely spans two bands
+(choices→links) via the free merge the design identified; two new rows
+(Polite Finite Forms, Plain Finite Forms) fill the conjugation prerequisite
+gap the design flagged as blocking 48 existing items' diagnostics; VIC/VCE
+colour coding, dual-chips, sticky labels, and the "show F-2/3-4 columns"
+toggle are all live. See engine commit 227286e for the full list.
+What's deliberately NOT done: splitting a row's existing items across
+multiple bands (e.g. Conjunctions' が/から vs ので/のに/けれども) — see J10.
+Done when (ratification): Andrew looks at the live matrix and the coverage
+map in DESIGN_BAND_LADDER.md §6.4, and answers Q2/Q3/Q15 — confirming,
+correcting, or overriding the placements. Nothing here is locked to his
+answer; it's a starting point he can argue with directly instead of in the
+abstract.
+Model: Sonnet for any corrections once he rules.
+
+### J10. Split existing rows across the bands they actually span   QUEUED
+Status: QUEUED — safe to run any time; not blocking, not blocked
+What: `DESIGN_BAND_LADDER.md` §6.4 identifies several rows whose *existing*
+items cleanly split across two bands by the specific structure each item
+drills (verifiable from the item's own `explain` text, not a new judgement
+call): Conjunctions (が/から → choices; ので/のに/けれども → links, already
+placed), Sentence-Final Particles (か → sentences; ね/よ → choices, already
+placed; の as soft question → links, STRETCH), Words Indicating Extent
+(ごろ/ぐらい → sentences; しか/だけ/より/一番 → choices, already placed),
+て-form II (てもいい/てはいけない → choices; てから/ても/てしまう/てみる →
+links, already placed), Verb Stem forms (たい/に行く → choices; ながら/すぎる/
+やすい・にくい/かた → links, already placed). Each split moves items between
+two skill-node objects sharing a category, no new Japanese content invented.
+Why: turns 5 more rows into genuine two-band staircases instead of single
+blocks parked at their median band — the point of the whole ladder.
+Inputs in repo: DESIGN_BAND_LADDER.md §6.4, data/skills.js.
+Decisions made: none needed — this is re-sorting Andrew's own vetted items
+by the difficulty his own explain text already states.
+Done when: sanity check `problems 0`; the 5 rows above render as two live
+cells each; browser click-through of one split row.
+Model: Sonnet (mechanical once the split boundary is identified per row).
+Size: S–M
 
 ### J4. First topic module: digitise the Unit 10 pattern   NEEDS-INFO (Q6, Q7)
 Status: NEEDS-INFO (Q6, Q7)
@@ -200,3 +238,12 @@ Size: M
 - **2026-08-18 · Live site deployed** (`liaminhawai-cmd/japanese-hub`, public,
   GitHub Pages): hub landing page at `/`, grammar app at `/grammar/`, one
   folder per future tool. See DEPLOYING.md. One canonical URL from day one.
+- **2026-08-18 · J3 (Prep-12 band ladder) built and deployed live** ahead of
+  Andrew's ratification, per Liam's explicit go-ahead — see the Decision Log.
+  280 items, 17 rows, 7-band ladder with VIC/VCE colour coding. Dev commits
+  eae5f48/227286e, live commit 084b302. Design doc:
+  collab/research/DESIGN_BAND_LADDER.md. J10 (per-item band splits) queued
+  as the natural follow-up.
+- **2026-08-18 · Student-scan PDF history purge still pending** (J7) — the
+  files are out of the tree; the purge itself needs Andrew's go-ahead on
+  timing, not a Liam-side decision, so it's not listed as "done" above.
