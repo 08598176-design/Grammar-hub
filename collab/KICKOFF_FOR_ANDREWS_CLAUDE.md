@@ -41,6 +41,6 @@ repo `08598176-design/Grammar-hub` is the shared workspace; read its
    is public, so nothing but original app content ever goes there.
 
 The plan is `collab/PROPOSAL.md`; the app's live version is at
-https://liaminhawai-cmd.github.io/japanese-grammar-hub/ . Begin by reading
+https://liaminhawai-cmd.github.io/japanese-hub/grammar/ . Begin by reading
 `CLAUDE.md`, then open the conversation with Andrew: briefly tell him where
 the project stands (the proposal in one paragraph), then ask Q1.

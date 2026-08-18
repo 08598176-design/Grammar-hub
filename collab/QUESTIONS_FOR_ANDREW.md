@@ -46,7 +46,12 @@ without stigma? (Liam's EAL hub uses curriculum codes; yours could use
 ### Q3. Are the 16 category rows the right spine?
 **Context:** Current rows (particles, て-form I/II, た/たら/たり, plain form,
 ない-form, nominalisers, …) are VCE-shaped. That's fine for the top bands, but
-a Year 7–10 student reads that left column too.
+a Year 7–10 student reads that left column too. Worth knowing: right now
+**every row has content in exactly one band**, so the "matrix" is really a
+staircase — a list of 16 topics, each pinned to one level. The wall only
+starts doing its job (same skill, harder version, one row) when at least a
+few rows exist at two or three bands. Your answer to this and Q2 decides
+which rows get that treatment first.
 **Ask:** Keep this spine and extend rows downward? Merge/rename any rows?
 Which three rows would you fill at the lower bands *first* — i.e. where do
 your Year 10s actually bleed marks when they hit VCE?
@@ -131,10 +136,14 @@ beyond the VCE list."
 *(newest first — record: date · question · Andrew's decision)*
 
 - **2026-08-18 (Liam):** The app deploys to one public live URL from day one
-  (`liaminhawai-cmd/japanese-grammar-hub` via GitHub Pages) so there's a
+  (`liaminhawai-cmd/japanese-hub` via GitHub Pages) so there's a
   single canonical version — see DEPLOYING.md. Consequence: everything in the
   *app* is public (original/paraphrased content only), and this dev repo goes
   fully private (Q10). This replaces former Q12 ("classroom-only or URL?").
+- **2026-08-18 (Liam):** The live site is a **hub**, not one app: landing
+  page at `/`, each tool in its own folder (`/grammar/` first, then
+  `/oral/`, `/topics/`, `/writing/`). Named for the whole suite so later
+  tools don't force a URL change.
 
 - **2026-08 (pre-existing, inferred from the bank):** Instructional text in
   English, Japanese only in sentences/particles/cues; accept kana and kanji

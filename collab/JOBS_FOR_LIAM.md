@@ -60,6 +60,9 @@ DESIGN_PHILOSOPHY.md feedback-loop section.
 Decisions made: pending Q1 (and Q8 for priority).
 Done when: opening index.html shows an Oral Exam entry; each question plays
 its mp3; tiers 1–3 selectable; nothing else in the app broke.
+Deploys to: `/oral/` on the live site, plus a card on the landing page
+(see DEPLOYING.md) — it's a sibling tool, not a screen bolted into the
+grammar app, unless Andrew's existing build already has it inside.
 Model: Opus (new screen + task type). If Andrew's newer build already has
 it, Sonnet can do the merge.
 Size: M
@@ -189,5 +192,6 @@ Size: M
   test passed. Commits 199d37f, 57c2f6f, 78af3e2.
 - **2026-08-18 · Student-scan PDFs deleted from tree** (commit 0841177);
   history purge remains as J7.
-- **2026-08-18 · Live deploy repo prepared** (`liaminhawai-cmd/japanese-grammar-hub`,
-  public, GitHub Pages) — see DEPLOYING.md. One canonical URL from day one.
+- **2026-08-18 · Live site deployed** (`liaminhawai-cmd/japanese-hub`, public,
+  GitHub Pages): hub landing page at `/`, grammar app at `/grammar/`, one
+  folder per future tool. See DEPLOYING.md. One canonical URL from day one.
