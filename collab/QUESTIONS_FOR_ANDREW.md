@@ -271,6 +271,28 @@ public figures (宮崎駿, 大谷翔平, 大坂なおみ). Comfortable, or shoul
 they be fictional? Also flag: 高校三年生 for Year 12, and 情報を得る
 in the media topic — right register for your cohort?
 
+### Q20. The Years 7-10 spine: sixteen drafted units, one big veto pass
+**Context:** The Unit Walk now runs 7-12: sixteen junior units (four per
+year) drafted from the VIC F-10 sequence feed the nine VCE topics, all at
+https://liaminhawai-cmd.github.io/japanese-hub/walk/ with every word also
+shelved in the new Vocab Hub (/vocab/). The junior ladder makes two
+structural bets you have not ratified: (a) Years 7-8 build WORDS from kana
+tiles (small kana and ー are separate tiles on purpose, with big-twin
+decoys, so きって vs きつて is a real choice); Years 9-10 build KANJI from
+parts in position like VCE. (b) Every unit opens with a five-item gap
+check whose misses become deep links into the Grammar Hub and Vocab Hub —
+identify gaps, plan solutions, one tap each. There is also a HITS map
+(collab/HITS_MAP.md) claiming where each strategy lives; it marks its own
+gaps.
+**Ask:** The whole thing is built to be trimmed, so trim: (a) Are the
+sixteen topics the units you actually teach, in the right years and
+order? Rename, reorder, delete freely — each unit is one JSON block.
+(b) Is the kana-tiles-then-kanji-parts ladder right, and does Year 9 feel
+like the right place for kanji assembly to start? (c) Are the drafted
+word lists, questions and models pitched right for YOUR 7-10 classes?
+(d) The gap-check items and the grammar each unit claims to stand on:
+veto any mapping. (e) Read HITS_MAP.md and strike anything overclaimed.
+
 ### Q11. Furigana policy
 **Context:** Items currently use `<ruby>` furigana ad hoc and avoid off-list
 kanji. A per-band rule would let content generation scale consistently. (The

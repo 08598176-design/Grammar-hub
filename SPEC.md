@@ -41,7 +41,8 @@ data/script-bank.js  the parked Script strand (5 nodes, 40 items) →
                      is the seed bank for a future stand-alone script app.
 apps/                stand-alone proof-of-concept apps (word-lab, oral,
                      writing-wall, level-up, unit10, kanji-factory,
-                     word-builder, unit-walk), each an index.html plus its
+                     word-builder, unit-walk, vocab-hub), each an index.html
+                     plus its
                      own copy of lever.js, so a folder can be deleted or
                      handed over whole. They share the design tokens and
                      the lever, but none of the hub's other JS.
@@ -326,6 +327,40 @@ and marks it `.deeplinked` for a moment. A chunk may cover several skills,
 so it still only renders `.selected` when *all* of them are queued; the
 ping is what locates the student. Unknown ids are ignored. `apps/unit10/`
 uses this from each grammar stage — the pattern for every future unit hub.
+
+## 9c. Generated apps (unit-walk, vocab-hub)
+
+Two apps are ASSEMBLED, not hand-edited: `apps/unit-walk/` and
+`apps/vocab-hub/`. Their sources are:
+
+- `tools/walk-template.html`, `tools/vocab-template.html` — engine + CSS +
+  hand-authored data (kanji decompositions with positions/roles/hooks, VCE
+  grammar mappings, parts glossary).
+- `data/units/spine.json` — the Years 7-10 curriculum spine: unit keys,
+  titles, topics, blurbs, prior-unit chain, buildMode (`kana` | `kanji`),
+  and each unit's three Grammar Hub skill mappings.
+- `data/units/y7.json … y10.json` — junior unit content: words, payoff,
+  QA, craft, extension, and (kanji units) a kanjiGloss dict for every
+  kanji their words use.
+- `data/units/vce-content.json` — the nine VCE units' QA/craft.
+- `data/units/gap.json` — five gap-check items per unit
+  (`{about, q:[4-form], options:[3], answer, skill|priorUnit, why}`).
+- VCE word lists and the audited kanji capacity dict stay canonical in
+  `apps/word-builder/index.html`; `apps/unit10/index.html` stays canonical
+  for `U10_VOCAB`. The generator reads them verbatim so lists cannot fork.
+
+Regenerate with `node tools/gen-units.js` (run from the repo root; it must
+print `problems 0`). The outputs are committed whole, so the app folders
+remain standalone and the live repo still receives plain file copies — no
+runtime build step exists. To change a unit's CONTENT edit the JSON; to
+change ENGINE or hand-authored linguistics edit the template; never edit
+the generated files directly.
+
+Word schema (junior): kana units `{w, kp?, def}`; kanji units
+`{w, r, parts, def}`. Four-form arrays everywhere are
+`[kanji, kana, romaji, english]`. Junior kanji glosses merge into the
+walk/vocab kanji dict WITHOUT a `cap` field: capacity colours render only
+where the classification has been audited (word-builder dict).
 
 ## 10. Roadmap
 
