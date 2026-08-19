@@ -95,7 +95,16 @@ song-hand, 選手 a chosen-hand, 運転手 a driving-hand). Parts are coloured
 prefix / root / suffix, and the app is explicit that a kanji's role
 changes with the word: 費 is a suffix in 給食費 but the root of 費用.
 
-**(b) かんじこうじょう Kanji Factory** — https://liaminhawai-cmd.github.io/japanese-hub/kanji/
+**(b) 単語ビルダー Word Builder** — https://liaminhawai-cmd.github.io/japanese-hub/builder/
+The closest port of Liam's EAL tool, and the one aimed straight at a
+unit. A whole unit's word list on one page, defined by meaning with the
+words hidden, one shared bank of kanji above it, build any word in any
+order. Demo unit is りょこう (twelve words, twenty-three kanji). A kanji
+is never used up: 行 builds 旅行, 飛行機 and 銀行, which is the point.
+**This is the one that needs your topic map most (Q6)** — swap in a real
+unit of yours and it works as-is.
+
+**(c) かんじこうじょう Kanji Factory** — https://liaminhawai-cmd.github.io/japanese-hub/kanji/
 Builds CHARACTERS out of their components, one level down. Three stages:
 1. Sort a 15-part bank into three bins by what a part can EVER do:
    red いつも いみ (always meaning), blue たいてい おと (usually sound),
@@ -114,8 +123,9 @@ sound — while the blue and purple bins are strong **bets**, not rules.
     永→エイ, 門→モン/ブン) ones you would put in front of a class?
 (b) Is the three-bin capacity sort a distinction your students could
     actually use, or too fine for secondary?
-(c) Which level is the useful one: words-from-kanji, characters-from-
-    components, both, or neither because WaniKani and friends own this?
+(c) Which of the three is the useful one: kanji families (a), a whole
+    unit's words on one page (b), or characters-from-components (c)?
+    More than one is a fine answer, and so is none.
 (d) If it is worth growing: which list first, the VCE prescribed kanji or
     Obento chapter kanji by year level?
 
