@@ -61,6 +61,7 @@
        font-weight:800;font-size:13px;color:#fff;background:var(--muted)}
   .step-1 .num{background:var(--s1)} .step-2 .num{background:var(--s2)}
   .step-3 .num{background:var(--s3)} .step-4 .num{background:var(--s4)}
+  .step-5 .num{background:var(--s2)} .step-6 .num{background:var(--muted)}
   .step.done .num{background:var(--correct)}
   .step .body{flex:1}
   .step .t{font-weight:700;font-size:14.5px;font-family:Georgia,serif}
@@ -122,6 +123,33 @@
   .actions{display:flex;gap:9px;justify-content:flex-end;align-items:center;margin-top:14px;flex-wrap:wrap}
   .ptrack{height:7px;background:var(--line-soft);border-radius:99px;overflow:hidden;margin-bottom:14px}
   .pfill{height:100%;width:0;background:var(--accent);transition:width .3s ease}
+
+  /* ---- character builder ---- */
+  .kbig{font-family:Georgia,serif;font-size:76px;line-height:1.1;text-align:center;margin:2px 0 4px}
+  .kgloss{text-align:center;font-size:14px;margin-bottom:2px}
+  .kread{text-align:center;font-size:12px;color:var(--muted);margin-bottom:14px}
+  .parts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:74px;
+       border:1px dashed var(--line);border-radius:10px;padding:10px;background:var(--bg);margin-bottom:10px}
+  .parts.correct{border-color:var(--correct);background:var(--okbg);border-style:solid}
+  .parts.incorrect{border-color:var(--wrong);background:var(--badbg);border-style:solid}
+  .parts:empty::after{content:"えらんでください · pick the parts";color:var(--muted);font-size:12px;align-self:center}
+  .ptile{display:flex;flex-direction:column;align-items:center;gap:1px;font-family:Georgia,serif;
+       border:1px solid var(--line);border-radius:9px;background:var(--paper);padding:6px 13px;cursor:pointer;min-width:56px}
+  .ptile:hover:not(:disabled){border-color:var(--accent)}
+  .ptile .pc{font-size:27px;line-height:1.15}
+  .ptile .pg{font-size:9px;color:var(--muted);font-family:'Segoe UI',sans-serif;letter-spacing:.02em}
+  .ptile.wrongpart{border-color:var(--wrong);background:var(--badbg)}
+  .bank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .equation{font-family:Georgia,serif;font-size:30px;text-align:center;margin:10px 0 4px;line-height:1.5}
+  .equation .op{color:var(--muted);font-size:20px;margin:0 7px}
+  .role{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;border-radius:8px;
+       padding:1px 7px;text-transform:uppercase;vertical-align:middle;margin-left:5px}
+  .role-sense{color:var(--s1);border:1px solid var(--s1)}
+  .role-sound{color:var(--s3);border:1px solid var(--s3)}
+  .hook{background:var(--band);border:1px solid var(--line-soft);border-left:4px solid var(--s2);
+       border-radius:9px;padding:11px 14px;font-size:13px;line-height:1.6;margin-top:10px}
+  .hook .lab{font-size:9.5px;font-weight:800;letter-spacing:.08em;color:var(--s2);text-transform:uppercase;display:block;margin-bottom:3px}
+  .inwords{font-size:12.5px;color:var(--muted);margin-top:9px;font-family:Georgia,serif}
 
   /* ---- grammar gym stages ---- */
   .stage-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
@@ -216,6 +244,22 @@
     <div class="actions">
       <button class="btn btn-primary" id="vocab-check" data-jt="check" disabled>チェック</button>
       <button class="btn btn-primary" id="vocab-next" data-jt="next" style="display:none">つぎへ</button>
+    </div>
+  </section>
+
+  <!-- ============ CHARACTER BUILDER ============ -->
+  <section class="screen" id="scr-kanji">
+    <div class="topbar">
+      <button class="linkbtn" data-go="home" data-jt="back">← ホーム</button>
+      <span class="progress" id="kanji-prog"></span>
+      <span id="kanjiLever" data-scope="#scr-kanji"></span>
+    </div>
+    <div class="ptrack"><div class="pfill" id="kanji-fill"></div></div>
+    <div id="kanji-area"></div>
+    <div class="feedback" id="kanji-fb"></div>
+    <div class="actions">
+      <button class="btn btn-primary" id="kanji-check" data-jt="check" disabled>チェック</button>
+      <button class="btn btn-primary" id="kanji-next" data-jt="next" style="display:none">つぎへ</button>
     </div>
   </section>
 
@@ -429,7 +473,56 @@ const GRAM = [
   },
 ];
 
-/* ---- STEP 4 · the reading, at three tiers -----------------
+/* ---- STEP 3 · the character builder ------------------------
+   The Word Lab builds WORDS out of kanji (給食 = 給 + 食). This
+   is the layer underneath: the characters themselves, out of
+   their components. Every character here comes from a word in
+   this unit's own vocabulary, so building it is not a detour.
+
+   Honesty rule, and it matters: `parts` are the components a
+   character is actually written with, and `role` is marked
+   "sense" or "sound" ONLY where that analysis is standard.
+   `hook` is a MEMORY STORY, labelled as one in the UI. Kanji
+   etymology is contested and a good mnemonic is not a fact;
+   conflating them teaches students something false. Andrew
+   rules on all of it (Q18).
+   Components are picked as a SET, not an order: 聞 puts 耳
+   inside 門, so left-to-right sequencing would be a lie. */
+const U10_KANJI = [
+  { ch:"好", kun:"す(き)", on:"コウ", gloss:"to like",
+    parts:[{p:"女",g:"woman",role:"sense"},{p:"子",g:"child",role:"sense"}],
+    decoys:["男","力","土"],
+    hook:"A woman and a child together. This one IS the old meaning, not just a memory trick: the character was built from the two of them.",
+    words:["好きです","大好きです"] },
+  { ch:"見", kun:"み(る)", on:"ケン", gloss:"to see, to watch",
+    parts:[{p:"目",g:"eye",role:"sense"},{p:"儿",g:"legs",role:"sense"}],
+    decoys:["日","口","手"],
+    hook:"An eye up on a pair of legs: something walking around looking. 目 sits right on top and you can still see it.",
+    words:["見ます","見ることが好きです"] },
+  { ch:"聞", kun:"き(く)", on:"ブン・モン",
+    gloss:"to listen, to hear",
+    parts:[{p:"耳",g:"ear",role:"sense"},{p:"門",g:"gate",role:"sound",sound:"モン"}],
+    decoys:["目","口","日"],
+    hook:"An ear inside a gate. The useful half is the split: 耳 tells you what it MEANS, and 門 tells you how it SOUNDS (モン). Spotting a sound part is how you guess a reading you were never taught.",
+    words:["聞きます","おんがくを聞くことが好きです"] },
+  { ch:"話", kun:"はな(す)", on:"ワ", gloss:"to speak, to talk",
+    parts:[{p:"言",g:"words, speech",role:"sense"},{p:"舌",g:"tongue",role:"sense"}],
+    decoys:["耳","手",'目'],
+    hook:"Words plus a tongue. 言 is the speech component: it turns up in 語, 読, 話 and most things to do with language.",
+    words:["話します","人と話すことが好きです"] },
+  { ch:"泳", kun:"およ(ぐ)", on:"エイ", gloss:"to swim",
+    parts:[{p:"氵",g:"water",role:"sense"},{p:"永",g:"long, eternal",role:"sound",sound:"エイ"}],
+    decoys:["火","木","土"],
+    hook:"Three drops of water down the left is the water component: 海, 池, 泳. And 永 gives the sound エイ, which is the reading in 水泳 (すいえい).",
+    words:["およぎます","およぐことがとくいです"] },
+  { ch:"手", kun:"て", on:"シュ", gloss:"hand",
+    parts:[],
+    decoys:[],
+    hook:"This one does not come apart. It is a picture of a hand, and it is the piece the whole 手 family is built from: 上手, 下手, 選手, and beyond this unit 歌手 and 運転手.",
+    words:["上手です","下手です","選手"] },
+];
+
+/* ---- STEP 5 · the reading, at three tiers -----------------
    The shape is Andrew's: read a profile, pull out the facts,
    decide which job suits the person, and then prove it from
    the text. The evidence step is the part that matters: a
@@ -575,7 +668,7 @@ const UI_RUBY = {
   const S = {
     studied: false,
     first: {},              // taskId -> true/false, FIRST attempt only
-    done: { vocab: false, gram: {}, read: {} },
+    done: { vocab: false, kanji: false, gram: {}, read: {} },
     deal: null,             // word -> task kind, dealt once
   };
   const firstScore = (pre) => {
@@ -606,13 +699,16 @@ const UI_RUBY = {
       { n: 2, t: "ことばの れんしゅう", d: "Every word comes back as a task, and the mix is different for every student. Wrong ones come around again until you have them.",
         done: S.done.vocab, tag: S.done.vocab ? vs.got + "/" + vs.of + " first try" : (vs.of ? vs.got + "/" + vs.of : ""),
         fn: () => startVocab() },
-      { n: 3, t: "ぶんぽうジム", d: "Three stages: making the plain form, ことができる, then 好き・とくい・下手. Each one links to the Grammar Hub step that owns it.",
+      { n: 3, t: "かんじビルダー", d: "Characters come apart. Pick the pieces each one is built from, meet the part that carries the meaning and the part that carries the sound.",
+        done: S.done.kanji, tag: (function(){ const s=firstScore("k:"); return s.of ? s.got+"/"+s.of+" first try" : ""; })(),
+        fn: () => startKanji() },
+      { n: 4, t: "ぶんぽうジム", d: "Three stages: making the plain form, ことができる, then 好き・とくい・下手. Each one links to the Grammar Hub step that owns it.",
         done: gramDone === GRAM.length, tag: gramDone ? gramDone + "/" + GRAM.length + " stages · " + gs.got + "/" + gs.of : "",
         fn: () => { gram.stage = GRAM.findIndex((g) => !S.done.gram[g.key]); if (gram.stage < 0) gram.stage = 0; startGram(); } },
-      { n: 4, t: "どっかい・しごとえらび", d: "Read a profile at your level, work out which job suits the person, then prove it from the text. Three levels, all open.",
+      { n: 5, t: "どっかい・しごとえらび", d: "Read a profile at your level, work out which job suits the person, then prove it from the text. Three levels, all open.",
         done: readDone > 0, tag: readDone ? readDone + " level" + (readDone === 1 ? "" : "s") + " · " + rs.got + "/" + rs.of : "",
         fn: () => { startRead(); } },
-      { n: 5, t: "レポート", d: "Your first try at every question, step by step. Available any time; steps you have not done yet say so.",
+      { n: 6, t: "レポート", d: "Your first try at every question, step by step. Available any time; steps you have not done yet say so.",
         done: false, tag: "any time", fn: () => { drawReport(); go("report"); } },
     ];
     const wrap = $("home-steps"); wrap.innerHTML = "";
@@ -794,7 +890,95 @@ const UI_RUBY = {
   });
   $("vocab-next").addEventListener("click", () => { vocab.i++; renderVocab(); });
 
-  /* ---------------- STEP 3 · GRAMMAR GYM ---------------- */
+  /* ---------------- STEP 3 · CHARACTER BUILDER ----------------
+     Pick the components that build the character, avoiding the
+     decoys. Order is deliberately NOT graded: 聞 nests 耳 inside
+     門, so demanding a left-to-right sequence would teach a lie.
+     A character with no parts (手) is shown as a piece to know
+     rather than a puzzle to solve, the same way the word builder
+     handles a single-morpheme word. */
+  const kanji = { queue: [], i: 0, graded: false, picked: [] };
+  function startKanji() {
+    kanji.queue = shuffle(U10_KANJI.slice());
+    kanji.i = 0; go("kanji"); renderKanji();
+  }
+  function renderKanji() {
+    const k = kanji.queue[kanji.i];
+    if (!k) {
+      S.done.kanji = true;
+      const s = firstScore("k:");
+      $("kanji-area").innerHTML = '<div class="hook" style="border-left-color:var(--correct)"><b>かんじビルダー かんりょう.</b><br>' +
+        "First try: " + s.got + "/" + s.of + ". These are the pieces the unit's words are built from, so they turn up again in the reading." +
+        '<div class="inwords">Whole words get built from characters in the <a href="../words/" style="color:var(--accent);font-weight:700">ことばラボ Word Lab</a>.</div></div>';
+      $("kanji-fb").className = "feedback";
+      $("kanji-check").style.display = "none"; $("kanji-next").style.display = "none";
+      $("kanji-prog").textContent = "ステップ3 · かんじビルダー ✓";
+      $("kanji-fill").style.width = "100%";
+      drawHome();
+      return;
+    }
+    kanji.graded = false; kanji.picked = [];
+    $("kanji-prog").textContent = "ステップ3 · かんじビルダー · " + (kanji.i + 1) + "/" + kanji.queue.length;
+    $("kanji-fill").style.width = (100 * kanji.i / kanji.queue.length) + "%";
+    $("kanji-fb").className = "feedback"; $("kanji-fb").innerHTML = "";
+    $("kanji-next").style.display = "none";
+    const head = '<div class="kbig">' + k.ch + "</div>" +
+      '<div class="kgloss">' + esc(k.gloss) + "</div>" +
+      '<div class="kread">' + esc(k.kun) + " · " + esc(k.on) + "</div>";
+    if (!k.parts.length) {
+      // a piece to know, not a puzzle: no score attached, nothing to get wrong
+      $("kanji-area").innerHTML = head +
+        '<div class="hook"><span class="lab">おぼえかた · memory hook</span>' + esc(k.hook) + "</div>" +
+        '<div class="inwords">This unit: ' + k.words.map(esc).join("、") + "</div>";
+      $("kanji-check").style.display = "none";
+      $("kanji-next").style.display = "";
+      return;
+    }
+    $("kanji-check").style.display = ""; $("kanji-check").disabled = true;
+    const bank = shuffle(k.parts.map((p) => p.p).concat(k.decoys));
+    $("kanji-area").innerHTML = head +
+      '<div class="task-prompt" style="text-align:center">Pick the <b>' + k.parts.length +
+      " parts</b> this character is written with. Some of the tiles do not belong to it.</div>" +
+      '<div class="parts" id="k-picked"></div>' +
+      '<div class="bank" id="k-bank">' + bank.map((c) =>
+        '<button type="button" class="ptile" data-c="' + c + '"><span class="pc">' + c + "</span></button>").join("") + "</div>";
+    $("k-bank").querySelectorAll(".ptile").forEach((t) => t.addEventListener("click", () => {
+      if (kanji.graded) return;
+      const c = t.dataset.c, at = kanji.picked.indexOf(c);
+      if (at > -1) { kanji.picked.splice(at, 1); $("k-bank").appendChild(t); }
+      else if (kanji.picked.length < k.parts.length) { kanji.picked.push(c); $("k-picked").appendChild(t); }
+      $("kanji-check").disabled = kanji.picked.length !== k.parts.length;
+    }));
+  }
+  $("kanji-check").addEventListener("click", () => {
+    if (kanji.graded) return; kanji.graded = true;
+    const k = kanji.queue[kanji.i];
+    const want = k.parts.map((p) => p.p);
+    const ok = kanji.picked.length === want.length && want.every((c) => kanji.picked.indexOf(c) > -1);
+    const id = "k:" + k.ch;
+    if (!(id in S.first)) S.first[id] = ok;
+    if (!ok) kanji.queue.push(k);
+    $("k-picked").classList.add(ok ? "correct" : "incorrect");
+    document.querySelectorAll("#kanji-area .ptile").forEach((t) => {
+      t.disabled = true;
+      if (kanji.picked.indexOf(t.dataset.c) > -1 && want.indexOf(t.dataset.c) < 0) t.classList.add("wrongpart");
+    });
+    const eq = k.parts.map((p) =>
+      p.p + '<span class="role role-' + p.role + '">' + (p.role === "sound" ? "sound " + esc(p.sound || "") : "meaning") + "</span>")
+      .join('<span class="op">+</span>') + '<span class="op">=</span>' + k.ch;
+    const fb = $("kanji-fb");
+    fb.className = "feedback " + (ok ? "good" : "bad");
+    fb.innerHTML = (ok ? "✓ " : "✗ Not quite. ") + '<div class="equation">' + eq + "</div>" +
+      k.parts.map((p) => "<b>" + p.p + "</b> " + esc(p.g)).join(" &nbsp;·&nbsp; ") +
+      '<div class="hook"><span class="lab">おぼえかた · memory hook, not history</span>' + esc(k.hook) + "</div>" +
+      '<div class="inwords">This unit: ' + k.words.map(esc).join("、") + "</div>" +
+      (ok ? "" : " <br>This one will come back around.");
+    $("kanji-check").style.display = "none";
+    $("kanji-next").style.display = ""; $("kanji-next").focus();
+  });
+  $("kanji-next").addEventListener("click", () => { kanji.i++; renderKanji(); });
+
+  /* ---------------- STEP 4 · GRAMMAR GYM ---------------- */
   const gram = { stage: 0, queue: [], i: 0, graded: false };
   function startGram() {
     const st = GRAM[gram.stage];
@@ -972,8 +1156,9 @@ const UI_RUBY = {
       { t: "ステップ1 · ことば study", pre: null, done: S.studied,
         undone: "Not opened yet.", doneTxt: "Read." },
       { t: "ステップ2 · ことばの れんしゅう", pre: "v:", undone: "Not started yet." },
-      { t: "ステップ3 · ぶんぽうジム", pre: "g:", undone: "Not started yet." },
-      { t: "ステップ4 · どっかい", pre: "r:", undone: "Not started yet." },
+      { t: "ステップ3 · かんじビルダー", pre: "k:", undone: "Not started yet." },
+      { t: "ステップ4 · ぶんぽうジム", pre: "g:", undone: "Not started yet." },
+      { t: "ステップ5 · どっかい", pre: "r:", undone: "Not started yet." },
     ];
     let got = 0, of = 0;
     $("rep-rows").innerHTML = rows.map((r) => {
@@ -1003,8 +1188,9 @@ const UI_RUBY = {
     let t = "Unit 10 — Abilities and Preferences\n" + (name ? "Name: " + name + "\n" : "") + "Date: " + d + "\n\n";
     t += "Step 1 vocabulary study: " + (S.studied ? "read" : "not opened yet") + "\n";
     t += "Step 2 vocabulary tasks: " + (vs.of ? vs.got + "/" + vs.of + " first try" : "not started yet") + "\n";
-    t += "Step 3 grammar gym: " + (gs.of ? gs.got + "/" + gs.of + " first try" : "not started yet") + "\n";
-    t += "Step 4 reading: " + (rs.of ? rs.got + "/" + rs.of + " first try" : "not started yet") + "\n";
+    t += "Step 3 character builder: " + (function(){const s=firstScore("k:");return s.of? s.got+"/"+s.of+" first try":"not started yet";})() + "\n";
+    t += "Step 4 grammar gym: " + (gs.of ? gs.got + "/" + gs.of + " first try" : "not started yet") + "\n";
+    t += "Step 5 reading: " + (rs.of ? rs.got + "/" + rs.of + " first try" : "not started yet") + "\n";
     const det = $("rep-rows").dataset.detail;
     if (det) t += "\nDetail:\n" + det + "\n";
     t += "\nScores are the FIRST attempt at each question. Wrong answers came back until they were right.\n";
