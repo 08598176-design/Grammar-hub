@@ -357,8 +357,11 @@ change ENGINE or hand-authored linguistics edit the template; never edit
 the generated files directly.
 
 Word schema (junior): kana units `{w, kp?, def}`; kanji units
-`{w, r, parts, def}`. Four-form arrays everywhere are
-`[kanji, kana, romaji, english]`. Junior kanji glosses merge into the
+`{w, r, parts, def}` (kana-only words in kanji units carry no `parts`).
+Four-form arrays everywhere are `[kanji, kana, romaji, english]`. Kana
+lines are learner-spaced at Years 7-8 and unspaced from Year 9 on, where
+the kanji line carries the segmentation. Katakana stays katakana in kana
+lines ("kana line" means no kanji, not no katakana). Junior kanji glosses merge into the
 walk/vocab kanji dict WITHOUT a `cap` field: capacity colours render only
 where the classification has been audited (word-builder dict).
 

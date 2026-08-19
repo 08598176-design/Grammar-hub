@@ -174,6 +174,10 @@ const vocab = splice(read("tools/vocab-template.html"), {
 });
 fs.mkdirSync(path.join(root, "apps/vocab-hub"), { recursive: true });
 fs.writeFileSync(path.join(root, "apps/vocab-hub/index.html"), vocab);
+/* every app folder carries its own lever.js copy (DEPLOYING.md) */
+for (const app of ["apps/unit-walk", "apps/vocab-hub"]) {
+  fs.copyFileSync(path.join(root, "lever.js"), path.join(root, app, "lever.js"));
+}
 
 /* ---- summary ---- */
 const shared = VWORDS.filter((w) => w.units.length > 1);
