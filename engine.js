@@ -182,6 +182,7 @@
         const n = chunkItemCount(chunk);
         const el = document.createElement("div");
         el.className = "tl-chunk" + (n ? " has-items" : " no-items");
+        el.dataset.chunk = chunk.title;   // lets a deep link find its own step
         // +2: CSS grid is 1-indexed and column 1 is the strand label
         el.style.gridColumn = `${chunk.y0 + 2} / ${chunk.y1 + 3}`;
         const yearsLabel = uiForm <= 1 ? `${chunk.years}\u5e74` : `Year${chunk.years.indexOf("\u2013") > -1 ? "s" : ""} ${chunk.years}`;
@@ -576,8 +577,40 @@
     screens.report = $("reportScreen");
 
     buildTypeFilter();
+
+    /* Deep link: another tool in the hub can send a student straight to the
+       step that owns a skill, e.g. ../grammar/#nominalisers-b4 from the
+       Unit 10 hub's grammar gym. The chunk is preselected and scrolled to,
+       so the two apps join up instead of just cross-referencing. */
+    function applyDeepLink() {
+      document.querySelectorAll(".tl-chunk.deeplinked").forEach((n) => n.classList.remove("deeplinked"));
+      const id = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+      if (!id) return;
+      const skill = skillById(id);
+      if (!skill || !itemsFor(skill).length) return;
+      selectedSkills.add(id);
+      buildMatrix(); buildPools();
+      // Queue exactly the skill that was asked for, but highlight the whole
+      // step that contains it: a step can cover several skills, so it only
+      // renders as "selected" when all of them are queued, and the student
+      // still needs to see where on the timeline they have landed.
+      let target = null;
+      Object.values(window.JP_CHUNKS).forEach((chunks) => chunks.forEach((c) => {
+        if (c.covers.indexOf(id) > -1) target = c;
+      }));
+      const el = target
+        ? [...document.querySelectorAll(".tl-chunk")].find((n) => n.dataset.chunk === target.title)
+        : document.querySelector(".tl-chunk.selected");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+        el.classList.add("deeplinked");
+      }
+    }
+
     buildMatrix();
     buildPools();
+    applyDeepLink();
+    window.addEventListener("hashchange", applyDeepLink);
 
     $("selectAllBtn").addEventListener("click", () => {
       window.SKILLS.forEach((s) => { if (s.introduced && itemsFor(s).length) selectedSkills.add(s.id); });
