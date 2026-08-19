@@ -100,8 +100,16 @@ sound, purple for both. The 門 family is the argument: 門 lights red in
 問 and 聞 (it gives the reading モン/ブン) and blue in 開 (where it is
 the meaning and nothing gives the sound), closing on 間 to show the
 trick is a strong bet, not a law. Then you read 詩, 精 and 詠 cold.
+It now runs in three stages, on the shape of Liam's EAL word builder:
+sort a 15-part bank into three bins by what each part can EVER do (red
+always meaning, blue usually sound, purple both), then build eight
+characters from one shared bank and watch each part light up with the
+job it does in THAT character, then read 詩・精・詠 cold. The app is
+explicit that the red bin is a law (bound forms have no reading of their
+own, so they can never carry sound) while the other two are strong bets.
 **Also ask:** are those component splits and sound claims ones you would
-teach? Is 会意兼形声 (used only for 忘) a distinction you want students
+teach? Is the three-bin capacity sort (always meaning / usually sound /
+both) a distinction your students could actually use, or too fine? Is 会意兼形声 (used only for 忘) a distinction you want students
 to meet, or noise at this level? And the big one: is THIS the version of
 the kanji angle worth growing, or the word-level Word Lab, or neither?
 **Ask:** Open the link and try one family. Does part-by-part word building
