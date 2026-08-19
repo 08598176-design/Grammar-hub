@@ -358,10 +358,12 @@ the generated files directly.
 
 The walk's build step follows the Bone Sparrow shape: the study step
 shows the analysis; the build step hides it. Kana units build words from
-kana tiles; kanji units run two stages, first rebuilding every word from
-its meaning alone (tile bank, kanji tiles glossed, word never shown),
-then assembling the key kanji from parts in position with the target
-masked in its word context. Nothing on the build screen shows what the
+kana tiles. Kanji units rebuild each word from its definition on a word
+skeleton: plain characters take tiles (kanji tiles glossed), and where
+one of the unit's key kanji lives, its box is a positional mini-frame
+fused from radicals on the spot, role colours flashing as it forms; the
+frame self-judges, the word judges when the skeleton is full. The key
+kanji never exist as tiles. Nothing on the build screen shows what the
 student is meant to produce.
 
 Word schema (junior): kana units `{w, kp?, def}`; kanji units
