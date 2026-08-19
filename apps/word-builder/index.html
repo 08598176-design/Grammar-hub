@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en-AU" translate="no" class="notranslate">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
+<title>単語ビルダー · Word Builder</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%88%B7%3C/text%3E%3C/svg%3E">
+<style>
+  /* ============================================================
+     単語ビルダー — the direct Japanese port of Liam's EAL word
+     builder. ONE unit's whole vocabulary on one page: a big bank
+     of kanji at the top, every word underneath defined by its
+     MEANING with the word itself hidden, and you build any word
+     in any order. Finished words drop to the bottom.
+
+     The payoff is the same as the English one: a kanji you learn
+     for one word unlocks the next. 行 turns up in 旅行, 飛行機
+     and 銀行, so the third one is nearly free.
+     ============================================================ */
+  :root{
+    --bg:#f4efe6; --paper:#fbf7ee; --ink:#1f1f1f; --muted:#6b6256;
+    --line:#d8cfbb; --line-soft:#e8e0cd; --accent:#a83232;
+    --correct:#2f6a3e; --wrong:#a83232; --okbg:#eef5ee; --badbg:#f7ecec;
+    --band:#f5f0e6; --amber:#8a6d1e;
+    --kanji:#4a6741; --kanji-bg:#e7efe4;      /* a bank tile */
+    --held:#a83232;                            /* the part in your hand */
+    --shared:#7a5cad; --shared-bg:#ece4f6;     /* a kanji used in more than one word */
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--ink);
+       line-height:1.5;min-height:100vh;padding:16px}
+  .wrap{max-width:1000px;margin:0 auto}
+  .container{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+       padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  h1{text-align:center;font-size:22px;font-family:Georgia,'Times New Roman',serif;letter-spacing:.5px}
+  h2{font-family:Georgia,serif;font-size:17px;margin:0 0 4px}
+  .subtitle{color:var(--muted);text-align:center;margin:6px 0 4px;font-size:13px}
+  .poc{display:block;text-align:center;font-size:11px;color:var(--muted);margin-bottom:14px}
+  .poc b{color:var(--accent)}
+  .screen{display:none}.screen.active{display:block}
+  button{font-family:inherit}
+  .btn{padding:10px 17px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-weight:600;
+       cursor:pointer;background:var(--paper);color:var(--ink)}
+  .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn-ghost{background:var(--bg);color:var(--muted)}
+  .linkbtn{background:none;border:none;color:var(--accent);font-weight:600;font-size:13px;cursor:pointer;padding:4px 8px}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px}
+  .progress{font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+  .intro{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+
+  /* ---- unit picker ---- */
+  .units{display:grid;gap:11px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));margin-top:8px}
+  .unit{text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:11px;
+       padding:15px 17px;cursor:pointer}
+  .unit:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .unit .ut{font-family:Georgia,serif;font-size:16px;font-weight:700}
+  .unit .ud{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.45}
+  .unit .un{font-size:10px;font-weight:800;color:var(--muted);margin-top:7px;letter-spacing:.05em}
+
+  /* ---- the bank ---- */
+  .bank-panel{background:var(--band);border:1px solid var(--line-soft);border-radius:12px;
+       padding:13px 15px;margin-bottom:16px;position:sticky;top:8px;z-index:5}
+  .bank-label{font-size:11.5px;color:var(--muted);margin-bottom:9px;font-weight:600}
+  .bank-label b{color:var(--accent)}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{display:inline-flex;align-items:baseline;gap:6px;background:var(--paper);
+       border:1px solid var(--line);border-radius:9px;padding:6px 11px;cursor:pointer;
+       transition:border-color .12s,background .12s,transform .1s}
+  .chip:hover{border-color:var(--accent)}
+  .chip:active{transform:translateY(1px)}
+  .chip .k{font-family:Georgia,serif;font-size:21px;font-weight:700;color:var(--kanji)}
+  .chip .g{font-size:10.5px;color:var(--muted)}
+  .chip .r{font-size:9.5px;color:var(--muted);opacity:.75}
+  .chip.held{border-color:var(--held);background:#faf0ee;box-shadow:0 0 0 2px rgba(168,50,50,.18)}
+  .chip.shared .k{color:var(--shared)}
+  .chip.dragging{opacity:.45}
+
+  /* ---- the word list ---- */
+  .list{display:flex;flex-direction:column;gap:9px}
+  .row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--paper);
+       border:1px solid var(--line);border-radius:11px;padding:13px 15px;
+       transition:border-color .15s,background .3s}
+  .row.wrong{border-color:var(--wrong);animation:shake .3s}
+  @keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+  .row.done{background:var(--okbg);border-color:var(--correct)}
+  .def{flex:1 1 260px;font-size:14px;line-height:1.55}
+  .def .en{color:var(--ink)}
+  .slots{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-left:auto}
+  .slot{min-width:52px;height:52px;border:2px dashed var(--line);border-radius:10px;
+       background:var(--bg);font-family:Georgia,serif;font-size:26px;font-weight:700;
+       color:var(--kanji);cursor:pointer;display:grid;place-items:center;padding:0 8px}
+  .slot.filled{border-style:solid;background:var(--kanji-bg);border-color:var(--kanji)}
+  .slot.aim{border-color:var(--accent);background:#faf5f0}
+  .built{display:flex;align-items:baseline;gap:9px;margin-left:auto}
+  .built .w{font-family:Georgia,serif;font-size:27px;font-weight:700;color:var(--correct)}
+  .built .rd{font-size:12px;color:var(--muted)}
+  .tick{color:var(--correct);font-size:17px;font-weight:800}
+
+  .done-head{font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--muted);
+       text-transform:uppercase;margin:20px 0 8px;border-top:1px solid var(--line-soft);padding-top:14px}
+  .finish{background:var(--band);border:1px solid var(--line-soft);border-left:4px solid var(--correct);
+       border-radius:11px;padding:14px 17px;margin-top:16px;font-size:13.5px;line-height:1.65;display:none}
+  .finish.show{display:block}
+  .finish b{font-family:Georgia,serif}
+  .reuse{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .reuse .rk{background:var(--shared-bg);border:1px solid var(--shared);border-radius:9px;
+       padding:5px 11px;font-size:12px}
+  .reuse .rk b{font-family:Georgia,serif;font-size:18px;color:var(--shared)}
+  .privacy{background:var(--bg);border:1px solid var(--line-soft);border-radius:9px;padding:10px 14px;
+       font-size:11.5px;color:var(--muted);margin-top:14px;line-height:1.55}
+  .build-tag{position:fixed;left:6px;bottom:5px;font-family:monospace;font-size:9px;color:var(--muted);
+       opacity:.45;pointer-events:none}
+  @media (max-width:620px){ .slots{margin-left:0} .built{margin-left:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="container">
+
+  <section class="screen active" id="scr-home">
+    <h1 class="jt-tap" data-jt="title">単語ビルダー</h1>
+    <p class="subtitle jt-tap" data-jt="subtitle">One unit, one bank of kanji, every word on the page</p>
+    <span class="poc"><b>Proof of concept</b> for Andrew's review — the unit below is a demo pending his topic map (Q6). The mechanic is Liam's EAL word builder, ported to kanji.</span>
+    <p class="intro jt-tap" data-jt="how">Pick a unit.</p>
+    <div class="units" id="units"></div>
+  </section>
+
+  <section class="screen" id="scr-build">
+    <div class="topbar">
+      <button class="linkbtn" data-go="home" data-jt="back">← ホーム</button>
+      <span class="progress" id="prog"></span>
+      <span id="buildLever" data-scope="#scr-build"></span>
+    </div>
+    <h2 id="unit-title"></h2>
+    <p class="intro" id="unit-intro"></p>
+
+    <div class="bank-panel">
+      <div class="bank-label" id="bank-label"></div>
+      <div class="chips" id="bank"></div>
+    </div>
+
+    <div class="list" id="todo"></div>
+    <div id="done-wrap"></div>
+    <div class="finish" id="finish"></div>
+  </section>
+
+</div>
+</div>
+<div class="build-tag">Builder PoC 2026-08-19</div>
+<script src="lever.js"></script>
+<script>
+/* ============================================================
+   CONTENT
+   ------------------------------------------------------------
+   A unit is: a bank of kanji, and the unit's words defined by
+   MEANING with the word itself hidden. Words are built from the
+   bank, and the bank is never consumed — a kanji can serve as
+   many words as it belongs to, which is the whole point. 行
+   builds 旅行, 飛行機 and 銀行.
+
+   りょこう is a demo unit: 旅行 is the standard Year 9-10 travel
+   topic and the vocabulary is textbook-general, but Andrew's own
+   topic map (Q6) decides what units really exist and which words
+   belong in them. Every reading here needs his check.
+   ============================================================ */
+const KANJI = {
+  "家":{g:"house, home",     r:"いえ・カ"},
+  "族":{g:"group, tribe",    r:"ゾク"},
+  "兄":{g:"older brother",   r:"あに・キョウ"},
+  "弟":{g:"younger brother", r:"おとうと・ダイ"},
+  "姉":{g:"older sister",    r:"あね・シ"},
+  "妹":{g:"younger sister",  r:"いもうと・マイ"},
+  "旅":{g:"journey",         r:"たび・リョ"},
+  "行":{g:"to go",           r:"い(く)・コウ"},
+  "飛":{g:"to fly",          r:"と(ぶ)・ヒ"},
+  "機":{g:"machine",         r:"キ"},
+  "空":{g:"sky, empty",      r:"そら・クウ"},
+  "港":{g:"harbour, port",   r:"みなと・コウ"},
+  "写":{g:"to copy",         r:"うつ(す)・シャ"},
+  "真":{g:"true, real",      r:"ま・シン"},
+  "荷":{g:"load, baggage",   r:"に・カ"},
+  "物":{g:"thing",           r:"もの・ブツ"},
+  "温":{g:"warm",            r:"あたた(かい)・オン"},
+  "泉":{g:"spring of water", r:"いずみ・セン"},
+  "観":{g:"to view, to watch",r:"カン"},
+  "光":{g:"light",           r:"ひかり・コウ"},
+  "銀":{g:"silver",          r:"ぎん・ギン"},
+  "切":{g:"to cut",          r:"き(る)・セツ"},
+  "符":{g:"tally, token",    r:"フ"},
+};
+
+const UNITS = [
+  {
+    key:"ryokou",
+    title:"りょこう · Travel and Holidays",
+    blurb:"A family trip: who you go with, how you get there, and what you do when you arrive. Twelve words, twenty-three kanji, and one kanji that turns up three times.",
+    words:[
+      { w:"家族",   r:"かぞく",     parts:["家","族"],     def:"The people you live with — parents, brothers and sisters, all together as one group." },
+      { w:"兄弟",   r:"きょうだい", parts:["兄","弟"],     def:"Brothers, or brothers and sisters generally. The word is built from an older one and a younger one." },
+      { w:"姉妹",   r:"しまい",     parts:["姉","妹"],     def:"Sisters. Built the same way as the word above it: an older one and a younger one." },
+      { w:"旅行",   r:"りょこう",   parts:["旅","行"],     def:"A trip. Going on a journey, usually for a holiday." },
+      { w:"飛行機", r:"ひこうき",   parts:["飛","行","機"], def:"The machine that flies and goes: what you catch at the airport." },
+      { w:"空港",   r:"くうこう",   parts:["空","港"],     def:"The harbour for the sky. Where planes arrive and leave." },
+      { w:"切符",   r:"きっぷ",     parts:["切","符"],     def:"A ticket. Historically a token that was cut in two, one half kept by each side." },
+      { w:"荷物",   r:"にもつ",     parts:["荷","物"],     def:"Luggage. The things you load and carry with you." },
+      { w:"写真",   r:"しゃしん",   parts:["写","真"],     def:"A photograph — a copy of something real." },
+      { w:"温泉",   r:"おんせん",   parts:["温","泉"],     def:"A hot spring. Warm water coming out of the ground, and a bath built around it." },
+      { w:"観光",   r:"かんこう",   parts:["観","光"],     def:"Sightseeing. Going to look at the sights of a place." },
+      { w:"銀行",   r:"ぎんこう",   parts:["銀","行"],     def:"A bank, where you change your money before the trip. Literally a silver shop." },
+    ],
+    /* what to say once the whole unit is built */
+    payoff:"Twelve words from twenty-three kanji, and you did not learn twelve separate things. 行 built three of them: 旅行, 飛行機 and 銀行. Once a kanji is yours, every word that uses it gets cheaper.",
+  },
+];
+
+/* ============================================================
+   ENGINE — tap-then-tap, or drag. Any word, any order.
+   ============================================================ */
+const UI = {
+  title:    ["単語ビルダー","たんごビルダー","tango birudā","Word Builder"],
+  subtitle: ["ユニットのことばを、漢字から組み立てる","ユニットのことばを、かんじからくみたてる",
+             "yunitto no kotoba o, kanji kara kumitateru",
+             "one unit, one bank of kanji, every word on the page"],
+  how:      ["ユニットをえらんでください","ユニットをえらんでください","yunitto o erande kudasai",
+             "Pick a unit. You get its whole word list at once, with every kanji you need in one bank."],
+  back:     ["← ホーム","← ホーム","← hōmu","← home"],
+};
+const UI_RUBY = { subtitle:"ユニットのことばを、<ruby>漢字<rt>かんじ</rt></ruby>から<ruby>組<rt>く</rt></ruby>み<ruby>立<rt>た</rt></ruby>てる" };
+
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const shuffle = (a) => { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+
+  const S = { unit:null, held:null, fills:{}, done:{}, first:{} };
+
+  function go(name){
+    document.querySelectorAll(".screen").forEach((s)=>s.classList.remove("active"));
+    $("scr-"+name).classList.add("active");
+    window.scrollTo({top:0,behavior:"smooth"});
+    if(window.HubLever) window.HubLever.apply();
+  }
+  document.querySelectorAll("[data-go]").forEach((b)=>
+    b.addEventListener("click",()=>{ const n=b.dataset.go; if(n==="home") drawHome(); go(n); }));
+
+  function drawHome(){
+    const wrap=$("units"); wrap.innerHTML="";
+    UNITS.forEach((u)=>{
+      const doneN=u.words.filter((w)=>S.done[w.w]).length;
+      const b=document.createElement("button");
+      b.className="unit";
+      b.innerHTML='<div class="ut">'+esc(u.title)+'</div><div class="ud">'+esc(u.blurb)+'</div>'+
+        '<div class="un">'+u.words.length+' words · '+new Set(u.words.flatMap((w)=>w.parts)).size+
+        ' kanji'+(doneN?' · '+doneN+' built':'')+'</div>';
+      b.addEventListener("click",()=>openUnit(u));
+      wrap.appendChild(b);
+    });
+  }
+
+  /* which kanji serve more than one word in this unit? */
+  function sharedIn(u){
+    const n={};
+    u.words.forEach((w)=>w.parts.forEach((p)=>{ n[p]=(n[p]||0)+1; }));
+    return Object.keys(n).filter((k)=>n[k]>1);
+  }
+
+  function openUnit(u){
+    S.unit=u; S.held=null; S.fills={};
+    u.words.forEach((w)=>{ S.fills[w.w]=[]; });
+    go("build");
+    $("unit-title").textContent=u.title;
+    $("unit-intro").textContent=u.blurb;
+    drawBank(); drawList();
+  }
+
+  function drawBank(){
+    const u=S.unit;
+    const share=sharedIn(u);
+    const all=shuffle([...new Set(u.words.flatMap((w)=>w.parts))]);
+    $("bank-label").innerHTML = S.held
+      ? 'Now tap a box to drop <b>'+S.held+'</b> in, or tap it again to put it back.'
+      : 'Tap a kanji (then tap a box), or drag it. Build any word, in any order. A kanji is never used up.';
+    $("bank").innerHTML=all.map((k)=>
+      '<button type="button" class="chip'+(S.held===k?" held":"")+(share.indexOf(k)>-1?" shared":"")+
+      '" data-k="'+k+'" draggable="true">'+
+        '<span class="k">'+k+'</span><span class="g">'+esc(KANJI[k]?KANJI[k].g:"")+'</span>'+
+        '<span class="r">'+esc(KANJI[k]?KANJI[k].r:"")+'</span>'+
+      '</button>').join("");
+    $("bank").querySelectorAll(".chip").forEach((c)=>{
+      c.addEventListener("click",()=>{
+        S.held = S.held===c.dataset.k ? null : c.dataset.k;
+        drawBank();
+      });
+      c.addEventListener("dragstart",(e)=>{ c.classList.add("dragging"); e.dataTransfer.setData("text/plain",c.dataset.k); });
+      c.addEventListener("dragend",()=>c.classList.remove("dragging"));
+    });
+  }
+
+  function drawList(){
+    const u=S.unit;
+    const todo=u.words.filter((w)=>!S.done[w.w]);
+    const done=u.words.filter((w)=>S.done[w.w]);
+    $("prog").textContent=u.title.split(" ")[0]+" · "+done.length+"/"+u.words.length;
+    $("todo").innerHTML=todo.map((w)=>rowHtml(w,false)).join("");
+    $("done-wrap").innerHTML = done.length
+      ? '<div class="done-head">できた · built ('+done.length+')</div><div class="list">'+
+        done.map((w)=>rowHtml(w,true)).join("")+'</div>'
+      : "";
+    wireRows();
+    const fin=$("finish");
+    if(done.length===u.words.length){
+      const share=sharedIn(u);
+      const firstTry=u.words.filter((w)=>S.first[w.w]===true).length;
+      fin.className="finish show";
+      fin.innerHTML='<b>ユニット かんりょう · unit complete.</b> First try: '+firstTry+'/'+u.words.length+'.<br>'+
+        esc(u.payoff)+
+        '<div class="reuse">'+share.map((k)=>{
+          const inW=u.words.filter((w)=>w.parts.indexOf(k)>-1);
+          return '<span class="rk"><b>'+k+'</b> built '+inW.length+': '+inW.map((w)=>w.w).join("、")+'</span>';
+        }).join("")+'</div>';
+    } else fin.className="finish";
+  }
+
+  function rowHtml(w,isDone){
+    if(isDone){
+      return '<div class="row done" data-w="'+w.w+'"><div class="def"><span class="en">'+esc(w.def)+'</span></div>'+
+        '<div class="built"><span class="w">'+w.w+'</span><span class="rd">'+esc(w.r)+'</span>'+
+        '<span class="tick">'+(S.first[w.w]?"✓":"✓")+'</span></div></div>';
+    }
+    const fill=S.fills[w.w]||[];
+    return '<div class="row" data-w="'+w.w+'"><div class="def"><span class="en">'+esc(w.def)+'</span></div>'+
+      '<div class="slots">'+w.parts.map((_,i)=>
+        '<button type="button" class="slot'+(fill[i]?" filled":"")+'" data-w="'+w.w+'" data-i="'+i+'">'+
+          (fill[i]||"")+'</button>').join("")+'</div></div>';
+  }
+
+  function wireRows(){
+    document.querySelectorAll(".slot").forEach((s)=>{
+      s.addEventListener("click",()=>{
+        const w=s.dataset.w, i=+s.dataset.i;
+        if(S.done[w]) return;
+        if(S.fills[w][i]){ S.fills[w][i]=null; drawList(); return; }   // tap a filled box to clear it
+        if(!S.held) return;
+        place(w,i,S.held);
+      });
+      s.addEventListener("dragover",(e)=>{ e.preventDefault(); s.classList.add("aim"); });
+      s.addEventListener("dragleave",()=>s.classList.remove("aim"));
+      s.addEventListener("drop",(e)=>{
+        e.preventDefault(); s.classList.remove("aim");
+        const k=e.dataTransfer.getData("text/plain");
+        if(k) place(s.dataset.w,+s.dataset.i,k);
+      });
+    });
+  }
+
+  function place(wKey,i,k){
+    const u=S.unit, w=u.words.find((x)=>x.w===wKey);
+    if(!w || S.done[wKey]) return;
+    S.fills[wKey][i]=k;
+    S.held=null;
+    // full? then judge it
+    const fill=S.fills[wKey];
+    if(fill.filter(Boolean).length===w.parts.length){
+      const ok=w.parts.every((p,idx)=>fill[idx]===p);
+      if(!(wKey in S.first)) S.first[wKey]=ok;
+      if(ok){ S.done[wKey]=true; }
+      else {
+        drawBank(); drawList();
+        const row=document.querySelector('.row[data-w="'+wKey+'"]');
+        if(row){ row.classList.add("wrong"); setTimeout(()=>{ S.fills[wKey]=[]; drawList(); },420); }
+        return;
+      }
+    }
+    drawBank(); drawList();
+  }
+
+  drawHome();
+  window.HubLever.init({ strings:UI, ruby:UI_RUBY });
+})();
+</script>
+</body>
+</html>
