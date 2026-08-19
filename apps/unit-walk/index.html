@@ -18,11 +18,11 @@
        2 組み立てる      the Bone Sparrow shape: study showed the
                         analysis, HERE you build from meaning with
                         nothing to copy. Years 7-8 build WORDS from
-                        kana tiles; Years 9-12 first rebuild the
-                        unit's words from a tile bank (defs only,
-                        words hidden), then assemble the key kanji
-                        from parts in position, Factory frames +
-                        role colours, the word context masked
+                        kana tiles; Years 9-12 rebuild each word from
+                        its definition, and where a key kanji lives
+                        in the word its box is a positional FRAME
+                        fused from radicals on the spot, role colours
+                        flashing as it forms
        3 問答            reveal-and-self-mark conversation practice
        4 文法            the patterns the unit leans on, deep-linked
        5 クラフト        worked example, named moves, editing, then
@@ -145,57 +145,51 @@
        border-radius:7px;padding:5px 12px;background:var(--bg)}
   .vocablink a:hover{border-color:var(--accent)}
 
-  /* ---- step 2 kanji mode: queue + workbench (Factory frames) ---- */
+  /* ---- step 2 kanji mode: recall the word, fuse its kanji in place ---- */
   .queue{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
-  .qcard{display:flex;flex-direction:column;align-items:center;border:1px solid var(--line);border-radius:10px;
-       background:var(--paper);padding:7px 12px;cursor:pointer;min-width:84px}
+  .qcard{text-align:left;border:1px solid var(--line);border-radius:10px;background:var(--paper);
+       padding:8px 12px;cursor:pointer;max-width:230px;font-size:11.5px;color:var(--muted);line-height:1.4}
   .qcard:hover{border-color:var(--accent)}
   .qcard.sel{border-color:var(--accent);box-shadow:0 0 0 2px rgba(168,50,50,.18)}
-  .qcard.built{border-color:var(--correct);background:var(--okbg);cursor:default}
-  .qcard .qw{font-family:Georgia,serif;font-size:19px}
-  .qcard .qw .gap{color:var(--accent);font-weight:700}
-  .qcard.built .qw .gap{color:var(--correct)}
-  .qcard .qg{font-size:10px;color:var(--muted)}
-  .qcard .qtick{font-size:11px;font-weight:800;color:var(--correct);min-height:15px}
+  .qcard.built{border-color:var(--correct);background:var(--okbg);cursor:default;
+       font-family:Georgia,serif;font-size:19px;color:var(--correct);text-align:center}
   .bench{border:1px solid var(--line-soft);border-radius:12px;background:var(--band);padding:16px 14px 14px;margin-bottom:8px}
-  .prompt{text-align:center;font-size:14px;margin-bottom:2px}
-  .prompt b{font-family:Georgia,serif;font-size:17px}
-  .promptread{text-align:center;font-size:13px;color:var(--muted);margin-bottom:14px;min-height:19px}
-  .frame{display:grid;gap:8px;justify-content:center;margin-bottom:6px;padding-top:12px}
-  .frame.lr{grid-template-columns:96px 96px}
-  .frame.tb{grid-template-columns:110px}
-  .frame.tb .slot.top{height:64px;font-size:34px}
-  .frame.kamae{grid-template-columns:150px;position:relative}
-  .frame.nyou{grid-template-columns:150px;position:relative}
-  .frame.tare{grid-template-columns:150px;position:relative}
-  .slot{height:96px;border:2px dashed var(--line);border-radius:12px;background:var(--bg);
-       display:grid;place-items:center;font-family:Georgia,serif;font-size:44px;color:var(--ink);
-       position:relative;transition:border-color .15s,background .3s,color .3s}
-  .frame.kamae .slot.outer{height:150px;place-items:start center;padding-top:10px}
-  .frame.kamae .slot.inner{position:absolute;left:50%;top:62px;transform:translateX(-50%);
-       width:78px;height:74px;font-size:34px;z-index:2;background:var(--paper)}
-  .frame.nyou .slot.outer{height:150px;place-items:end start;padding:0 0 8px 10px}
-  .frame.nyou .slot.inner{position:absolute;right:8px;top:20px;width:84px;height:80px;
-       font-size:34px;z-index:2;background:var(--paper)}
-  .frame.tare .slot.outer{height:150px;place-items:start start;padding:8px 0 0 10px}
-  .frame.tare .slot.inner{position:absolute;right:8px;bottom:8px;width:84px;height:80px;
-       font-size:34px;z-index:2;background:var(--paper)}
-  .slot.over{border-color:var(--accent);background:#faf5f0}
-  .slot .slotlab{position:absolute;bottom:4px;left:0;right:0;text-align:center;
-       font-size:9px;font-weight:800;letter-spacing:.06em;color:var(--pos);text-transform:uppercase}
-  .frame.nyou .slot.outer .slotlab{text-align:left;padding-left:10px}
-  .frame.tare .slot.outer .slotlab{text-align:left;padding-left:10px;bottom:auto;top:38px}
-  .slot.filled{border-style:solid;cursor:pointer}
-  .slot.lit-sense{border-color:var(--sense);background:var(--sense-bg);color:var(--sense);animation:pop .45s ease-out}
-  .slot.lit-sound{border-color:var(--sound);background:var(--sound-bg);color:var(--sound);animation:pop .45s ease-out}
+  .prompt{text-align:center;font-size:14px;margin-bottom:14px}
+  .prompt b{font-weight:700}
+  /* the word skeleton: one box per character. Plain boxes take tiles;
+     FRAME boxes are built from radicals in their real positions. */
+  .wordstrip{display:flex;gap:9px;justify-content:center;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px}
+  .wbox{width:58px;height:64px;border:2px dashed var(--line);border-radius:10px;background:var(--bg);
+       display:grid;place-items:center;font-family:Georgia,serif;font-size:27px;cursor:pointer}
+  .wbox.over{border-color:var(--accent);background:#faf5f0}
+  .wbox.filled{border-style:solid}
+  .wframe{width:106px;height:106px;border:2px dashed var(--amber);border-radius:12px;background:var(--bg);
+       position:relative;display:block}
+  .wframe .wflab{position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:8.5px;font-weight:800;
+       letter-spacing:.05em;color:#fff;background:var(--amber);border-radius:8px;padding:0 7px;text-transform:uppercase;white-space:nowrap}
+  .wsub{position:absolute;border:2px dashed var(--line);border-radius:8px;background:var(--paper);
+       display:grid;place-items:center;font-family:Georgia,serif;font-size:20px;cursor:pointer}
+  .wsub.over{border-color:var(--accent)}
+  .wsub.filled{border-style:solid}
+  /* sub-slot geometry per layout */
+  .wframe.lr .wsub[data-s="0"]{left:6px;top:6px;width:44px;height:90px}
+  .wframe.lr .wsub[data-s="1"]{right:6px;top:6px;width:44px;height:90px}
+  .wframe.tb .wsub[data-s="0"]{left:6px;top:6px;width:90px;height:40px}
+  .wframe.tb .wsub[data-s="1"]{left:6px;bottom:6px;width:90px;height:46px}
+  .wframe.kamae .wsub[data-s="0"]{left:6px;top:6px;width:90px;height:90px;place-items:start center;padding-top:4px}
+  .wframe.kamae .wsub[data-s="1"]{left:50%;transform:translateX(-50%);bottom:12px;width:44px;height:40px;z-index:2}
+  .wframe.nyou .wsub[data-s="0"]{left:6px;top:6px;width:90px;height:90px;place-items:end start;padding:0 0 4px 6px}
+  .wframe.nyou .wsub[data-s="1"]{right:10px;top:10px;width:48px;height:44px;z-index:2}
+  .wframe.tare .wsub[data-s="0"]{left:6px;top:6px;width:90px;height:90px;place-items:start start;padding:4px 0 0 6px}
+  .wframe.tare .wsub[data-s="1"]{right:10px;bottom:10px;width:48px;height:44px;z-index:2}
+  .wsub.lit-sense{border-color:var(--sense);background:var(--sense-bg);color:var(--sense);animation:pop .45s ease-out}
+  .wsub.lit-sound{border-color:var(--sound);background:var(--sound-bg);color:var(--sound);animation:pop .45s ease-out}
   @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.13)}100%{transform:scale(1)}}
-  .rolebadge{position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;
-       letter-spacing:.06em;padding:1px 8px;border-radius:9px;text-transform:uppercase;white-space:nowrap;z-index:3}
-  .rb-sense{background:var(--sense);color:#fff}
-  .rb-sound{background:var(--sound);color:#fff}
-  .frame.shake{animation:shake .4s}
+  .wframe.fusedframe{border:2px solid var(--correct);background:var(--okbg);display:grid;place-items:center;
+       font-family:Georgia,serif;font-size:46px;color:var(--correct);animation:formin .5s ease-out}
+  @keyframes formin{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:scale(1)}}
+  .wframe.shake,.wordstrip.shake{animation:shake .4s}
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
-  .builtline{text-align:center;font-size:13px;color:var(--correct);font-weight:700;min-height:20px;margin:6px 0 2px}
   .hookline{text-align:center;font-size:12.5px;color:var(--muted);max-width:560px;margin:0 auto 6px;min-height:0}
   .bankhead{font-size:10.5px;font-weight:800;letter-spacing:.09em;color:var(--muted);
        text-transform:uppercase;text-align:center;margin:14px 0 8px}
@@ -232,11 +226,6 @@
   .krow.done .kbuilt{font-family:Georgia,serif;font-size:23px;color:var(--correct);font-weight:700}
   .krow.done .kkp{font-size:12px;color:var(--muted)}
   .krow.shake{animation:shake .4s}
-  .stagetabs{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
-  .stagetab{border:1px solid var(--line);border-radius:9px;background:var(--bg);padding:7px 14px;
-       font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer}
-  .stagetab b{color:var(--correct);margin-left:4px}
-  .stagetab.on{background:var(--band);border-color:var(--accent);color:var(--ink)}
   .ktile.kt-kanji{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 9px}
   .ktile .ktg{font-family:'Segoe UI',sans-serif;font-size:8.5px;color:var(--muted);line-height:1.2;max-width:74px;
        overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -11176,8 +11165,8 @@ const STEPS = [
 ];
 const KANA_BUILD_T=["ことばを組み立てる","ことばをくみたてる","kotoba o kumitateru","Build the words"];
 const KANA_BUILD_S=["かなで、音から","かなで、おとから","kana de, oto kara","kana tiles, sound by sound"];
-const KANJI_BUILD_S=["ことばを思い出してから、漢字を部品から","ことばをおもいだしてから、かんじをぶひんから",
-  "kotoba o omoidashite kara, kanji o buhin kara","recall the words from meaning, then build their kanji from parts"];
+const KANJI_BUILD_S=["意味から、部品から、一気に","いみから、ぶひんから、いっきに",
+  "imi kara, buhin kara, ikki ni","recall each word from its meaning, fusing its key kanji from parts in place"];
 
 const GROUPS=[
  {grp:"7", ja:"7年生", en:"Year 7"},
@@ -11269,10 +11258,7 @@ function stepTag(k){
   const u=unit(), d=doneOf(u.key);
   if (k==="build"){
     const wGot=u.words.filter((w)=>S.built[u.key+":w:"+w.w]).length;
-    if(u.mode==="kana") return wGot? wGot+"/"+u.words.length+" built":"";
-    const bs=BUILDS[u.key]||[];
-    const bGot=bs.filter((b)=>S.built[u.key+":"+b.ch]).length;
-    return (wGot||bGot)? wGot+"/"+u.words.length+" ことば · "+bGot+"/"+bs.length+" 漢字":"";
+    return wGot? wGot+"/"+u.words.length+" built":"";
   }
   if (k==="qa"){ const q=S.qa[u.key]; const n=q?Object.keys(q.marks).length:0;
     return n? n+"/"+(content(u.key).qa||[]).length+" answered":""; }
@@ -11326,14 +11312,9 @@ function showReport(){
     const miss=gap.items.filter((it,i)=>gs.answers[i]!==it.answer).length;
     lines.push("0 チェック  "+(gap.items.length-miss)+"/"+gap.items.length+" solid"+(miss?", plan made for "+miss:""));
   }
-  let bGot=u.words.filter((w)=>S.built[u.key+":w:"+w.w]).length,
-      bAll=u.words.length,
-      bFt=u.words.filter((w)=>S.first["k:"+u.key+":"+w.w]===true).length;
-  if(u.mode!=="kana"){ const bs=BUILDS[u.key]||[];
-    bAll+=bs.length;
-    bGot+=bs.filter((b)=>S.built[u.key+":"+b.ch]).length;
-    bFt+=bs.filter((b)=>S.first["b:"+u.key+":"+b.ch]===true).length;
-  }
+  const bGot=u.words.filter((w)=>S.built[u.key+":w:"+w.w]).length,
+        bAll=u.words.length,
+        bFt=u.words.filter((w)=>S.first["k:"+u.key+":"+w.w]===true).length;
   const q=S.qa[u.key]||{marks:{}}, marks=Object.values(q.marks),
         maru=marks.filter((m)=>m==="maru").length;
   const eAll=(content(u.key).craft||{}).edits||[],
@@ -11354,11 +11335,7 @@ function showReport(){
 }
 function enterStep(k){
   if (k==="qa" && !S.qa[S.unit]) S.qa[S.unit]={i:0,revealed:false,marks:{}};
-  if (k==="build" && (B.unit!==S.unit)) {
-    B.unit=S.unit; B.ch=null; B.placed={}; B.sel=null; K.sel=null; K.placed={};
-    const u=UNITS.find((x)=>x.key===S.unit);
-    B.stage=(u&&u.words.every((w)=>S.built[u.key+":w:"+w.w]))?"parts":"words";
-  }
+  if (k==="build" && (W.unit!==S.unit)) { W.unit=null; W.wi=null; W.boxes=null; W.sel=null; K.sel=null; K.placed={}; }
   go(k);
 }
 function stepHead(el,k){
@@ -11439,36 +11416,26 @@ function paintStudy(){
   $("hideBtn").onclick=()=>{ S.hide=!S.hide; paintStudy(); };
 }
 
-/* ---------------- STEP 2 · BUILD (two modes) ---------------- */
-const B={unit:null,ch:null,placed:{},sel:null,stage:"words"};
-const K={sel:null,placed:{}};   // word stage: placed["wordIdx:slotIdx"]=tile
+/* ---------------- STEP 2 · BUILD ----------------
+   The Bone Sparrow motion, whole: the study step showed the analysis;
+   here every word is produced from its MEANING alone. Kana units build
+   words from kana tiles. Kanji units get a word skeleton per meaning:
+   plain characters take tiles, and where one of the unit's key kanji
+   lives, its box is a positional FRAME you fuse from radicals, right
+   inside the word. Nothing on screen shows what you are meant to make. */
+const KANJI_RE_UI=/[一-鿿]/;
+const K={sel:null,placed:{}};                       // kana-mode rows
+const W={unit:null,wi:null,boxes:null,sel:null};    // kanji-mode workbench
 function paintBuild(){
   const u=unit();
   stepHead("build-head","build");
   if(u.mode==="kana"){ paintBuildWords(); return; }
-  if(B.stage==="words") paintBuildWords(); else paintBuildParts();
-}
-/* the stage switcher for kanji units: recall the words first, then the
-   parts inside their kanji. Never locked, just the good order. */
-function stageTabs(u){
-  if(u.mode==="kana")return "";
-  const wGot=u.words.filter((w)=>S.built[u.key+":w:"+w.w]).length;
-  const bs=BUILDS[u.key]||[];
-  const bGot=bs.filter((b)=>S.built[u.key+":"+b.ch]).length;
-  return '<div class="stagetabs">'+
-    '<button class="stagetab'+(B.stage==="words"?" on":"")+'" data-st="words">1 ことばから · recall the words <b>'+wGot+'/'+u.words.length+'</b></button>'+
-    '<button class="stagetab'+(B.stage==="parts"?" on":"")+'" data-st="parts">2 漢字のなか · inside the kanji <b>'+bGot+'/'+bs.length+'</b></button>'+
-    '</div>';
-}
-function wireStageTabs(){
-  document.querySelectorAll(".stagetab").forEach((b)=>{
-    b.onclick=()=>{ B.stage=b.dataset.st; paintBuild(); };
-  });
+  paintBuildFuse();
 }
 
-/* ---- kana mode: the word builder mechanic with kana tiles.
-   Every small kana in the bank brings its BIG twin along as a decoy:
-   without つ on the table, choosing っ correctly teaches nothing. ---- */
+/* ---- kana mode (Years 7-8): unchanged rows. Every small kana in the
+   bank brings its BIG twin along as a decoy: without つ on the table,
+   choosing っ correctly teaches nothing. ---- */
 const SMALL_BIG={"っ":"つ","ゃ":"や","ゅ":"ゆ","ょ":"よ","ッ":"ツ","ャ":"ヤ","ュ":"ユ","ョ":"ヨ",
   "ぁ":"あ","ぃ":"い","ぅ":"う","ぇ":"え","ぉ":"お","ァ":"ア","ィ":"イ","ゥ":"ウ","ェ":"エ","ォ":"オ"};
 function kanaBank(u){
@@ -11481,22 +11448,14 @@ function paintBuildWords(){
   const u=unit();
   const bank=kanaBank(u);
   const got=u.words.filter((w)=>S.built[u.key+":w:"+w.w]).length;
-  const kanjiMode=u.mode!=="kana";
-  $("build-area").innerHTML=stageTabs(u)+
-    '<p class="intro">'+(kanjiMode
-      ?'Each meaning below is one of the unit\'s words. You studied them with their parts showing; now the words are hidden and you rebuild each one from its meaning alone. Kanji tiles carry their gloss to jog you.'
-      :'Each meaning below is one of the unit\'s words. Say it, then build its sound from the tiles: every small かな and every ー is its own tile, on purpose.')+'</p>'+
-    '<div class="kbankwrap"><div class="bankhead">'+(kanjiMode?"タイル · kanji and kana tiles":"かなタイル · the tiles")+'</div>'+
-    '<div class="kbank">'+bank.map((t)=>{
-      const k=kanjiMode&&KANJI[t];
-      return '<button class="ktile'+(k?" kt-kanji":"")+'" data-t="'+esc(t)+'" draggable="true">'+esc(t)+
-        (k?'<span class="ktg">'+esc(k.g)+'</span>':"")+'</button>';
-    }).join("")+'</div></div>'+
+  $("build-area").innerHTML=
+    '<p class="intro">Each meaning below is one of the unit\'s words. Say it, then build its sound from the tiles: every small かな and every ー is its own tile, on purpose.</p>'+
+    '<div class="kbankwrap"><div class="bankhead">かなタイル · the tiles</div>'+
+    '<div class="kbank">'+bank.map((t)=>'<button class="ktile" data-t="'+esc(t)+'" draggable="true">'+esc(t)+'</button>').join("")+'</div></div>'+
     '<div class="krows">'+u.words.map((w,wi)=>{
       const done=S.built[u.key+":w:"+w.w];
       if(done) return '<div class="krow done"><span class="kdef">'+esc(w.def)+'</span>'+
-        '<span class="kbuilt">'+esc(w.w)+'</span>'+
-        (w.kp?'<span class="kkp">'+esc(w.kp)+'</span>':(w.r&&w.r!==w.w?'<span class="kkp">'+esc(w.r)+'</span>':""))+'</div>';
+        '<span class="kbuilt">'+esc(w.w)+'</span>'+(w.kp?'<span class="kkp">'+esc(w.kp)+'</span>':"")+'</div>';
       const n=tiles(w.w).length;
       let slots="";
       for(let i=0;i<n;i++){
@@ -11505,19 +11464,12 @@ function paintBuildWords(){
       }
       return '<div class="krow" data-row="'+wi+'"><span class="kdef">'+esc(w.def)+'</span><span class="kslots">'+slots+'</span></div>';
     }).join("")+'</div>';
-  paintBuildFoot();
+  $("build-prog").textContent=got+"/"+u.words.length+" built";
+  buildFoot(got===u.words.length);
   wireKana();
-  wireStageTabs();
 }
-function paintBuildFoot(){
+function buildFoot(allDone){
   const u=unit();
-  const wGot=u.words.filter((w)=>S.built[u.key+":w:"+w.w]).length;
-  const bs=u.mode==="kana"?[]:(BUILDS[u.key]||[]);
-  const bGot=bs.filter((b)=>S.built[u.key+":"+b.ch]).length;
-  $("build-prog").textContent=u.mode==="kana"
-    ? wGot+"/"+u.words.length+" built"
-    : wGot+"/"+u.words.length+" ことば · "+bGot+"/"+bs.length+" 漢字";
-  const allDone=wGot===u.words.length&&bGot===bs.length;
   $("build-next").style.display=allDone?"":"none";
   if(allDone){ doneOf(u.key).build=true;
     $("build-next").textContent="つぎへ · walk on →";
@@ -11535,14 +11487,13 @@ function wireKana(){
     if(guess===w.w){
       firstTry(id,true); S.built[u.key+":w:"+w.w]=true;
       for(let i=0;i<n;i++) delete K.placed[wi+":"+i];
-      const left=u.words.filter((x)=>!S.built[u.key+":w:"+x.w]).length;
-      if(left===0&&u.mode!=="kana"){ B.stage="parts"; paintBuild(); }
-      else paintBuildWords();
+      paintBuildWords();
     }else{
       firstTry(id,false);
       const row=document.querySelector('.krow[data-row="'+wi+'"]');
       if(row){ row.classList.add("shake");
-        setTimeout(()=>{ for(let i=0;i<n;i++) delete K.placed[wi+":"+i]; paintBuildWords(); },450);
+        setTimeout(()=>{ for(let i=0;i<n;i++) delete K.placed[wi+":"+i];
+          if(S.screen==="build"&&unit().key===u.key) paintBuildWords(); },450);
       }
     }
   };
@@ -11552,141 +11503,190 @@ function wireKana(){
     tl.ondragstart=(e)=>{ e.dataTransfer.setData("text/plain",tl.dataset.t); tl.classList.add("dragging"); };
     tl.ondragend=()=>tl.classList.remove("dragging");
   });
-  document.querySelectorAll(".kslot").forEach((s)=>{
-    const wi=+s.dataset.w, si=+s.dataset.s;
-    s.ondragover=(e)=>{e.preventDefault();s.classList.add("over");};
-    s.ondragleave=()=>s.classList.remove("over");
-    s.ondrop=(e)=>{e.preventDefault();s.classList.remove("over");
+  document.querySelectorAll(".kslot").forEach((sl)=>{
+    const wi=+sl.dataset.w, si=+sl.dataset.s;
+    sl.ondragover=(e)=>{e.preventDefault();sl.classList.add("over");};
+    sl.ondragleave=()=>sl.classList.remove("over");
+    sl.ondrop=(e)=>{e.preventDefault();sl.classList.remove("over");
       const t=e.dataTransfer.getData("text/plain"); if(t)dropTile(wi,si,t);};
-    s.onclick=()=>{
+    sl.onclick=()=>{
       if(K.sel){ dropTile(wi,si,K.sel); return; }
       if(K.placed[wi+":"+si]){ delete K.placed[wi+":"+si]; paintBuildWords(); }
     };
   });
 }
 
-/* ---- kanji mode: the Factory frames (v1 engine) ---- */
-function bankParts(key){
-  const seen=[],out=[];
-  (BUILDS[key]||[]).forEach((b)=>b.parts.forEach((pt)=>{
-    if(!seen.includes(pt.p)){seen.push(pt.p);out.push(pt.p);}
-  }));
-  return out;
-}
-function paintBuildParts(){
-  const u=unit(), builds=BUILDS[u.key]||[];
-  $("build-area").innerHTML=stageTabs(u)+'<div class="queue" id="queue"></div><div class="bench" id="bench"></div>';
-  $("queue").innerHTML=builds.map((b)=>{
-    const done=S.built[u.key+":"+b.ch];
-    const wordHtml=esc(b.word).split("").map((c)=>
-      c===b.ch?'<span class="gap">'+(done?esc(b.ch):"▢")+'</span>':c).join("");
-    return '<button class="qcard'+(done?" built":"")+(B.ch===b.ch?" sel":"")+'" data-ch="'+esc(b.ch)+'">'+
-      '<span class="qtick">'+(done?"✓":"")+'</span>'+
-      '<span class="qw">'+wordHtml+'</span>'+
-      '<span class="qg">'+esc(b.gloss)+'</span></button>';
-  }).join("");
-  $("queue").querySelectorAll("[data-ch]").forEach((c)=>{
-    c.onclick=()=>{ if(S.built[u.key+":"+c.dataset.ch])return;
-      B.ch=c.dataset.ch; B.placed={}; B.sel=null; paintBuild(); };
+/* ---- kanji mode (Years 9-12): fuse-in-place ---- */
+function buildBoxes(u,w){
+  return tiles(w.w).map((c)=>{
+    if(!KANJI_RE_UI.test(c)) return {c,type:"kana",val:null};
+    const b=(BUILDS[u.key]||[]).find((x)=>x.ch===c);
+    if(b) return {c,type:"frame",b,placed:{},fused:false};
+    return {c,type:"tile",val:null};
   });
-  paintBuildFoot();
-  const got=builds.filter((b)=>S.built[u.key+":"+b.ch]).length;
-  if(!B.ch){ const nxt=builds.find((b)=>!S.built[u.key+":"+b.ch]);
-    if(nxt&&got<builds.length){B.ch=nxt.ch;} }
-  paintBench();
-  wireStageTabs();
 }
-function slotLab(pos,i){
-  if(pos==="lr")return i===0?"ひだり left":"みぎ right";
-  if(pos==="tb")return i===0?"うえ top":"した bottom";
-  return i===0?"そと outside":"なか inside";
+function fuseBanks(u){
+  const rad=new Set(), kj=new Set(), kn=new Set();
+  const buildChs=new Set((BUILDS[u.key]||[]).map((b)=>b.ch));
+  (BUILDS[u.key]||[]).forEach((b)=>b.parts.forEach((p)=>rad.add(p.p)));
+  u.words.forEach((w)=>tiles(w.w).forEach((c)=>{
+    if(!KANJI_RE_UI.test(c)){ kn.add(c); if(SMALL_BIG[c])kn.add(SMALL_BIG[c]); }
+    else if(!buildChs.has(c)) kj.add(c);
+  }));
+  return { rad:[...rad], kj:[...kj].sort(), kn:[...kn].sort((a,b)=>a.localeCompare(b,"ja")) };
 }
-function paintBench(){
-  const u=unit(), b=(BUILDS[u.key]||[]).find((x)=>x.ch===B.ch);
-  if(!b){ $("bench").innerHTML='<p class="intro">ぜんぶできた！ All built.</p>'; return; }
-  const slotCls=(i)=>{
-    if(b.pos==="kamae"||b.pos==="nyou"||b.pos==="tare")return i===0?"outer":"inner";
-    if(b.pos==="tb")return i===0?"top":"bottom";
-    return "";
-  };
+function paintBuildFuse(){
+  const u=unit();
+  const got=u.words.filter((w)=>S.built[u.key+":w:"+w.w]).length;
+  if(W.unit!==u.key){ W.unit=u.key; W.wi=null; W.boxes=null; W.sel=null; }
+  if(W.wi===null||S.built[u.key+":w:"+u.words[W.wi].w]){
+    const nxt=u.words.findIndex((w)=>!S.built[u.key+":w:"+w.w]);
+    W.wi=nxt<0?null:nxt; W.boxes=W.wi===null?null:buildBoxes(u,u.words[W.wi]); W.sel=null;
+  }
+  const banks=fuseBanks(u);
+  $("build-area").innerHTML=
+    '<p class="intro">You studied these words with their parts showing; now each meaning is rebuilt from scratch. Plain boxes take tiles. A framed box is one of the unit\'s key kanji: fuse it from its parts, in position, right where it lives in the word.</p>'+
+    '<div class="queue" id="queue">'+u.words.map((w,wi)=>{
+      const done=S.built[u.key+":w:"+w.w];
+      if(done)return '<div class="qcard built">'+esc(w.w)+'</div>';
+      return '<button class="qcard'+(W.wi===wi?" sel":"")+'" data-wi="'+wi+'">'+esc(w.def)+'</button>';
+    }).join("")+'</div>'+
+    '<div class="bench" id="bench"></div>';
+  $("queue").querySelectorAll("button[data-wi]").forEach((c)=>{
+    c.onclick=()=>{ W.wi=+c.dataset.wi; W.boxes=buildBoxes(u,u.words[W.wi]); W.sel=null; paintBuildFuse(); };
+  });
+  $("build-prog").textContent=got+"/"+u.words.length+" built";
+  buildFoot(got===u.words.length);
+  paintFuseBench(banks);
+}
+function paintFuseBench(banks){
+  const u=unit();
+  if(W.wi===null){ $("bench").innerHTML='<p class="intro" style="margin:0">ぜんぶできた！ All built.</p>'; return; }
+  const w=u.words[W.wi];
+  const usedRad=new Set(), usedTile=new Set();
+  W.boxes.forEach((bx)=>{
+    if(bx.type==="frame"&&!bx.fused)Object.values(bx.placed).forEach((p)=>usedRad.add(p));
+    if(bx.type==="frame"&&bx.fused)bx.b.parts.forEach((p)=>usedRad.add(p.p));
+    if((bx.type==="tile")&&bx.val)usedTile.add(bx.val);
+  });
+  const strip=W.boxes.map((bx,bi)=>{
+    if(bx.type==="frame"){
+      if(bx.fused)return '<div class="wframe fusedframe">'+esc(bx.c)+'</div>';
+      return '<div class="wframe '+bx.b.pos+'" data-b="'+bi+'"><span class="wflab">部品から · from parts</span>'+
+        bx.b.parts.map((pt,si)=>{
+          const p=bx.placed[si];
+          return '<span class="wsub'+(p?" filled":"")+'" data-b="'+bi+'" data-s="'+si+'">'+(p?esc(p):"")+'</span>';
+        }).join("")+'</div>';
+    }
+    return '<span class="wbox'+(bx.val?" filled":"")+'" data-b="'+bi+'">'+(bx.val?esc(bx.val):"")+'</span>';
+  }).join("");
   $("bench").innerHTML=
-    '<div class="prompt">つくって: <b>'+esc(b.gloss)+'</b> · as in '+esc(b.word).split("").map((c)=>c===b.ch?"▢":c).join("")+'</div>'+
-    '<div class="promptread" id="bench-read"></div>'+
-    '<div class="frame '+b.pos+'" id="frame">'+
-      b.parts.map((pt,i)=>'<div class="slot '+slotCls(i)+'" data-slot="'+i+'">'+
-        '<span class="slotlab">'+slotLab(b.pos,i)+'</span></div>').join("")+
-    '</div>'+
-    '<div class="builtline" id="builtline"></div>'+
+    '<div class="prompt">つくって: <b>'+esc(w.def)+'</b></div>'+
+    '<div class="wordstrip" id="wordstrip">'+strip+'</div>'+
     '<div class="hookline" id="hookline"></div>'+
-    '<div class="bankhead">部品 · the parts (drag, or tap then tap)</div>'+
-    '<div class="bank" id="bank">'+bankParts(u.key).map((p)=>{
+    '<div class="bankhead">部品 · the parts of the framed kanji</div>'+
+    '<div class="bank">'+banks.rad.map((p)=>{
       const info=PARTS[p]||{g:"",n:""};
-      return '<button class="piece" data-p="'+esc(p)+'" draggable="true">'+
+      return '<button class="piece'+(usedRad.has(p)?" used":"")+'" data-kind="rad" data-v="'+esc(p)+'" draggable="true">'+
         '<span class="pc">'+esc(p)+'</span><span class="pg">'+esc(info.g)+'</span>'+
         (info.n?'<span class="pn">'+esc(info.n)+'</span>':"")+'</button>';
-    }).join("")+'</div>';
-  wireBench(b);
+    }).join("")+'</div>'+
+    '<div class="bankhead">タイル · kanji and kana tiles</div>'+
+    '<div class="kbank">'+banks.kj.map((c)=>{
+      const k=KANJI[c];
+      return '<button class="ktile kt-kanji'+(usedTile.has(c)?" used":"")+'" data-kind="tile" data-v="'+esc(c)+'" draggable="true">'+esc(c)+
+        (k?'<span class="ktg">'+esc(k.g)+'</span>':"")+'</button>';
+    }).join("")+banks.kn.map((c)=>
+      '<button class="ktile" data-kind="tile" data-v="'+esc(c)+'" draggable="true">'+esc(c)+'</button>'
+    ).join("")+'</div>';
+  wireFuse(banks);
 }
-function wireBench(b){
-  const u=unit();
-  const slots=[...$("frame").querySelectorAll(".slot")];
-  const pieces=[...$("bank").querySelectorAll(".piece")];
-  const usedParts=()=>Object.values(B.placed);
-  const refresh=()=>{
-    slots.forEach((s)=>{
-      const i=s.dataset.slot, p=B.placed[i];
-      s.classList.toggle("filled",!!p);
-      s.innerHTML='<span class="slotlab">'+slotLab(b.pos,+i)+'</span>'+(p?esc(p):"");
-    });
-    pieces.forEach((pc)=>{
-      pc.classList.toggle("used",usedParts().includes(pc.dataset.p));
-      pc.classList.toggle("sel",B.sel===pc.dataset.p);
-    });
-  };
-  const drop=(i,p)=>{
-    if(usedParts().includes(p))return;
-    B.placed[i]=p; B.sel=null; refresh(); judge();
-  };
-  const judge=()=>{
-    if(Object.keys(B.placed).length!==b.parts.length)return;
-    const right=b.parts.every((pt,i)=>B.placed[i]===pt.p);
-    const id="b:"+u.key+":"+b.ch;
-    if(right){
-      firstTry(id,true);
-      slots.forEach((s,i)=>{
-        const role=b.parts[i].role;
-        s.classList.add("lit-"+role);
-        s.insertAdjacentHTML("beforeend",'<span class="rolebadge rb-'+role+'">'+
-          (role==="sound"?"おと sound"+(b.parts[i].sound?" "+esc(b.parts[i].sound):""):"いみ meaning")+'</span>');
-      });
-      $("bench-read").textContent=b.ch+" · "+b.read;
-      $("builtline").textContent="できた！ "+b.ch;
-      $("hookline").textContent=b.hook;
-      S.built[u.key+":"+b.ch]=true;
-      setTimeout(()=>{ B.ch=null; B.placed={}; paintBuild(); },2600);
+function wireFuse(banks){
+  const u=unit(), w=u.words[W.wi];
+  const wordId="k:"+u.key+":"+w.w;
+  /* deferred callbacks die quietly if the student has moved on */
+  const myBoxes=W.boxes;
+  const live=()=>S.screen==="build"&&W.boxes===myBoxes&&unit().key===u.key;
+  const selPieces=()=>document.querySelectorAll("#bench [data-kind]");
+  selPieces().forEach((pc)=>{
+    pc.onclick=()=>{ const cur=W.sel&&W.sel.v===pc.dataset.v&&W.sel.kind===pc.dataset.kind;
+      W.sel=cur?null:{kind:pc.dataset.kind,v:pc.dataset.v};
+      selPieces().forEach((x)=>x.classList.toggle("sel",!!W.sel&&W.sel.v===x.dataset.v&&W.sel.kind===x.dataset.kind)); };
+    pc.ondragstart=(e)=>{ e.dataTransfer.setData("text/plain",pc.dataset.kind+":"+pc.dataset.v); pc.classList.add("dragging"); };
+    pc.ondragend=()=>pc.classList.remove("dragging");
+  });
+  const judgeWord=()=>{
+    if(!W.boxes.every((bx)=>bx.type==="frame"?bx.fused:!!bx.val))return;
+    const guess=W.boxes.map((bx)=>bx.type==="frame"?bx.c:bx.val).join("");
+    if(guess===w.w){
+      firstTry(wordId,true); S.built[u.key+":w:"+w.w]=true;
+      paintBuildFuse();
     }else{
-      firstTry(id,false);
-      $("frame").classList.add("shake");
-      setTimeout(()=>{ B.placed={}; paintBench(); },450);
+      firstTry(wordId,false);
+      const strip=$("wordstrip"); strip.classList.add("shake");
+      setTimeout(()=>{ if(!live())return;
+        W.boxes.forEach((bx)=>{ if(bx.type!=="frame")bx.val=null; }); paintFuseBench(banks); },450);
     }
   };
-  slots.forEach((s)=>{
-    s.ondragover=(e)=>{e.preventDefault();s.classList.add("over");};
-    s.ondragleave=()=>s.classList.remove("over");
-    s.ondrop=(e)=>{e.preventDefault();s.classList.remove("over");
-      const p=e.dataTransfer.getData("text/plain"); if(p)drop(s.dataset.slot,p);};
-    s.onclick=()=>{
-      const i=s.dataset.slot;
-      if(B.sel){drop(i,B.sel);return;}
-      if(B.placed[i]){delete B.placed[i];refresh();}
+  const dropInBox=(bi,kind,v)=>{
+    const bx=W.boxes[bi];
+    if(bx.type==="frame"||kind==="rad")return;
+    bx.val=v; W.sel=null; paintFuseBench(banks); judgeWordAfterPaint();
+  };
+  const dropInSub=(bi,si,kind,v)=>{
+    if(kind!=="rad")return;
+    const bx=W.boxes[bi];
+    if(bx.fused)return;
+    bx.placed[si]=v; W.sel=null;
+    if(Object.keys(bx.placed).length===bx.b.parts.length){
+      const right=bx.b.parts.every((pt,k)=>bx.placed[k]===pt.p);
+      if(right){
+        /* light the roles, then the kanji fuses in place */
+        paintFuseBench(banks);
+        const frame=document.querySelector('.wframe[data-b="'+bi+'"]');
+        if(frame)bx.b.parts.forEach((pt,k)=>{
+          const sub=frame.querySelector('.wsub[data-s="'+k+'"]');
+          if(sub)sub.classList.add("lit-"+pt.role);
+        });
+        $("hookline").textContent=bx.b.ch+" · "+bx.b.read+" — "+bx.b.hook;
+        setTimeout(()=>{ bx.fused=true; if(!live())return;
+          paintFuseBench(banks);
+          $("hookline").textContent=bx.b.ch+" · "+bx.b.read+" — "+bx.b.hook;
+          judgeWordAfterPaint(); },1100);
+        return;
+      }
+      firstTry(wordId,false);
+      const frame=document.querySelector('.wframe[data-b="'+bi+'"]');
+      if(frame){ frame.classList.add("shake");
+        setTimeout(()=>{ bx.placed={}; if(live()) paintFuseBench(banks); },450); return; }
+    }
+    paintFuseBench(banks);
+  };
+  function judgeWordAfterPaint(){ setTimeout(()=>{ if(live())judgeWord(); },60); }
+  document.querySelectorAll("#wordstrip .wbox").forEach((box)=>{
+    const bi=+box.dataset.b;
+    box.ondragover=(e)=>{e.preventDefault();box.classList.add("over");};
+    box.ondragleave=()=>box.classList.remove("over");
+    box.ondrop=(e)=>{e.preventDefault();box.classList.remove("over");
+      const d=e.dataTransfer.getData("text/plain").split(":"); dropInBox(bi,d[0],d[1]);};
+    box.onclick=()=>{
+      if(W.sel){ dropInBox(bi,W.sel.kind,W.sel.v); return; }
+      if(W.boxes[bi].val){ W.boxes[bi].val=null; paintFuseBench(banks); }
     };
   });
-  pieces.forEach((pc)=>{
-    pc.ondragstart=(e)=>{e.dataTransfer.setData("text/plain",pc.dataset.p);pc.classList.add("dragging");};
-    pc.ondragend=()=>pc.classList.remove("dragging");
-    pc.onclick=()=>{B.sel=B.sel===pc.dataset.p?null:pc.dataset.p;refresh();};
+  document.querySelectorAll("#wordstrip .wsub").forEach((sub)=>{
+    const bi=+sub.dataset.b, si=+sub.dataset.s;
+    sub.ondragover=(e)=>{e.preventDefault();e.stopPropagation();sub.classList.add("over");};
+    sub.ondragleave=()=>sub.classList.remove("over");
+    sub.ondrop=(e)=>{e.preventDefault();e.stopPropagation();sub.classList.remove("over");
+      const d=e.dataTransfer.getData("text/plain").split(":"); dropInSub(bi,si,d[0],d[1]);};
+    sub.onclick=(e)=>{
+      e.stopPropagation();
+      if(W.sel){ dropInSub(bi,si,W.sel.kind,W.sel.v); return; }
+      const bx=W.boxes[bi];
+      if(!bx.fused&&bx.placed[si]!==undefined){ delete bx.placed[si]; paintFuseBench(banks); }
+    };
   });
-  refresh();
 }
 
 /* ---------------- STEP 3 · QA ---------------- */
