@@ -96,13 +96,16 @@ prefix / root / suffix, and the app is explicit that a kanji's role
 changes with the word: 費 is a suffix in 給食費 but the root of 費用.
 
 **(b) 単語ビルダー Word Builder** — https://liaminhawai-cmd.github.io/japanese-hub/builder/
-The closest port of Liam's EAL tool, and the one aimed straight at a
-unit. A whole unit's word list on one page, defined by meaning with the
-words hidden, one shared bank of kanji above it, build any word in any
-order. Demo unit is りょこう (twelve words, twenty-three kanji). A kanji
-is never used up: 行 builds 旅行, 飛行機 and 銀行, which is the point.
-**This is the one that needs your topic map most (Q6)** — swap in a real
-unit of yours and it works as-is.
+The closest port of Liam's EAL tool, now covering **all nine VCE
+prescribed topics** (3 themes × 3 topics, SD p.12) as units: 108 words,
+153 kanji, each unit a word list on one page defined by meaning with the
+words hidden, built from one shared bank. A kanji is never used up (家
+builds five words in Significant People; 化 builds 高齢化・少子化・
+温暖化). Bank kanji are coloured by CAPACITY: red always-meaning, purple
+both-jobs (seven kanji, e.g. 化 which is meaning in 文化 and sound in
+花), blue reserved for sound-carriers. The SD prescribes no vocabulary,
+so every list is our editorial draft: please strike or swap any word
+that does not belong in your program, and check the readings.
 
 **(c) かんじこうじょう Kanji Factory** — https://liaminhawai-cmd.github.io/japanese-hub/kanji/
 Builds CHARACTERS out of their components, one level down. Three stages:
