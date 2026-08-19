@@ -15,6 +15,15 @@
     --line:#d8cfbb; --line-soft:#e8e0cd; --accent:#a83232;
     --correct:#2f6a3e; --wrong:#a83232; --okbg:#eef5ee; --badbg:#f7ecec;
     /* morpheme roles — the word builder's calmed palette, one hue per role */
+    /* MORPHEME ROLE, the same axis as the EAL word builder's
+       prefix / root / suffix. Japanese has real affixes at the WORD
+       level (お〜, 大〜, 〜手, 〜費, 〜的, 〜さ), so this transfers.
+       Inside a single character it does NOT: components split into
+       meaning-part and sound-part instead, which is the character
+       builder's own axis. Two levels, two systems, never mixed. */
+    --prefix:#7a5cad;    --prefix-bg:#ece4f6;
+    --root:#7a4a21;      --root-bg:#f3e7da;
+    --suffix:#1f6f78;    --suffix-bg:#dceef0;
     --head:#7a4a21;      /* the family kanji (the shared root) */
     --head-bg:#f3e7d8;
     --part:#2f5d8f;      /* the other kanji in a compound */
@@ -69,7 +78,21 @@
   .slots.incorrect{border-style:solid;border-color:var(--wrong);background:var(--badbg)}
   .tile{font-size:26px;font-family:Georgia,serif;padding:6px 14px;border:2px solid var(--part);
        color:var(--part);background:var(--part-bg);border-radius:10px;cursor:pointer}
-  .tile.head{border-color:var(--head);color:var(--head);background:var(--head-bg)}
+  /* colour says the ROLE; the ring says this is the family's own kanji */
+  .tile.role-prefix{border-color:var(--prefix);color:var(--prefix);background:var(--prefix-bg)}
+  .tile.role-root{border-color:var(--root);color:var(--root);background:var(--root-bg)}
+  .tile.role-suffix{border-color:var(--suffix);color:var(--suffix);background:var(--suffix-bg)}
+  .tile.role-okuri{border-color:var(--line);color:var(--muted);background:var(--bg)}
+  .tile.head{box-shadow:0 0 0 3px var(--paper),0 0 0 5px currentColor}
+  .rolekey{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:10px 0 4px}
+  .rolekey span{font-size:10.5px;font-weight:800;letter-spacing:.03em;border-radius:9px;padding:2px 10px;border:1px solid}
+  .rk-prefix{color:var(--prefix);border-color:var(--prefix);background:var(--prefix-bg)}
+  .rk-root{color:var(--root);border-color:var(--root);background:var(--root-bg)}
+  .rk-suffix{color:var(--suffix);border-color:var(--suffix);background:var(--suffix-bg)}
+  .rolenote{font-size:11.5px;color:var(--muted);text-align:center;line-height:1.55;margin-bottom:8px}
+  /* family membership is the RING only (see .tile.head above): if it also
+     repainted the tile it would overwrite the morpheme role, and one mark
+     would be carrying two meanings. */
   .tile:disabled{opacity:.85;cursor:default}
   .feedback{font-size:14px;line-height:1.5;margin-top:12px;padding:12px;border-radius:10px;min-height:20px;color:var(--muted);text-align:center}
   .feedback.good{background:var(--okbg);color:#234e2c}
@@ -93,7 +116,7 @@
 <div class="container">
   <h1 class="jt-tap" data-jt="title">ことばラボ</h1>
   <p class="subtitle jt-tap" data-jt="subtitle">Kanji families: one shared kanji, many words</p>
-  <span class="poc"><b>Proof of concept</b> for Andrew's review — three families from the 給食 unit. The mechanic is Liam's morpheme word-builder, ported to kanji compounds.</span>
+  <span class="poc"><b>Proof of concept</b> for Andrew's review — four kanji families, three from the 給食 unit plus the 〜手 suffix family. The mechanic is Liam's morpheme word-builder, ported to kanji compounds.</span>
 
   <section class="screen active" id="pick">
     <div class="fam-grid" id="famGrid"></div>
@@ -145,31 +168,41 @@ const FAMILIES = [
     note:"Every word below contains 食. Spot it, and half the meaning is already yours.",
     words:[
       { jp:"給食", read:"きゅうしょく", gloss:"school lunch",
-        parts:[["給","provide"],["食","food"]], why:"provide + food = the lunch the school provides" },
+        parts:[["給","provide","root"],["食","food","root"]], why:"provide + food = the lunch the school provides" },
       { jp:"食べ残し", read:"たべのこし", gloss:"leftover food",
-        parts:[["食","eat"],["べ",""],["残","remain"],["し",""]], why:"eat + remain = food left uneaten" },
+        parts:[["食","eat","root"],["べ","","okuri"],["残","remain","root"],["し","","okuri"]], why:"eat + remain = food left uneaten" },
       { jp:"食器", read:"しょっき", gloss:"tableware",
-        parts:[["食","food"],["器","vessel"]], why:"food + vessel = the dishes food is served in" },
+        parts:[["食","food","root"],["器","vessel","root"]], why:"food + vessel = the dishes food is served in" },
     ]},
   { head:"費", headRead:"ヒ", headGloss:"cost, expense",
     note:"費 sits at the END of words, like English -cost / -fee. What comes before it says what the cost is for.",
     words:[
       { jp:"給食費", read:"きゅうしょくひ", gloss:"school-lunch fee",
-        parts:[["給食","school lunch"],["費","fee"]], why:"school lunch + fee" },
+        parts:[["給食","school lunch","root"],["費","fee","suffix"]], why:"school lunch + fee" },
       { jp:"人件費", read:"じんけんひ", gloss:"personnel costs",
-        parts:[["人","person"],["件","matter"],["費","cost"]], why:"person-matters + cost = the cost of paying people" },
+        parts:[["人","person","root"],["件","matter","root"],["費","cost","suffix"]], why:"person-matters + cost = the cost of paying people" },
       { jp:"費用", read:"ひよう", gloss:"expense (general)",
-        parts:[["費","cost"],["用","use"]], why:"cost + use = money used; the general word for expense" },
+        parts:[["費","cost","root"],["用","use","root"]], why:"cost + use = money used; the general word for expense" },
+    ]},
+  { head:"手", headRead:"シュ・て", headGloss:"hand; and as a suffix, the person who does it",
+    note:"手 on the END of a word is Japanese doing what English does with -er. A singer is a song-hand, a driver is a driving-hand. Learn the suffix once and you can read words nobody taught you.",
+    words:[
+      { jp:"歌手", read:"かしゅ", gloss:"singer",
+        parts:[["歌","song","root"],["手","-er (person who does it)","suffix"]], why:"song + -er = singer" },
+      { jp:"選手", read:"せんしゅ", gloss:"player, athlete",
+        parts:[["選","choose","root"],["手","-er (person who does it)","suffix"]], why:"chosen + -er = the one picked for the team" },
+      { jp:"運転手", read:"うんてんしゅ", gloss:"driver",
+        parts:[["運転","driving","root"],["手","-er (person who does it)","suffix"]], why:"driving + -er = driver" },
     ]},
   { head:"調", headRead:"チョウ・しら(べる)", headGloss:"tune, arrange, condition",
     note:"調 is about adjusting and checking. It shows up in cooking, health and fine-tuning.",
     words:[
       { jp:"調理場", read:"ちょうりじょう", gloss:"kitchen (cooking facility)",
-        parts:[["調","arrange"],["理","handle"],["場","place"]], why:"arrange + handle + place = where food is prepared" },
+        parts:[["調","arrange","root"],["理","handle","root"],["場","place","suffix"]], why:"arrange + handle + place = where food is prepared" },
       { jp:"体調", read:"たいちょう", gloss:"physical condition",
-        parts:[["体","body"],["調","condition"]], why:"body + condition = how your body is doing" },
+        parts:[["体","body","root"],["調","condition","root"]], why:"body + condition = how your body is doing" },
       { jp:"調整", read:"ちょうせい", gloss:"adjustment",
-        parts:[["調","tune"],["整","arrange"]], why:"tune + arrange = adjusting something to fit" },
+        parts:[["調","tune","root"],["整","arrange","root"]], why:"tune + arrange = adjusting something to fit" },
     ]},
 ];
 
@@ -222,6 +255,14 @@ const UI_RUBY = {
   function meet(){
     $("meetKanji").textContent=fam.head;
     $("meetNote").textContent=fam.note;
+    const suffixy=fam.words.filter(w=>w.parts.some(p=>p[0]===fam.head&&p[2]==="suffix")).length;
+    if(suffixy>=2){
+      const tag=document.createElement("p");
+      tag.className="rolenote";
+      tag.style.marginTop="6px";
+      tag.innerHTML=`In ${suffixy} of these words <b>${fam.head}</b> is a <b>suffix</b>, the same job English gives -er or -fee. Meet it once, read it everywhere.`;
+      $("meetNote").after(tag);
+    }
     const wrap=$("meetWords");wrap.innerHTML="";
     fam.words.forEach(w=>{
       const row=document.createElement("div");row.className="word-row";
@@ -267,6 +308,7 @@ const UI_RUBY = {
     $("checkBtn").style.display="";$("checkBtn").disabled=true;$("nextBtn").style.display="none";
     if(q.type==="build"){
       const tiles=q.w.parts.map(p=>p[0]);
+      const roleOf={}; q.w.parts.forEach(p=>{roleOf[p[0]]=p[2]||"root";});
       const decoys=[];
       FAMILIES.forEach(f=>{if(f!==fam)f.words.forEach(w2=>w2.parts.forEach(p=>{
         if(p[0].length===1&&!tiles.includes(p[0])&&decoys.length<2&&!decoys.includes(p[0]))decoys.push(p[0]);}));});
@@ -274,7 +316,9 @@ const UI_RUBY = {
       area.innerHTML=`<div class="task-prompt">Build the word: <b>${esc(q.w.gloss)}</b></div>
         <div class="task-cue">${esc(q.w.read)}</div>
         <div class="slots" id="slots" data-need="${tiles.length}"></div>
-        <div class="bank" id="bank">${bank.map(t=>`<button type="button" class="tile${fam.head.includes(t)?" head":""}">${t}</button>`).join("")}</div>`;
+        <div class="rolekey"><span class="rk-prefix">せっとうじ prefix</span><span class="rk-root">こん root</span><span class="rk-suffix">せつびじ suffix</span></div>
+        <p class="rolenote">The ring marks this family's own kanji. Colour is the job it does in <i>this</i> word: 費 is a suffix in 給食費 but the root of 費用.</p>
+        <div class="bank" id="bank">${bank.map(t=>`<button type="button" class="tile role-${roleOf[t]||"root"}${fam.head.includes(t)?" head":""}">${t}</button>`).join("")}</div>`;
       const slots=$("slots"),bankEl=$("bank");
       area.querySelectorAll(".tile").forEach(t=>t.addEventListener("click",()=>{
         (t.parentElement===bankEl?slots:bankEl).appendChild(t);
