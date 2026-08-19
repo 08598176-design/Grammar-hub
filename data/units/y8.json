@@ -1,0 +1,1114 @@
+[
+ {
+  "key": "u81",
+  "words": [
+   {
+    "w": "まいにち",
+    "kp": "毎日",
+    "def": "Something that happens on every single day, without any days off."
+   },
+   {
+    "w": "せいかつ",
+    "kp": "生活",
+    "def": "The overall pattern of your days, the ordinary routine you follow again and again."
+   },
+   {
+    "w": "あさごはん",
+    "kp": "朝ご飯",
+    "def": "The meal you eat soon after waking up, before you leave for school."
+   },
+   {
+    "w": "ばんごはん",
+    "kp": "晩ご飯",
+    "def": "The meal your family eats together once the day is nearly finished."
+   },
+   {
+    "w": "がっこう",
+    "kp": "学校",
+    "def": "The building you walk or ride to on weekdays to sit in classes and learn."
+   },
+   {
+    "w": "じかん",
+    "kp": "時間",
+    "def": "The hours and minutes something takes, like how long you sleep or study."
+   },
+   {
+    "w": "はやく",
+    "kp": "早く",
+    "def": "Doing something well before the usual time, or getting somewhere sooner than expected."
+   },
+   {
+    "w": "おそく",
+    "kp": "遅く",
+    "def": "Doing something after the time it should have happened, or staying up past your usual hour."
+   },
+   {
+    "w": "しゅくだい",
+    "kp": "宿題",
+    "def": "The set work a teacher gives you to finish at home after school."
+   },
+   {
+    "w": "テレビ",
+    "kp": "",
+    "def": "The box in the lounge room that shows moving pictures and sound for entertainment or news."
+   },
+   {
+    "w": "シャワー",
+    "kp": "",
+    "def": "The quick way to wash yourself standing up, with water falling from above."
+   },
+   {
+    "w": "うんどう",
+    "kp": "運動",
+    "def": "Moving your body on purpose to keep it strong and healthy, like a jog or a game of sport."
+   }
+  ],
+  "payoff": "12 words, and the long vowel in がっこう and うんどう is the same trick you will hit in word after word: once your ear catches こう and どう as one stretched beat, every new long-o word gets cheaper.",
+  "qa": [
+   {
+    "q": [
+     "毎日、何時に起きますか。",
+     "まいにち、なんじに おきますか。",
+     "Mainichi, nanji ni okimasu ka.",
+     "What time do you get up every day?"
+    ],
+    "a": [
+     "私は毎日、七時に起きます。",
+     "わたしは まいにち、しちじに おきます。",
+     "Watashi wa mainichi, shichiji ni okimasu.",
+     "I get up at seven o'clock every day."
+    ],
+    "tip": "Swap しちじ for your own wake-up time."
+   },
+   {
+    "q": [
+     "朝ご飯に何を食べますか。",
+     "あさごはんに なにを たべますか。",
+     "Asagohan ni nani o tabemasu ka.",
+     "What do you eat for breakfast?"
+    ],
+    "a": [
+     "朝ご飯にパンを食べます。",
+     "あさごはんに パンを たべます。",
+     "Asagohan ni pan o tabemasu.",
+     "I eat bread for breakfast."
+    ],
+    "tip": "Change パン to whatever you actually eat."
+   },
+   {
+    "q": [
+     "何時に学校へ行きますか。",
+     "なんじに がっこうへ いきますか。",
+     "Nanji ni gakkō e ikimasu ka.",
+     "What time do you go to school?"
+    ],
+    "a": [
+     "八時に学校へ行きます。",
+     "はちじに がっこうへ いきます。",
+     "Hachiji ni gakkō e ikimasu.",
+     "I go to school at eight o'clock."
+    ],
+    "tip": "はちじ swaps for any time; がっこう could become a friend's house."
+   },
+   {
+    "q": [
+     "宿題をしましたか。",
+     "しゅくだいを しましたか。",
+     "Shukudai o shimashita ka.",
+     "Did you do your homework?"
+    ],
+    "a": [
+     "はい、宿題をしました。",
+     "はい、しゅくだいを しました。",
+     "Hai, shukudai o shimashita.",
+     "Yes, I did my homework."
+    ],
+    "tip": "ました is your past-tense ending; swap it for any finished task."
+   },
+   {
+    "q": [
+     "晩ご飯の後で、何をしますか。",
+     "ばんごはんの あとで、なにを しますか。",
+     "Bangohan no ato de, nani o shimasu ka.",
+     "What do you do after dinner?"
+    ],
+    "a": [
+     "晩ご飯の後で、テレビを見ます。",
+     "ばんごはんの あとで、テレビを みます。",
+     "Bangohan no ato de, terebi o mimasu.",
+     "After dinner, I watch TV."
+    ],
+    "tip": "テレビを見ます swaps easily for しゅくだいをします."
+   },
+   {
+    "q": [
+     "寝る前にシャワーを浴びますか。",
+     "ねる まえに シャワーを あびますか。",
+     "Neru mae ni shawā o abimasu ka.",
+     "Do you take a shower before bed?"
+    ],
+    "a": [
+     "はい、寝る前にシャワーを浴びます。",
+     "はい、ねる まえに シャワーを あびます。",
+     "Hai, neru mae ni shawā o abimasu.",
+     "Yes, I take a shower before bed."
+    ],
+    "tip": "シャワーを浴びます is a set phrase; only the timing words around it change."
+   }
+  ],
+  "craft": {
+   "intro": "This model answers what your day looks like, from waking up to going to bed.",
+   "model": [
+    {
+     "jp": [
+      "私は毎日、七時に起きます。",
+      "わたしは まいにち、しちじに おきます。",
+      "Watashi wa mainichi, shichiji ni okimasu.",
+      "I get up at seven o'clock every day."
+     ],
+     "note": "Opens with a time anchor marked by に"
+    },
+    {
+     "jp": [
+      "それから、朝ご飯を食べます。",
+      "それから、あさごはんを たべます。",
+      "Sorekara, asagohan o tabemasu.",
+      "After that, I eat breakfast."
+     ],
+     "note": "それから links the next action"
+    },
+    {
+     "jp": [
+      "八時に学校へ行きます。",
+      "はちじに がっこうへ いきます。",
+      "Hachiji ni gakkō e ikimasu.",
+      "I go to school at eight o'clock."
+     ],
+     "note": "A second time anchor keeps the chain moving"
+    },
+    {
+     "jp": [
+      "学校の後で、宿題をします。",
+      "がっこうの あとで、しゅくだいを します。",
+      "Gakkō no ato de, shukudai o shimasu.",
+      "After school, I do my homework."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "晩ご飯の後で、シャワーを浴びます。",
+      "ばんごはんの あとで、シャワーを あびます。",
+      "Bangohan no ato de, shawā o abimasu.",
+      "After dinner, I take a shower."
+     ],
+     "note": "あとで sequences the evening"
+    },
+    {
+     "jp": [
+      "十時に寝ます。",
+      "じゅうじに ねます。",
+      "Jūji ni nemasu.",
+      "I go to bed at ten o'clock."
+     ],
+     "note": "A closing time anchor matches the opening one"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "私わ、毎日、七時に起きます。",
+      "わたしわ、まいにち、しちじに おきます。",
+      "Watashi wa, mainichi, shichiji ni okimasu.",
+      "I get up at seven o'clock every day."
+     ],
+     "options": [
+      "わたしは、まいにち、しちじに おきます。",
+      "わたしわ、まいにち、しちじに おきました。",
+      "わたしは、まいにち、しちじで おきます。"
+     ],
+     "answer": 0,
+     "why": "Option 1 fixes the topic marker: は is always written は even though it sounds like わ. Option 2 keeps the わ mistake and wrongly shifts to past tense for a habitual, everyday action. Option 3 fixes は but swaps the time particle に for で, which marks a place of action, not a point in time."
+    },
+    {
+     "weak": [
+      "私は毎日七時に起きる。",
+      "わたしは まいにち しちじに おきる。",
+      "Watashi wa mainichi shichiji ni okiru.",
+      "I get up at seven o'clock every day."
+     ],
+     "options": [
+      "わたしは まいにち しちじに おきるです。",
+      "わたしは まいにち しちじに おきます。",
+      "わたしは まいにち しちじに おきますよ。"
+     ],
+     "answer": 1,
+     "why": "Option 2 is the straightforward, correct polite sentence for this context. Option 1 tries to force です onto a plain verb, but verbs already carry their own polite ending in ます. Option 3 is grammatical, but よ adds a 'let me tell you' nudge that a simple description of your own morning does not need."
+    },
+    {
+     "weak": [
+      "私は学校の後で、宿題がします。",
+      "わたしは がっこうの あとで、しゅくだいが します。",
+      "Watashi wa gakkō no ato de, shukudai ga shimasu.",
+      "I do my homework after school."
+     ],
+     "options": [
+      "わたしは がっこうの あとで、しゅくだいで します。",
+      "わたしは がっこうの あとで、しゅくだいは します。",
+      "わたしは がっこうの あとで、しゅくだいを します。"
+     ],
+     "answer": 2,
+     "why": "Option 3 uses を correctly to mark 宿題 as the thing you are doing. Option 1 swaps in で, which would mark a tool or place, not what gets done. Option 2 uses は, which is grammatical but turns the sentence into a contrast, homework specifically as opposed to other tasks, which is not the point being made here."
+    }
+   ]
+  },
+  "extension": {
+   "task": [
+    "昨日の朝、何時に起きましたか。書いてください。",
+    "きのうの あさ、なんじに おきましたか。かいてください。",
+    "Kinō no asa, nanji ni okimashita ka. Kaite kudasai.",
+    "Write about what time you got up yesterday morning, using the past tense."
+   ],
+   "checklist": [
+    "Did you open with a time anchor using に, like しちじに?",
+    "Did you use それから or の あとで to link at least one action to the next?",
+    "Did you close with a matching time anchor for going to bed?",
+    "Did you keep every verb in polite ます, or ました for the past?"
+   ]
+  }
+ },
+ {
+  "key": "u82",
+  "words": [
+   {
+    "w": "たべもの",
+    "kp": "食べ物",
+    "def": "Anything you can eat, from a whole meal down to a single snack."
+   },
+   {
+    "w": "のみもの",
+    "kp": "飲み物",
+    "def": "Anything in a cup or bottle that you swallow rather than chew, like juice or tea."
+   },
+   {
+    "w": "りょうり",
+    "kp": "料理",
+    "def": "The activity of preparing ingredients and turning them into a finished meal."
+   },
+   {
+    "w": "メニュー",
+    "kp": "",
+    "def": "The card or board in a restaurant that lists every dish you can order."
+   },
+   {
+    "w": "ねだん",
+    "kp": "値段",
+    "def": "How much money you have to hand over to take something home."
+   },
+   {
+    "w": "えん",
+    "kp": "円",
+    "def": "The unit that Japanese prices are counted in, written after every number on a price tag."
+   },
+   {
+    "w": "やすい",
+    "kp": "安い",
+    "def": "Describes something that does not cost very much, easy on your wallet."
+   },
+   {
+    "w": "たかい",
+    "kp": "高い",
+    "def": "Describes something that costs a lot, or a building that reaches well up into the sky."
+   },
+   {
+    "w": "おいしい",
+    "kp": "美味しい",
+    "def": "The word you say about food or drink that tastes really good."
+   },
+   {
+    "w": "ジュース",
+    "kp": "",
+    "def": "A sweet drink made by squeezing or blending fruit."
+   },
+   {
+    "w": "かいもの",
+    "kp": "買い物",
+    "def": "Going out to a shop and coming home with something you have paid for."
+   },
+   {
+    "w": "レストラン",
+    "kp": "",
+    "def": "A place you go to sit down, order from a menu and be served a cooked meal."
+   }
+  ],
+  "payoff": "12 words, and a small ゃゅょ beat shows up three times: りょうり、メニュー、ジュース. Once you can hear a consonant plus small kana as a single beat, every word built the same way gets cheaper.",
+  "qa": [
+   {
+    "q": [
+     "これは何ですか。",
+     "これは なんですか。",
+     "Kore wa nan desu ka.",
+     "What is this?"
+    ],
+    "a": [
+     "これはメニューです。",
+     "これは メニューです。",
+     "Kore wa menyū desu.",
+     "This is a menu."
+    ],
+    "tip": "Point at anything and swap メニュー for its name."
+   },
+   {
+    "q": [
+     "それはいくらですか。",
+     "それは いくらですか。",
+     "Sore wa ikura desu ka.",
+     "How much is that?"
+    ],
+    "a": [
+     "これは三百円です。",
+     "これは さんびゃくえんです。",
+     "Kore wa sanbyaku en desu.",
+     "This is three hundred yen."
+    ],
+    "tip": "えん always follows the number, never before it."
+   },
+   {
+    "q": [
+     "このジュースは高いですか。",
+     "この ジュースは たかいですか。",
+     "Kono jūsu wa takai desu ka.",
+     "Is this juice expensive?"
+    ],
+    "a": [
+     "いいえ、安いです。",
+     "いいえ、やすいです。",
+     "Iie, yasui desu.",
+     "No, it is cheap."
+    ],
+    "tip": "たかい and やすい are opposites; only one word changes."
+   },
+   {
+    "q": [
+     "何を食べたいですか。",
+     "なにを たべたいですか。",
+     "Nani o tabetai desu ka.",
+     "What do you want to eat?"
+    ],
+    "a": [
+     "おいしい料理を食べたいです。",
+     "おいしい りょうりを たべたいです。",
+     "Oishii ryōri o tabetai desu.",
+     "I want to eat delicious food."
+    ],
+    "tip": "おいしい can describe any food word you slot in after it."
+   },
+   {
+    "q": [
+     "メニューを見せてください。",
+     "メニューを みせてください。",
+     "Menyū o misete kudasai.",
+     "Please show me the menu."
+    ],
+    "a": [
+     "はい、どうぞ。",
+     "はい、どうぞ。",
+     "Hai, dōzo.",
+     "Yes, here you go."
+    ],
+    "tip": "〜てください turns any verb into a polite request."
+   },
+   {
+    "q": [
+     "週末、買い物に行きますか。",
+     "しゅうまつ、かいものに いきますか。",
+     "Shūmatsu, kaimono ni ikimasu ka.",
+     "Are you going shopping on the weekend?"
+    ],
+    "a": [
+     "はい、レストランで晩ご飯も食べます。",
+     "はい、レストランで ばんごはんも たべます。",
+     "Hai, resutoran de bangohan mo tabemasu.",
+     "Yes, and I'll also eat dinner at a restaurant."
+    ],
+    "tip": "で marks the restaurant as the place where the eating happens."
+   }
+  ],
+  "craft": {
+   "intro": "This model answers what you order and how you ask about the price at a small restaurant.",
+   "model": [
+    {
+     "jp": [
+      "すみません、メニューを見せてください。",
+      "すみません、メニューを みせてください。",
+      "Sumimasen, menyū o misete kudasai.",
+      "Excuse me, please show me the menu."
+     ],
+     "note": "Opens with てください, a polite request"
+    },
+    {
+     "jp": [
+      "これは何ですか。",
+      "これは なんですか。",
+      "Kore wa nan desu ka.",
+      "What is this?"
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "いくらですか。",
+      "いくらですか。",
+      "Ikura desu ka.",
+      "How much is it?"
+     ],
+     "note": "Ask the price before deciding"
+    },
+    {
+     "jp": [
+      "五百円ですか。安いですね。",
+      "ごひゃくえんですか。やすいですね。",
+      "Gohyaku en desu ka. Yasui desu ne.",
+      "Five hundred yen? That is cheap."
+     ],
+     "note": "ね reacts to the price out loud"
+    },
+    {
+     "jp": [
+      "じゃ、これをください。",
+      "じゃ、これを ください。",
+      "Ja, kore o kudasai.",
+      "Then I'll have this one, please."
+     ],
+     "note": "ください orders without a full verb"
+    },
+    {
+     "jp": [
+      "おいしいです！",
+      "おいしいです！",
+      "Oishii desu!",
+      "It's delicious!"
+     ],
+     "note": "React after the first bite, not before"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "メニューは見せてください。",
+      "メニューは みせてください。",
+      "Menyū wa misete kudasai.",
+      "Please show me the menu."
+     ],
+     "options": [
+      "メニューで みせてください。",
+      "メニューを みせてください。",
+      "メニューが みせてください。"
+     ],
+     "answer": 1,
+     "why": "Option 2 correctly marks メニュー as the thing being shown with を. Option 1 swaps in で, which would mark a tool or location, not what gets shown. Option 3 uses が, which usually marks what exists or what you can do, not the object of a polite request."
+    },
+    {
+     "weak": [
+      "これは高いだ。",
+      "これは たかいだ。",
+      "Kore wa takai da.",
+      "This is expensive."
+     ],
+     "options": [
+      "これは たかいだです。",
+      "これは たかかったです。",
+      "これは たかいです。"
+     ],
+     "answer": 2,
+     "why": "Option 3 is correct: い-adjectives like たかい attach directly to です with no だ in between. Option 1 stacks だ before です, a doubled ending that is not a real form. Option 2 swaps in the past tense たかかった, which wrongly claims the price used to be high rather than describing it now."
+    },
+    {
+     "weak": [
+      "これわ安いです。",
+      "これわ やすいです。",
+      "Kore wa yasui desu.",
+      "This is cheap."
+     ],
+     "options": [
+      "これは やすいです。",
+      "これわ やすかったです。",
+      "これは やすいでした。"
+     ],
+     "answer": 0,
+     "why": "Option 1 fixes the は and わ mix-up correctly. Option 2 keeps the わ mistake and adds an unnecessary past tense. Option 3 fixes は but mishandles the past tense: い-adjectives change internally to かった before です, they do not turn です into でした."
+    }
+   ]
+  },
+  "extension": {
+   "task": [
+    "好きな食べ物と飲み物を買って、高いか安いか話してください。",
+    "すきな たべものと のみものを かって、たかいか やすいか はなしてください。",
+    "Sukina tabemono to nomimono o katte, takai ka yasui ka hanashite kudasai.",
+    "Buy a food and a drink you like, then talk about whether they were expensive or cheap."
+   ],
+   "checklist": [
+    "Did you open the order with すみません and てください?",
+    "Did you ask なんですか or いくらですか before deciding?",
+    "Did you use ください to order without a full verb?",
+    "Did you react to the price with たかい or やすい at the end?"
+   ]
+  }
+ },
+ {
+  "key": "u83",
+  "words": [
+   {
+    "w": "しゅみ",
+    "kp": "趣味",
+    "def": "Something you do in your free time simply because you enjoy it, not because you have to."
+   },
+   {
+    "w": "スポーツ",
+    "kp": "",
+    "def": "Any organised physical game or activity played for fun, exercise or competition."
+   },
+   {
+    "w": "テニス",
+    "kp": "",
+    "def": "A game played over a net where two or four players hit a small ball with rackets."
+   },
+   {
+    "w": "サッカー",
+    "kp": "",
+    "def": "A game where two teams try to kick a ball into the other side's goal without using their hands."
+   },
+   {
+    "w": "れんしゅう",
+    "kp": "練習",
+    "def": "Doing something again and again on purpose so that you get better at it."
+   },
+   {
+    "w": "うた",
+    "kp": "歌",
+    "def": "A piece of music with words that people sing."
+   },
+   {
+    "w": "おんがく",
+    "kp": "音楽",
+    "def": "Sound arranged into rhythm and melody, made to be listened to or performed."
+   },
+   {
+    "w": "せんしゅ",
+    "kp": "選手",
+    "def": "A person who has been chosen to compete in a sport at a high level."
+   },
+   {
+    "w": "こうえん",
+    "kp": "公園",
+    "def": "An open, grassy public space with paths and often play equipment, good for a game outside."
+   },
+   {
+    "w": "いっしょに",
+    "kp": "一緒に",
+    "def": "Doing something at the same time and in the same place as somebody else, not alone."
+   },
+   {
+    "w": "たのしい",
+    "kp": "楽しい",
+    "def": "The feeling of really enjoying yourself while you do something."
+   },
+   {
+    "w": "どようび",
+    "kp": "土曜日",
+    "def": "The day of the week that comes right after Friday, the start of the weekend."
+   }
+  ],
+  "payoff": "12 words, and れんしゅう and しゅみ and せんしゅ all lean on the same small ゅ beat: once that combination is automatic, every word wearing it gets cheaper.",
+  "qa": [
+   {
+    "q": [
+     "週末、テニスをしませんか。",
+     "しゅうまつ、テニスを しませんか。",
+     "Shūmatsu, tenisu o shimasen ka.",
+     "Would you like to play tennis on the weekend?"
+    ],
+    "a": [
+     "いいですね、しましょう。",
+     "いいですね、しましょう。",
+     "Ii desu ne, shimashō.",
+     "Sounds good, let's do it."
+    ],
+    "tip": "しませんか invites; しましょう accepts and joins in."
+   },
+   {
+    "q": [
+     "趣味は何ですか。",
+     "しゅみは なんですか。",
+     "Shumi wa nan desu ka.",
+     "What is your hobby?"
+    ],
+    "a": [
+     "私の趣味は音楽です。",
+     "わたしの しゅみは おんがくです。",
+     "Watashi no shumi wa ongaku desu.",
+     "My hobby is music."
+    ],
+    "tip": "Swap おんがく for your own hobby word."
+   },
+   {
+    "q": [
+     "公園でサッカーをしますか。",
+     "こうえんで サッカーを しますか。",
+     "Kōen de sakkā o shimasu ka.",
+     "Do you play soccer at the park?"
+    ],
+    "a": [
+     "はい、公園でサッカーをします。",
+     "はい、こうえんで サッカーを します。",
+     "Hai, kōen de sakkā o shimasu.",
+     "Yes, I play soccer at the park."
+    ],
+    "tip": "で marks the park as where the playing happens."
+   },
+   {
+    "q": [
+     "土曜日、一緒にスポーツをしませんか。",
+     "どようび、いっしょに スポーツを しませんか。",
+     "Doyōbi, issho ni supōtsu o shimasen ka.",
+     "Would you like to do sport together on Saturday?"
+    ],
+    "a": [
+     "はい、いいですね。",
+     "はい、いいですね。",
+     "Hai, ii desu ne.",
+     "Yes, that sounds good."
+    ],
+    "tip": "いっしょに goes at the front of the action it covers, before the object."
+   },
+   {
+    "q": [
+     "毎日、練習しますか。",
+     "まいにち、れんしゅうしますか。",
+     "Mainichi, renshū shimasu ka.",
+     "Do you practise every day?"
+    ],
+    "a": [
+     "はい、毎日練習しますよ。",
+     "はい、まいにち れんしゅうしますよ。",
+     "Hai, mainichi renshū shimasu yo.",
+     "Yes, I practise every day, you know."
+    ],
+    "tip": "よ adds news the listener did not already have."
+   },
+   {
+    "q": [
+     "あの選手は歌が上手ですか。",
+     "あの せんしゅは うたが じょうずですか。",
+     "Ano senshu wa uta ga jōzu desu ka.",
+     "Is that athlete good at singing?"
+    ],
+    "a": [
+     "はい、とても上手です。",
+     "はい、とても じょうずです。",
+     "Hai, totemo jōzu desu.",
+     "Yes, very good."
+    ],
+    "tip": "が marks うた as the thing the skill applies to."
+   }
+  ],
+  "craft": {
+   "intro": "This model answers what you do for fun, and how you invite a friend to join in.",
+   "model": [
+    {
+     "jp": [
+      "私の趣味はテニスです。",
+      "わたしの しゅみは テニスです。",
+      "Watashi no shumi wa tenisu desu.",
+      "My hobby is tennis."
+     ],
+     "note": "Opens by naming the hobby"
+    },
+    {
+     "jp": [
+      "週末、公園で練習します。",
+      "しゅうまつ、こうえんで れんしゅうします。",
+      "Shūmatsu, kōen de renshū shimasu.",
+      "On the weekend, I practise at the park."
+     ],
+     "note": "で anchors where the activity happens"
+    },
+    {
+     "jp": [
+      "とても楽しいです。",
+      "とても たのしいです。",
+      "Totemo tanoshii desu.",
+      "It is really fun."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "一緒にテニスをしませんか。",
+      "いっしょに テニスを しませんか。",
+      "Issho ni tenisu o shimasen ka.",
+      "Would you like to play tennis together?"
+     ],
+     "note": "ませんか turns the hobby into an invitation"
+    },
+    {
+     "jp": [
+      "土曜日はどうですか。",
+      "どようびは どうですか。",
+      "Doyōbi wa dō desu ka.",
+      "How about Saturday?"
+     ],
+     "note": "A follow-up question proposes a concrete time"
+    },
+    {
+     "jp": [
+      "楽しいですよ。",
+      "たのしいですよ。",
+      "Tanoshii desu yo.",
+      "It'll be fun, I promise."
+     ],
+     "note": "よ closes with a reassuring nudge"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "一緒にテニスをする?",
+      "いっしょに テニスを する?",
+      "Issho ni tenisu o suru?",
+      "Wanna play tennis together?"
+     ],
+     "options": [
+      "いっしょに テニスを しますか。",
+      "いっしょに テニスが しませんか。",
+      "いっしょに テニスを しませんか。"
+     ],
+     "answer": 2,
+     "why": "Option 3 is the real invitation pattern, ませんか softly proposes doing something together. Option 1 with しますか is grammatical but just asks a plain yes or no question, it does not extend an invitation the way ませんか does. Option 2 swaps を for が, and が does not fit here because テニス is the object of する, not its subject."
+    },
+    {
+     "weak": [
+      "公園にサッカーをします。",
+      "こうえんに サッカーを します。",
+      "Kōen ni sakkā o shimasu.",
+      "I play soccer at the park."
+     ],
+     "options": [
+      "こうえんで サッカーを します。",
+      "こうえんは サッカーを します。",
+      "こうえんに サッカーが します。"
+     ],
+     "answer": 0,
+     "why": "Option 1 correctly uses で to mark 公園 as the place where the action of playing happens. Option 2 swaps in は, which turns the park itself into the topic doing the action, which does not make sense. Option 3 keeps に and also swaps を for が, stacking two particle mistakes at once."
+    },
+    {
+     "weak": [
+      "とても楽しいでした。",
+      "とても たのしいでした。",
+      "Totemo tanoshii deshita.",
+      "It was really fun."
+     ],
+     "options": [
+      "とても たのしいだったです。",
+      "とても たのしかったです。",
+      "とても たのしいですでした。"
+     ],
+     "answer": 1,
+     "why": "Option 2 correctly changes the い-adjective's ending to かった before です for the past tense. Option 1 tries to add だった on top of an adjective, which い-adjectives never take. Option 3 stacks です and でした together, which is not a real form at all."
+    }
+   ]
+  },
+  "extension": {
+   "task": [
+    "新しいスポーツに友達を誘って、楽しい理由を一つ言ってください。",
+    "あたらしい スポーツに ともだちを さそって、たのしい りゆうを ひとつ いってください。",
+    "Atarashii supōtsu ni tomodachi o sasotte, tanoshii riyū o hitotsu itte kudasai.",
+    "Invite a friend to a new sport, and give one reason why it is fun."
+   ],
+   "checklist": [
+    "Did you name your hobby before inviting anyone?",
+    "Did you use ませんか to make it a genuine invitation, not just a question?",
+    "Did you propose a concrete day, like どようび?",
+    "Did you close with よ or ね to keep the tone friendly?"
+   ]
+  }
+ },
+ {
+  "key": "u84",
+  "words": [
+   {
+    "w": "まち",
+    "kp": "町",
+    "def": "A busy area with shops, streets and buildings where lots of people live close together."
+   },
+   {
+    "w": "みせ",
+    "kp": "店",
+    "def": "A place you go into to buy something, run by someone who sells goods to customers."
+   },
+   {
+    "w": "えき",
+    "kp": "駅",
+    "def": "The building where trains stop so passengers can get on and off."
+   },
+   {
+    "w": "みち",
+    "kp": "道",
+    "def": "The path or street you walk, ride or drive along to get from one place to another."
+   },
+   {
+    "w": "としょかん",
+    "kp": "図書館",
+    "def": "A quiet public building full of books that you can borrow and take home."
+   },
+   {
+    "w": "えいがかん",
+    "kp": "映画館",
+    "def": "The building you go to sit in the dark and watch a film on a big screen."
+   },
+   {
+    "w": "バス",
+    "kp": "",
+    "def": "A large vehicle that drives a set route through town, picking up and dropping off passengers."
+   },
+   {
+    "w": "タクシー",
+    "kp": "",
+    "def": "A car you can hire along with its driver to take you straight to where you want to go."
+   },
+   {
+    "w": "でんしゃ",
+    "kp": "電車",
+    "def": "A vehicle that runs on rails and carries passengers around a city or between towns."
+   },
+   {
+    "w": "ちかてつ",
+    "kp": "地下鉄",
+    "def": "A train system built in tunnels running beneath the streets of a big city."
+   },
+   {
+    "w": "いえ",
+    "kp": "家",
+    "def": "The building where you and your family live, the place you head back to at the end of a day out."
+   },
+   {
+    "w": "しゅうまつ",
+    "kp": "週末",
+    "def": "Saturday and Sunday together, the two days when there is usually no school."
+   }
+  ],
+  "payoff": "12 words, and まち、みせ、えき、みち are the four tiles the next town unit builds its kanji from: learn them as kana now and the kanji forms will already sound right.",
+  "qa": [
+   {
+    "q": [
+     "週末、どこに行きましたか。",
+     "しゅうまつ、どこに いきましたか。",
+     "Shūmatsu, doko ni ikimashita ka.",
+     "Where did you go on the weekend?"
+    ],
+    "a": [
+     "町へ行きました。",
+     "まちへ いきました。",
+     "Machi e ikimashita.",
+     "I went to town."
+    ],
+    "tip": "へ points toward the destination; swap まち for any place."
+   },
+   {
+    "q": [
+     "どうやって駅まで行きますか。",
+     "どうやって えきまで いきますか。",
+     "Dōyatte eki made ikimasu ka.",
+     "How do you get to the station?"
+    ],
+    "a": [
+     "バスで行きます。",
+     "バスで いきます。",
+     "Basu de ikimasu.",
+     "I go by bus."
+    ],
+    "tip": "で marks the method of transport."
+   },
+   {
+    "q": [
+     "店で何を買いましたか。",
+     "みせで なにを かいましたか。",
+     "Mise de nani o kaimashita ka.",
+     "What did you buy at the shop?"
+    ],
+    "a": [
+     "店で本を買いました。",
+     "みせで ほんを かいました。",
+     "Mise de hon o kaimashita.",
+     "I bought a book at the shop."
+    ],
+    "tip": "で fixes the shop as where the buying happened."
+   },
+   {
+    "q": [
+     "映画館まで、どの道を歩きますか。",
+     "えいがかんまで、どの みちを あるきますか。",
+     "Eigakan made, dono michi o arukimasu ka.",
+     "Which road do you walk to get to the cinema?"
+    ],
+    "a": [
+     "この道をまっすぐ歩きます。",
+     "この みちを まっすぐ あるきます。",
+     "Kono michi o massugu arukimasu.",
+     "I walk straight along this road."
+    ],
+    "tip": "を marks the road you move along, not just where you end up."
+   },
+   {
+    "q": [
+     "図書館に行って、それから何をしましたか。",
+     "としょかんに いって、それから なにを しましたか。",
+     "Toshokan ni itte, sorekara nani o shimashita ka.",
+     "You went to the library, and then what did you do?"
+    ],
+    "a": [
+     "図書館に行って、それから地下鉄で家に帰りました。",
+     "としょかんに いって、それから ちかてつで いえに かえりました。",
+     "Toshokan ni itte, sorekara chikatetsu de ie ni kaerimashita.",
+     "I went to the library, and then I went home by subway."
+    ],
+    "tip": "それから chains a second finished action onto the first."
+   },
+   {
+    "q": [
+     "電車で駅から学校まで行きますか。",
+     "でんしゃで えきから がっこうまで いきますか。",
+     "Densha de eki kara gakkō made ikimasu ka.",
+     "Do you go from the station to school by train?"
+    ],
+    "a": [
+     "いいえ、駅から学校まで歩いて行きます。",
+     "いいえ、えきから がっこうまで あるいて いきます。",
+     "Iie, eki kara gakkō made aruite ikimasu.",
+     "No, I walk from the station to school."
+    ],
+    "tip": "から and まで bracket the leg of the trip you mean; あるいて names how you cover it."
+   }
+  ],
+  "craft": {
+   "intro": "This model answers where you went last weekend, and how you got there and back.",
+   "model": [
+    {
+     "jp": [
+      "週末、町へ行きました。",
+      "しゅうまつ、まちへ いきました。",
+      "Shūmatsu, machi e ikimashita.",
+      "On the weekend, I went to town."
+     ],
+     "note": "Opens with へ pointing at the destination"
+    },
+    {
+     "jp": [
+      "バスで行きました。",
+      "バスで いきました。",
+      "Basu de ikimashita.",
+      "I went by bus."
+     ],
+     "note": "で names the method right after"
+    },
+    {
+     "jp": [
+      "店で新しい靴を買いました。",
+      "みせで あたらしい くつを かいました。",
+      "Mise de atarashii kutsu o kaimashita.",
+      "I bought new shoes at a shop."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "それから映画館へ行きました。",
+      "それから えいがかんへ いきました。",
+      "Sorekara eigakan e ikimashita.",
+      "Then I went to the cinema."
+     ],
+     "note": "それから chains the next stop onto the first"
+    },
+    {
+     "jp": [
+      "映画はとても楽しかったです。",
+      "えいがは とても たのしかったです。",
+      "Eiga wa totemo tanoshikatta desu.",
+      "The film was really fun."
+     ],
+     "note": "楽しかった shows the い-adjective's own past form"
+    },
+    {
+     "jp": [
+      "そして地下鉄で家に帰りました。",
+      "そして ちかてつで いえに かえりました。",
+      "Soshite chikatetsu de ie ni kaerimashita.",
+      "And then I went home by subway."
+     ],
+     "note": "そして closes the loop back home"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "町で行きました。",
+      "まちで いきました。",
+      "Machi de ikimashita.",
+      "I went to town."
+     ],
+     "options": [
+      "まちへ いきました。",
+      "まちでした。",
+      "まちに いっていました。"
+     ],
+     "answer": 0,
+     "why": "Option 1 correctly uses へ to point toward 町 as the destination. Option 2 drops the verb entirely and just leaves まちでした, which does not mean anything close to went to town. Option 3 uses the ていた form, which describes an ongoing or repeated past state, not a single weekend trip."
+    },
+    {
+     "weak": [
+      "映画は楽しかったから、楽しかったです。",
+      "えいがは たのしかったから、たのしかったです。",
+      "Eiga wa tanoshikatta kara, tanoshikatta desu.",
+      "The film was fun because it was fun."
+     ],
+     "options": [
+      "えいがは おもしろかったから、たのしかったです。",
+      "えいがは たのしかったので、たのしかったです。",
+      "えいがは えいがだったから、たのしかったです。"
+     ],
+     "answer": 0,
+     "why": "Option 1 gives a real reason: 面白い describes the FILM, and that property explains why YOU enjoyed it. Option 2 swaps から for ので but keeps the same circle, fun because fun, just dressed differently. Option 3 is the most circular of all, saying a film was fun because it was a film."
+    },
+    {
+     "weak": [
+      "そして家に帰った。",
+      "そして いえに かえった。",
+      "Soshite ie ni kaetta.",
+      "And then I went home."
+     ],
+     "options": [
+      "そして いえに かえりましょう。",
+      "そして いえに かえりませんでした。",
+      "そして いえに かえりました。"
+     ],
+     "answer": 2,
+     "why": "Option 3 is the correct polite past tense that matches the rest of the polite recount. Option 1 switches to a volitional form, turning a report of what happened into a suggestion for what to do next. Option 2 flips the meaning entirely by adding a negative, claiming you did not go home at all."
+    }
+   ]
+  },
+  "extension": {
+   "task": [
+    "先週末、新しい店へ行きました。それから何をしましたか。書いてください。",
+    "せんしゅうまつ、あたらしい みせへ いきました。それから なにを しましたか。かいてください。",
+    "Senshūmatsu, atarashii mise e ikimashita. Sorekara nani o shimashita ka. Kaite kudasai.",
+    "Write about going to a new shop last weekend, and what you did after that."
+   ],
+   "checklist": [
+    "Did you open with しゅうまつ and a destination marked by へ?",
+    "Did you name the method of transport with で?",
+    "Did you chain a second stop using それから or そして?",
+    "Did you close everything in polite past tense, ました?"
+   ]
+  }
+ }
+]

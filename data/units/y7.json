@@ -1,0 +1,1114 @@
+[
+ {
+  "key": "u71",
+  "words": [
+   {
+    "w": "おはよう",
+    "kp": "",
+    "def": "The cheerful thing you say to someone in the morning when you first see them at school."
+   },
+   {
+    "w": "こんにちは",
+    "kp": "",
+    "def": "The word you say to greet someone once the morning has passed, any time from about lunch to evening."
+   },
+   {
+    "w": "さようなら",
+    "kp": "",
+    "def": "What you say when you are leaving and will not see the person again for a while, like at the school gate."
+   },
+   {
+    "w": "ありがとう",
+    "kp": "",
+    "def": "The word you say when someone has done something kind for you, to show you are grateful."
+   },
+   {
+    "w": "すみません",
+    "kp": "",
+    "def": "A useful word for saying sorry, getting someone's attention, or apologising for a small mistake."
+   },
+   {
+    "w": "なまえ",
+    "kp": "名前",
+    "def": "The word people use to call you, chosen for you before you could talk."
+   },
+   {
+    "w": "せんせい",
+    "kp": "先生",
+    "def": "The adult whose job is to stand at the front of the room and teach you."
+   },
+   {
+    "w": "がっこう",
+    "kp": "学校",
+    "def": "The building you go to on weekdays to learn together with other students."
+   },
+   {
+    "w": "オーストラリア",
+    "kp": "",
+    "def": "The country south of the equator that many students in this course call home, known for kangaroos and sunny beaches."
+   },
+   {
+    "w": "アメリカ",
+    "kp": "",
+    "def": "A large country between Canada and Mexico, known for Hollywood, baseball and fifty stars on its flag."
+   },
+   {
+    "w": "じゅうにさい",
+    "kp": "十二歳",
+    "def": "The exact age most students are when they start year seven, a number plus the word for years old."
+   },
+   {
+    "w": "たんじょうび",
+    "kp": "誕生日",
+    "def": "The yearly date that marks the day you were born, often celebrated with cake and presents."
+   }
+  ],
+  "payoff": "12 words, and the same pattern already did double duty: おはよう and ありがとう both end on an o-sound stretched long by う. Catch that shape once and every word wearing it gets cheaper to read and say.",
+  "qa": [
+   {
+    "q": [
+     "おはようございます。",
+     "おはようございます。",
+     "Ohayō gozaimasu.",
+     "(Your teacher, first thing in the morning:) Good morning."
+    ],
+    "a": [
+     "おはようございます。",
+     "おはようございます。",
+     "Ohayō gozaimasu.",
+     "Good morning."
+    ],
+    "tip": "Echo the same greeting back; swap for こんにちは after lunch, さようなら when leaving."
+   },
+   {
+    "q": [
+     "おなまえは　なんですか。",
+     "おなまえは　なんですか。",
+     "Onamae wa nan desu ka.",
+     "What is your name?"
+    ],
+    "a": [
+     "わたしの　なまえは　ミアです。",
+     "わたしの　なまえは　ミアです。",
+     "Watashi no namae wa Mia desu.",
+     "My name is Mia."
+    ],
+    "tip": "お in front of なまえ is politeness for THEIR name; you answer with plain なまえ, or none at all."
+   },
+   {
+    "q": [
+     "なんさいですか。",
+     "なんさいですか。",
+     "Nansai desu ka.",
+     "How old are you?"
+    ],
+    "a": [
+     "じゅうにさいです。",
+     "じゅうにさいです。",
+     "Jūnisai desu.",
+     "I am twelve years old."
+    ],
+    "tip": "Swap じゅうに for any number plus さい to give a different age."
+   },
+   {
+    "q": [
+     "どこから　きましたか。",
+     "どこから　きましたか。",
+     "Doko kara kimashita ka.",
+     "Where are you from?"
+    ],
+    "a": [
+     "オーストラリアから　きました。",
+     "オーストラリアから　きました。",
+     "Ōsutoraria kara kimashita.",
+     "I come from Australia."
+    ],
+    "tip": "Swap the country freely; add じん after a country to name the person: オーストラリアじん."
+   },
+   {
+    "q": [
+     "にほんごの　せんせいは　だれですか。",
+     "にほんごの　せんせいは　だれですか。",
+     "Nihongo no sensei wa dare desu ka.",
+     "Who is your Japanese teacher?"
+    ],
+    "a": [
+     "わたしの　せんせいは　やまだせんせいです。",
+     "わたしの　せんせいは　やまだせんせいです。",
+     "Watashi no sensei wa Yamada-sensei desu.",
+     "My teacher is Mr Yamada."
+    ],
+    "tip": "せんせい follows straight after a name, no particle needed, to name a specific teacher."
+   },
+   {
+    "q": [
+     "たんじょうびは　いつですか。",
+     "たんじょうびは　いつですか。",
+     "Tanjōbi wa itsu desu ka.",
+     "When is your birthday?"
+    ],
+    "a": [
+     "ろくがつ　とおかです。",
+     "ろくがつ　とおかです。",
+     "Rokugatsu tōka desu.",
+     "It's the tenth of June."
+    ],
+    "tip": "Month plus day plus です answers 'when'; swap both parts for your own date."
+   }
+  ],
+  "craft": {
+   "intro": "This model answers the question every first meeting asks: who are you, and what should the class know about you?",
+   "model": [
+    {
+     "jp": [
+      "こんにちは。",
+      "こんにちは。",
+      "Konnichiwa.",
+      "Hello."
+     ],
+     "note": "Greet first, matched to the time of day"
+    },
+    {
+     "jp": [
+      "わたしの　なまえは　ミアです。",
+      "わたしの　なまえは　ミアです。",
+      "Watashi no namae wa Mia desu.",
+      "My name is Mia."
+     ],
+     "note": "Name arrives inside は…です, the frame that carries every fact"
+    },
+    {
+     "jp": [
+      "じゅうにさいです。",
+      "じゅうにさいです。",
+      "Jūnisai desu.",
+      "I am twelve years old."
+     ],
+     "note": "Age can stand alone as its own です sentence"
+    },
+    {
+     "jp": [
+      "オーストラリア人です。",
+      "オーストラリアじんです。",
+      "Ōsutorariajin desu.",
+      "I am Australian."
+     ],
+     "note": "Nationality stacks on as another single-fact です sentence"
+    },
+    {
+     "jp": [
+      "たんじょうびは　ろくがつです。",
+      "たんじょうびは　ろくがつです。",
+      "Tanjōbi wa rokugatsu desu.",
+      "My birthday is in June."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "どうぞ　よろしく　おねがいします。",
+      "どうぞ　よろしく　おねがいします。",
+      "Dōzo yoroshiku onegaishimasu.",
+      "Pleased to meet you."
+     ],
+     "note": "Close every first meeting with this fixed set phrase"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "わたし　わ　ミアです。",
+      "わたし　わ　ミアです。",
+      "Watashi wa Mia desu.",
+      "I am Mia."
+     ],
+     "options": [
+      "わたしは　ミアです。",
+      "わたしを　ミアです。",
+      "わたしが　ミアです。"
+     ],
+     "answer": 0,
+     "why": "は is the topic particle for stating who you are; わ is only how it sounds, never the correct kana to write it. を marks a direct object, which です sentences do not have. が would sound like you are contrasting yourself against other people, not simply introducing yourself."
+    },
+    {
+     "weak": [
+      "わたしは　ミアだ。",
+      "わたしは　ミアだ。",
+      "Watashi wa Mia da.",
+      "I am Mia."
+     ],
+     "options": [
+      "わたしは　ミアでした。",
+      "わたしは　ミアです。",
+      "わたしは　ミアだよ。"
+     ],
+     "answer": 1,
+     "why": "です is polite and present, right for meeting someone new. でした wrongly claims you WERE Mia, as if that is no longer true. だよ keeps the casual tone of だ and adds よ, still not appropriate for a first meeting."
+    },
+    {
+     "weak": [
+      "なんさいだ。",
+      "なんさいだ。",
+      "Nansai da.",
+      "How old are you?"
+     ],
+     "options": [
+      "なんさいですかね。",
+      "なんさいだよ。",
+      "なんさいですか。"
+     ],
+     "answer": 2,
+     "why": "ですか is the polite way to ask a question, right for someone you just met. なんさいだ is a blunt demand, the kind of tone that gets you in trouble. ですかね mumbles the question to yourself instead of asking it. だよ tells rather than asks, so it is not a question at all."
+    }
+   ]
+  },
+  "extension": {
+   "task": [
+    "たんじょうびも　いれて、じぶんの　じこしょうかいを　しましょう。",
+    "たんじょうびも　いれて、じぶんの　じこしょうかいを　しましょう。",
+    "Tanjōbi mo irete, jibun no jikoshōkai o shimashō.",
+    "Extend the model: add your birthday and give your own self-introduction, including name, age and where you're from."
+   ],
+   "checklist": [
+    "Did you greet first, matching the time of day?",
+    "Did you put your name inside the wa/desu frame?",
+    "Did you add your age as its own desu sentence?",
+    "Did you close with dōzo yoroshiku onegaishimasu?"
+   ]
+  }
+ },
+ {
+  "key": "u72",
+  "words": [
+   {
+    "w": "かぞく",
+    "kp": "家族",
+    "def": "The whole group of people you live with and are related to, like your parents and any brothers or sisters."
+   },
+   {
+    "w": "あに",
+    "kp": "兄",
+    "def": "A male sibling older than you; the word you use about him when talking to people outside your family."
+   },
+   {
+    "w": "あね",
+    "kp": "姉",
+    "def": "A female sibling older than you; the word you use about her when talking to people outside your family."
+   },
+   {
+    "w": "おとうと",
+    "kp": "弟",
+    "def": "A male sibling younger than you, the little brother of the family."
+   },
+   {
+    "w": "いもうと",
+    "kp": "妹",
+    "def": "A female sibling younger than you, the little sister of the family."
+   },
+   {
+    "w": "りょうしん",
+    "kp": "両親",
+    "def": "Your mother and father, spoken about together as a pair rather than naming each one separately."
+   },
+   {
+    "w": "いぬ",
+    "kp": "犬",
+    "def": "A common four legged pet known for loyalty, walks and barking, kept by many families as a companion."
+   },
+   {
+    "w": "ねこ",
+    "kp": "猫",
+    "def": "A common small pet known for napping, independence and a habit of ignoring you when called."
+   },
+   {
+    "w": "どうぶつ",
+    "kp": "動物",
+    "def": "Any living creature that is not a plant, especially the kind people keep and care for at home."
+   },
+   {
+    "w": "ペット",
+    "kp": "",
+    "def": "A creature someone chooses to keep and look after at home purely for companionship, not for food or work."
+   },
+   {
+    "w": "ハムスター",
+    "kp": "",
+    "def": "A tiny, round pet that lives in a cage, stores food in its cheeks and is most active at night."
+   },
+   {
+    "w": "きょうだい",
+    "kp": "兄弟",
+    "def": "Brothers, or a brother and sister, spoken about together without saying which is older or younger."
+   }
+  ],
+  "payoff": "12 words, and the small ょ plus a stretched う already turned up twice: きょうだい and りょうしん both squeeze that shape in. Once your ear catches it, every family word wearing it is cheaper to hear and spell.",
+  "qa": [
+   {
+    "q": [
+     "ごかぞくは　なんにんですか。",
+     "ごかぞくは　なんにんですか。",
+     "Gokazoku wa nan-nin desu ka.",
+     "How many people are in your family?"
+    ],
+    "a": [
+     "よにんです。",
+     "よにんです。",
+     "Yonin desu.",
+     "There are four of us."
+    ],
+    "tip": "ご in front of かぞく is politeness for THEIR family; you answer about your own with plain かぞく. Swap よにん for any number plus にん."
+   },
+   {
+    "q": [
+     "いぬが　いますか。",
+     "いぬが　いますか。",
+     "Inu ga imasu ka.",
+     "Do you have a dog?"
+    ],
+    "a": [
+     "はい、いぬが　いっぴき　います。",
+     "はい、いぬが　いっぴき　います。",
+     "Hai, inu ga ippiki imasu.",
+     "Yes, I have one dog."
+    ],
+    "tip": "Animals take います, and small animals are counted with ひき, not にん."
+   },
+   {
+    "q": [
+     "きょうだいが　いますか。",
+     "きょうだいが　いますか。",
+     "Kyōdai ga imasu ka.",
+     "Do you have any siblings?"
+    ],
+    "a": [
+     "あにが　ひとり　います。いもうとも　います。",
+     "あにが　ひとり　います。いもうとも　います。",
+     "Ani ga hitori imasu. Imōto mo imasu.",
+     "I have one older brother. I also have a younger sister."
+    ],
+    "tip": "も swaps in for が to add a second family member without repeating います awkwardly."
+   },
+   {
+    "q": [
+     "どんな　ペットが　いますか。",
+     "どんな　ペットが　いますか。",
+     "Donna petto ga imasu ka.",
+     "What pets do you have?"
+    ],
+    "a": [
+     "ねこが　います。ハムスターも　います。",
+     "ねこが　います。ハムスターも　います。",
+     "Neko ga imasu. Hamusutā mo imasu.",
+     "I have a cat. I also have a hamster."
+    ],
+    "tip": "どんな asks 'what kind'; が then points at each animal that is actually there."
+   },
+   {
+    "q": [
+     "ごりょうしんは　うちに　いますか。",
+     "ごりょうしんは　うちに　いますか。",
+     "Goryōshin wa uchi ni imasu ka.",
+     "Are your parents home?"
+    ],
+    "a": [
+     "はい、りょうしんは　うちに　います。",
+     "はい、りょうしんは　うちに　います。",
+     "Hai, ryōshin wa uchi ni imasu.",
+     "Yes, my parents are home."
+    ],
+    "tip": "Same politeness move as ごかぞく: ご for their parents, plain りょうしん when you answer about your own."
+   },
+   {
+    "q": [
+     "どうぶつが　なんびき　いますか。",
+     "どうぶつが　なんびき　いますか。",
+     "Dōbutsu ga nanbiki imasu ka.",
+     "How many animals do you have?"
+    ],
+    "a": [
+     "うちに　どうぶつが　にひき　います。",
+     "うちに　どうぶつが　にひき　います。",
+     "Uchi ni dōbutsu ga nihiki imasu.",
+     "We have two animals at home."
+    ],
+    "tip": "なんびき asks 'how many small animals'; answer with the counter in the same slot: いっぴき、にひき、さんびき."
+   }
+  ],
+  "craft": {
+   "intro": "This model answers: who and what makes up your family at home?",
+   "model": [
+    {
+     "jp": [
+      "わたしの　かぞくは　ごにんです。",
+      "わたしの　かぞくは　ごにんです。",
+      "Watashi no kazoku wa gonin desu.",
+      "My family has five people."
+     ],
+     "note": "Open with family size first, using にん to count people"
+    },
+    {
+     "jp": [
+      "りょうしんが　います。",
+      "りょうしんが　います。",
+      "Ryōshin ga imasu.",
+      "There are my parents."
+     ],
+     "note": "Introduce family with が and います"
+    },
+    {
+     "jp": [
+      "あにと　いもうとが　います。",
+      "あにと　いもうとが　います。",
+      "Ani to imōto ga imasu.",
+      "I have an older brother and a younger sister."
+     ],
+     "note": "と pairs two family members in one sentence"
+    },
+    {
+     "jp": [
+      "いぬが　いっぴき　います。",
+      "いぬが　いっぴき　います。",
+      "Inu ga ippiki imasu.",
+      "I have one dog."
+     ],
+     "note": "Pets take います too, counted with ひき instead of にん"
+    },
+    {
+     "jp": [
+      "ねこも　います。",
+      "ねこも　います。",
+      "Neko mo imasu.",
+      "I also have a cat."
+     ],
+     "note": "も swaps in to add the next one smoothly"
+    },
+    {
+     "jp": [
+      "かぞくと　どうぶつが　だいすきです。",
+      "かぞくと　どうぶつが　だいすきです。",
+      "Kazoku to dōbutsu ga daisuki desu.",
+      "I love my family and animals."
+     ],
+     "note": "A taste of すきです, the pattern the NEXT unit owns"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "いぬを　います。",
+      "いぬを　います。",
+      "Inu o imasu.",
+      "I have a dog."
+     ],
+     "options": [
+      "いぬが　います。",
+      "いぬは　います。",
+      "いぬも　いません。"
+     ],
+     "answer": 0,
+     "why": "います needs が to introduce who or what exists; を is for direct objects of action verbs, which います is not. は would suggest you are contrasting the dog against something else rather than simply stating it exists. いません flips the meaning to a denial, the opposite of what you want to say."
+    },
+    {
+     "weak": [
+      "ねこが　いるよ。",
+      "ねこが　いるよ。",
+      "Neko ga iru yo.",
+      "There's a cat."
+     ],
+     "options": [
+      "ねこが　いた。",
+      "ねこが　います。",
+      "ねこが　いますよ。"
+     ],
+     "answer": 1,
+     "why": "います is the polite present form suited to a classroom answer. いた is plain and past, wrongly suggesting the cat no longer lives with you. いますよ is polite too; the よ just adds a 'let me tell you' nudge that a plain statement of fact does not need."
+    },
+    {
+     "weak": [
+      "いぬが　ひとり　います。",
+      "いぬが　ひとり　います。",
+      "Inu ga hitori imasu.",
+      "I have one dog."
+     ],
+     "options": [
+      "いぬが　いっぴき　います。",
+      "いぬが　いちにん　います。",
+      "いぬは　いっぴきです。"
+     ],
+     "answer": 0,
+     "why": "Dogs are counted with ひき, so いっぴき is right. ひとり is the counter for PEOPLE, which is the original's mistake, and いちにん is not a word at all: one person is ひとり. いっぴきです counts the dog but loses います, the verb that says it exists at your place."
+    }
+   ]
+  },
+  "extension": {
+   "task": [
+    "そふぼも　いれて、ペットの　かずも　いって、かぞくしょうかいを　つくりましょう。",
+    "そふぼも　いれて、ペットの　かずも　いって、かぞくしょうかいを　つくりましょう。",
+    "Sofubo mo irete, petto no kazu mo itte, kazoku shōkai o tsukurimashō.",
+    "Extend the model: include your grandparents and say how many pets you have altogether."
+   ],
+   "checklist": [
+    "Did you state family size first, using にん?",
+    "Did you introduce each family member one at a time with が?",
+    "Did you use も to add rather than repeating います every time?",
+    "Did you count any pets with ひき, not にん?"
+   ]
+  }
+ },
+ {
+  "key": "u73",
+  "words": [
+   {
+    "w": "おんがく",
+    "kp": "音楽",
+    "def": "Sound arranged into rhythm and melody, whether you are listening to it or making it yourself."
+   },
+   {
+    "w": "えいが",
+    "kp": "映画",
+    "def": "A story told through moving pictures that you watch on a big screen or at home."
+   },
+   {
+    "w": "うんどう",
+    "kp": "運動",
+    "def": "Moving your body on purpose to stay fit and healthy, like running, swimming or playing sport."
+   },
+   {
+    "w": "まんが",
+    "kp": "漫画",
+    "def": "A story told in drawings arranged in panels, usually read from a printed book or magazine."
+   },
+   {
+    "w": "スポーツ",
+    "kp": "",
+    "def": "Any physical game or activity played with rules, often in teams, for fun or competition."
+   },
+   {
+    "w": "テニス",
+    "kp": "",
+    "def": "A sport played with rackets and a small ball, hit back and forth over a net."
+   },
+   {
+    "w": "サッカー",
+    "kp": "",
+    "def": "A team sport where players kick a ball towards a goal, using every part of the body except their hands."
+   },
+   {
+    "w": "たべもの",
+    "kp": "食べ物",
+    "def": "Anything you eat, from a full meal down to a small snack."
+   },
+   {
+    "w": "くだもの",
+    "kp": "果物",
+    "def": "The sweet part of a plant that grows from a flower and is usually eaten raw, like an apple or a banana."
+   },
+   {
+    "w": "やさい",
+    "kp": "野菜",
+    "def": "A plant, or part of one, that is grown to be eaten, usually as part of a savoury meal rather than a sweet one."
+   },
+   {
+    "w": "いろ",
+    "kp": "色",
+    "def": "The visual quality that lets you tell a red apple apart from a green one."
+   },
+   {
+    "w": "すし",
+    "kp": "寿司",
+    "def": "A traditional dish of vinegared rice, often served with raw fish or vegetables on top."
+   }
+  ],
+  "payoff": "12 words, and サッカー's small っ is the same doubling you will meet in dozens of loanwords ahead. Catch the little pause it buys once, and every katakana word wearing it gets cheaper to read.",
+  "qa": [
+   {
+    "q": [
+     "なにが　すきですか。",
+     "なにが　すきですか。",
+     "Nani ga suki desu ka.",
+     "What do you like?"
+    ],
+    "a": [
+     "おんがくが　すきです。",
+     "おんがくが　すきです。",
+     "Ongaku ga suki desu.",
+     "I like music."
+    ],
+    "tip": "が when you are simply naming what you like; は when you are setting it against something else."
+   },
+   {
+    "q": [
+     "スポーツが　すきですか。",
+     "スポーツが　すきですか。",
+     "Supōtsu ga suki desu ka.",
+     "Do you like sport?"
+    ],
+    "a": [
+     "はい、すきです。とくに　サッカーが　すきです。",
+     "はい、すきです。とくに　サッカーが　すきです。",
+     "Hai, suki desu. Tokuni sakkā ga suki desu.",
+     "Yes, I like it. I especially like soccer."
+    ],
+    "tip": "か turns the sentence into a yes/no question; drop it and add ね to share instead of ask."
+   },
+   {
+    "q": [
+     "やさいは　どうですか。",
+     "やさいは　どうですか。",
+     "Yasai wa dō desu ka.",
+     "What about vegetables?"
+    ],
+    "a": [
+     "やさいは　ちょっと…。くだものは　すきです。",
+     "やさいは　ちょっと…。くだものは　すきです。",
+     "Yasai wa chotto… Kudamono wa suki desu.",
+     "Vegetables, not really… but I like fruit."
+    ],
+    "tip": "は marks the thing you're passing over; ちょっと… softens a dislike without sounding rude."
+   },
+   {
+    "q": [
+     "えいがが　すきですか。",
+     "えいがが　すきですか。",
+     "Eiga ga suki desu ka.",
+     "Do you like movies?"
+    ],
+    "a": [
+     "はい、すきです。まんがも　すきです。",
+     "はい、すきです。まんがも　すきです。",
+     "Hai, suki desu. Manga mo suki desu.",
+     "Yes, I like them. I like manga too."
+    ],
+    "tip": "も lets you pile on a second like without repeating が すきです in full."
+   },
+   {
+    "q": [
+     "すしが　すきですね。",
+     "すしが　すきですね。",
+     "Sushi ga suki desu ne.",
+     "You like sushi, don't you."
+    ],
+    "a": [
+     "はい、すしが　だいすきです。",
+     "はい、すしが　だいすきです。",
+     "Hai, sushi ga daisuki desu.",
+     "Yes, I love sushi."
+    ],
+    "tip": "ね checks agreement, like adding 'right?'; だい in front of すき turns liking into loving."
+   },
+   {
+    "q": [
+     "いろは　なにが　すきですか。",
+     "いろは　なにが　すきですか。",
+     "Iro wa nani ga suki desu ka.",
+     "What colour do you like?"
+    ],
+    "a": [
+     "あおが　すきです。あかは　ちょっと…。",
+     "あおが　すきです。あかは　ちょっと…。",
+     "Ao ga suki desu. Aka wa chotto…",
+     "I like blue. Red, not so much…"
+    ],
+    "tip": "は on the colour you pass over sets up the contrast; ちょっと… declines it politely, no きらい needed."
+   }
+  ],
+  "craft": {
+   "intro": "This model answers: what do you like, what do you not, and why say both?",
+   "model": [
+    {
+     "jp": [
+      "わたしは　おんがくが　だいすきです。",
+      "わたしは　おんがくが　だいすきです。",
+      "Watashi wa ongaku ga daisuki desu.",
+      "I love music."
+     ],
+     "note": "Open with your strongest like, marked by が, not は"
+    },
+    {
+     "jp": [
+      "サッカーも　すきです。",
+      "サッカーも　すきです。",
+      "Sakkā mo suki desu.",
+      "I also like soccer."
+     ],
+     "note": "も stacks on a second like without repeating the whole frame"
+    },
+    {
+     "jp": [
+      "でも、やさいは　ちょっと…。",
+      "でも、やさいは　ちょっと…。",
+      "Demo, yasai wa chotto…",
+      "But vegetables, not really…"
+     ],
+     "note": "は flags the thing you're passing over; trail off instead of a blunt no"
+    },
+    {
+     "jp": [
+      "くだものは　すきです。",
+      "くだものは　すきです。",
+      "Kudamono wa suki desu.",
+      "I like fruit though."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "まんがも　すきです。",
+      "まんがも　すきです。",
+      "Manga mo suki desu.",
+      "I like manga too."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "みなさんは　なにが　すきですか。",
+      "みなさんは　なにが　すきですか。",
+      "Minasan wa nani ga suki desu ka.",
+      "What do you all like?"
+     ],
+     "note": "Close by turning the question outward to invite replies"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "おんがくを　すきです。",
+      "おんがくを　すきです。",
+      "Ongaku o suki desu.",
+      "I like music."
+     ],
+     "options": [
+      "おんがくが　すきです。",
+      "おんがくは　すきです。",
+      "おんがくが　きらいでした。"
+     ],
+     "answer": 0,
+     "why": "すき always takes が for the thing being liked; を is for objects of action verbs, which すき is not. は is not ungrammatical but sounds like you are contrasting music against other things, an odd start for a simple statement. きらいでした not only changes 'like' to 'dislike' but drops it into the past tense too, the opposite of what you mean."
+    },
+    {
+     "weak": [
+      "サッカーが　すきだよ。",
+      "サッカーが　すきだよ。",
+      "Sakkā ga suki da yo.",
+      "I like soccer."
+     ],
+     "options": [
+      "サッカーが　すきなんだ。",
+      "サッカーが　すきです。",
+      "サッカーが　すきでした。"
+     ],
+     "answer": 1,
+     "why": "です keeps the sentence polite, right for class and for people you do not know well. すきなんだ keeps the casual だ and adds an explanatory んだ, still not polite. すきでした wrongly puts your liking in the past, as if it has ended."
+    },
+    {
+     "weak": [
+      "すしが　すきです。すしが　すきだから　すきです。",
+      "すしが　すきです。すしが　すきだから　すきです。",
+      "Sushi ga suki desu. Sushi ga suki dakara suki desu.",
+      "I like sushi. I like sushi because I like sushi."
+     ],
+     "options": [
+      "すしは　すきでした。",
+      "すしが　すきだから　すきです。",
+      "すしが　すきです。あじが　いいからです。"
+     ],
+     "answer": 2,
+     "why": "あじがいいから (because the taste is good) is a genuine reason. The circular option just repeats the claim as its own cause and explains nothing. すきでした wrongly drags the liking into the past, suggesting it has already ended."
+    }
+   ]
+  },
+  "extension": {
+   "task": [
+    "たべものと　いろも　いれて、じぶんの　すきな　ものを　しょうかいしましょう。",
+    "たべものと　いろも　いれて、じぶんの　すきな　ものを　しょうかいしましょう。",
+    "Tabemono to iro mo irete, jibun no sukina mono o shōkai shimashō.",
+    "Extend the model: introduce your own likes and dislikes, adding a food and a colour alongside your hobby."
+   ],
+   "checklist": [
+    "Did you use が for what you simply like, and は for what you set against it?",
+    "Did you use は to flag the thing you like less?",
+    "Did you add a second like using も?",
+    "Did you close with ね or か to invite a reply?"
+   ]
+  }
+ },
+ {
+  "key": "u74",
+  "words": [
+   {
+    "w": "じかん",
+    "kp": "時間",
+    "def": "The stretch of minutes or hours that something takes, like the length of a lesson."
+   },
+   {
+    "w": "ようび",
+    "kp": "曜日",
+    "def": "The ending word attached after a day's name to say which day of the week you mean."
+   },
+   {
+    "w": "げつようび",
+    "kp": "月曜日",
+    "def": "The first day of the school week, straight after the weekend."
+   },
+   {
+    "w": "べんきょう",
+    "kp": "勉強",
+    "def": "The effort of learning something new, done through reading, listening and practising."
+   },
+   {
+    "w": "しけん",
+    "kp": "試験",
+    "def": "A set of questions given to check how much someone has learned, usually done under time pressure."
+   },
+   {
+    "w": "じゅぎょう",
+    "kp": "授業",
+    "def": "A single block of teaching time at school, focused on one subject."
+   },
+   {
+    "w": "すうがく",
+    "kp": "数学",
+    "def": "The school subject built around numbers, shapes and solving problems using them."
+   },
+   {
+    "w": "えいご",
+    "kp": "英語",
+    "def": "The language spoken as a first language in countries like Britain, the United States and Australia, and studied as a subject in Japanese schools."
+   },
+   {
+    "w": "たいいく",
+    "kp": "体育",
+    "def": "The school subject where you run, jump, play sport and use your body instead of sitting at a desk."
+   },
+   {
+    "w": "びじゅつ",
+    "kp": "美術",
+    "def": "The school subject where you draw, paint and make things by hand."
+   },
+   {
+    "w": "テスト",
+    "kp": "",
+    "def": "A short, often informal check of what you know, smaller and more frequent than a big formal exam."
+   },
+   {
+    "w": "クラス",
+    "kp": "",
+    "def": "A group of students who study together, or the room they meet in for lessons."
+   }
+  ],
+  "payoff": "12 words, and small ゅ turned up twice doing the same job: じゅぎょう and びじゅつ both squeeze a consonant and a vowel into one beat. Once your hand can build that squeeze, every word wearing it is cheaper to spell.",
+  "qa": [
+   {
+    "q": [
+     "きょうは　なんようびですか。",
+     "きょうは　なんようびですか。",
+     "Kyō wa nan-yōbi desu ka.",
+     "What day is it today?"
+    ],
+    "a": [
+     "げつようびです。",
+     "げつようびです。",
+     "Getsuyōbi desu.",
+     "It's Monday."
+    ],
+    "tip": "Swap げつ for か・すい・もく・きん to name any weekday before ようび."
+   },
+   {
+    "q": [
+     "じゅぎょうは　なんじに　はじまりますか。",
+     "じゅぎょうは　なんじに　はじまりますか。",
+     "Jugyō wa nanji ni hajimarimasu ka.",
+     "What time does the lesson start?"
+    ],
+    "a": [
+     "くじに　はじまります。",
+     "くじに　はじまります。",
+     "Kuji ni hajimarimasu.",
+     "It starts at nine o'clock."
+    ],
+    "tip": "に nails a time to an event; swap くじ for any hour plus じ."
+   },
+   {
+    "q": [
+     "すきな　じゅぎょうは　なんですか。",
+     "すきな　じゅぎょうは　なんですか。",
+     "Sukina jugyō wa nan desu ka.",
+     "Which class do you like best?"
+    ],
+    "a": [
+     "すうがくが　すきです。えいごも　すきです。",
+     "すうがくが　すきです。えいごも　すきです。",
+     "Sūgaku ga suki desu. Eigo mo suki desu.",
+     "I like maths. I also like English."
+    ],
+    "tip": "も stacks a second favourite subject onto the first without repeating が すきです."
+   },
+   {
+    "q": [
+     "たいいくは　どこで　しますか。",
+     "たいいくは　どこで　しますか。",
+     "Taiiku wa doko de shimasu ka.",
+     "Where do you do PE?"
+    ],
+    "a": [
+     "そとで　します。",
+     "そとで　します。",
+     "Soto de shimasu.",
+     "We do it outside."
+    ],
+    "tip": "で marks the place an action happens, different from に which marks a time or destination."
+   },
+   {
+    "q": [
+     "あした、しけんが　ありますか。",
+     "あした、しけんが　ありますか。",
+     "Ashita, shiken ga arimasu ka.",
+     "Is there a test tomorrow?"
+    ],
+    "a": [
+     "はい、すうがくの　テストが　あります。べんきょうします。",
+     "はい、すうがくの　テストが　あります。べんきょうします。",
+     "Hai, sūgaku no tesuto ga arimasu. Benkyō shimasu.",
+     "Yes, there's a maths test. I'm going to study."
+    ],
+    "tip": "テスト is the small class check, しけん the big formal exam; pick the one that matches the size."
+   },
+   {
+    "q": [
+     "クラスは　たのしいですか。",
+     "クラスは　たのしいですか。",
+     "Kurasu wa tanoshii desu ka.",
+     "Is class fun?"
+    ],
+    "a": [
+     "はい、たのしいです。じゅぎょうが　すきです。",
+     "はい、たのしいです。じゅぎょうが　すきです。",
+     "Hai, tanoshii desu. Jugyō ga suki desu.",
+     "Yes, it's fun. I like the lessons."
+    ],
+    "tip": "は sets クラス as the topic; the description たのしいです just follows straight after."
+   }
+  ],
+  "craft": {
+   "intro": "This model answers: what does a typical school day actually look like, hour by hour?",
+   "model": [
+    {
+     "jp": [
+      "げつようびは　じゅぎょうが　おおいです。",
+      "げつようびは　じゅぎょうが　おおいです。",
+      "Getsuyōbi wa jugyō ga ōi desu.",
+      "Monday has a lot of lessons."
+     ],
+     "note": "Open by naming the day, then describe it"
+    },
+    {
+     "jp": [
+      "くじに　すうがくが　あります。",
+      "くじに　すうがくが　あります。",
+      "Kuji ni sūgaku ga arimasu.",
+      "There's maths at nine o'clock."
+     ],
+     "note": "に pins the lesson to a clock time"
+    },
+    {
+     "jp": [
+      "たいいくは　こうていで　します。",
+      "たいいくは　こうていで　します。",
+      "Taiiku wa kōtei de shimasu.",
+      "We do PE on the oval."
+     ],
+     "note": "で marks where the doing happens, different from に's time marking"
+    },
+    {
+     "jp": [
+      "べんきょうは　たいへんです。",
+      "べんきょうは　たいへんです。",
+      "Benkyō wa taihen desu.",
+      "Study is tough."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "でも、えいごが　すきです。",
+      "でも、えいごが　すきです。",
+      "Demo, eigo ga suki desu.",
+      "But I like English."
+     ],
+     "note": "でも flags a contrast before the next です sentence"
+    },
+    {
+     "jp": [
+      "きょうは　テストが　ありません。よかったです。",
+      "きょうは　テストが　ありません。よかったです。",
+      "Kyō wa tesuto ga arimasen. Yokatta desu.",
+      "There's no test today. That's a relief."
+     ],
+     "note": "Close with how you feel about the day using another です sentence"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "くじで　すうがくが　あります。",
+      "くじで　すうがくが　あります。",
+      "Kuji de sūgaku ga arimasu.",
+      "There is maths at nine o'clock."
+     ],
+     "options": [
+      "くじに　すうがくが　あります。",
+      "くじが　すうがくが　あります。",
+      "くじに　すうがくが　ありました。"
+     ],
+     "answer": 0,
+     "why": "Clock times take に, not で; で marks where something happens, not when. くじが すうがくが あります stacks two が particles with nothing to link them, which is not grammatical. ありました wrongly puts today's fixed timetable fact in the past tense."
+    },
+    {
+     "weak": [
+      "たいいくは　こうていで　するよ。",
+      "たいいくは　こうていで　するよ。",
+      "Taiiku wa kōtei de suru yo.",
+      "We do PE on the oval."
+     ],
+     "options": [
+      "たいいくは　こうていで　しました。",
+      "たいいくは　こうていで　します。",
+      "たいいくは　こうていで　するんだ。"
+     ],
+     "answer": 1,
+     "why": "します is the polite, present-habitual form right for describing your regular timetable. しました wrongly reports it as already finished. するよ and するんだ are both casual plain-form endings, fine with friends but not in a polite class description."
+    },
+    {
+     "weak": [
+      "べんきょうは　たいへんです。べんきょうが　たいへんだから　たいへんです。",
+      "べんきょうは　たいへんです。べんきょうが　たいへんだから　たいへんです。",
+      "Benkyō wa taihen desu. Benkyō ga taihen dakara taihen desu.",
+      "Study is hard. Study is hard because study is hard."
+     ],
+     "options": [
+      "べんきょうは　たいへんでした。",
+      "べんきょうが　たいへんだから　たいへんです。",
+      "べんきょうは　たいへんです。しけんが　おおいからです。"
+     ],
+     "answer": 2,
+     "why": "しけんがおおいから (because there are many tests) is an actual reason for the difficulty. The circular version just restates 'it's hard because it's hard', which explains nothing. たいへんでした wrongly puts the difficulty in the past, as though study is easy now."
+    }
+   ]
+  },
+  "extension": {
+   "task": [
+    "じぶんの　じかんわりを　つかって、いちにちを　せつめいしましょう。とくいな　かもくも　いれてください。",
+    "じぶんの　じかんわりを　つかって、いちにちを　せつめいしましょう。とくいな　かもくも　いれてください。",
+    "Jibun no jikanwari o tsukatte, ichinichi o setsumei shimashō. Tokuina kamoku mo irete kudasai.",
+    "Extend the model: describe your own real school day using your actual timetable, and add which subject you're best at."
+   ],
+   "checklist": [
+    "Did you name the day before describing it?",
+    "Did you pin at least one lesson to a clock time with に?",
+    "Did you mark where an activity happens with で?",
+    "Did you close with how you feel about the day?"
+   ]
+  }
+ }
+]

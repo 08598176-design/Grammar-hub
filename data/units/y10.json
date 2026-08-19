@@ -1,0 +1,1533 @@
+[
+ {
+  "key": "u101",
+  "words": [
+   {
+    "w": "名前",
+    "r": "なまえ",
+    "parts": [
+     "名",
+     "前"
+    ],
+    "def": "What people call you, the word your family chose for you before you could talk."
+   },
+   {
+    "w": "私",
+    "r": "わたし",
+    "parts": [
+     "私"
+    ],
+    "def": "The word you use for yourself when you are speaking politely to someone else."
+   },
+   {
+    "w": "紹介",
+    "r": "しょうかい",
+    "parts": [
+     "紹",
+     "介"
+    ],
+    "def": "The act of telling someone else who a person is, usually with a name and a couple of details."
+   },
+   {
+    "w": "会話",
+    "r": "かいわ",
+    "parts": [
+     "会",
+     "話"
+    ],
+    "def": "Two or more people taking turns speaking together about something."
+   },
+   {
+    "w": "性格",
+    "r": "せいかく",
+    "parts": [
+     "性",
+     "格"
+    ],
+    "def": "The kind of person someone is deep down, whether they tend to be cheerful, quiet or something else."
+   },
+   {
+    "w": "得意",
+    "r": "とくい",
+    "parts": [
+     "得",
+     "意"
+    ],
+    "def": "Something a person does especially well and feels confident doing."
+   },
+   {
+    "w": "趣味",
+    "r": "しゅみ",
+    "parts": [
+     "趣",
+     "味"
+    ],
+    "def": "An activity someone does regularly purely for enjoyment, outside school or work."
+   },
+   {
+    "w": "出身",
+    "r": "しゅっしん",
+    "parts": [
+     "出",
+     "身"
+    ],
+    "def": "The particular place a person originally comes from or grew up in."
+   },
+   {
+    "w": "特技",
+    "r": "とくぎ",
+    "parts": [
+     "特",
+     "技"
+    ],
+    "def": "The one special skill you would actually volunteer to perform, practised until it is genuinely yours."
+   },
+   {
+    "w": "電話",
+    "r": "でんわ",
+    "parts": [
+     "電",
+     "話"
+    ],
+    "def": "A device used to talk to someone else over a distance by voice."
+   },
+   {
+    "w": "どきどき",
+    "r": "どきどき",
+    "def": "The nervous, fast feeling your heart gives you right before something exciting happens."
+   },
+   {
+    "w": "わくわく",
+    "r": "わくわく",
+    "def": "The excited feeling of looking forward to something before it happens."
+   }
+  ],
+  "kanjiGloss": {
+   "名": {
+    "g": "name",
+    "r": "メイ、な"
+   },
+   "前": {
+    "g": "front, before",
+    "r": "ゼン、まえ"
+   },
+   "私": {
+    "g": "I, private",
+    "r": "わたし"
+   },
+   "紹": {
+    "g": "introduce (link)",
+    "r": "ショウ"
+   },
+   "介": {
+    "g": "mediate, introduce",
+    "r": "カイ"
+   },
+   "会": {
+    "g": "meet, association",
+    "r": "カイ、あ(う)"
+   },
+   "話": {
+    "g": "talk, story",
+    "r": "ワ、はなし"
+   },
+   "性": {
+    "g": "nature, gender",
+    "r": "セイ"
+   },
+   "格": {
+    "g": "status, character",
+    "r": "カク"
+   },
+   "得": {
+    "g": "gain, good at",
+    "r": "トク"
+   },
+   "意": {
+    "g": "mind, meaning",
+    "r": "イ"
+   },
+   "趣": {
+    "g": "interest, gist",
+    "r": "シュ"
+   },
+   "味": {
+    "g": "taste, flavour",
+    "r": "ミ、あじ"
+   },
+   "出": {
+    "g": "go out, come from",
+    "r": "シュツ、で(る)"
+   },
+   "身": {
+    "g": "body, self",
+    "r": "シン、み"
+   },
+   "特": {
+    "g": "special",
+    "r": "トク"
+   },
+   "技": {
+    "g": "skill, technique",
+    "r": "ギ、わざ"
+   },
+   "電": {
+    "g": "electricity",
+    "r": "デン"
+   }
+  },
+  "payoff": "話 built two of your words this unit, 会話 and 電話, and it is already waiting for you in VCE media topics on the other side.",
+  "qa": [
+   {
+    "q": [
+     "はじめまして。お名前は何ですか。",
+     "はじめまして。おなまえはなんですか。",
+     "Hajimemashite. Onamae wa nan desu ka.",
+     "Nice to meet you. What is your name?"
+    ],
+    "a": [
+     "はじめまして。私の名前はゆうきです。",
+     "はじめまして。わたしのなまえはゆうきです。",
+     "Hajimemashite. Watashi no namae wa Yūki desu.",
+     "Nice to meet you. My name is Yuki."
+    ],
+    "tip": "Swap ゆうき for your own name; の links 私 and 名前 like an apostrophe s."
+   },
+   {
+    "q": [
+     "出身はどこですか。",
+     "しゅっしんはどこですか。",
+     "Shusshin wa doko desu ka.",
+     "Where are you from?"
+    ],
+    "a": [
+     "メルボルンの出身で、十五歳です。",
+     "メルボルンのしゅっしんで、じゅうごさいです。",
+     "Meruborun no shusshin de, jūgo-sai desu.",
+     "I'm from Melbourne, and I'm fifteen."
+    ],
+    "tip": "で chains two facts about yourself into one breath; swap the city and the age."
+   },
+   {
+    "q": [
+     "何が得意ですか。",
+     "なにがとくいですか。",
+     "Nani ga tokui desu ka.",
+     "What are you good at?"
+    ],
+    "a": [
+     "泳ぐことが得意です。",
+     "およぐことがとくいです。",
+     "Oyogu koto ga tokui desu.",
+     "I'm good at swimming."
+    ],
+    "tip": "The plain form 泳ぐ sits inside the polite sentence; こと turns the verb into a noun が can grab."
+   },
+   {
+    "q": [
+     "趣味は何ですか。",
+     "しゅみはなんですか。",
+     "Shumi wa nan desu ka.",
+     "What are your hobbies?"
+    ],
+    "a": [
+     "趣味はギターを弾くことです。",
+     "しゅみはギターをひくことです。",
+     "Shumi wa gitā o hiku koto desu.",
+     "My hobby is playing the guitar."
+    ],
+    "tip": "こと again: a plain verb plus こと becomes the noun after は."
+   },
+   {
+    "q": [
+     "どんな性格ですか。",
+     "どんなせいかくですか。",
+     "Donna seikaku desu ka.",
+     "What's your personality like?"
+    ],
+    "a": [
+     "自分では明るい性格だと思いますよ。",
+     "じぶんではあかるいせいかくだとおもいますよ。",
+     "Jibun de wa akarui seikaku da to omoimasu yo.",
+     "I think I'm a pretty cheerful person, you know."
+    ],
+    "tip": "だと思います wraps a plain-form clause; よ adds the confident, telling-you voice."
+   },
+   {
+    "q": [
+     "友達をみんなに紹介してください。",
+     "ともだちをみんなにしょうかいしてください。",
+     "Tomodachi o minna ni shōkai shite kudasai.",
+     "Please introduce your friend to everyone."
+    ],
+    "a": [
+     "こちらは友達のゆうきさんです。会話がじょうずで、電話でよく話しますよ。",
+     "こちらはともだちのゆうきさんです。かいわがじょうずで、でんわでよくはなしますよ。",
+     "Kochira wa tomodachi no Yūki-san desu. Kaiwa ga jōzu de, denwa de yoku hanashimasu yo.",
+     "This is my friend Yuki. He's good at conversation and talks on the phone a lot, you know."
+    ],
+    "tip": "こちら, not これ, introduces a person; で then strings a skill and a habit into one sentence."
+   }
+  ],
+  "craft": {
+   "intro": "This worked answer shows how to introduce yourself with more than just a name and age, chaining facts and adding your own voice.",
+   "model": [
+    {
+     "jp": [
+      "はじめまして、ゆうきです。",
+      "はじめまして、ゆうきです。",
+      "Hajimemashite, Yūki desu.",
+      "Nice to meet you, I'm Yuki."
+     ],
+     "note": "opening greeting plus name"
+    },
+    {
+     "jp": [
+      "メルボルンの出身で、十五歳です。",
+      "メルボルンのしゅっしんで、じゅうごさいです。",
+      "Meruborun no shusshin de, jūgo-sai desu.",
+      "I'm from Melbourne, and I'm fifteen."
+     ],
+     "note": "で chains two identity facts into one line"
+    },
+    {
+     "jp": [
+      "泳ぐことが得意で、週末はよくプールに行きます。",
+      "およぐことがとくいで、しゅうまつはよくプールにいきます。",
+      "Oyogu koto ga tokui de, shūmatsu wa yoku pūru ni ikimasu.",
+      "I'm good at swimming, and I often go to the pool on weekends."
+     ],
+     "note": "the plain-form 泳ぐ sits inside a polite で-sentence"
+    },
+    {
+     "jp": [
+      "性格は明るいと思います。",
+      "せいかくはあかるいとおもいます。",
+      "Seikaku wa akarui to omoimasu.",
+      "I think I have a cheerful personality."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "友達との会話が大好きで、電話でもよく話しますよ。",
+      "ともだちとのかいわがだいすきで、でんわでもよくはなしますよ。",
+      "Tomodachi to no kaiwa ga daisuki de, denwa demo yoku hanashimasu yo.",
+      "I love conversations with friends, and I often talk on the phone too, you know."
+     ],
+     "note": "よ adds a confiding, telling-you voice at the end"
+    },
+    {
+     "jp": [
+      "これから趣味のギターも紹介したいです。",
+      "これからしゅみのギターもしょうかいしたいです。",
+      "Kore kara shumi no gitā mo shōkai shitai desu.",
+      "From here, I'd also like to introduce my hobby, the guitar."
+     ],
+     "note": "たい plus 紹介 previews what's coming next, keeping the answer open"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "泳ぐが得意です。",
+      "およぐがとくいです。",
+      "Oyogu ga tokui desu.",
+      "I'm good at swimming."
+     ],
+     "options": [
+      "泳ぐことが得意です。",
+      "泳ぐわ得意です。",
+      "泳ぐことは得意でした。"
+     ],
+     "answer": 0,
+     "why": "Option 0 links the plain verb to が with こと so the sentence stays grammatical; option 1 writes わ where the sentence needs the particle は, a spelling slip, and still leaves out こと; option 2 shifts to でした, wrongly claiming you used to be good at swimming rather than still being good at it."
+    },
+    {
+     "weak": [
+      "先生、ゆうきっていうんだ。よろしく。",
+      "せんせい、ゆうきっていうんだ。よろしく。",
+      "Sensei, Yūki tte iu nda. Yoroshiku.",
+      "Teacher, I'm called Yuki. Nice to meet you."
+     ],
+     "options": [
+      "先生、ゆうきだけど、よろしく。",
+      "先生、ゆうきです。よろしくお願いします。",
+      "先生、ゆうきでした。よろしくお願いします。"
+     ],
+     "answer": 1,
+     "why": "Option 1 keeps です and お願いします polite throughout, matching how you'd actually address a teacher; option 0 fixes nothing, it just swaps one casual ending for another; option 2 uses the past tense でした, wrongly suggesting your name used to be Yuki but is not anymore."
+    },
+    {
+     "weak": [
+      "ギターはたのしいだったです。",
+      "ギターはたのしいだったです。",
+      "Gitā wa tanoshii datta desu.",
+      "The guitar was fun."
+     ],
+     "options": [
+      "ギターはたのしいでした。",
+      "ギターはたのしいです。",
+      "ギターはたのしかったです。"
+     ],
+     "answer": 2,
+     "why": "Option 2 conjugates the い-adjective correctly for the past, たのしい becomes たのしかった before です; option 0 bolts でした onto an い-adjective, a mismatch that never works; option 1 is grammatically fine but sits in the present tense, so it does not actually say the guitar was fun, only that it is."
+    }
+   ]
+  },
+  "extension": {
+   "task": [
+    "自分の自己紹介を書いてください。出身と得意なことを両方入れて、新しい趣味を一つ足してください。",
+    "じぶんのじこしょうかいをかいてください。しゅっしんととくいなことをりょうほういれて、あたらしいしゅみをひとつたしてください。",
+    "Jibun no jikoshōkai o kaite kudasai. Shusshin to tokui na koto o ryōhō irete, atarashii shumi o hitotsu tashite kudasai.",
+    "Write your own self-introduction. Include both where you're from and something you're good at, and add one new hobby."
+   ],
+   "checklist": [
+    "Did you chain two facts about yourself with で?",
+    "Did you tuck a plain-form verb inside a polite こと sentence?",
+    "Did you end at least one line with よ or ね to sound like a real person?",
+    "Did you mention a hobby or talent that's new, not just repeated from the model?"
+   ]
+  }
+ },
+ {
+  "key": "u102",
+  "words": [
+   {
+    "w": "泊まる",
+    "r": "とまる",
+    "parts": [
+     "泊"
+    ],
+    "def": "To spend the night somewhere away from home, like at a hotel or a friend's place."
+   },
+   {
+    "w": "待つ",
+    "r": "まつ",
+    "parts": [
+     "待"
+    ],
+    "def": "To stay in one place until someone or something arrives."
+   },
+   {
+    "w": "買い物",
+    "r": "かいもの",
+    "parts": [
+     "買",
+     "物"
+    ],
+    "def": "The activity of visiting shops to purchase things you want or need."
+   },
+   {
+    "w": "荷物",
+    "r": "にもつ",
+    "parts": [
+     "荷",
+     "物"
+    ],
+    "def": "The bags and belongings a traveller carries or checks in for a trip."
+   },
+   {
+    "w": "旅行",
+    "r": "りょこう",
+    "parts": [
+     "旅",
+     "行"
+    ],
+    "def": "A trip taken somewhere, usually for pleasure rather than work."
+   },
+   {
+    "w": "写真",
+    "r": "しゃしん",
+    "parts": [
+     "写",
+     "真"
+    ],
+    "def": "A picture captured with a camera, keeping a moment exactly as it looked."
+   },
+   {
+    "w": "予約",
+    "r": "よやく",
+    "parts": [
+     "予",
+     "約"
+    ],
+    "def": "Arranging in advance to have a room, table or seat reserved for you."
+   },
+   {
+    "w": "出発",
+    "r": "しゅっぱつ",
+    "parts": [
+     "出",
+     "発"
+    ],
+    "def": "The moment a journey actually begins, when you leave."
+   },
+   {
+    "w": "計画",
+    "r": "けいかく",
+    "parts": [
+     "計",
+     "画"
+    ],
+    "def": "A set of steps someone works out ahead of time before doing something."
+   },
+   {
+    "w": "天気",
+    "r": "てんき",
+    "parts": [
+     "天",
+     "気"
+    ],
+    "def": "The state of the sky and air outside on a given day, whether it is sunny, rainy or something else."
+   },
+   {
+    "w": "かばん",
+    "r": "かばん",
+    "def": "A bag you carry your things in, especially while travelling."
+   },
+   {
+    "w": "ゆっくり",
+    "r": "ゆっくり",
+    "def": "At an easy, unrushed pace, without hurrying to get things done quickly."
+   }
+  ],
+  "kanjiGloss": {
+   "泊": {
+    "g": "stay overnight",
+    "r": "とまる、ハク"
+   },
+   "待": {
+    "g": "wait",
+    "r": "まつ、タイ"
+   },
+   "買": {
+    "g": "buy",
+    "r": "かう、バイ"
+   },
+   "物": {
+    "g": "thing, object",
+    "r": "もの、ブツ、モツ"
+   },
+   "荷": {
+    "g": "load, cargo",
+    "r": "に、カ"
+   },
+   "旅": {
+    "g": "travel, journey",
+    "r": "たび、リョ"
+   },
+   "行": {
+    "g": "go, conduct",
+    "r": "いく、コウ"
+   },
+   "写": {
+    "g": "copy, photograph",
+    "r": "うつす、シャ"
+   },
+   "真": {
+    "g": "true, real",
+    "r": "シン、ま"
+   },
+   "予": {
+    "g": "beforehand",
+    "r": "ヨ"
+   },
+   "約": {
+    "g": "promise, arrange",
+    "r": "ヤク"
+   },
+   "出": {
+    "g": "go out, leave",
+    "r": "でる、シュツ"
+   },
+   "発": {
+    "g": "depart, emit",
+    "r": "ハツ"
+   },
+   "計": {
+    "g": "plan, measure",
+    "r": "ケイ"
+   },
+   "画": {
+    "g": "picture, plan",
+    "r": "ガ、カク"
+   },
+   "天": {
+    "g": "sky, heaven",
+    "r": "テン"
+   },
+   "気": {
+    "g": "spirit, air",
+    "r": "キ"
+   }
+  },
+  "payoff": "物 built two of your words this trip, 買い物 and 荷物, and once a kanji like that is yours, every new word wearing it costs less, all the way through to VCE's own 荷物.",
+  "qa": [
+   {
+    "q": [
+     "週末に何をしますか。",
+     "しゅうまつになにをしますか。",
+     "Shūmatsu ni nani o shimasu ka.",
+     "What will you do on the weekend?"
+    ],
+    "a": [
+     "買い物をしに行きます。",
+     "かいものをしにいきます。",
+     "Kaimono o shi ni ikimasu.",
+     "I'm going out to do some shopping."
+    ],
+    "tip": "stem plus に行く states the purpose of going; swap しに for another verb stem, like 見に."
+   },
+   {
+    "q": [
+     "旅行では、まず何をしますか。",
+     "りょこうでは、まずなにをしますか。",
+     "Ryokō de wa, mazu nani o shimasu ka.",
+     "On the trip, what will you do first?"
+    ],
+    "a": [
+     "ホテルに着いてから、写真をとります。",
+     "ホテルについてから、しゃしんをとります。",
+     "Hoteru ni tsuite kara, shashin o torimasu.",
+     "After I arrive at the hotel, I'll take photos."
+    ],
+    "tip": "てから locks in the order: arrive first, then everything after it."
+   },
+   {
+    "q": [
+     "天気が悪かったら、どうしますか。",
+     "てんきがわるかったら、どうしますか。",
+     "Tenki ga warukattara, dō shimasu ka.",
+     "What will you do if the weather is bad?"
+    ],
+    "a": [
+     "雨が降ったら、ホテルに泊まります。",
+     "あめがふったら、ホテルにとまります。",
+     "Ame ga futtara, hoteru ni tomarimasu.",
+     "If it rains, I'll stay at the hotel."
+    ],
+    "tip": "たら turns the weather into an if-clause; only that part changes when the plan changes."
+   },
+   {
+    "q": [
+     "ホテルはもう予約しましたか。",
+     "ホテルはもうよやくしましたか。",
+     "Hoteru wa mō yoyaku shimashita ka.",
+     "Have you already booked the hotel?"
+    ],
+    "a": [
+     "はい、先週予約しました。",
+     "はい、せんしゅうよやくしました。",
+     "Hai, senshū yoyaku shimashita.",
+     "Yes, I booked it last week."
+    ],
+    "tip": "予約する is the trip's paperwork verb; swap in the timing word to say when you did it."
+   },
+   {
+    "q": [
+     "出発の前に何をしますか。",
+     "しゅっぱつのまえになにをしますか。",
+     "Shuppatsu no mae ni nani o shimasu ka.",
+     "What do you do before departure?"
+    ],
+    "a": [
+     "空港でバスを待ちます。",
+     "くうこうでバスをまちます。",
+     "Kūkō de basu o machimasu.",
+     "I wait for the bus at the airport."
+    ],
+    "tip": "待ちます needs で for the place you're standing while you wait."
+   },
+   {
+    "q": [
+     "旅行の計画はできましたか。",
+     "りょこうのけいかくはできましたか。",
+     "Ryokō no keikaku wa dekimashita ka.",
+     "Is the trip plan finished?"
+    ],
+    "a": [
+     "はい、荷物も用意しました。あしたの朝、出発します。",
+     "はい、にもつもよういしました。あしたのあさ、しゅっぱつします。",
+     "Hai, nimotsu mo yōi shimashita. Ashita no asa, shuppatsu shimasu.",
+     "Yes, my luggage is ready too. We leave tomorrow morning."
+    ],
+    "tip": "用意しました reports the prep already done; the departure then gets its own clean sentence."
+   }
+  ],
+  "craft": {
+   "intro": "What a well-planned day of a trip actually looks like, in order.",
+   "model": [
+    {
+     "jp": [
+      "まず、ホテルに荷物を置いてから、町を歩きます。",
+      "まず、ホテルににもつをおいてから、まちをあるきます。",
+      "Mazu, hoteru ni nimotsu o oite kara, machi o arukimasu.",
+      "First, after leaving my bags at the hotel, I'll walk around the town."
+     ],
+     "note": "てから fixes the order: bags first, then everything after"
+    },
+    {
+     "jp": [
+      "お昼は市場に買い物をしに行きます。",
+      "おひるはいちばにかいものをしにいきます。",
+      "Ohiru wa ichiba ni kaimono o shi ni ikimasu.",
+      "At midday I'll go to the market to do some shopping."
+     ],
+     "note": "stem plus に行く names the purpose of going out"
+    },
+    {
+     "jp": [
+      "天気がよかったら、写真をたくさんとります。",
+      "てんきがよかったら、しゃしんをたくさんとります。",
+      "Tenki ga yokattara, shashin o takusan torimasu.",
+      "If the weather is good, I'll take lots of photos."
+     ],
+     "note": "たら hangs the plan on the weather"
+    },
+    {
+     "jp": [
+      "雨が降ったら、カフェで少し待ちます。",
+      "あめがふったら、カフェですこしまちます。",
+      "Ame ga futtara, kafe de sukoshi machimasu.",
+      "If it rains, I'll wait a little at a cafe."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "夜はホテルに泊まって、ゆっくり休みます。",
+      "よるはホテルにとまって、ゆっくりやすみます。",
+      "Yoru wa hoteru ni tomatte, yukkuri yasumimasu.",
+      "At night I'll stay at the hotel and rest at an easy pace."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "明日の予約も、今日のうちに確認します。",
+      "あしたのよやくも、きょうのうちにかくにんします。",
+      "Ashita no yoyaku mo, kyō no uchi ni kakunin shimasu.",
+      "I'll also confirm tomorrow's booking today."
+     ],
+     "note": "予約 closes the loop back to planning ahead"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "空港に待ちます。",
+      "くうこうにまちます。",
+      "Kūkō ni machimasu.",
+      "I wait at the airport."
+     ],
+     "options": [
+      "空港へ待ちます。",
+      "空港で待ちます。",
+      "空港を待ちます。"
+     ],
+     "answer": 1,
+     "why": "Option 1 uses で to mark the place an action happens, which is what standing and waiting is; option 0 swaps in へ, a direction particle that fits moving towards somewhere, not staying put; option 2's を would treat the airport itself as the thing being waited for, which does not make sense."
+    },
+    {
+     "weak": [
+      "私わホテルに泊まります。",
+      "わたしわホテルにとまります。",
+      "Watashi wa hoteru ni tomarimasu.",
+      "I will stay at the hotel."
+     ],
+     "options": [
+      "私は、ホテルで泊まります。",
+      "私はホテルに泊まりました。",
+      "私はホテルに泊まります。"
+     ],
+     "answer": 2,
+     "why": "Option 2 keeps は as the topic marker and に as the place you're heading to stay; option 0 swaps in で, which marks where an action happens rather than a destination, so it reads oddly with 泊まる; option 1 shifts into the past tense 泊まりました, wrongly describing a stay that has already happened instead of the planned one."
+    },
+    {
+     "weak": [
+      "買い物に行きたいから、買い物に行きます。",
+      "かいものにいきたいから、かいものにいきます。",
+      "Kaimono ni ikitai kara, kaimono ni ikimasu.",
+      "Because I want to go shopping, I'm going shopping."
+     ],
+     "options": [
+      "新しいくつが欲しいから、買い物に行きます。",
+      "買い物に行きたいから、買い物に行きます。",
+      "買い物に行きますから、買い物に行きたいです。"
+     ],
+     "answer": 0,
+     "why": "Option 0 gives an actual reason, wanting new shoes, that explains the shopping trip; option 1 just restates the plan as its own reason, which is circular and explains nothing; option 2 reverses cause and effect, making the trip the reason for wanting to go on the trip, which is backwards."
+    }
+   ]
+  },
+  "extension": {
+   "task": [
+    "自分の旅行の計画を書いてください。てから、たら、に行くを一つずつ使って、行ったことがない場所を選んでください。",
+    "じぶんのりょこうのけいかくをかいてください。てから、たら、にいくをひとつずつつかって、いったことがないばしょをえらんでください。",
+    "Jibun no ryokō no keikaku o kaite kudasai. Te kara, tara, ni iku o hitotsu zutsu tsukatte, itta koto ga nai basho o erande kudasai.",
+    "Write your own trip plan. Use てから, たら and に行く once each, and choose somewhere you haven't been."
+   ],
+   "checklist": [
+    "Did you use てから to fix the order of two steps?",
+    "Did you build a たら if-clause for something outside your control, like the weather?",
+    "Did you name the purpose of a trip out with stem plus に行く?",
+    "Did you pick a place you haven't already used in the model?"
+   ]
+  }
+ },
+ {
+  "key": "u103",
+  "words": [
+   {
+    "w": "歌",
+    "r": "うた",
+    "parts": [
+     "歌"
+    ],
+    "def": "A piece of music with words, meant to be sung."
+   },
+   {
+    "w": "記事",
+    "r": "きじ",
+    "parts": [
+     "記",
+     "事"
+    ],
+    "def": "A piece of writing in a newspaper, magazine or website that reports on one particular topic."
+   },
+   {
+    "w": "番組",
+    "r": "ばんぐみ",
+    "parts": [
+     "番",
+     "組"
+    ],
+    "def": "A single show or segment broadcast on television, radio or a streaming service."
+   },
+   {
+    "w": "歌手",
+    "r": "かしゅ",
+    "parts": [
+     "歌",
+     "手"
+    ],
+    "def": "A person whose job is singing, especially as a performer or recording artist."
+   },
+   {
+    "w": "雑誌",
+    "r": "ざっし",
+    "parts": [
+     "雑",
+     "誌"
+    ],
+    "def": "A regularly published collection of articles and pictures, thinner than a book and printed on glossy paper."
+   },
+   {
+    "w": "動画",
+    "r": "どうが",
+    "parts": [
+     "動",
+     "画"
+    ],
+    "def": "A short video, especially one shared or watched online."
+   },
+   {
+    "w": "人気",
+    "r": "にんき",
+    "parts": [
+     "人",
+     "気"
+    ],
+    "def": "How much a person or thing is liked and talked about by a lot of people."
+   },
+   {
+    "w": "内容",
+    "r": "ないよう",
+    "parts": [
+     "内",
+     "容"
+    ],
+    "def": "What something is actually about, the substance inside a story, article or show."
+   },
+   {
+    "w": "感想",
+    "r": "かんそう",
+    "parts": [
+     "感",
+     "想"
+    ],
+    "def": "The thoughts and feelings someone has after reading, watching or experiencing something."
+   },
+   {
+    "w": "続き",
+    "r": "つづき",
+    "parts": [
+     "続"
+    ],
+    "def": "The next part of a story that continues on from where it left off."
+   },
+   {
+    "w": "アニメ",
+    "r": "アニメ",
+    "def": "A style of animated show or film, especially one made in Japan."
+   },
+   {
+    "w": "ドラマ",
+    "r": "ドラマ",
+    "def": "A television show that tells an ongoing fictional story, often serialised across episodes."
+   }
+  ],
+  "kanjiGloss": {
+   "歌": {
+    "g": "song, sing",
+    "r": "うた、カ"
+   },
+   "記": {
+    "g": "record, write",
+    "r": "キ"
+   },
+   "事": {
+    "g": "matter, affair",
+    "r": "こと、ジ"
+   },
+   "番": {
+    "g": "number, order, watch",
+    "r": "バン"
+   },
+   "組": {
+    "g": "group, set",
+    "r": "くみ、ソ"
+   },
+   "手": {
+    "g": "hand, skilled person",
+    "r": "て、シュ"
+   },
+   "雑": {
+    "g": "miscellaneous",
+    "r": "ザツ"
+   },
+   "誌": {
+    "g": "magazine, record",
+    "r": "シ"
+   },
+   "動": {
+    "g": "move",
+    "r": "うごく、ドウ"
+   },
+   "画": {
+    "g": "picture, plan",
+    "r": "ガ、カク"
+   },
+   "人": {
+    "g": "person",
+    "r": "ひと、ジン"
+   },
+   "気": {
+    "g": "spirit, feeling",
+    "r": "キ"
+   },
+   "内": {
+    "g": "inside",
+    "r": "ナイ、うち"
+   },
+   "容": {
+    "g": "content, form",
+    "r": "ヨウ"
+   },
+   "感": {
+    "g": "feeling, sense",
+    "r": "カン"
+   },
+   "想": {
+    "g": "thought, idea",
+    "r": "ソウ"
+   },
+   "続": {
+    "g": "continue",
+    "r": "つづく、ゾク"
+   }
+  },
+  "payoff": "歌 built 歌手 straight from a word you already own, and 記事 and 番組 are already sitting in the VCE media unit waiting for you.",
+  "qa": [
+   {
+    "q": [
+     "どんな番組を見るのが好きですか。",
+     "どんなばんぐみをみるのがすきですか。",
+     "Donna bangumi o miru no ga suki desu ka.",
+     "What kind of shows do you like watching?"
+    ],
+    "a": [
+     "アニメを見るのが好きです。",
+     "アニメをみるのがすきです。",
+     "Anime o miru no ga suki desu.",
+     "I like watching anime."
+    ],
+    "tip": "の turns 見る into a noun so 好き can attach to the whole activity, not just the thing."
+   },
+   {
+    "q": [
+     "雑誌と動画、どちらのほうがいいですか。",
+     "ざっしとどうが、どちらのほうがいいですか。",
+     "Zasshi to dōga, dochira no hō ga ii desu ka.",
+     "Which is better, magazines or videos?"
+    ],
+    "a": [
+     "雑誌より動画のほうがおもしろいです。",
+     "ざっしよりどうがのほうがおもしろいです。",
+     "Zasshi yori dōga no hō ga omoshiroi desu.",
+     "Videos are more interesting than magazines."
+    ],
+    "tip": "より marks what's being outranked; ほうが sits on the winner."
+   },
+   {
+    "q": [
+     "あたらしい番組はどうですか。",
+     "あたらしいばんぐみはどうですか。",
+     "Atarashii bangumi wa dō desu ka.",
+     "What's the new show like?"
+    ],
+    "a": [
+     "友達の話では、人気があるそうです。",
+     "ともだちのはなしでは、にんきがあるそうです。",
+     "Tomodachi no hanashi de wa, ninki ga aru sō desu.",
+     "According to my friend, it's popular, or so I hear."
+    ],
+    "tip": "plain form plus そうです reports what someone else said, not your own eyes."
+   },
+   {
+    "q": [
+     "あの記事を読みましたか。",
+     "あのきじをよみましたか。",
+     "Ano kiji o yomimashita ka.",
+     "Did you read that article?"
+    ],
+    "a": [
+     "はい、読みました。内容がちょっと難しかったです。",
+     "はい、よみました。ないようがちょっとむずかしかったです。",
+     "Hai, yomimashita. Naiyō ga chotto muzukashikatta desu.",
+     "Yes, I read it. The content was a bit hard."
+    ],
+    "tip": "内容が names exactly what was hard; the sentence you say IS your 感想."
+   },
+   {
+    "q": [
+     "好きな歌手はいますか。",
+     "すきなかしゅはいますか。",
+     "Suki na kashu wa imasu ka.",
+     "Do you have a favourite singer?"
+    ],
+    "a": [
+     "はい、好きな歌手がいます。新しい歌をよく聞きます。",
+     "はい、すきなかしゅがいます。あたらしいうたをよくききます。",
+     "Hai, suki na kashu ga imasu. Atarashii uta o yoku kikimasu.",
+     "Yes, I have a favourite singer. I listen to their new songs a lot."
+    ],
+    "tip": "People you follow take います; swap 歌 for 動画 if you follow them online instead."
+   },
+   {
+    "q": [
+     "あのドラマの内容はどんな話ですか。",
+     "あのドラマのないようはどんなはなしですか。",
+     "Ano dorama no naiyō wa donna hanashi desu ka.",
+     "What's that drama actually about?"
+    ],
+    "a": [
+     "ある家族の話だそうです。",
+     "あるかぞくのはなしだそうです。",
+     "Aru kazoku no hanashi da sō desu.",
+     "Apparently it's a story about a family, so I've heard."
+    ],
+    "tip": "だそうです adds そうです onto a noun sentence with だ first."
+   }
+  ],
+  "craft": {
+   "intro": "This worked answer models talking about what you follow in the media and comparing it to something else, backed by what you've heard.",
+   "model": [
+    {
+     "jp": [
+      "私はドラマを見るのが好きです。",
+      "わたしはドラマをみるのがすきです。",
+      "Watashi wa dorama o miru no ga suki desu.",
+      "I like watching dramas."
+     ],
+     "note": "のが好き turns a whole activity into the thing you like"
+    },
+    {
+     "jp": [
+      "雑誌より動画のほうをよく見ます。",
+      "ざっしよりどうがのほうをよくみます。",
+      "Zasshi yori dōga no hō o yoku mimasu.",
+      "I watch videos more often than I read magazines."
+     ],
+     "note": "より…ほうが ranks two options; in front of a doing-verb like 見る the winner takes ほうを"
+    },
+    {
+     "jp": [
+      "新しい番組は、友達の話では人気があるそうです。",
+      "あたらしいばんぐみは、ともだちのはなしではにんきがあるそうです。",
+      "Atarashii bangumi wa, tomodachi no hanashi de wa ninki ga aru sō desu.",
+      "According to my friend, the new show is apparently popular."
+     ],
+     "note": "plain form plus そうです reports someone else's news"
+    },
+    {
+     "jp": [
+      "記事も読みますが、動画のほうがわかりやすいです。",
+      "きじもよみますが、どうがのほうがわかりやすいです。",
+      "Kiji mo yomimasu ga, dōga no hō ga wakariyasui desu.",
+      "I read articles too, but videos are easier to follow."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "続きが気になるので、毎週楽しみにしています。",
+      "つづきがきになるので、まいしゅうたのしみにしています。",
+      "Tsuzuki ga ki ni naru node, maishū tanoshimi ni shite imasu.",
+      "I'm curious about what happens next, so I look forward to it every week."
+     ],
+     "note": "気になる names the pull that keeps you watching"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "アニメを見るのを好きです。",
+      "アニメをみるのをすきです。",
+      "Anime o miru no o suki desu.",
+      "I like watching anime."
+     ],
+     "options": [
+      "アニメを見るのは好きです。",
+      "アニメを見るのが好きでした。",
+      "アニメを見るのが好きです。"
+     ],
+     "answer": 2,
+     "why": "Option 2 keeps が on 好き, which is the particle that word always wants; option 0 swaps in は, which is not wrong grammar but turns the sentence into a contrastive topic, hinting there's a but coming that isn't there; option 1 shifts to でした, wrongly suggesting the liking is over."
+    },
+    {
+     "weak": [
+      "動画のほうが動画より好きです。",
+      "どうがのほうがどうがよりすきです。",
+      "Dōga no hō ga dōga yori suki desu.",
+      "I like videos more than videos."
+     ],
+     "options": [
+      "雑誌より動画のほうが好きです。",
+      "動画のほうが動画より好きです。",
+      "動画より動画のほうが好きです。"
+     ],
+     "answer": 0,
+     "why": "Option 0 actually compares two different things, magazines and videos, which is what a comparison needs; option 1 and option 2 both compare 動画 to itself, just in a different word order, so neither one says anything at all."
+    },
+    {
+     "weak": [
+      "番組わ人気があるそうです。",
+      "ばんぐみわにんきがあるそうです。",
+      "Bangumi wa ninki ga aru sō desu.",
+      "The show is apparently popular."
+     ],
+     "options": [
+      "番組は人気があったそうです。",
+      "番組は人気があるそうです。",
+      "番組は人気があるそうでした。"
+     ],
+     "answer": 1,
+     "why": "Option 1 keeps は as the topic marker and reports current hearsay with plain form plus そうです; option 0's あった reports past popularity, which answers a different question from how the show is doing now; option 2's そうでした is not a form hearsay そうです ever takes."
+    }
+   ]
+  },
+  "extension": {
+   "task": [
+    "好きな番組や動画について書いてください。のが好き、より〜ほうが、そうですを一回ずつ使って、まだ紹介していないものを選んでください。",
+    "すきなばんぐみやどうがについてかいてください。のがすき、より〜ほうが、そうですをいっかいずつつかって、まだしょうかいしていないものをえらんでください。",
+    "Suki na bangumi ya dōga ni tsuite kaite kudasai. No ga suki, yori ~ hō ga, sō desu o ikkai zutsu tsukatte, mada shōkai shite inai mono o erande kudasai.",
+    "Write about a show or video you like. Use のが好き, より〜ほうが and そうです once each, choosing something you haven't introduced yet."
+   ],
+   "checklist": [
+    "Did you name a whole activity you like with のが好き?",
+    "Did you compare two different things with より…ほうが, not the same thing twice?",
+    "Did you report something you heard, not saw, with plain form plus そうです?",
+    "Did you pick media you haven't already used in the model?"
+   ]
+  }
+ },
+ {
+  "key": "u104",
+  "words": [
+   {
+    "w": "働く",
+    "r": "はたらく",
+    "parts": [
+     "働"
+    ],
+    "def": "To do a job, putting in effort in exchange for being paid."
+   },
+   {
+    "w": "忙しい",
+    "r": "いそがしい",
+    "parts": [
+     "忙"
+    ],
+    "def": "Having so much to do that there's barely a spare moment."
+   },
+   {
+    "w": "仕事",
+    "r": "しごと",
+    "parts": [
+     "仕",
+     "事"
+    ],
+    "def": "The regular tasks a person does to earn money or fulfil a role."
+   },
+   {
+    "w": "会社",
+    "r": "かいしゃ",
+    "parts": [
+     "会",
+     "社"
+    ],
+    "def": "An organisation that people work for, usually to make or sell something."
+   },
+   {
+    "w": "将来",
+    "r": "しょうらい",
+    "parts": [
+     "将",
+     "来"
+    ],
+    "def": "Your own road ahead: the study, jobs and life you are heading towards."
+   },
+   {
+    "w": "目標",
+    "r": "もくひょう",
+    "parts": [
+     "目",
+     "標"
+    ],
+    "def": "Something a person aims for and works towards achieving."
+   },
+   {
+    "w": "経験",
+    "r": "けいけん",
+    "parts": [
+     "経",
+     "験"
+    ],
+    "def": "Something a person has actually done or lived through, and what they learned from it."
+   },
+   {
+    "w": "給料",
+    "r": "きゅうりょう",
+    "parts": [
+     "給",
+     "料"
+    ],
+    "def": "The money a person is regularly paid for doing their job."
+   },
+   {
+    "w": "面接",
+    "r": "めんせつ",
+    "parts": [
+     "面",
+     "接"
+    ],
+    "def": "A meeting where someone is asked questions to see if they're right for a job."
+   },
+   {
+    "w": "食事",
+    "r": "しょくじ",
+    "parts": [
+     "食",
+     "事"
+    ],
+    "def": "A meal, the food you sit down to eat at a set time of day."
+   },
+   {
+    "w": "バイト",
+    "r": "バイト",
+    "def": "A part-time job, often done by students alongside school."
+   },
+   {
+    "w": "のんびり",
+    "r": "のんびり",
+    "def": "Relaxed and unhurried, with nothing pressing you to move fast."
+   }
+  ],
+  "kanjiGloss": {
+   "働": {
+    "g": "work, labour",
+    "r": "はたらく、ドウ"
+   },
+   "忙": {
+    "g": "busy",
+    "r": "いそがしい、ボウ"
+   },
+   "仕": {
+    "g": "serve, do",
+    "r": "シ"
+   },
+   "事": {
+    "g": "matter, thing",
+    "r": "こと、ジ"
+   },
+   "会": {
+    "g": "meet, association",
+    "r": "カイ"
+   },
+   "社": {
+    "g": "company, shrine",
+    "r": "シャ"
+   },
+   "将": {
+    "g": "about to, leader",
+    "r": "ショウ"
+   },
+   "来": {
+    "g": "come",
+    "r": "くる、ライ"
+   },
+   "目": {
+    "g": "eye, aim",
+    "r": "め、モク"
+   },
+   "標": {
+    "g": "marker, target",
+    "r": "ヒョウ"
+   },
+   "経": {
+    "g": "pass through, sutra",
+    "r": "ケイ"
+   },
+   "験": {
+    "g": "test, experience",
+    "r": "ケン"
+   },
+   "給": {
+    "g": "supply, wage",
+    "r": "キュウ"
+   },
+   "料": {
+    "g": "fee, ingredients",
+    "r": "リョウ"
+   },
+   "面": {
+    "g": "face, surface",
+    "r": "メン"
+   },
+   "接": {
+    "g": "contact, receive",
+    "r": "セツ"
+   },
+   "食": {
+    "g": "eat, food",
+    "r": "ショク、たべる"
+   }
+  },
+  "payoff": "事 built two of your words, 仕事 and 食事, and 仕事 is already sitting in the VCE careers unit waiting for you.",
+  "qa": [
+   {
+    "q": [
+     "アルバイトで何ができますか。",
+     "アルバイトでなにができますか。",
+     "Arubaito de nani ga dekimasu ka.",
+     "What can you do in your part-time job?"
+    ],
+    "a": [
+     "レジで働くことができます。",
+     "レジではたらくことができます。",
+     "Reji de hataraku koto ga dekimasu.",
+     "I'm able to work the register."
+    ],
+    "tip": "plain verb plus ことができる spells out a skill; アルバイト is the full word, バイト the everyday short form."
+   },
+   {
+    "q": [
+     "卒業したら、何をしますか。",
+     "そつぎょうしたら、なにをしますか。",
+     "Sotsugyō shitara, nani o shimasu ka.",
+     "What will you do after you graduate?"
+    ],
+    "a": [
+     "卒業したら、会社で働きたいです。",
+     "そつぎょうしたら、かいしゃではたらきたいです。",
+     "Sotsugyō shitara, kaisha de hatarakitai desu.",
+     "After I graduate, I want to work at a company."
+    ],
+    "tip": "たら pins the plan to a finished event, not just a future time."
+   },
+   {
+    "q": [
+     "面接の前に何をしなければなりませんか。",
+     "めんせつのまえになにをしなければなりませんか。",
+     "Mensetsu no mae ni nani o shinakereba narimasen ka.",
+     "What do you have to do before an interview?"
+    ],
+    "a": [
+     "会社について調べなければなりません。",
+     "かいしゃについてしらべなければなりません。",
+     "Kaisha ni tsuite shirabenakereba narimasen.",
+     "I have to research the company."
+    ],
+    "tip": "なければなりません states what's required, not just preferred."
+   },
+   {
+    "q": [
+     "仕事はどうですか。",
+     "しごとはどうですか。",
+     "Shigoto wa dō desu ka.",
+     "How's the job?"
+    ],
+    "a": [
+     "忙しいですが、給料はいいです。",
+     "いそがしいですが、きゅうりょうはいいです。",
+     "Isogashii desu ga, kyūryō wa ii desu.",
+     "It's busy, but the pay is good."
+    ],
+    "tip": "が here links two true but contrasting facts about the same job."
+   },
+   {
+    "q": [
+     "将来の目標は何ですか。",
+     "しょうらいのもくひょうはなんですか。",
+     "Shōrai no mokuhyō wa nan desu ka.",
+     "What's your goal for the future?"
+    ],
+    "a": [
+     "経験を積んで、自分の会社を作ることです。",
+     "けいけんをつんで、じぶんのかいしゃをつくることです。",
+     "Keiken o tsunde, jibun no kaisha o tsukuru koto desu.",
+     "It's to build up experience and start my own company."
+    ],
+    "tip": "ことです closes the sentence by naming the goal itself as a thing."
+   },
+   {
+    "q": [
+     "バイトのあと、のんびりしますか。",
+     "バイトのあと、のんびりしますか。",
+     "Baito no ato, nonbiri shimasu ka.",
+     "Do you relax after your part-time job?"
+    ],
+    "a": [
+     "いいえ、宿題をしなければなりません。",
+     "いいえ、しゅくだいをしなければなりません。",
+     "Iie, shukudai o shinakereba narimasen.",
+     "No, I have to do my homework."
+    ],
+    "tip": "なければなりません keeps working even when the answer is 'no, because I have to'."
+   }
+  ],
+  "craft": {
+   "intro": "What work and study look like right now, and what happens after graduation.",
+   "model": [
+    {
+     "jp": [
+      "今はカフェでアルバイトをしています。",
+      "いまはカフェでアルバイトをしています。",
+      "Ima wa kafe de arubaito o shite imasu.",
+      "Right now I'm doing a part-time job at a cafe."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "レジで働くことができるので、よく店長を手伝います。",
+      "レジではたらくことができるので、よくてんちょうをてつだいます。",
+      "Reji de hataraku koto ga dekiru node, yoku tenchō o tetsudaimasu.",
+      "Because I can work the register, I often help the manager."
+     ],
+     "note": "ことができる names a concrete skill, not just an interest"
+    },
+    {
+     "jp": [
+      "忙しいですが、給料は悪くないです。",
+      "いそがしいですが、きゅうりょうはわるくないです。",
+      "Isogashii desu ga, kyūryō wa waruku nai desu.",
+      "It's busy, but the pay isn't bad."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "卒業したら、会社で経験を積みたいです。",
+      "そつぎょうしたら、かいしゃでけいけんをつみたいです。",
+      "Sotsugyō shitara, kaisha de keiken o tsumitai desu.",
+      "After I graduate, I want to build up experience at a company."
+     ],
+     "note": "たら hangs the future plan on finishing school first"
+    },
+    {
+     "jp": [
+      "将来の目標のために、毎日早く起きなければなりません。",
+      "しょうらいのもくひょうのために、まいにちはやくおきなければなりません。",
+      "Shōrai no mokuhyō no tame ni, mainichi hayaku okinakereba narimasen.",
+      "For the sake of my future goal, I have to get up early every day."
+     ],
+     "note": "なければ states what the goal actually demands of you"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "レジで働くのができます。",
+      "レジではたらくのができます。",
+      "Reji de hataraku no ga dekimasu.",
+      "I'm able to work the register."
+     ],
+     "options": [
+      "レジで働くことができます。",
+      "レジで働けることができます。",
+      "レジで働くことをできます。"
+     ],
+     "answer": 0,
+     "why": "Option 0 is the set phrase intact: plain verb plus ことができる. Option 1 doubles the ability up, putting the can-form 働ける inside ことができる, which says can-can. Option 2 swaps が for を, breaking the pairing こと always makes with が in this pattern."
+    },
+    {
+     "weak": [
+      "面接の前にはやく起きなきゃ。",
+      "めんせつのまえにはやくおきなきゃ。",
+      "Mensetsu no mae ni hayaku okinakya.",
+      "I have to get up early before the interview."
+     ],
+     "options": [
+      "面接の前にはやく起きなきゃだめです。",
+      "面接の前にはやく起きなければなりません。",
+      "面接の前にはやく起きなければでした。"
+     ],
+     "answer": 1,
+     "why": "Option 1 uses the full polite なければなりません, matching how you'd actually describe an obligation in a serious context like a job interview; option 0 still has the casual なきゃ sitting inside an otherwise polite sentence, an awkward mix; option 2 bolts でした onto なければ, which is not a valid way to finish that pattern."
+    },
+    {
+     "weak": [
+      "目標があるから、目標があります。",
+      "もくひょうがあるから、もくひょうがあります。",
+      "Mokuhyō ga aru kara, mokuhyō ga arimasu.",
+      "Because I have a goal, I have a goal."
+     ],
+     "options": [
+      "目標があるから、目標があります。",
+      "目標がありますから、目標があるのだと思います。",
+      "将来、自分の会社を作りたいです。それが目標です。"
+     ],
+     "answer": 2,
+     "why": "Option 2 escapes the circle the only way possible: by naming what the goal actually IS. Options 0 and 1 both spin on the spot, asserting a goal exists because it exists, one of them just dressed up with と思います."
+    }
+   ]
+  },
+  "extension": {
+   "task": [
+    "将来の仕事について書いてください。ことができる、たら、なければを一回ずつ使って、まだ紹介していない仕事を一つ選んでください。",
+    "しょうらいのしごとについてかいてください。ことができる、たら、なければをいっかいずつつかって、まだしょうかいしていないしごとをひとつえらんでください。",
+    "Shōrai no shigoto ni tsuite kaite kudasai. Koto ga dekiru, tara, nakereba o ikkai zutsu tsukatte, mada shōkai shite inai shigoto o hitotsu erande kudasai.",
+    "Write about a future job. Use ことができる, たら and なければ once each, choosing a job you haven't introduced yet."
+   ],
+   "checklist": [
+    "Did you name a real skill with plain verb plus ことができる?",
+    "Did you hang a future plan on a finished event with たら, like graduating?",
+    "Did you state a genuine requirement with なければなりません, not just a preference?",
+    "Did you pick a job that's new, not repeated from the model?"
+   ]
+  }
+ }
+]
