@@ -148,8 +148,9 @@ Size: M
 ### J13. Unit hub PoC: Unit 10 できること・すきなこと   DONE (commits 179a91e, 1fbd14a)
 Status: **BUILT and live at `/unit10/`** 2026-08-18. Five steps, the vocab
 bank in the future vocab-hub schema, grammar stages deep-linking into the
-Grammar Hub, a three-tier reading ending in an evidence step, and a
-first-try report. 30-check smoke suite passing. Awaiting Andrew: accuracy
+Grammar Hub, a **character builder** breaking six unit kanji into their
+components, a three-tier reading ending in an evidence step, and a
+first-try report. Six steps. 30-check + 23-check smoke suites passing. Awaiting Andrew: accuracy
 of the 23 words and every authored sentence (new Q18), and whether the
 step order matches how he actually teaches the unit.
 Built from the spec below, which stays for the record.

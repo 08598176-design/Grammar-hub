@@ -194,12 +194,21 @@ their choice, and a first-try report. It is built FROM your materials
 (the p203 verb table, your ことができる worksheets, the shape of your
 reading CATs) but every sentence in it is authored fresh: the Obento page
 scans are textbook images and nothing reproduces them.
-**Ask:** Three things. (a) Are the 23 words the right 23, and are the
+**Ask:** Four things. (a) Are the 23 words the right 23, and are the
 readings, groups and example sentences accurate? (b) Do the three grammar
 stages match the order you actually teach them in, and is the 上手 vs
 とくい note right? (c) Are the three reading profiles pitched at the right
-levels, and would you accept the job each one points to? Anything wrong
-here is a one-line fix, so mark it up freely.
+levels, and would you accept the job each one points to? (d) **The
+character builder (step 3) needs your eye most.** It breaks six kanji from
+the unit's own words into their components (好 = 女 + 子, 聞 = 耳 + 門,
+泳 = 氵 + 永 …) and marks each part as carrying either the MEANING or the
+SOUND. Two things to rule on: are those splits and sound-part claims ones
+you would teach, and are you happy with the line the app draws between a
+component analysis (presented as fact) and a memory story (labelled
+"memory hook, not history")? Kanji etymology is contested and the app
+deliberately refuses to dress up a mnemonic as history, but you may want
+to tell it different stories. Anything wrong here is a one-line fix, so
+mark it up freely.
 
 ### Q11. Furigana policy
 **Context:** Items currently use `<ruby>` furigana ad hoc and avoid off-list
