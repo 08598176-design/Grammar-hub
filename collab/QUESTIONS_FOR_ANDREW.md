@@ -82,41 +82,42 @@ set up on school devices, or may be slow with it.
 should the app accept romaji (and auto-check it against the kana answer), or
 should lower bands lean on tap-to-choose task types instead of typing?
 
-### Q5. Kanji: is a "radical matrix" worth prototyping?
-**Context:** Liam's EAL hub teaches morphology with morpheme matrices
-(prefix + root + suffix families). The analogue: build kanji families from
-shared components/radicals (e.g. 日 → 明・時・曜, semantic radical + phonetic
-component patterns). You've said kana isn't worth building (apps abound) —
-kanji may be different because it could tie to *your* prescribed lists.
-**There is now a working proof of concept to react to:**
-https://liaminhawai-cmd.github.io/japanese-hub/words/ — three kanji
-families (食・費・調) built from the 給食 unit's own vocabulary: meet the
-family, build each word from its parts, then derive meanings. Delete-able.
-**A second, deeper proof of concept is now live:**
-https://liaminhawai-cmd.github.io/japanese-hub/kanji/ — the Kanji
-Factory. Parts sit in a neutral bank with no colour; build a character
-and they light up with the job they do IN it: blue for meaning, red for
-sound, purple for both. The 門 family is the argument: 門 lights red in
-問 and 聞 (it gives the reading モン/ブン) and blue in 開 (where it is
-the meaning and nothing gives the sound), closing on 間 to show the
-trick is a strong bet, not a law. Then you read 詩, 精 and 詠 cold.
-It now runs in three stages, on the shape of Liam's EAL word builder:
-sort a 15-part bank into three bins by what each part can EVER do (red
-always meaning, blue usually sound, purple both), then build eight
-characters from one shared bank and watch each part light up with the
-job it does in THAT character, then read 詩・精・詠 cold. The app is
-explicit that the red bin is a law (bound forms have no reading of their
-own, so they can never carry sound) while the other two are strong bets.
-**Also ask:** are those component splits and sound claims ones you would
-teach? Is the three-bin capacity sort (always meaning / usually sound /
-both) a distinction your students could actually use, or too fine? Is 会意兼形声 (used only for 忘) a distinction you want students
-to meet, or noise at this level? And the big one: is THIS the version of
-the kanji angle worth growing, or the word-level Word Lab, or neither?
-**Ask:** Open the link and try one family. Does part-by-part word building
-match how you'd teach kanji vocabulary, or do apps (WaniKani etc.) already
-own this space? If it's worth growing: which list first — the VCE
-prescribed kanji, or Obento chapter kanji by year level? Are the three
-families' readings/glosses/part-glosses accurate as shipped?
+### Q5. Kanji: is the component angle worth building out?
+**Context:** Liam's EAL hub teaches English morphology with morpheme
+matrices (prefix + root + suffix). Two Japanese analogues now exist as
+working prototypes, at two different levels, and the real question is
+which one (if either) is worth growing.
+
+**(a) ことばラボ Word Lab** — https://liaminhawai-cmd.github.io/japanese-hub/words/
+Builds WORDS out of kanji. Four families: 食・費・調 from the 給食 unit,
+plus 〜手, which is Japanese doing what English does with -er (歌手 a
+song-hand, 選手 a chosen-hand, 運転手 a driving-hand). Parts are coloured
+prefix / root / suffix, and the app is explicit that a kanji's role
+changes with the word: 費 is a suffix in 給食費 but the root of 費用.
+
+**(b) かんじこうじょう Kanji Factory** — https://liaminhawai-cmd.github.io/japanese-hub/kanji/
+Builds CHARACTERS out of their components, one level down. Three stages:
+1. Sort a 15-part bank into three bins by what a part can EVER do:
+   red いつも いみ (always meaning), blue たいてい おと (usually sound),
+   purple どちらも (both).
+2. Build eight characters (問 聞 開 時 持 晴 清 泳) from one shared bank.
+   On assembly each part lights up with the job it does in THAT
+   character. 門 lights blue in 問 and 聞 and red in 開, which is why it
+   was sorted purple; 氵 never changes, which is why it was sorted red.
+3. Read 詩, 精 and 詠 cold, using the sound families alone.
+The app deliberately says that the red bin is a **law** — bound forms
+(氵 亻 扌 忄 艹) have no reading of their own so they can never carry
+sound — while the blue and purple bins are strong **bets**, not rules.
+
+**Ask:**
+(a) Are the component splits and the sound-family claims (寺→ジ, 青→セイ,
+    永→エイ, 門→モン/ブン) ones you would put in front of a class?
+(b) Is the three-bin capacity sort a distinction your students could
+    actually use, or too fine for secondary?
+(c) Which level is the useful one: words-from-kanji, characters-from-
+    components, both, or neither because WaniKani and friends own this?
+(d) If it is worth growing: which list first, the VCE prescribed kanji or
+    Obento chapter kanji by year level?
 
 ### Q6. Topic map: what does each year level do, roughly when?
 **Context:** The plan's second layer is topic modules (vocab frontloading +
