@@ -993,7 +993,7 @@ function paintGap(){
   }
   const it=gap.items[gs.i];
   $("gap-area").innerHTML='<div class="gapbox">'+
-    '<div class="qalab">チェック '+(gs.i+1)+'/'+gap.items.length+' · '+esc(it.about)+'</div>'+
+    '<div class="qalab">チェック '+(gs.i+1)+'/'+gap.items.length+'</div>'+
     jpBlock(it.q)+
     '<div class="gapopts">'+it.options.map((o,j)=>
       '<button class="optbtn" data-o="'+j+'">'+esc(o)+'</button>').join("")+'</div></div>';
