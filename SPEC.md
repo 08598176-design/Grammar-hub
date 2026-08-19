@@ -356,6 +356,14 @@ runtime build step exists. To change a unit's CONTENT edit the JSON; to
 change ENGINE or hand-authored linguistics edit the template; never edit
 the generated files directly.
 
+The walk's build step follows the Bone Sparrow shape: the study step
+shows the analysis; the build step hides it. Kana units build words from
+kana tiles; kanji units run two stages, first rebuilding every word from
+its meaning alone (tile bank, kanji tiles glossed, word never shown),
+then assembling the key kanji from parts in position with the target
+masked in its word context. Nothing on the build screen shows what the
+student is meant to produce.
+
 Word schema (junior): kana units `{w, kp?, def}`; kanji units
 `{w, r, parts, def}` (kana-only words in kanji units carry no `parts`).
 Four-form arrays everywhere are `[kanji, kana, romaji, english]`. Kana
