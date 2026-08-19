@@ -247,10 +247,18 @@ or should romaji input be auto-converted/accepted at lower bands? Affects
     they can never show *less* support than the page, and while the pointer
     is inside their section the spring **pauses entirely** (`.resting`)
     rather than counting down while you read.
+  - **The stops are uneven** (`HubLever.STOPS = [10, 24, 48, 90]`, percent
+    down the track): adding furigana is a nudge, romaji is a real pull, and
+    English is a long stretch to the bottom. Dragging snaps to the nearest
+    stop by distance, so the further you reach from Japanese the more work
+    it takes. The mechanic carries the pedagogy.
   - **The recoil** is a spring-loaded catch, not a slide: each stop holds
-    while the wobble settles (28% of `stepMs`), creeps a third of the way
-    back under tension (72%), then snaps onto the notch and wobbles. The
-    stage changes on the snap, because that is when the mechanism moves.
+    while the wobble settles (28%), creeps a third of the way back under
+    tension (72%), then snaps onto the notch and wobbles. The stage changes
+    on the snap, because that is when the mechanism moves. Each stop's time
+    is **scaled to the distance it travels**, so a long stretch pulls back
+    harder and slower than a nudge: on the page lever, EN→abc takes about
+    1.24 s, abc→かな about 0.84 s, かな→漢字 about 0.53 s.
   - Keyboard: arrows step, End pulls to full English, Home/Escape releases
     straight to the floor (accessibility escape hatch, not the spring).
     `prefers-reduced-motion` drops the creep and the wobble.

@@ -25,6 +25,13 @@ window.HubLever = (function () {
   "use strict";
 
   var STAGE_NAMES = ["漢字", "かな", "abc", "EN"];
+  /* The stops are deliberately UNEVEN. Adding furigana is a nudge; romaji
+     is a real pull; English is a long stretch to the bottom of the track.
+     The mechanic then says what the pedagogy says: the further you reach
+     from Japanese, the more work it takes and the harder the spring pulls
+     you back. Percentages down the track. */
+  var STOPS = [10, 24, 48, 90];
+  var SPAN = STOPS[3] - STOPS[0];
   var STAGE_ARIA = ["kanji", "kana", "romaji", "English"];
 
   var STR = {};        // key -> [kanji, kana, romaji, English]
@@ -156,7 +163,11 @@ window.HubLever = (function () {
     if (!root) return null;
     var track = root.querySelector(".lever-track");
     var stageEl = root.querySelector(".lever-stage");
-    var pct = function (i) { return 12 + i * (76 / 3); };
+    var pct = function (i) { return STOPS[i]; };
+    // how much longer this stop's recoil takes, given how far it has to travel
+    var gapWeight = function (from) {
+      return (STOPS[from] - STOPS[from - 1]) / (SPAN / 3);
+    };
     var notchLabels = [];
     var i, n, lab;
     for (i = 0; i < 4; i++) {
@@ -212,8 +223,10 @@ window.HubLever = (function () {
     function armRecoil() {
       clearTimeout(timer); clearTimeout(timer2);
       if (dragging || resting || stage <= floor()) return;
-      var holdMs = Math.round(opts.stepMs * 0.28);
-      var creepMs = opts.stepMs - holdMs;
+      // a long stretch takes longer to come back than a nudge does
+      var span = Math.round(opts.stepMs * gapWeight(stage));
+      var holdMs = Math.round(span * 0.28);
+      var creepMs = span - holdMs;
       timer2 = setTimeout(function () {
         var from = pct(stage), to = pct(stage - 1);
         place(from + (to - from) * 0.3, creepMs, "cubic-bezier(.7,0,.9,.2)");
@@ -228,8 +241,12 @@ window.HubLever = (function () {
     function onMove(e) {
       if (!dragging) return;
       var r = track.getBoundingClientRect();
-      var frac = Math.max(0, Math.min(1, (e.clientY - r.top) / r.height));
-      set(Math.round(frac * 3));
+      var pos = Math.max(0, Math.min(1, (e.clientY - r.top) / r.height)) * 100;
+      var best = 0;
+      for (var k = 1; k < 4; k++) {
+        if (Math.abs(pos - STOPS[k]) < Math.abs(pos - STOPS[best])) best = k;
+      }
+      set(best);
     }
     root.addEventListener("pointerdown", function (e) {
       dragging = true;
@@ -375,6 +392,7 @@ window.HubLever = (function () {
     form: function () { return form; },
     strings: function () { return STR; },
     STAGE_NAMES: STAGE_NAMES,
-    STAGE_ARIA: STAGE_ARIA
+    STAGE_ARIA: STAGE_ARIA,
+    STOPS: STOPS
   };
 })();
