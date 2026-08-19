@@ -1,0 +1,3120 @@
+<!DOCTYPE html>
+<html lang="en-AU" translate="no" class="notranslate">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
+<title>単元の道 · Unit Walk</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9A%B6%3C/text%3E%3C/svg%3E">
+<style>
+  /* ============================================================
+     単元の道 — the Bone Sparrow walk, for Japanese. One VCE AoS
+     topic at a time, five steps in a recommended order (nothing
+     is ever locked):
+
+       1 ことば   meet the unit's words and their kanji parts
+       2 漢字     assemble each key kanji from its parts, in the
+                  right POSITIONS (the Kanji Factory's frames)
+       3 問答     simple question and answer practice, reveal
+                  and self-mark, VCE general-conversation style
+       4 文法     the grammar the unit leans on, deep-linked to
+                  the Grammar Hub for revision
+       5 クラフト  a worked example with its craft moves named,
+                  then editing: choose the stronger rewrite
+
+     Word lists are the same drafts as the Word Builder (Q6).
+     Capacity colours (red sense / blue sound / purple both) are
+     the suite-wide taxonomy: here they light up when a kanji is
+     assembled correctly, exactly as in the Kanji Factory.
+     ============================================================ */
+  :root{
+    --bg:#f4efe6; --paper:#fbf7ee; --ink:#1f1f1f; --muted:#6b6256;
+    --line:#d8cfbb; --line-soft:#e8e0cd; --accent:#a83232;
+    --correct:#2f6a3e; --wrong:#a83232; --okbg:#eef5ee; --badbg:#f7ecec;
+    --band:#f5f0e6; --amber:#8a6d1e; --pos:#8d8577;
+    --sense:#b5342a; --sense-bg:#fae7e4;
+    --sound:#2f5d8f; --sound-bg:#e3ecf5;
+    --both:#6b4a9e;  --both-bg:#ece4f6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--ink);
+       line-height:1.5;min-height:100vh;padding:16px}
+  .wrap{max-width:1000px;margin:0 auto}
+  .container{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+       padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  h1{text-align:center;font-size:22px;font-family:Georgia,'Times New Roman',serif;letter-spacing:.5px}
+  h2{font-family:Georgia,serif;font-size:17px;margin:0 0 4px}
+  .subtitle{color:var(--muted);text-align:center;margin:6px 0 4px;font-size:13px}
+  .poc{display:block;text-align:center;font-size:11px;color:var(--muted);margin-bottom:14px}
+  .poc b{color:var(--accent)}
+  .screen{display:none}.screen.active{display:block}
+  button{font-family:inherit}
+  .btn{padding:10px 17px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-weight:600;
+       cursor:pointer;background:var(--paper);color:var(--ink)}
+  .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn-ghost{background:var(--bg);color:var(--muted)}
+  .btn:disabled{opacity:.45;cursor:default}
+  .linkbtn{background:none;border:none;color:var(--accent);font-weight:600;font-size:13px;cursor:pointer;padding:4px 8px}
+  .navrow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+  .intro{font-size:13.5px;color:var(--muted);margin:2px 0 14px;text-align:center}
+
+  /* ---- home: theme groups and unit cards ---- */
+  .themehead{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+       color:var(--muted);margin:18px 0 8px;border-bottom:1px solid var(--line-soft);padding-bottom:4px}
+  .themehead b{color:var(--ink);font-size:14px;letter-spacing:0;text-transform:none;font-family:Georgia,serif;margin-right:8px}
+  .unitgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+  .ucard{text-align:left;border:1px solid var(--line);border-radius:10px;background:var(--paper);
+       padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;gap:5px}
+  .ucard:hover{border-color:var(--accent)}
+  .ucard .ut{font-family:Georgia,serif;font-size:15.5px}
+  .ucard .ub{font-size:12px;color:var(--muted)}
+  .udots{display:flex;gap:5px;margin-top:2px}
+  .udot{width:9px;height:9px;border-radius:50%;background:var(--line);border:1px solid var(--line)}
+  .udot.on{background:var(--correct);border-color:var(--correct)}
+
+  /* ---- unit page: the five step cards ---- */
+  .uhead{text-align:center;margin-bottom:4px}
+  .uhead .ut{font-family:Georgia,serif;font-size:19px}
+  .uhead .utheme{font-size:11.5px;color:var(--muted)}
+  .uhead .ublurb{font-size:13px;color:var(--muted);max-width:640px;margin:4px auto 0}
+  .steps{display:flex;flex-direction:column;gap:8px;margin:16px 0 10px}
+  .stepcard{display:flex;align-items:center;gap:14px;text-align:left;border:1px solid var(--line);
+       border-radius:10px;background:var(--paper);padding:11px 14px;cursor:pointer}
+  .stepcard:hover{border-color:var(--accent)}
+  .stepcard .sn{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);color:var(--muted);
+       display:grid;place-items:center;font-weight:800;font-size:15px;flex:none}
+  .stepcard.done .sn{border-color:var(--correct);background:var(--okbg);color:var(--correct)}
+  .stepcard .st{font-family:Georgia,serif;font-size:15.5px}
+  .stepcard .ss{font-size:12px;color:var(--muted)}
+  .stepcard .stag{margin-left:auto;font-size:11.5px;color:var(--correct);font-weight:700;white-space:nowrap}
+  .walkline{display:none}
+  .reportrow{text-align:center;margin-top:14px}
+  pre.report{white-space:pre-wrap;text-align:left;background:var(--bg);border:1px solid var(--line);
+       border-radius:8px;padding:12px 14px;font-size:12.5px;margin:10px 0}
+
+  /* ---- generic step chrome ---- */
+  .stephead{text-align:center;margin-bottom:12px}
+  .stephead .sh{font-family:Georgia,serif;font-size:18px}
+  .stephead .shs{font-size:12.5px;color:var(--muted)}
+  .stepfoot{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px}
+  .prog{font-size:12px;color:var(--muted);font-weight:700}
+
+  /* ---- step 1: study table ---- */
+  .wtable{display:flex;flex-direction:column;gap:8px}
+  .wrow{display:flex;align-items:center;gap:14px;border:1px solid var(--line-soft);border-radius:10px;
+       background:var(--paper);padding:9px 12px}
+  .wrow .wk{font-family:Georgia,serif;font-size:27px;min-width:96px;text-align:center}
+  .wrow .wr{font-size:12.5px;color:var(--muted);min-width:86px;text-align:center}
+  .wrow .wdef{font-size:12.5px;color:var(--muted);flex:1}
+  .wrow .wparts{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+  .pchip{display:flex;flex-direction:column;align-items:center;border:1px solid var(--line);border-radius:8px;
+       padding:3px 8px;background:var(--bg);min-width:44px}
+  .pchip .pk{font-family:Georgia,serif;font-size:17px;line-height:1.2}
+  .pchip .pg{font-size:8.5px;color:var(--muted);white-space:nowrap}
+  body.hidehelp .wr,body.hidehelp .wdef{visibility:hidden}
+  .studytools{text-align:center;margin:0 0 12px}
+
+  /* ---- step 2: build queue + workbench (Kanji Factory frames) ---- */
+  .queue{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+  .qcard{display:flex;flex-direction:column;align-items:center;border:1px solid var(--line);border-radius:10px;
+       background:var(--paper);padding:7px 12px;cursor:pointer;min-width:84px}
+  .qcard:hover{border-color:var(--accent)}
+  .qcard.sel{border-color:var(--accent);box-shadow:0 0 0 2px rgba(168,50,50,.18)}
+  .qcard.built{border-color:var(--correct);background:var(--okbg);cursor:default}
+  .qcard .qw{font-family:Georgia,serif;font-size:19px}
+  .qcard .qw .gap{color:var(--accent);font-weight:700}
+  .qcard.built .qw .gap{color:var(--correct)}
+  .qcard .qg{font-size:10px;color:var(--muted)}
+  .qcard .qtick{font-size:11px;font-weight:800;color:var(--correct);min-height:15px}
+  .bench{border:1px solid var(--line-soft);border-radius:12px;background:var(--band);padding:16px 14px 14px;margin-bottom:8px}
+  .prompt{text-align:center;font-size:14px;margin-bottom:2px}
+  .prompt b{font-family:Georgia,serif;font-size:17px}
+  .promptread{text-align:center;font-size:13px;color:var(--muted);margin-bottom:14px;min-height:19px}
+  .frame{display:grid;gap:8px;justify-content:center;margin-bottom:6px;padding-top:12px}
+  .frame.lr{grid-template-columns:96px 96px}
+  .frame.tb{grid-template-columns:110px}
+  .frame.tb .slot.top{height:64px;font-size:34px}
+  .frame.kamae{grid-template-columns:150px;position:relative}
+  .frame.nyou{grid-template-columns:150px;position:relative}
+  .slot{height:96px;border:2px dashed var(--line);border-radius:12px;background:var(--bg);
+       display:grid;place-items:center;font-family:Georgia,serif;font-size:44px;color:var(--ink);
+       position:relative;transition:border-color .15s,background .3s,color .3s}
+  .frame.kamae .slot.outer{height:150px;place-items:start center;padding-top:10px}
+  .frame.kamae .slot.inner{position:absolute;left:50%;top:62px;transform:translateX(-50%);
+       width:78px;height:74px;font-size:34px;z-index:2;background:var(--paper)}
+  .frame.nyou .slot.outer{height:150px;place-items:end start;padding:0 0 8px 10px}
+  .frame.nyou .slot.inner{position:absolute;right:8px;top:20px;width:84px;height:80px;
+       font-size:34px;z-index:2;background:var(--paper)}
+  .slot.over{border-color:var(--accent);background:#faf5f0}
+  .slot .slotlab{position:absolute;bottom:4px;left:0;right:0;text-align:center;
+       font-size:9px;font-weight:800;letter-spacing:.06em;color:var(--pos);text-transform:uppercase}
+  .frame.nyou .slot.outer .slotlab{text-align:left;padding-left:10px}
+  .slot.filled{border-style:solid;cursor:pointer}
+  .slot.lit-sense{border-color:var(--sense);background:var(--sense-bg);color:var(--sense);animation:pop .45s ease-out}
+  .slot.lit-sound{border-color:var(--sound);background:var(--sound-bg);color:var(--sound);animation:pop .45s ease-out}
+  @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.13)}100%{transform:scale(1)}}
+  .rolebadge{position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;
+       letter-spacing:.06em;padding:1px 8px;border-radius:9px;text-transform:uppercase;white-space:nowrap;z-index:3}
+  .rb-sense{background:var(--sense);color:#fff}
+  .rb-sound{background:var(--sound);color:#fff}
+  .frame.shake{animation:shake .4s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+  .builtline{text-align:center;font-size:13px;color:var(--correct);font-weight:700;min-height:20px;margin:6px 0 2px}
+  .hookline{text-align:center;font-size:12.5px;color:var(--muted);max-width:560px;margin:0 auto 6px;min-height:0}
+  .bankhead{font-size:10.5px;font-weight:800;letter-spacing:.09em;color:var(--muted);
+       text-transform:uppercase;text-align:center;margin:14px 0 8px}
+  .bank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .piece{display:flex;flex-direction:column;align-items:center;gap:1px;background:var(--paper);
+       border:1px solid var(--line);border-radius:10px;padding:7px 11px;cursor:grab;min-width:62px}
+  .piece:hover{border-color:var(--accent)}
+  .piece.used{opacity:.28;pointer-events:none}
+  .piece.sel{border-color:var(--accent);box-shadow:0 0 0 2px rgba(168,50,50,.18)}
+  .piece .pc{font-family:Georgia,serif;font-size:27px;line-height:1.1}
+  .piece .pg{font-size:9.5px;color:var(--muted);font-weight:600}
+  .piece .pn{font-size:8.5px;color:var(--pos)}
+  .piece.dragging{opacity:.4}
+
+  /* ---- step 3: QA ---- */
+  .qabox{border:1px solid var(--line-soft);border-radius:12px;background:var(--paper);padding:18px 16px;max-width:640px;margin:0 auto}
+  .qaq{margin-bottom:12px}
+  .jp{font-family:Georgia,serif;font-size:19px;line-height:1.7}
+  .jp .sub{display:block;font-family:'Segoe UI',sans-serif;font-size:12.5px;color:var(--muted)}
+  .qalab{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .qaa{border-top:1px dashed var(--line);padding-top:12px;margin-top:6px}
+  .qatip{font-size:12.5px;color:var(--amber);margin-top:8px}
+  .qamarks{display:flex;gap:10px;justify-content:center;margin-top:14px}
+  .qadonep{text-align:center;padding:20px 0}
+  .qadonep .big{font-size:34px}
+
+  /* ---- step 4: grammar ---- */
+  .gramrows{display:flex;flex-direction:column;gap:10px;max-width:680px;margin:0 auto}
+  .gramrow{border:1px solid var(--line-soft);border-radius:10px;background:var(--paper);padding:12px 14px;
+       display:flex;gap:12px;align-items:flex-start}
+  .gramrow .gt{font-weight:700;font-size:14px}
+  .gramrow .gw{font-size:12.5px;color:var(--muted);margin:2px 0 6px}
+  .gramrow .gtick{flex:none;width:26px;height:26px;border-radius:6px;border:2px solid var(--line);
+       background:var(--bg);cursor:pointer;font-size:14px;color:var(--correct);font-weight:800;line-height:1}
+  .gramrow.ok .gtick{border-color:var(--correct);background:var(--okbg)}
+  .hublink{font-size:12.5px;font-weight:700;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+       border-radius:7px;padding:4px 10px;display:inline-block;background:var(--bg)}
+  .hublink:hover{border-color:var(--accent)}
+
+  /* ---- step 5: craft ---- */
+  .craftintro{font-size:13px;color:var(--muted);text-align:center;max-width:620px;margin:0 auto 14px}
+  .model{max-width:680px;margin:0 auto 20px;display:flex;flex-direction:column;gap:9px}
+  .msent{border:1px solid var(--line-soft);border-radius:10px;background:var(--paper);padding:10px 14px;position:relative}
+  .msent .move{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+       color:#fff;background:var(--amber);border-radius:8px;padding:1px 8px;margin-bottom:4px}
+  .edits{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  .edit{border:1px solid var(--line-soft);border-radius:10px;background:var(--paper);padding:14px}
+  .edit .weaklab{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--wrong);margin-bottom:3px}
+  .edit .opts{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+  .optbtn{text-align:left;font-family:Georgia,serif;font-size:15.5px;padding:9px 12px;border:1px solid var(--line);
+       border-radius:8px;background:var(--bg);cursor:pointer}
+  .optbtn:hover{border-color:var(--accent)}
+  .optbtn.good{border-color:var(--correct);background:var(--okbg);color:var(--correct)}
+  .optbtn.bad{border-color:var(--wrong);background:var(--badbg);animation:shake .4s}
+  .edit .why{font-size:12.5px;color:var(--muted);margin-top:9px;border-top:1px dashed var(--line);padding-top:8px}
+
+  .payoff{max-width:620px;margin:16px auto 0;border:1px solid var(--line);border-left:4px solid var(--correct);
+       border-radius:8px;background:var(--okbg);padding:12px 16px;font-size:13.5px}
+  .buildtag{margin-top:18px;font-size:10px;color:var(--muted);opacity:.7}
+  @media (max-width:640px){
+    .wrow{flex-wrap:wrap}.wrow .wparts{justify-content:flex-start}
+    .frame.lr{grid-template-columns:80px 80px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="container">
+    <h1 class="jt-tap" data-jt="title">単元の道</h1>
+    <p class="subtitle jt-tap" data-jt="subtitle">One VCE topic, five steps, walked in order</p>
+    <span class="poc"><b>PoC.</b> Word lists, questions and models are drafts for Andrew to correct, not settled curriculum (Q19).</span>
+
+    <!-- ============ HOME ============ -->
+    <section id="scr-home" class="screen active">
+      <p class="intro jt-tap" data-jt="how">Pick a topic.</p>
+      <div id="themes"></div>
+    </section>
+
+    <!-- ============ UNIT PAGE ============ -->
+    <section id="scr-unit" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="home" data-jt="back">← ホーム</button><span></span></div>
+      <div class="uhead" id="unit-head"></div>
+      <div class="steps" id="steps"></div>
+      <div class="reportrow" id="report-row"></div>
+    </section>
+
+    <!-- ============ STEP 1 STUDY ============ -->
+    <section id="scr-study" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="unit" data-jt="backunit">← 単元</button>
+        <span id="studyLever" data-scope="#scr-study"></span></div>
+      <div class="stephead" id="study-head"></div>
+      <div class="studytools"><button class="btn btn-ghost" id="hideBtn"></button></div>
+      <div class="wtable" id="study-table"></div>
+      <div class="stepfoot"><span class="prog" id="study-prog"></span>
+        <button class="btn btn-primary" id="study-next"></button></div>
+    </section>
+
+    <!-- ============ STEP 2 BUILD ============ -->
+    <section id="scr-build" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="unit" data-jt="backunit">← 単元</button>
+        <span id="buildLever" data-scope="#scr-build"></span></div>
+      <div class="stephead" id="build-head"></div>
+      <div class="queue" id="queue"></div>
+      <div class="bench" id="bench"></div>
+      <div class="stepfoot"><span class="prog" id="build-prog"></span>
+        <button class="btn btn-primary" id="build-next" style="display:none"></button></div>
+    </section>
+
+    <!-- ============ STEP 3 QA ============ -->
+    <section id="scr-qa" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="unit" data-jt="backunit">← 単元</button>
+        <span id="qaLever" data-scope="#scr-qa"></span></div>
+      <div class="stephead" id="qa-head"></div>
+      <div id="qa-area"></div>
+      <div class="stepfoot"><span class="prog" id="qa-prog"></span><span></span></div>
+    </section>
+
+    <!-- ============ STEP 4 GRAMMAR ============ -->
+    <section id="scr-gram" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="unit" data-jt="backunit">← 単元</button></div>
+      <div class="stephead" id="gram-head"></div>
+      <div class="gramrows" id="gram-rows"></div>
+      <div class="stepfoot"><span class="prog" id="gram-prog"></span>
+        <button class="btn btn-primary" id="gram-next"></button></div>
+    </section>
+
+    <!-- ============ STEP 5 CRAFT ============ -->
+    <section id="scr-craft" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="unit" data-jt="backunit">← 単元</button>
+        <span id="craftLever" data-scope="#scr-craft"></span></div>
+      <div class="stephead" id="craft-head"></div>
+      <p class="craftintro" id="craft-intro"></p>
+      <div class="model" id="craft-model"></div>
+      <div class="stephead"><div class="sh" id="craft-edith"></div>
+        <div class="shs">One is genuinely better. The other two are flat, or hide a common error.</div></div>
+      <div class="edits" id="craft-edits"></div>
+      <div id="craft-payoff"></div>
+      <div class="stepfoot"><span class="prog" id="craft-prog"></span><span></span></div>
+    </section>
+
+    <div class="buildtag">単元の道 build 2026-08-19 · PoC</div>
+  </div>
+</div>
+
+<script src="lever.js"></script>
+<script>
+"use strict";
+/* ============================================================
+   DATA — word lists and the kanji gloss dictionary are spliced
+   verbatim from the Word Builder so the two apps can never drift
+   apart (one draft, two views of it). QA and craft content per
+   unit lives in CONTENT. BUILDS and GMAP are hand-authored.
+   ============================================================ */
+
+const KANJI = {
+  "名":{g:"name",r:"な・メイ",cap:"sense"},
+  "前":{g:"front, before",r:"まえ・ゼン",cap:"sense"},
+  "年":{g:"year",r:"とし・ネン",cap:"sense"},
+  "齢":{g:"age, years",r:"レイ",cap:"sense"},
+  "住":{g:"to reside, dwell",r:"す(む)・ジュウ",cap:"sense"},
+  "所":{g:"place",r:"ところ・ショ",cap:"sense"},
+  "誕":{g:"birth",r:"タン",cap:"sense"},
+  "生":{g:"life, to live, to be born",r:"い(きる)・セイ",cap:"both"},
+  "日":{g:"day, sun",r:"ひ・ニチ",cap:"sense"},
+  "毎":{g:"every",r:"マイ",cap:"both"},
+  "活":{g:"lively, activity",r:"カツ",cap:"sense"},
+  "近":{g:"near, close",r:"ちか(い)・キン",cap:"sense"},
+  "健":{g:"healthy, robust",r:"すこ(やか)・ケン",cap:"sense"},
+  "康":{g:"peace, ease",r:"コウ",cap:"sense"},
+  "自":{g:"self",r:"みずか(ら)・ジ",cap:"sense"},
+  "由":{g:"reason, cause",r:"よし・ユウ",cap:"sense"},
+  "転":{g:"to roll, turn",r:"ころ(がる)・テン",cap:"sense"},
+  "車":{g:"car, vehicle",r:"くるま・シャ",cap:"sense"},
+  "週":{g:"week",r:"シュウ",cap:"sense"},
+  "末":{g:"end",r:"すえ・マツ",cap:"sense"},
+  "運":{g:"to carry, luck",r:"はこ(ぶ)・ウン",cap:"sense"},
+  "動":{g:"to move",r:"うご(く)・ドウ",cap:"both"},
+  "家":{g:"house, specialist",r:"いえ・カ",cap:"sense"},
+  "族":{g:"group, tribe",r:"ゾク",cap:"sense"},
+  "庭":{g:"garden, courtyard",r:"にわ・テイ",cap:"sense"},
+  "両":{g:"both, pair",r:"リョウ",cap:"sense"},
+  "親":{g:"parent, close",r:"おや・シン",cap:"sense"},
+  "兄":{g:"older brother",r:"あに・キョウ",cap:"sense"},
+  "弟":{g:"younger brother",r:"おとうと・ダイ",cap:"sense"},
+  "姉":{g:"older sister",r:"あね・シ",cap:"sense"},
+  "妹":{g:"younger sister",r:"いもうと・マイ",cap:"sense"},
+  "友":{g:"friend",r:"とも・ユウ",cap:"sense"},
+  "人":{g:"person",r:"ひと・ジン",cap:"sense"},
+  "切":{g:"to cut",r:"き(る)・セツ",cap:"sense"},
+  "先":{g:"ahead, previous",r:"さき・セン",cap:"both"},
+  "徒":{g:"pupil, on foot",r:"ト",cap:"sense"},
+  "地":{g:"earth, ground",r:"チ",cap:"sense"},
+  "域":{g:"region, zone",r:"イキ",cap:"sense"},
+  "物":{g:"thing",r:"もの・ブツ",cap:"sense"},
+  "学":{g:"to study, learning",r:"まな(ぶ)・ガク",cap:"sense"},
+  "校":{g:"school",r:"コウ",cap:"sense"},
+  "高":{g:"tall, high",r:"たか(い)・コウ",cap:"sense"},
+  "大":{g:"big, large",r:"おお(きい)・ダイ",cap:"sense"},
+  "留":{g:"to stay, detain",r:"と(める)・リュウ",cap:"sense"},
+  "勉":{g:"to strive, exertion",r:"ベン",cap:"sense"},
+  "強":{g:"strong",r:"つよ(い)・キョウ",cap:"sense"},
+  "試":{g:"to try, test",r:"こころ(みる)・シ",cap:"sense"},
+  "験":{g:"test, effect",r:"ケン",cap:"sense"},
+  "卒":{g:"graduate, soldier",r:"ソツ",cap:"sense"},
+  "業":{g:"business, work, industry",r:"ギョウ",cap:"sense"},
+  "将":{g:"leader, about to",r:"ショウ",cap:"sense"},
+  "来":{g:"to come",r:"く(る)・ライ",cap:"sense"},
+  "仕":{g:"to serve",r:"シ",cap:"sense"},
+  "事":{g:"thing, matter, affair",r:"こと・ジ",cap:"sense"},
+  "就":{g:"to take up, engage in",r:"つ(く)・シュウ",cap:"sense"},
+  "職":{g:"occupation, job",r:"ショク",cap:"sense"},
+  "目":{g:"eye, item",r:"め・モク",cap:"sense"},
+  "標":{g:"mark, target",r:"ヒョウ",cap:"sense"},
+  "文":{g:"writing, sentence",r:"ブン・モン",cap:"sense"},
+  "化":{g:"to change, to become",r:"ば(ける)・カ",cap:"both"},
+  "伝":{g:"to transmit, legend",r:"つた(わる)・デン",cap:"sense"},
+  "統":{g:"to unite, govern",r:"トウ",cap:"sense"},
+  "芸":{g:"art, craft",r:"ゲイ",cap:"sense"},
+  "術":{g:"art, technique",r:"ジュツ",cap:"sense"},
+  "音":{g:"sound",r:"おと・オン",cap:"both"},
+  "楽":{g:"music, comfort",r:"たの(しい)・ガク",cap:"sense"},
+  "映":{g:"to reflect, project",r:"うつ(る)・エイ",cap:"sense"},
+  "画":{g:"picture, stroke",r:"ガ",cap:"sense"},
+  "漫":{g:"idle, random",r:"マン",cap:"sense"},
+  "着":{g:"to wear, to arrive",r:"き(る)・チャク",cap:"sense"},
+  "正":{g:"correct, right",r:"ただ(しい)・セイ・ショウ",cap:"sense"},
+  "月":{g:"moon, month",r:"つき・ゲツ・ガツ",cap:"sense"},
+  "花":{g:"flower",r:"はな・カ",cap:"sense"},
+  "火":{g:"fire",r:"ひ・カ",cap:"sense"},
+  "見":{g:"to see",r:"み(る)・ケン",cap:"sense"},
+  "茶":{g:"tea",r:"チャ",cap:"sense"},
+  "道":{g:"road, way",r:"みち・ドウ",cap:"sense"},
+  "書":{g:"to write, book",r:"か(く)・ショ",cap:"sense"},
+  "有":{g:"to have, exist",r:"あ(る)・ユウ",cap:"sense"},
+  "作":{g:"to make",r:"つく(る)・サク",cap:"sense"},
+  "選":{g:"to choose",r:"えら(ぶ)・セン",cap:"sense"},
+  "手":{g:"hand, skilled person",r:"て・シュ",cap:"sense"},
+  "監":{g:"to supervise",r:"カン",cap:"sense"},
+  "督":{g:"to oversee, direct",r:"トク",cap:"sense"},
+  "歴":{g:"to pass through, history",r:"レキ",cap:"sense"},
+  "史":{g:"history, chronicle",r:"シ",cap:"sense"},
+  "科":{g:"subject, department",r:"カ",cap:"sense"},
+  "者":{g:"person (-er, -ist)",r:"もの・シャ",cap:"both"},
+  "実":{g:"truth, fruit",r:"み・ジツ",cap:"sense"},
+  "経":{g:"to pass through, manage",r:"へ(る)・ケイ",cap:"sense"},
+  "営":{g:"to operate, manage",r:"いとな(む)・エイ",cap:"sense"},
+  "旅":{g:"journey",r:"たび・リョ",cap:"sense"},
+  "行":{g:"to go",r:"い(く)・コウ",cap:"sense"},
+  "飛":{g:"to fly",r:"と(ぶ)・ヒ",cap:"sense"},
+  "機":{g:"machine",r:"キ",cap:"sense"},
+  "空":{g:"sky, empty",r:"そら・クウ",cap:"sense"},
+  "港":{g:"harbour, port",r:"みなと・コウ",cap:"sense"},
+  "符":{g:"tally, token",r:"フ",cap:"sense"},
+  "荷":{g:"load, baggage",r:"に・カ",cap:"sense"},
+  "写":{g:"to copy",r:"うつ(す)・シャ",cap:"sense"},
+  "真":{g:"true, real",r:"ま・シン",cap:"sense"},
+  "温":{g:"warm",r:"あたた(かい)・オン",cap:"sense"},
+  "泉":{g:"spring of water",r:"いずみ・セン",cap:"both"},
+  "観":{g:"to view, watch",r:"カン",cap:"sense"},
+  "光":{g:"light",r:"ひかり・コウ",cap:"sense"},
+  "銀":{g:"silver",r:"ぎん・ギン",cap:"sense"},
+  "電":{g:"electricity",r:"デン",cap:"sense"},
+  "下":{g:"below, down",r:"した・カ",cap:"sense"},
+  "鉄":{g:"iron",r:"テツ",cap:"sense"},
+  "神":{g:"god, spirit",r:"かみ・シン",cap:"sense"},
+  "社":{g:"company, association",r:"シャ",cap:"sense"},
+  "環":{g:"ring, surround",r:"カン",cap:"sense"},
+  "境":{g:"border, boundary",r:"さかい・キョウ",cap:"sense"},
+  "会":{g:"to meet, association",r:"あ(う)・カイ",cap:"sense"},
+  "問":{g:"to ask, question",r:"と(う)・モン",cap:"sense"},
+  "題":{g:"topic, title",r:"ダイ",cap:"sense"},
+  "少":{g:"few, little",r:"すこ(し)・ショウ",cap:"sense"},
+  "子":{g:"child",r:"こ・シ",cap:"sense"},
+  "暖":{g:"warm",r:"あたた(かい)・ダン",cap:"sense"},
+  "核":{g:"nucleus, core",r:"カク",cap:"sense"},
+  "口":{g:"mouth, opening",r:"くち・コウ",cap:"sense"},
+  "老":{g:"old, aged",r:"お(いる)・ロウ",cap:"sense"},
+  "資":{g:"resources, funds",r:"シ",cap:"sense"},
+  "源":{g:"source, origin",r:"みなもと・ゲン",cap:"sense"},
+  "情":{g:"feeling, information",r:"なさ(け)・ジョウ",cap:"sense"},
+  "報":{g:"report, news",r:"むく(いる)・ホウ",cap:"sense"},
+  "新":{g:"new",r:"あたら(しい)・シン",cap:"sense"},
+  "聞":{g:"to hear, to listen",r:"き(く)・ブン",cap:"sense"},
+  "広":{g:"wide, broad",r:"ひろ(い)・コウ",cap:"sense"},
+  "告":{g:"to tell, to announce",r:"つ(げる)・コク",cap:"sense"},
+  "話":{g:"to speak, story",r:"はな(す)・ワ",cap:"sense"},
+  "携":{g:"to carry along",r:"たずさ(える)・ケイ",cap:"sense"},
+  "帯":{g:"belt, zone",r:"おび・タイ",cap:"sense"},
+  "番":{g:"number in a series, turn",r:"バン",cap:"sense"},
+  "組":{g:"to put together, group",r:"く(む)・ソ",cap:"sense"},
+  "号":{g:"number, title",r:"ゴウ",cap:"sense"},
+  "記":{g:"to record, to write",r:"しる(す)・キ",cap:"sense"},
+  "放":{g:"to release, to set free",r:"はな(す)・ホウ",cap:"sense"},
+  "送":{g:"to send",r:"おく(る)・ソウ",cap:"sense"},
+  "技":{g:"skill, technique",r:"わざ・ギ",cap:"sense"},
+  "械":{g:"instrument, mechanism",r:"カイ",cap:"sense"},
+  "発":{g:"to depart, to occur",r:"ハツ",cap:"sense"},
+  "明":{g:"bright, clear",r:"あか(るい)・メイ",cap:"sense"},
+  "未":{g:"not yet",r:"ミ",cap:"sense"},
+  "展":{g:"to unfold, exhibit",r:"テン",cap:"sense"},
+  "進":{g:"to advance, progress",r:"すす(む)・シン",cap:"sense"},
+  "歩":{g:"to walk, step",r:"ある(く)・ホ",cap:"sense"},
+  "気":{g:"spirit, energy",r:"キ",cap:"sense"},
+  "工":{g:"craft, construction",r:"コウ",cap:"sound"},
+  "知":{g:"to know",r:"し(る)・チ",cap:"sense"},
+  "能":{g:"ability, function",r:"ノウ",cap:"sense"},
+  "便":{g:"convenience",r:"たよ(り)・ベン",cap:"sense"},
+  "利":{g:"profit, advantage",r:"リ",cap:"sense"},
+};
+
+const UNITS = [
+  {
+    key:"seikatsu", theme:"The individual", themeJa:"個人",
+    topic:"Personal identity and lifestyles",
+    title:"せいかつ · Personal Identity and Lifestyles",
+    blurb:"Who you are day to day: your details, your home patch, your daily routine, and how you spend your health and free time.",
+    words:[
+      { w:"名前", r:"なまえ", parts:["名", "前"], def:"What people call you, the word your family chose for you when you were born." },
+      { w:"年齢", r:"ねんれい", parts:["年", "齢"], def:"The number of years someone has been alive." },
+      { w:"住所", r:"じゅうしょ", parts:["住", "所"], def:"The particular street and number where you live, used for letters and deliveries." },
+      { w:"誕生日", r:"たんじょうび", parts:["誕", "生", "日"], def:"The yearly date that marks when you were born." },
+      { w:"毎日", r:"まいにち", parts:["毎", "日"], def:"Something that happens on every single day, without exception." },
+      { w:"生活", r:"せいかつ", parts:["生", "活"], def:"The overall way someone lives day to day, their routine and way of doing things." },
+      { w:"近所", r:"きんじょ", parts:["近", "所"], def:"The area close to your home and the people who live around you." },
+      { w:"健康", r:"けんこう", parts:["健", "康"], def:"The state of your body and mind being well and free from illness." },
+      { w:"自由", r:"じゆう", parts:["自", "由"], def:"Time or space that is yours to use however you like, with nothing telling you what to do." },
+      { w:"自転車", r:"じてんしゃ", parts:["自", "転", "車"], def:"A two wheeled vehicle you ride by pushing pedals with your feet." },
+      { w:"週末", r:"しゅうまつ", parts:["週", "末"], def:"Saturday and Sunday, the two days at the end of the working week." },
+      { w:"運動", r:"うんどう", parts:["運", "動"], def:"Moving your body on purpose to stay fit, like sport or a workout." },
+    ],
+    payoff:"12 words, and you did not learn 12 separate things. 所 built 2 of them: 住所、近所. Once a kanji is yours, every word that uses it gets cheaper.",
+  },
+  {
+    key:"kankei", theme:"The individual", themeJa:"個人",
+    topic:"Relationships",
+    title:"にんげんかんけい · Relationships",
+    blurb:"The people around you: family, friends, teachers and community, with kanji that recur from one bond to the next.",
+    words:[
+      { w:"家族", r:"かぞく", parts:["家", "族"], def:"The group of people you live with and are related to, like your parents and siblings." },
+      { w:"家庭", r:"かてい", parts:["家", "庭"], def:"A home and the family life that happens inside it." },
+      { w:"両親", r:"りょうしん", parts:["両", "親"], def:"Your mother and father, thought of together." },
+      { w:"兄弟", r:"きょうだい", parts:["兄", "弟"], def:"Brothers, or a brother and sister thought of together." },
+      { w:"姉妹", r:"しまい", parts:["姉", "妹"], def:"Sisters, older and younger, thought of together." },
+      { w:"友人", r:"ゆうじん", parts:["友", "人"], def:"Someone you know well and enjoy spending time with, who is not part of your family." },
+      { w:"親友", r:"しんゆう", parts:["親", "友"], def:"The one friend you trust and feel closest to, more than any other." },
+      { w:"親切", r:"しんせつ", parts:["親", "切"], def:"The quality of being caring and helpful towards other people." },
+      { w:"先生", r:"せんせい", parts:["先", "生"], def:"The person whose job is to teach you at school." },
+      { w:"生徒", r:"せいと", parts:["生", "徒"], def:"A young person who is enrolled at a school to learn." },
+      { w:"地域", r:"ちいき", parts:["地", "域"], def:"A particular area or district, and the people who live in it." },
+      { w:"動物", r:"どうぶつ", parts:["動", "物"], def:"A living creature, such as a dog or a cat, that some people keep and look after at home." },
+    ],
+    payoff:"12 words, and you did not learn 12 separate things. 親 built 3 of them: 両親、親友、親切. Once a kanji is yours, every word that uses it gets cheaper.",
+  },
+  {
+    key:"shinro", theme:"The individual", themeJa:"個人",
+    topic:"Aspirations, education and careers",
+    title:"しんろ · Aspirations, Education and Careers",
+    blurb:"From classroom to career: school, study, graduation and the work and goals that come after it.",
+    words:[
+      { w:"学校", r:"がっこう", parts:["学", "校"], def:"The place you go to on weekdays to be taught by teachers and to learn alongside other students." },
+      { w:"高校", r:"こうこう", parts:["高", "校"], def:"The school you attend in your later teenage years, after junior secondary school." },
+      { w:"大学", r:"だいがく", parts:["大", "学"], def:"The place people study at after finishing secondary school, usually to earn a degree." },
+      { w:"留学", r:"りゅうがく", parts:["留", "学"], def:"Going to live in another country for a while in order to study there." },
+      { w:"勉強", r:"べんきょう", parts:["勉", "強"], def:"The effort of learning something, done through reading, practising and doing homework." },
+      { w:"試験", r:"しけん", parts:["試", "験"], def:"A set of questions or tasks used to check how much someone has learned." },
+      { w:"卒業", r:"そつぎょう", parts:["卒", "業"], def:"Finishing a course of study and officially completing a school or degree." },
+      { w:"将来", r:"しょうらい", parts:["将", "来"], def:"The time that has not happened yet, still ahead of you." },
+      { w:"仕事", r:"しごと", parts:["仕", "事"], def:"The tasks a person does regularly to earn money or to fulfil a role." },
+      { w:"就職", r:"しゅうしょく", parts:["就", "職"], def:"The act of finding and starting a job, usually after finishing your studies." },
+      { w:"職業", r:"しょくぎょう", parts:["職", "業"], def:"The particular kind of work a person does as their main occupation." },
+      { w:"目標", r:"もくひょう", parts:["目", "標"], def:"Something you aim for and work towards achieving." },
+    ],
+    payoff:"12 words, and you did not learn 12 separate things. 学 built 3 of them: 学校、大学、留学. Once a kanji is yours, every word that uses it gets cheaper.",
+  },
+  {
+    key:"bunka", theme:"The Japanese-speaking communities", themeJa:"日本語のコミュニティ",
+    topic:"The Japanese-speaking communities",
+    title:"ぶんか · Culture, Customs and Festivals",
+    blurb:"Traditional and modern culture side by side: tea ceremony and calligraphy next to manga and film.",
+    words:[
+      { w:"文化", r:"ぶんか", parts:["文", "化"], def:"The shared customs, arts and ways of life of a group of people, passed down and lived out together." },
+      { w:"伝統", r:"でんとう", parts:["伝", "統"], def:"A custom or practice handed down from earlier generations that a community keeps doing today." },
+      { w:"芸術", r:"げいじゅつ", parts:["芸", "術"], def:"Creative work such as painting, sculpture or design, valued for its skill and beauty." },
+      { w:"音楽", r:"おんがく", parts:["音", "楽"], def:"Sound arranged into rhythm and melody, played or sung for people to enjoy." },
+      { w:"映画", r:"えいが", parts:["映", "画"], def:"A story told through moving pictures, shown on a big screen at a cinema." },
+      { w:"漫画", r:"まんが", parts:["漫", "画"], def:"A story told through drawings in panels, usually printed in a book or magazine." },
+      { w:"着物", r:"きもの", parts:["着", "物"], def:"The traditional garment worn for special occasions, wrapped and tied rather than buttoned." },
+      { w:"正月", r:"しょうがつ", parts:["正", "月"], def:"The New Year period, the most important holiday of the year, with its own foods and family visits." },
+      { w:"花火", r:"はなび", parts:["花", "火"], def:"Coloured lights shot into the night sky, watched as the highlight of a summer festival." },
+      { w:"花見", r:"はなみ", parts:["花", "見"], def:"The custom of gathering outdoors in spring to look at blossoming trees." },
+      { w:"茶道", r:"さどう", parts:["茶", "道"], def:"The formal, ritual way of preparing and serving powdered green tea." },
+      { w:"書道", r:"しょどう", parts:["書", "道"], def:"The art of writing characters beautifully with a brush and ink." },
+    ],
+    payoff:"Twelve words, and you did not learn twelve separate things. 画 built two of them: 映画 and 漫画. 花 and 道 each did the same, in 花火・花見 and 茶道・書道. Once a kanji is yours, every word that uses it gets cheaper.",
+  },
+  {
+    key:"yuumei", theme:"The Japanese-speaking communities", themeJa:"日本語のコミュニティ",
+    topic:"Significant people",
+    title:"ゆうめい · Significant People",
+    blurb:"The words for talking about notable people: writers, painters, musicians, athletes, scientists and business leaders.",
+    words:[
+      { w:"有名", r:"ゆうめい", parts:["有", "名"], def:"Well known, recognised by many people." },
+      { w:"有名人", r:"ゆうめいじん", parts:["有", "名", "人"], def:"A person who is widely recognised, a celebrity or public figure." },
+      { w:"作家", r:"さっか", parts:["作", "家"], def:"A person who writes books for a living, such as novels or other works." },
+      { w:"画家", r:"がか", parts:["画", "家"], def:"A person who paints pictures as their profession." },
+      { w:"音楽家", r:"おんがくか", parts:["音", "楽", "家"], def:"A person whose profession is making music, whether composing or performing." },
+      { w:"芸術家", r:"げいじゅつか", parts:["芸", "術", "家"], def:"A person who creates works of art as their profession." },
+      { w:"選手", r:"せんしゅ", parts:["選", "手"], def:"A person chosen to compete in a sport, a player or athlete." },
+      { w:"監督", r:"かんとく", parts:["監", "督"], def:"The person in charge of directing a film or coaching a sports team." },
+      { w:"歴史", r:"れきし", parts:["歴", "史"], def:"The record of past events, and the study of them." },
+      { w:"科学者", r:"かがくしゃ", parts:["科", "学", "者"], def:"A person who studies the natural world through careful observation and experiment." },
+      { w:"実業家", r:"じつぎょうか", parts:["実", "業", "家"], def:"A person who runs or owns a business, especially on a large scale." },
+      { w:"経営者", r:"けいえいしゃ", parts:["経", "営", "者"], def:"The person who manages and runs an organisation or company." },
+    ],
+    payoff:"Twelve words, and 家 alone built five of them: 作家、画家、音楽家、芸術家 and 実業家. 者 built two more: 科学者 and 経営者. Once a kanji is yours, every word that uses it gets cheaper.",
+  },
+  {
+    key:"nihon", theme:"The Japanese-speaking communities", themeJa:"日本語のコミュニティ",
+    topic:"Living in a Japanese community / visiting Japan",
+    title:"にほんでのせいかつ · Living in Japan and Getting Around",
+    blurb:"Getting around and getting by in Japan: tickets, trains, luggage, money and the sights along the way.",
+    words:[
+      { w:"旅行", r:"りょこう", parts:["旅", "行"], def:"A trip, going on a journey usually for a holiday." },
+      { w:"飛行機", r:"ひこうき", parts:["飛", "行", "機"], def:"The machine that flies through the air, what you catch at the airport." },
+      { w:"空港", r:"くうこう", parts:["空", "港"], def:"The place where planes take off and land, and where travellers pass through customs." },
+      { w:"切符", r:"きっぷ", parts:["切", "符"], def:"A small paper or card that proves you have paid for a ride or entry." },
+      { w:"荷物", r:"にもつ", parts:["荷", "物"], def:"The bags and belongings a traveller carries or checks in." },
+      { w:"写真", r:"しゃしん", parts:["写", "真"], def:"A picture made with a camera, a copy of a real scene or moment." },
+      { w:"温泉", r:"おんせん", parts:["温", "泉"], def:"Naturally heated water rising from the ground, and the bath built around it." },
+      { w:"観光", r:"かんこう", parts:["観", "光"], def:"Visiting places to look at and enjoy them, sightseeing." },
+      { w:"銀行", r:"ぎんこう", parts:["銀", "行"], def:"The place where you keep, change or withdraw money." },
+      { w:"電車", r:"でんしゃ", parts:["電", "車"], def:"A passenger vehicle that runs on rails and is powered by electricity, common for getting around a city." },
+      { w:"地下鉄", r:"ちかてつ", parts:["地", "下", "鉄"], def:"A train system that runs mostly in tunnels below a city." },
+      { w:"神社", r:"じんじゃ", parts:["神", "社"], def:"A place of worship for the native religion of Japan, marked by a gate at its entrance." },
+    ],
+    payoff:"Twelve words, and you did not learn twelve separate things. 行 built three of them: 旅行、飛行機 and 銀行. Once a kanji is yours, every word that uses it gets cheaper.",
+  },
+  {
+    key:"shakai", theme:"The world around us", themeJa:"私たちの世界",
+    topic:"Global and contemporary society",
+    title:"げんだいしゃかい · Global and Contemporary Society",
+    blurb:"Caring for the environment, an ageing population and a changing family: the words for talking about society today.",
+    words:[
+      { w:"環境", r:"かんきょう", parts:["環", "境"], def:"The natural world around us, including the air, water, land and living things that need to be looked after and protected from damage." },
+      { w:"社会", r:"しゃかい", parts:["社", "会"], def:"A whole community of people living together and sharing systems, customs and institutions." },
+      { w:"問題", r:"もんだい", parts:["問", "題"], def:"A difficulty or matter that needs to be thought about, discussed or solved." },
+      { w:"高齢者", r:"こうれいしゃ", parts:["高", "齢", "者"], def:"A person who is elderly, generally of advanced age and often no longer working." },
+      { w:"高齢化", r:"こうれいか", parts:["高", "齢", "化"], def:"The process by which a population gradually becomes older, with a growing share of elderly people in it." },
+      { w:"少子化", r:"しょうしか", parts:["少", "子", "化"], def:"A trend in which fewer children are being born each year, so the number of young people in a population falls." },
+      { w:"温暖化", r:"おんだんか", parts:["温", "暖", "化"], def:"A long term rise in the world's average temperatures, widely linked to human activity and treated as a major environmental concern." },
+      { w:"家族", r:"かぞく", parts:["家", "族"], def:"The people you live with and are related to, such as parents, brothers and sisters, considered as one group." },
+      { w:"核家族", r:"かくかぞく", parts:["核", "家", "族"], def:"A small family unit made up of just parents and their children, without grandparents or other relatives living together." },
+      { w:"人口", r:"じんこう", parts:["人", "口"], def:"The total number of people living in a particular place, such as a country or city." },
+      { w:"老人", r:"ろうじん", parts:["老", "人"], def:"An elderly person, someone who has lived a long life and reached an advanced age." },
+      { w:"資源", r:"しげん", parts:["資", "源"], def:"Materials, energy or other supplies found in nature that people use and that can be limited in amount." },
+    ],
+    payoff:"12 words, and you did not learn 12 separate things. 化 built 3 of them: 高齢化、少子化、温暖化. Once a kanji is yours, every word that uses it gets cheaper.",
+  },
+  {
+    key:"tsuushin", theme:"The world around us", themeJa:"私たちの世界",
+    topic:"Communication and media",
+    title:"つうしんとメディア · Communication and Media",
+    blurb:"Newspapers, phones, adverts and broadcasts: the words for how information moves.",
+    words:[
+      { w:"情報", r:"じょうほう", parts:["情", "報"], def:"Facts, news or details about something that are collected, shared or passed on to others." },
+      { w:"新聞", r:"しんぶん", parts:["新", "聞"], def:"A daily or weekly printed publication containing news, articles and advertisements." },
+      { w:"新聞社", r:"しんぶんしゃ", parts:["新", "聞", "社"], def:"The company or organisation that writes, produces and publishes a newspaper." },
+      { w:"広告", r:"こうこく", parts:["広", "告"], def:"A public notice or message, often paid for, designed to promote a product, service or event." },
+      { w:"電話", r:"でんわ", parts:["電", "話"], def:"A device or system used to talk to someone else over a distance by voice." },
+      { w:"携帯", r:"けいたい", parts:["携", "帯"], def:"A small device that a person carries around with them, especially the everyday short word for a mobile phone." },
+      { w:"電子", r:"でんし", parts:["電", "子"], def:"Relating to technology that uses small electric circuits and digital signals, as in an electronic dictionary or device." },
+      { w:"番組", r:"ばんぐみ", parts:["番", "組"], def:"A single show or segment broadcast on television or radio." },
+      { w:"番号", r:"ばんごう", parts:["番", "号"], def:"A set of digits used to identify or contact something, such as a phone line or a seat." },
+      { w:"記事", r:"きじ", parts:["記", "事"], def:"A piece of writing in a newspaper or magazine that reports on a particular topic or event." },
+      { w:"放送", r:"ほうそう", parts:["放", "送"], def:"The sending out of a programme or message to the public by television or radio." },
+      { w:"会話", r:"かいわ", parts:["会", "話"], def:"Spoken exchange between two or more people, talking together about something." },
+    ],
+    payoff:"12 words, and you did not learn 12 separate things. 新 built 2 of them: 新聞、新聞社. Once a kanji is yours, every word that uses it gets cheaper.",
+  },
+  {
+    key:"gijutsu", theme:"The world around us", themeJa:"私たちの世界",
+    topic:"The influence of technology",
+    title:"ぎじゅつのえいきょう · The Influence of Technology",
+    blurb:"Inventions, machines and the pace of change reshaping daily life.",
+    words:[
+      { w:"技術", r:"ぎじゅつ", parts:["技", "術"], def:"The practical skills, methods and equipment used to do or make things, especially in science and industry." },
+      { w:"機械", r:"きかい", parts:["機", "械"], def:"A device with moving parts built to perform a particular job, usually powered by electricity or fuel." },
+      { w:"発明", r:"はつめい", parts:["発", "明"], def:"Something completely new that a person creates or designs for the first time, often to solve a problem." },
+      { w:"未来", r:"みらい", parts:["未", "来"], def:"The time that has not happened yet, still to come." },
+      { w:"発展", r:"はってん", parts:["発", "展"], def:"Growth or advancement over time, becoming bigger, more advanced or more successful." },
+      { w:"進歩", r:"しんぽ", parts:["進", "歩"], def:"Steady improvement or advancement, moving forward towards a better state." },
+      { w:"自動車", r:"じどうしゃ", parts:["自", "動", "車"], def:"A vehicle with an engine, used to travel on roads, commonly known simply as a car." },
+      { w:"自動", r:"じどう", parts:["自", "動"], def:"Working by itself, without a person needing to operate it directly." },
+      { w:"電気", r:"でんき", parts:["電", "気"], def:"The form of energy used to power lights, devices and machines." },
+      { w:"人工", r:"じんこう", parts:["人", "工"], def:"Made by people rather than occurring naturally." },
+      { w:"知能", r:"ちのう", parts:["知", "能"], def:"The ability to learn, understand, reason and solve problems." },
+      { w:"便利", r:"べんり", parts:["便", "利"], def:"Easy and useful to make use of, saving time or effort." },
+    ],
+    payoff:"12 words, and you did not learn 12 separate things. 発 built 2 of them: 発明、発展. Once a kanji is yours, every word that uses it gets cheaper.",
+  },
+];
+
+const CONTENT = {
+ "seikatsu": {
+  "qa": [
+   {
+    "q": [
+     "お誕生日はいつですか。",
+     "おたんじょうびはいつですか。",
+     "Otanjōbi wa itsu desu ka.",
+     "When is your birthday?"
+    ],
+    "a": [
+     "私の誕生日は七月二十日です。",
+     "わたしのたんじょうびはしちがつはつかです。",
+     "Watashi no tanjōbi wa shichigatsu hatsuka desu.",
+     "My birthday is 20 July."
+    ],
+    "tip": "Swap the date for your own birthday."
+   },
+   {
+    "q": [
+     "毎日何時に起きますか。",
+     "まいにちなんじにおきますか。",
+     "Mainichi nanji ni okimasu ka.",
+     "What time do you get up every day?"
+    ],
+    "a": [
+     "私は毎日六時半に起きます。",
+     "わたしはまいにちろくじはんにおきます。",
+     "Watashi wa mainichi rokuji han ni okimasu.",
+     "I get up at 6:30 every day."
+    ],
+    "tip": "Swap the time for your own routine."
+   },
+   {
+    "q": [
+     "週末に何をしますか。",
+     "しゅうまつになにをしますか。",
+     "Shūmatsu ni nani o shimasu ka.",
+     "What do you do on weekends?"
+    ],
+    "a": [
+     "週末はよく自転車に乗ります。",
+     "しゅうまつはよくじてんしゃにのります。",
+     "Shūmatsu wa yoku jitensha ni norimasu.",
+     "On weekends I often ride my bicycle."
+    ],
+    "tip": "Swap 自転車に乗ります for another weekend activity."
+   },
+   {
+    "q": [
+     "健康のために何か運動をしていますか。",
+     "けんこうのためになにかうんどうをしていますか。",
+     "Kenkō no tame ni nanika undō o shite imasu ka.",
+     "Do you do any exercise for your health?"
+    ],
+    "a": [
+     "はい、健康のために毎日少し運動をしています。",
+     "はい、けんこうのためにまいにちすこしうんどうをしています。",
+     "Hai, kenkō no tame ni mainichi sukoshi undō o shite imasu.",
+     "Yes, I do a bit of exercise every day for my health."
+    ],
+    "tip": "Swap 少し for how much exercise you actually do."
+   },
+   {
+    "q": [
+     "近所はどんな所ですか。",
+     "きんじょはどんなところですか。",
+     "Kinjo wa donna tokoro desu ka.",
+     "What is your neighbourhood like?"
+    ],
+    "a": [
+     "私の近所は静かで、自然が多いです。",
+     "わたしのきんじょはしずかで、しぜんがおおいです。",
+     "Watashi no kinjo wa shizuka de, shizen ga ōi desu.",
+     "My neighbourhood is quiet and has a lot of nature."
+    ],
+    "tip": "Swap 静か and 自然 for words that fit your own area."
+   },
+   {
+    "q": [
+     "自由な時間に何をするのが好きですか。",
+     "じゆうなじかんになにをするのがすきですか。",
+     "Jiyū na jikan ni nani o suru no ga suki desu ka.",
+     "What do you like doing in your free time?"
+    ],
+    "a": [
+     "自由な時間には音楽を聞くのが好きです。",
+     "じゆうなじかんにはおんがくをきくのがすきです。",
+     "Jiyū na jikan ni wa ongaku o kiku no ga suki desu.",
+     "In my free time, I like listening to music."
+    ],
+    "tip": "Swap 音楽を聞く for your own favourite activity."
+   }
+  ],
+  "craft": {
+   "intro": "A spoken answer about your daily routine and lifestyle, the kind the general conversation section asks for.",
+   "model": [
+    {
+     "jp": [
+      "私は毎日六時半に起きます。",
+      "わたしはまいにちろくじはんにおきます。",
+      "Watashi wa mainichi rokuji han ni okimasu.",
+      "I get up at 6:30 every day."
+     ],
+     "note": "Opens with a routine frame stating wake-up time"
+    },
+    {
+     "jp": [
+      "それから朝ご飯を食べて、学校へ行きます。",
+      "それからあさごはんをたべて、がっこうへいきます。",
+      "Sorekara asa gohan o tabete, gakkō e ikimasu.",
+      "After that I eat breakfast and go to school."
+     ],
+     "note": "Sequences events with それから (after that)"
+    },
+    {
+     "jp": [
+      "週末はよく自転車で近所を走ります。",
+      "しゅうまつはよくじてんしゃできんじょをはしります。",
+      "Shūmatsu wa yoku jitensha de kinjo o hashirimasu.",
+      "On weekends I often ride my bicycle around the neighbourhood."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "健康にいいから、運動をするのが好きです。",
+      "けんこうにいいから、うんどうをするのがすきです。",
+      "Kenkō ni ii kara, undō o suru no ga suki desu.",
+      "Because it's good for my health, I like exercising."
+     ],
+     "note": "Gives a reason with から"
+    },
+    {
+     "jp": [
+      "でも、忙しい時は自由な時間があまりありません。",
+      "でも、いそがしいときはじゆうなじかんがあまりありません。",
+      "Demo, isogashii toki wa jiyū na jikan ga amari arimasen.",
+      "But when I'm busy, I don't have much free time."
+     ],
+     "note": "Adds contrast with でも (but)"
+    },
+    {
+     "jp": [
+      "だから、週末の自由な時間を大切にしています。",
+      "だから、しゅうまつのじゆうなじかんをたいせつにしています。",
+      "Dakara, shūmatsu no jiyū na jikan o taisetsu ni shite imasu.",
+      "So I make my weekend free time a priority."
+     ],
+     "note": "Closes with a therefore-statement using だから"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "毎日忙しいです。",
+      "まいにちいそがしいです。",
+      "Mainichi isogashii desu.",
+      "I'm busy every day."
+     ],
+     "options": [
+      "学校の勉強や運動で毎日忙しいですが、週末は自転車に乗ってリラックスします。",
+      "毎日、本当にとても忙しいです。",
+      "忙しいから、忙しいです。"
+     ],
+     "answer": 0,
+     "why": "Option A gives concrete reasons (study and exercise) and adds contrast with a relaxing weekend activity, which is what examiners want to hear. Option B only intensifies the flat statement with 本当に and とても without adding any new information. Option C is circular reasoning, it repeats busy as its own reason and does not actually explain anything."
+    },
+    {
+     "weak": [
+      "私は健康です。",
+      "わたしはけんこうです。",
+      "Watashi wa kenkō desu.",
+      "I am healthy."
+     ],
+     "options": [
+      "私はとても健康です。",
+      "健康のために毎日少し運動をしているので、元気です。",
+      "私は健康で、健康です。"
+     ],
+     "answer": 1,
+     "why": "Option A connects the health claim to a concrete habit, daily exercise, using ので, giving the listener a reason to believe it. Option B only adds the intensifier とても without any content. Option C repeats 健康 awkwardly and adds nothing, a common error when students pad a sentence without giving real information."
+    },
+    {
+     "weak": [
+      "自転車が好きです。",
+      "じてんしゃがすきです。",
+      "Jitensha ga suki desu.",
+      "I like bicycles."
+     ],
+     "options": [
+      "自転車にとても乗るのが好きです。",
+      "自転車は好きな乗り物です。",
+      "週末はよく自転車で近所を走ります。それに、健康にもいいと思います。"
+     ],
+     "answer": 2,
+     "why": "Option A places the interest in a concrete context, weekend rides around the neighbourhood, and adds an opinion with それに and と思います, exactly the elaboration a VCE response needs. Option B has a common misplaced-adverb error, とても should describe 好き, not 乗る. Option C is grammatically fine but is just a flat restatement dressed up as a definition, so it still gives no new information."
+    }
+   ]
+  }
+ },
+ "kankei": {
+  "qa": [
+   {
+    "q": [
+     "家族は何人いますか。",
+     "かぞくはなんにんいますか。",
+     "Kazoku wa nan-nin imasu ka.",
+     "How many people are in your family?"
+    ],
+    "a": [
+     "私の家族は五人で、兄弟が二人います。",
+     "わたしのかぞくはごにんで、きょうだいがふたりいます。",
+     "Watashi no kazoku wa gonin de, kyōdai ga futari imasu.",
+     "There are five people in my family, and I have two siblings."
+    ],
+    "tip": "Swap 五人 and 二人 for your own family size."
+   },
+   {
+    "q": [
+     "親友はどんな人ですか。",
+     "しんゆうはどんなひとですか。",
+     "Shin'yū wa donna hito desu ka.",
+     "What is your best friend like?"
+    ],
+    "a": [
+     "私の親友はとても親切です。",
+     "わたしのしんゆうはとてもしんせつです。",
+     "Watashi no shin'yū wa totemo shinsetsu desu.",
+     "My best friend is very kind."
+    ],
+    "tip": "Swap 親切 for another personality trait."
+   },
+   {
+    "q": [
+     "学校の先生はどんな人が多いですか。",
+     "がっこうのせんせいはどんなひとがおおいですか。",
+     "Gakkō no sensei wa donna hito ga ōi desu ka.",
+     "What are the teachers at your school mostly like?"
+    ],
+    "a": [
+     "先生はみんな親切で、生徒によく話しかけます。",
+     "せんせいはみんなしんせつで、せいとによくはなしかけます。",
+     "Sensei wa minna shinsetsu de, seito ni yoku hanashikakemasu.",
+     "The teachers are all kind and often talk to the students."
+    ],
+    "tip": "Swap 親切 for another quality you would use to describe your teachers."
+   },
+   {
+    "q": [
+     "兄弟や姉妹がいますか。",
+     "きょうだいやしまいがいますか。",
+     "Kyōdai ya shimai ga imasu ka.",
+     "Do you have any brothers or sisters?"
+    ],
+    "a": [
+     "はい、姉が一人います。",
+     "はい、あねがひとりいます。",
+     "Hai, ane ga hitori imasu.",
+     "Yes, I have one older sister."
+    ],
+    "tip": "Swap 姉 for whichever sibling or siblings you actually have."
+   },
+   {
+    "q": [
+     "家庭で動物を飼っていますか。",
+     "かていでどうぶつをかっていますか。",
+     "Katei de dōbutsu o katte imasu ka.",
+     "Does your household keep any animals?"
+    ],
+    "a": [
+     "はい、家で犬を飼っています。かわいい動物です。",
+     "はい、うちでいぬをかっています。かわいいどうぶつです。",
+     "Hai, uchi de inu o katte imasu. Kawaii dōbutsu desu.",
+     "Yes, we keep a dog at home. It is a lovely animal."
+    ],
+    "tip": "Swap 犬 for your own pet, or say いいえ if you do not have one."
+   },
+   {
+    "q": [
+     "地域の人とよく話しますか。",
+     "ちいきのひととよくはなしますか。",
+     "Chiiki no hito to yoku hanashimasu ka.",
+     "Do you often talk with people in your local area?"
+    ],
+    "a": [
+     "はい、地域の人はみんな親切なので、よく話します。",
+     "はい、ちいきのひとはみんなしんせつなので、よくはなします。",
+     "Hai, chiiki no hito wa minna shinsetsu na node, yoku hanashimasu.",
+     "Yes, the people in my local area are all kind, so I talk with them often."
+    ],
+    "tip": "Swap 親切 for other ways you might describe your local community."
+   }
+  ],
+  "craft": {
+   "intro": "A spoken answer about your family and the important people in your life, the kind the general conversation section asks for.",
+   "model": [
+    {
+     "jp": [
+      "私の家族は五人家族です。",
+      "わたしのかぞくはごにんかぞくです。",
+      "Watashi no kazoku wa gonin kazoku desu.",
+      "My family has five people in it."
+     ],
+     "note": "Opens with a family-size frame"
+    },
+    {
+     "jp": [
+      "両親と兄が一人と妹が一人います。",
+      "りょうしんとあにがひとりといもうとがひとりいます。",
+      "Ryōshin to ani ga hitori to imōto ga hitori imasu.",
+      "There are my parents, one older brother and one younger sister."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "兄は親切で、いつも私を助けてくれます。",
+      "あにはしんせつで、いつもわたしをたすけてくれます。",
+      "Ani wa shinsetsu de, itsumo watashi o tasukete kuremasu.",
+      "My older brother is kind and always helps me."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "それに、親友も家族のように大切です。",
+      "それに、しんゆうもかぞくのようにたいせつです。",
+      "Sore ni, shin'yū mo kazoku no yō ni taisetsu desu.",
+      "On top of that, my best friend is as important to me as family."
+     ],
+     "note": "Adds a wider point with それに (on top of that)"
+    },
+    {
+     "jp": [
+      "親友とは何でも話せるから、安心します。",
+      "しんゆうとはなんでもはなせるから、あんしんします。",
+      "Shin'yū to wa nan demo hanaseru kara, anshin shimasu.",
+      "Because I can talk to my best friend about anything, I feel at ease."
+     ],
+     "note": "Gives a reason with から"
+    },
+    {
+     "jp": [
+      "だから、家族も友人もどちらも大切だと思います。",
+      "だから、かぞくもゆうじんもどちらもたいせつだとおもいます。",
+      "Dakara, kazoku mo yūjin mo dochira mo taisetsu da to omoimasu.",
+      "So I think both family and friends are important."
+     ],
+     "note": "Closes with an opinion using と思います"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "家族が好きです。",
+      "かぞくがすきです。",
+      "Kazoku ga suki desu.",
+      "I like my family."
+     ],
+     "options": [
+      "家族はいつも私を支えてくれるので、家族が大切だと思います。",
+      "家族がとても好きです。",
+      "家族が好きで、家族が好きです。"
+     ],
+     "answer": 0,
+     "why": "Option A explains why family matters, they always support me, and closes with an opinion, which is what the marking criteria reward. Option B only adds とても without new content. Option C repeats the same clause, a common padding error that adds no information."
+    },
+    {
+     "weak": [
+      "先生は親切です。",
+      "せんせいはしんせつです。",
+      "Sensei wa shinsetsu desu.",
+      "The teacher is kind."
+     ],
+     "options": [
+      "先生はとても親切です。",
+      "先生はいつも生徒に親切に話しかけてくれるので、質問しやすいです。",
+      "先生は親切な先生です。"
+     ],
+     "answer": 1,
+     "why": "Option A gives a concrete example of the teachers' kindness, they approach students to help, and a resulting benefit, which shows real detail. Option B just intensifies the claim without adding information. Option C is a tautology, it defines teacher as a kind teacher, repeating the noun without saying anything new."
+    },
+    {
+     "weak": [
+      "動物が好きです。",
+      "どうぶつがすきです。",
+      "Dōbutsu ga suki desu.",
+      "I like animals."
+     ],
+     "options": [
+      "動物がとても好きです。",
+      "私はペットの動物が好きな人です。",
+      "家で犬を飼っていて、毎日いっしょに散歩するのが好きです。"
+     ],
+     "answer": 2,
+     "why": "Option A gives a specific pet and a shared daily activity, exactly the kind of detail the general conversation rewards. Option B only adds とても without content. Option C pads the sentence with a redundant a person who likes structure that does not actually add meaning."
+    }
+   ]
+  }
+ },
+ "shinro": {
+  "qa": [
+   {
+    "q": [
+     "高校を卒業した後、何をしたいですか。",
+     "こうこうをそつぎょうしたあと、なにをしたいですか。",
+     "Kōkō o sotsugyō shita ato, nani o shitai desu ka.",
+     "What do you want to do after you graduate from high school?"
+    ],
+    "a": [
+     "高校を卒業した後、大学へ行きたいです。",
+     "こうこうをそつぎょうしたあと、だいがくへいきたいです。",
+     "Kōkō o sotsugyō shita ato, daigaku e ikitai desu.",
+     "After graduating from high school, I want to go to university."
+    ],
+    "tip": "Swap 大学へ行きたい for your own plan, like 留学したい or 就職したい."
+   },
+   {
+    "q": [
+     "将来の目標は何ですか。",
+     "しょうらいのもくひょうはなんですか。",
+     "Shōrai no mokuhyō wa nan desu ka.",
+     "What is your goal for the future?"
+    ],
+    "a": [
+     "私の将来の目標は医者になることです。",
+     "わたしのしょうらいのもくひょうはいしゃになることです。",
+     "Watashi no shōrai no mokuhyō wa isha ni naru koto desu.",
+     "My goal for the future is to become a doctor."
+    ],
+    "tip": "Swap 医者 for your own dream job."
+   },
+   {
+    "q": [
+     "日本に留学したいですか。",
+     "にほんにりゅうがくしたいですか。",
+     "Nihon ni ryūgaku shitai desu ka.",
+     "Do you want to study abroad in Japan?"
+    ],
+    "a": [
+     "はい、大学生の時に日本に留学したいです。",
+     "はい、だいがくせいのときににほんにりゅうがくしたいです。",
+     "Hai, daigakusei no toki ni Nihon ni ryūgaku shitai desu.",
+     "Yes, I want to study abroad in Japan when I'm a university student."
+    ],
+    "tip": "Swap 大学生の時に for when you would like to go, such as 高校生の時に."
+   },
+   {
+    "q": [
+     "どんな職業に興味がありますか。",
+     "どんなしょくぎょうにきょうみがありますか。",
+     "Donna shokugyō ni kyōmi ga arimasu ka.",
+     "What kind of occupation are you interested in?"
+    ],
+    "a": [
+     "エンジニアという職業に興味があります。",
+     "エンジニアというしょくぎょうにきょうみがあります。",
+     "Enjinia to iu shokugyō ni kyōmi ga arimasu.",
+     "I'm interested in the occupation of engineer."
+    ],
+    "tip": "Swap エンジニア for the career field you are interested in."
+   },
+   {
+    "q": [
+     "試験の前に何をしますか。",
+     "しけんのまえになにをしますか。",
+     "Shiken no mae ni nani o shimasu ka.",
+     "What do you do before an exam?"
+    ],
+    "a": [
+     "試験の前にたくさん勉強します。",
+     "しけんのまえにたくさんべんきょうします。",
+     "Shiken no mae ni takusan benkyō shimasu.",
+     "Before an exam I study a lot."
+    ],
+    "tip": "Swap たくさん勉強します for your own exam prep habit."
+   },
+   {
+    "q": [
+     "卒業した後、すぐ就職しますか。",
+     "そつぎょうしたあと、すぐしゅうしょくしますか。",
+     "Sotsugyō shita ato, sugu shūshoku shimasu ka.",
+     "Will you get a job right after you graduate?"
+    ],
+    "a": [
+     "いいえ、卒業した後、まず大学で勉強してから就職したいです。",
+     "いいえ、そつぎょうしたあと、まずだいがくでべんきょうしてからしゅうしょくしたいです。",
+     "Iie, sotsugyō shita ato, mazu daigaku de benkyō shite kara shūshoku shitai desu.",
+     "No, after graduating I want to study at university first and then get a job."
+    ],
+    "tip": "Swap the order or plan for your own path after school."
+   }
+  ],
+  "craft": {
+   "intro": "A spoken answer about your future plans and study goals, the kind the general conversation section asks for.",
+   "model": [
+    {
+     "jp": [
+      "私は今高校三年生です。",
+      "わたしはいまこうこうさんねんせいです。",
+      "Watashi wa ima kōkō san-nensei desu.",
+      "I am currently in Year 12 of high school."
+     ],
+     "note": "Opens with a frame stating current stage"
+    },
+    {
+     "jp": [
+      "高校を卒業した後、大学で勉強したいです。",
+      "こうこうをそつぎょうしたあと、だいがくでべんきょうしたいです。",
+      "Kōkō o sotsugyō shita ato, daigaku de benkyō shitai desu.",
+      "After graduating from high school, I want to study at university."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "将来の目標は先生になることです。",
+      "しょうらいのもくひょうはせんせいになることです。",
+      "Shōrai no mokuhyō wa sensei ni naru koto desu.",
+      "My goal for the future is to become a teacher."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "子供が好きだから、その職業を選びたいです。",
+      "こどもがすきだから、そのしょくぎょうをえらびたいです。",
+      "Kodomo ga suki dakara, sono shokugyō o erabitai desu.",
+      "Because I like children, I want to choose that occupation."
+     ],
+     "note": "Gives a reason with から"
+    },
+    {
+     "jp": [
+      "それに、大学生の時に日本に留学したいです。",
+      "それに、だいがくせいのときににほんにりゅうがくしたいです。",
+      "Sore ni, daigakusei no toki ni Nihon ni ryūgaku shitai desu.",
+      "On top of that, I want to study abroad in Japan when I'm a university student."
+     ],
+     "note": "Adds a further plan with それに (on top of that)"
+    },
+    {
+     "jp": [
+      "だから、今、試験のために一生懸命勉強しています。",
+      "だから、いま、しけんのためにいっしょうけんめいべんきょうしています。",
+      "Dakara, ima, shiken no tame ni isshōkenmei benkyō shite imasu.",
+      "So right now, I'm studying hard for my exams."
+     ],
+     "note": "Closes by linking the goal back to present effort with だから"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "将来医者になりたいです。",
+      "しょうらいいしゃになりたいです。",
+      "Shōrai isha ni naritai desu.",
+      "In the future I want to become a doctor."
+     ],
+     "options": [
+      "人を助けるのが好きだから、将来医者になりたいです。",
+      "将来、本当に医者になりたいです。",
+      "医者になりたいから、医者になりたいです。"
+     ],
+     "answer": 0,
+     "why": "Option A gives a genuine reason, helping people, for the goal, which is exactly what examiners listen for. Option B just adds 本当に without new content. Option C repeats the goal as its own reason, a circular-logic error some students make."
+    },
+    {
+     "weak": [
+      "勉強するのが大切です。",
+      "べんきょうするのがたいせつです。",
+      "Benkyō suru no ga taisetsu desu.",
+      "Studying is important."
+     ],
+     "options": [
+      "勉強するのがとても大切です。",
+      "試験があるから、毎日勉強するのが大切だと思います。",
+      "勉強することは大切な勉強です。"
+     ],
+     "answer": 1,
+     "why": "Option A anchors the claim in a concrete reason, upcoming exams, and adds an opinion with と思います. Option B merely intensifies without adding content. Option C defines studying as important studying, a tautology that repeats the noun without saying anything new."
+    },
+    {
+     "weak": [
+      "留学したいです。",
+      "りゅうがくしたいです。",
+      "Ryūgaku shitai desu.",
+      "I want to study abroad."
+     ],
+     "options": [
+      "留学が本当にしたいです。",
+      "留学することが好きな留学です。",
+      "日本語をもっと上手に話したいから、大学生の時に日本に留学したいです。"
+     ],
+     "answer": 2,
+     "why": "Option A supplies both a reason, wanting to speak Japanese better, and a specific time frame, giving real substance. Option B has an awkward word order a learner might produce, splitting が and したい oddly around 本当に. Option C is a nonsensical tautology, calling it study abroad that is a study abroad I like, which repeats the noun without adding meaning."
+    }
+   ]
+  }
+ },
+ "bunka": {
+  "qa": [
+   {
+    "q": [
+     "日本の文化について何か知っていますか。",
+     "にほんのぶんかについてなにかしっていますか。",
+     "Nihon no bunka ni tsuite nanika shitte imasu ka.",
+     "Do you know anything about Japanese culture?"
+    ],
+    "a": [
+     "はい、茶道や書道のような伝統文化に興味があります。",
+     "はい、さどうやしょどうのようなでんとうぶんかにきょうみがあります。",
+     "Hai, sadō ya shodō no yō na dentō bunka ni kyōmi ga arimasu.",
+     "Yes, I'm interested in traditional culture like tea ceremony and calligraphy."
+    ],
+    "tip": "Swap sadō ya shodō for any two customs you actually know; kyōmi ga arimasu means 'I'm interested in'."
+   },
+   {
+    "q": [
+     "日本のお正月はどんな行事ですか。",
+     "にほんのおしょうがつはどんなぎょうじですか。",
+     "Nihon no oshōgatsu wa donna gyōji desu ka.",
+     "What kind of event is Japanese New Year?"
+    ],
+    "a": [
+     "家族と一緒に新年を祝う、一番大切な行事だと思います。",
+     "かぞくといっしょにしんねんをいわう、いちばんたいせつなぎょうじだとおもいます。",
+     "Kazoku to issho ni shinnen o iwau, ichiban taisetsu na gyōji da to omoimasu.",
+     "I think it's the most important event, celebrating the new year together with family."
+    ],
+    "tip": "da to omoimasu lets you give an opinion; swap kazoku to issho ni for tomodachi to (with friends) if that suits you better."
+   },
+   {
+    "q": [
+     "夏の花火大会に行ったことがありますか。",
+     "なつのはなびたいかいにいったことがありますか。",
+     "Natsu no hanabi taikai ni itta koto ga arimasu ka.",
+     "Have you been to a summer fireworks festival?"
+    ],
+    "a": [
+     "はい、あります。花火はきれいで、とても楽しかったです。",
+     "はい、あります。はなびはきれいで、とてもたのしかったです。",
+     "Hai, arimasu. Hanabi wa kirei de, totemo tanoshikatta desu.",
+     "Yes, I have. The fireworks were beautiful and it was really fun."
+    ],
+    "tip": "Koto ga arimasu reports a past experience; swap kirei de for ōkikute (big) or any other detail that was actually true for you."
+   },
+   {
+    "q": [
+     "着物を着たことがありますか。",
+     "きものをきたことがありますか。",
+     "Kimono o kita koto ga arimasu ka.",
+     "Have you ever worn a kimono?"
+    ],
+    "a": [
+     "いいえ、まだありませんが、いつか着物を着て花見に行きたいです。",
+     "いいえ、まだありませんが、いつかきものをきてはなみにいきたいです。",
+     "Iie, mada arimasen ga, itsuka kimono o kite hanami ni ikitai desu.",
+     "No, not yet, but I'd like to wear a kimono and go blossom viewing someday."
+    ],
+    "tip": "Mada plus a negative means 'not yet'; swap hanami for whatever event you'd actually like to try it at."
+   },
+   {
+    "q": [
+     "日本の映画や漫画に興味がありますか。",
+     "にほんのえいがやまんがにきょうみがありますか。",
+     "Nihon no eiga ya manga ni kyōmi ga arimasu ka.",
+     "Are you interested in Japanese films or manga?"
+    ],
+    "a": [
+     "はい、特に宮崎駿の映画が好きで、よく見ます。",
+     "はい、とくにみやざきはやおのえいががすきで、よくみます。",
+     "Hai, toku ni Miyazaki Hayao no eiga ga suki de, yoku mimasu.",
+     "Yes, I especially like Miyazaki Hayao's films and watch them often."
+    ],
+    "tip": "Toku ni means 'especially'; swap the name and eiga for a manga artist and manga if that's closer to you."
+   },
+   {
+    "q": [
+     "日本の芸術で好きなものは何ですか。",
+     "にほんのげいじゅつですきなものはなんですか。",
+     "Nihon no geijutsu de suki na mono wa nan desu ka.",
+     "What is something you like about Japanese art?"
+    ],
+    "a": [
+     "音楽が好きなので、和太鼓の音楽をよく聞きます。",
+     "おんがくがすきなので、わだいこのおんがくをよくききます。",
+     "Ongaku ga suki na node, wadaiko no ongaku o yoku kikimasu.",
+     "Since I like music, I often listen to Japanese drum music."
+    ],
+    "tip": "Node gives a reason before your statement; swap wadaiko for any genre or artist you actually enjoy."
+   }
+  ],
+  "craft": {
+   "intro": "A worked example answering 'What Japanese customs do you know or have you tried?' for the VCE oral general conversation.",
+   "model": [
+    {
+     "jp": [
+      "日本の伝統文化にとても興味があります。",
+      "にほんのでんとうぶんかにとてもきょうみがあります。",
+      "Nihon no dentō bunka ni totemo kyōmi ga arimasu.",
+      "I'm very interested in traditional Japanese culture."
+     ],
+     "note": "Opens with a clear frame"
+    },
+    {
+     "jp": [
+      "小学校の時、書道を習ったことがあるからです。",
+      "しょうがっこうのとき、しょどうをならったことがあるからです。",
+      "Shōgakkō no toki, shodō o naratta koto ga aru kara desu.",
+      "That's because I learned calligraphy when I was in primary school."
+     ],
+     "note": "Gives a reason with kara"
+    },
+    {
+     "jp": [
+      "それに、夏には花火大会によく行きます。",
+      "それに、なつにははなびたいかいによくいきます。",
+      "Sore ni, natsu ni wa hanabi taikai ni yoku ikimasu.",
+      "Also, in summer I often go to fireworks festivals."
+     ],
+     "note": "Adds a related point with sore ni"
+    },
+    {
+     "jp": [
+      "去年は着物を着て、お祭りに参加したことがあります。",
+      "きょねんはきものをきて、おまつりにさんかしたことがあります。",
+      "Kyonen wa kimono o kite, omatsuri ni sanka shita koto ga arimasu.",
+      "Last year I wore a kimono and took part in a festival."
+     ],
+     "note": "Past experience with ta koto ga arimasu"
+    },
+    {
+     "jp": [
+      "でも、まだ茶道は体験したことがないので、今度やってみたいです。",
+      "でも、まださどうはたいけんしたことがないので、こんどやってみたいです。",
+      "Demo, mada sadō wa taiken shita koto ga nai node, kondo yatte mitai desu.",
+      "But I haven't experienced tea ceremony yet, so I want to try it next time."
+     ],
+     "note": "Contrast with demo, plus a wish for the future"
+    },
+    {
+     "jp": [
+      "日本の伝統文化はとても面白いと思います。",
+      "にほんのでんとうぶんかはとてもおもしろいとおもいます。",
+      "Nihon no dentō bunka wa totemo omoshiroi to omoimasu.",
+      "I think Japanese traditional culture is really interesting."
+     ],
+     "note": "Closes with an opinion using to omoimasu"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "花火はきれいでした。",
+      "はなびはきれいでした。",
+      "Hanabi wa kirei deshita.",
+      "The fireworks were pretty."
+     ],
+     "options": [
+      "花火は本当にきれいで、感動しました。",
+      "花火はきれいだったし、楽しかったです。",
+      "花火が見ました。"
+     ],
+     "answer": 0,
+     "why": "Option A adds hontō ni (really) and kandō shimashita (I was moved), turning a flat description into a genuine, engaged response. Option B is grammatical but just strings two plain adjectives together with shi, adding no real extra content. Option C has a common particle error: mimashita (a transitive verb, 'watched') needs o, not ga, so hanabi ga mimashita is ungrammatical; it should be hanabi o mimashita."
+    },
+    {
+     "weak": [
+      "着物を着ました。楽しかったです。",
+      "きものをきました。たのしかったです。",
+      "Kimono o kimashita. Tanoshikatta desu.",
+      "I wore a kimono. It was fun."
+     ],
+     "options": [
+      "着物を着ました。それに、楽しかったです。",
+      "着物を着てみたら、思ったより楽しかったです。",
+      "着物が着ました。楽しいでした。"
+     ],
+     "answer": 1,
+     "why": "Option A links the two ideas naturally with te mitara (when I tried it) and adds a comparison (omotta yori, more than I expected), turning two flat statements into one flowing sentence. Option B is grammatical but sore ni just bolts two plain facts together without adding meaning. Option C has two errors: kimono ga kimashita should use o (kimono o kimashita), and tanoshii deshita is wrong because i-adjectives take katta desu in the past, not deshita, so it should be tanoshikatta desu."
+    },
+    {
+     "weak": [
+      "音楽が好きです。",
+      "おんがくがすきです。",
+      "Ongaku ga suki desu.",
+      "I like music."
+     ],
+     "options": [
+      "音楽は好きだと思います。",
+      "音楽が好きだから、コンサートに行くことがあります。",
+      "音楽が好きなので、コンサートに行ったことがあります。"
+     ],
+     "answer": 2,
+     "why": "Option A gives a reason with node and backs it up with a concrete past experience (konsāto ni itta koto ga arimasu), which is what raises a plain like-statement into a fuller oral answer. Option B is grammatical but da to omoimasu only hedges a simple fact, adding no new content and sounding unsure about something you clearly know. Option C mixes up two similar patterns: iku koto ga arimasu means 'I sometimes go', not 'I have been', since the past experience form needed here is itta koto ga arimasu, so as written it doesn't actually support the claim of liking music."
+    }
+   ]
+  }
+ },
+ "yuumei": {
+  "qa": [
+   {
+    "q": [
+     "あなたが尊敬している有名人は誰ですか。",
+     "あなたがそんけいしているゆうめいじんはだれですか。",
+     "Anata ga sonkei shite iru yūmeijin wa dare desu ka.",
+     "Who is a famous person you admire?"
+    ],
+    "a": [
+     "私が尊敬している有名人は宮崎駿という映画監督です。",
+     "わたしがそんけいしているゆうめいじんはみやざきはやおというえいがかんとくです。",
+     "Watashi ga sonkei shite iru yūmeijin wa Miyazaki Hayao to iu eiga kantoku desu.",
+     "The famous person I admire is a film director called Miyazaki Hayao."
+    ],
+    "tip": "To iu X means 'an X called ~'; swap the name and eiga kantoku for your own person and role."
+   },
+   {
+    "q": [
+     "その人はどうして有名になりましたか。",
+     "そのひとはどうしてゆうめいになりましたか。",
+     "Sono hito wa dōshite yūmei ni narimashita ka.",
+     "Why did that person become famous?"
+    ],
+    "a": [
+     "素晴らしい映画をたくさん作ったので、有名になりました。",
+     "すばらしいえいがをたくさんつくったので、ゆうめいになりました。",
+     "Subarashii eiga o takusan tsukutta node, yūmei ni narimashita.",
+     "They became famous because they made many wonderful films."
+    ],
+    "tip": "Node gives the reason before the result; swap eiga o takusan tsukutta for whatever that person is actually known for."
+   },
+   {
+    "q": [
+     "あなたはどんな作家や画家が好きですか。",
+     "あなたはどんなさっかやがかがすきですか。",
+     "Anata wa donna sakka ya gaka ga suki desu ka.",
+     "What kind of writers or painters do you like?"
+    ],
+    "a": [
+     "感動的な話を書く作家が好きです。",
+     "かんどうてきなはなしをかくさっかがすきです。",
+     "Kandōteki na hanashi o kaku sakka ga suki desu.",
+     "I like writers who write moving stories."
+    ],
+    "tip": "A clause before the noun (kaku sakka) means 'a writer who writes'; swap the description for whatever you actually value."
+   },
+   {
+    "q": [
+     "好きな選手か監督について話してください。",
+     "すきなせんしゅかかんとくについてはなしてください。",
+     "Suki na senshu ka kantoku ni tsuite hanashite kudasai.",
+     "Please talk about a player or coach you like."
+    ],
+    "a": [
+     "私は大谷翔平という野球選手が好きで、彼の歴史を知るのが楽しいです。",
+     "わたしはおおたにしょうへいというやきゅうせんしゅがすきで、かれのれきしをしるのがたのしいです。",
+     "Watashi wa Ōtani Shōhei to iu yakyū senshu ga suki de, kare no rekishi o shiru no ga tanoshii desu.",
+     "I like a baseball player called Ōtani Shōhei, and I enjoy learning about his history."
+    ],
+    "tip": "No ga tanoshii turns a verb phrase into '-ing is fun'; swap the athlete and sport for your own."
+   },
+   {
+    "q": [
+     "有名な科学者や実業家を知っていますか。",
+     "ゆうめいなかがくしゃやじつぎょうかをしっていますか。",
+     "Yūmei na kagakusha ya jitsugyōka o shitte imasu ka.",
+     "Do you know any famous scientists or business people?"
+    ],
+    "a": [
+     "はい、新しい会社を作った実業家に興味があります。",
+     "はい、あたらしいかいしゃをつくったじつぎょうかにきょうみがあります。",
+     "Hai, atarashii kaisha o tsukutta jitsugyōka ni kyōmi ga arimasu.",
+     "Yes, I'm interested in business people who started new companies."
+    ],
+    "tip": "Tsukutta jitsugyōka means 'a business person who created ~'; swap kaisha for the specific thing they built."
+   },
+   {
+    "q": [
+     "その有名人についてもっと知りたいですか。",
+     "そのゆうめいじんについてもっとしりたいですか。",
+     "Sono yūmeijin ni tsuite motto shiritai desu ka.",
+     "Do you want to know more about that famous person?"
+    ],
+    "a": [
+     "はい、その経営者の本を読んだことがあるので、もっと知りたいです。",
+     "はい、そのけいえいしゃのほんをよんだことがあるので、もっとしりたいです。",
+     "Hai, sono keieisha no hon o yonda koto ga aru node, motto shiritai desu.",
+     "Yes, since I've read that manager's book, I want to know more."
+    ],
+    "tip": "Yonda koto ga aru means 'have read'; swap hon for an interview, article or documentary you've come across."
+   }
+  ],
+  "craft": {
+   "intro": "A worked example answering 'Tell me about a famous person you admire' for the VCE oral general conversation.",
+   "model": [
+    {
+     "jp": [
+      "私が尊敬している有名人は宮崎駿です。",
+      "わたしがそんけいしているゆうめいじんはみやざきはやおです。",
+      "Watashi ga sonkei shite iru yūmeijin wa Miyazaki Hayao desu.",
+      "The famous person I admire is Miyazaki Hayao."
+     ],
+     "note": "Opens with a clear frame naming the person"
+    },
+    {
+     "jp": [
+      "彼は有名な映画監督で、たくさんの映画を作りました。",
+      "かれはゆうめいなえいがかんとくで、たくさんのえいがをつくりました。",
+      "Kare wa yūmei na eiga kantoku de, takusan no eiga o tsukurimashita.",
+      "He is a famous film director who made many films."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "彼の映画は物語がとても面白いからです。",
+      "かれのえいがはものがたりがとてもおもしろいからです。",
+      "Kare no eiga wa monogatari ga totemo omoshiroi kara desu.",
+      "That's because the stories in his films are really interesting."
+     ],
+     "note": "Gives a reason with kara"
+    },
+    {
+     "jp": [
+      "それに、絵もとても美しいと思います。",
+      "それに、えもとてもうつくしいとおもいます。",
+      "Sore ni, e mo totemo utsukushii to omoimasu.",
+      "Also, I think the artwork is really beautiful too."
+     ],
+     "note": "Adds a related point with sore ni"
+    },
+    {
+     "jp": [
+      "去年、彼の映画を三回見たことがあります。",
+      "きょねん、かれのえいがをさんかいみたことがあります。",
+      "Kyonen, kare no eiga o sankai mita koto ga arimasu.",
+      "Last year, I watched his films three times."
+     ],
+     "note": "Past experience with ta koto ga arimasu"
+    },
+    {
+     "jp": [
+      "だから、彼はとても素晴らしい芸術家だと思います。",
+      "だから、かれはとてもすばらしいげいじゅつかだとおもいます。",
+      "Dakara, kare wa totemo subarashii geijutsuka da to omoimasu.",
+      "So I think he is a truly wonderful artist."
+     ],
+     "note": "Closes with an opinion using to omoimasu, linked with dakara"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "有名な人が好きです。",
+      "ゆうめいなひとがすきです。",
+      "Yūmei na hito ga suki desu.",
+      "I like a famous person."
+     ],
+     "options": [
+      "私が尊敬している有名人は大谷翔平で、彼の努力する姿に感動します。",
+      "有名な人が好きです。とても有名です。",
+      "有名な人が好きます。"
+     ],
+     "answer": 0,
+     "why": "Option A names a specific person (Ōtani Shōhei) and gives a concrete reason, his hardworking attitude moves me, which is what an admiration answer needs. Option B is grammatical but just repeats that the person is 'very famous' without adding any real content. Option C makes the common error of treating the na-adjective suki as if it were a verb; suki takes desu or da, not masu, so sukimasu is wrong and it should be suki desu."
+    },
+    {
+     "weak": [
+      "その監督はいい映画を作りました。",
+      "そのかんとくはいいえいがをつくりました。",
+      "Sono kantoku wa ii eiga o tsukurimashita.",
+      "That director made good films."
+     ],
+     "options": [
+      "その監督はいい映画を作りました。そして、いい監督です。",
+      "感動的な映画をたくさん作ったので、世界中で有名になりました。",
+      "その監督はいい映画を作られました。"
+     ],
+     "answer": 1,
+     "why": "Option A adds a reason with node, many moving films, and a concrete result, became famous worldwide, which develops the flat statement into a fuller answer. Option B is grammatical but circular: it just restates 'good films' as 'a good director' without adding new information. Option C swaps in the passive or honorific form tsukuraremashita, which either means the films were made by someone else or sounds like an unintended honorific, when the plain past tsukurimashita is what the sentence needs."
+    },
+    {
+     "weak": [
+      "私はスポーツ選手が好きです。",
+      "わたしはスポーツせんしゅがすきです。",
+      "Watashi wa supōtsu senshu ga suki desu.",
+      "I like sports players."
+     ],
+     "options": [
+      "私はスポーツ選手が好きです。それに、スポーツも好きです。",
+      "私はスポーツ選手が好きだった。",
+      "私が尊敬している選手は大坂なおみで、諦めない性格を尊敬しています。"
+     ],
+     "answer": 2,
+     "why": "Option A names a specific athlete, Ōsaka Naomi, and gives a genuine reason for admiring her, which is exactly what an oral answer about a significant person needs. Option B is grammatical but sore ni supōtsu mo suki desu just adds a vague, related-sounding fact without saying anything new. Option C breaks the polite register the oral exam expects by switching to the plain form suki datta, and also wrongly puts a general, ongoing preference into the past tense; it should stay suki desu."
+    }
+   ]
+  }
+ },
+ "nihon": {
+  "qa": [
+   {
+    "q": [
+     "日本を旅行したことがありますか。",
+     "にほんをりょこうしたことがありますか。",
+     "Nihon o ryokō shita koto ga arimasu ka.",
+     "Have you travelled in Japan?"
+    ],
+    "a": [
+     "はい、あります。飛行機で大阪に行きました。",
+     "はい、あります。ひこうきでおおさかにいきました。",
+     "Hai, arimasu. Hikōki de Ōsaka ni ikimashita.",
+     "Yes, I have. I went to Osaka by plane."
+    ],
+    "tip": "De marks the method of transport; swap hikōki and the city for your own trip."
+   },
+   {
+    "q": [
+     "空港で何をしましたか。",
+     "くうこうでなにをしましたか。",
+     "Kūkō de nani o shimashita ka.",
+     "What did you do at the airport?"
+    ],
+    "a": [
+     "空港で切符を買って、荷物を預けました。",
+     "くうこうできっぷをかって、にもつをあずけました。",
+     "Kūkō de kippu o katte, nimotsu o azukemashita.",
+     "At the airport I bought a ticket and checked in my luggage."
+    ],
+    "tip": "The te-form joins two actions in order; swap kippu o katte for whatever you actually did first."
+   },
+   {
+    "q": [
+     "日本でどうやって観光しましたか。",
+     "にほんでどうやってかんこうしましたか。",
+     "Nihon de dō yatte kankō shimashita ka.",
+     "How did you sightsee in Japan?"
+    ],
+    "a": [
+     "電車や地下鉄に乗って、いろいろな神社を見に行きました。",
+     "でんしゃやちかてつにのって、いろいろなじんじゃをみにいきました。",
+     "Densha ya chikatetsu ni notte, iroiro na jinja o mi ni ikimashita.",
+     "I rode trains and the subway, and went to see various shrines."
+    ],
+    "tip": "Mi ni iku means 'go to see'; swap jinja for temples, museums or shops you'd actually visit."
+   },
+   {
+    "q": [
+     "温泉に入ったことがありますか。",
+     "おんせんにはいったことがありますか。",
+     "Onsen ni haitta koto ga arimasu ka.",
+     "Have you been in a hot spring?"
+    ],
+    "a": [
+     "いいえ、まだありませんが、日本に行ったら温泉に入りたいです。",
+     "いいえ、まだありませんが、にほんにいったらおんせんにはいりたいです。",
+     "Iie, mada arimasen ga, Nihon ni ittara onsen ni hairitai desu.",
+     "No, not yet, but if I go to Japan I'd like to go in a hot spring."
+    ],
+    "tip": "Tara means 'if or when'; swap onsen for anything else on your own travel wish list."
+   },
+   {
+    "q": [
+     "旅行の時、写真をたくさん撮りますか。",
+     "りょこうのとき、しゃしんをたくさんとりますか。",
+     "Ryokō no toki, shashin o takusan torimasu ka.",
+     "When you travel, do you take lots of photos?"
+    ],
+    "a": [
+     "はい、撮ります。特にきれいな景色の写真を撮るのが好きです。",
+     "はい、とります。とくにきれいなけしきのしゃしんをとるのがすきです。",
+     "Hai, torimasu. Toku ni kirei na keshiki no shashin o toru no ga suki desu.",
+     "Yes, I do. I especially like taking photos of beautiful scenery."
+    ],
+    "tip": "No ga suki turns a verb into '-ing is something I like'; swap keshiki for food, people or buildings."
+   },
+   {
+    "q": [
+     "日本でお金が足りなくなったら、どうしますか。",
+     "にほんでおかねがたりなくなったら、どうしますか。",
+     "Nihon de okane ga tarinaku nattara, dō shimasu ka.",
+     "If you ran out of money in Japan, what would you do?"
+    ],
+    "a": [
+     "銀行でお金をおろして、それから旅行を続けます。",
+     "ぎんこうでおかねをおろして、それからりょこうをつづけます。",
+     "Ginkō de okane o oroshite, sore kara ryokō o tsuzukemasu.",
+     "I'd withdraw money at the bank, and then continue the trip."
+    ],
+    "tip": "Sore kara links two steps in order; swap ginkō for an ATM if that feels more natural for you."
+   }
+  ],
+  "craft": {
+   "intro": "A worked example answering 'Tell me about a trip you have taken or are planning in Japan' for the VCE oral general conversation.",
+   "model": [
+    {
+     "jp": [
+      "去年、家族と一緒に日本へ旅行に行きました。",
+      "きょねん、かぞくといっしょににほんへりょこうにいきました。",
+      "Kyonen, kazoku to issho ni Nihon e ryokō ni ikimashita.",
+      "Last year, I went on a trip to Japan together with my family."
+     ],
+     "note": "Opens with a clear frame, time and topic"
+    },
+    {
+     "jp": [
+      "飛行機で行ったので、空港でたくさん写真を撮りました。",
+      "ひこうきでいったので、くうこうでたくさんしゃしんをとりました。",
+      "Hikōki de itta node, kūkō de takusan shashin o torimashita.",
+      "Since we went by plane, I took lots of photos at the airport."
+     ],
+     "note": "Gives a reason with node"
+    },
+    {
+     "jp": [
+      "東京では地下鉄で移動して、有名な神社を見に行きました。",
+      "とうきょうではちかてつでいどうして、ゆうめいなじんじゃをみにいきました。",
+      "Tōkyō de wa chikatetsu de idō shite, yūmei na jinja o mi ni ikimashita.",
+      "In Tokyo, we got around by subway and went to see a famous shrine."
+     ],
+     "note": ""
+    },
+    {
+     "jp": [
+      "それに、温泉にも入ったことがあります。",
+      "それに、おんせんにもはいったことがあります。",
+      "Sore ni, onsen ni mo haitta koto ga arimasu.",
+      "Also, I have even been in a hot spring."
+     ],
+     "note": "Adds a related point with sore ni, and past experience with ta koto ga arimasu"
+    },
+    {
+     "jp": [
+      "でも、荷物が重かったので、少し大変でした。",
+      "でも、にもつがおもかったので、すこしたいへんでした。",
+      "Demo, nimotsu ga omokatta node, sukoshi taihen deshita.",
+      "But my luggage was heavy, so it was a bit tough."
+     ],
+     "note": "Contrast with demo"
+    },
+    {
+     "jp": [
+      "今度は電車でもっと遠くまで観光してみたいと思います。",
+      "こんどはでんしゃでもっととおくまでかんこうしてみたいとおもいます。",
+      "Kondo wa densha de motto tōku made kankō shite mitai to omoimasu.",
+      "Next time, I want to try sightseeing further afield by train."
+     ],
+     "note": "Closes with a future wish and opinion using to omoimasu"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "空港に行きました。飛行機に乗りました。",
+      "くうこうにいきました。ひこうきにのりました。",
+      "Kūkō ni ikimashita. Hikōki ni norimashita.",
+      "I went to the airport. I got on the plane."
+     ],
+     "options": [
+      "空港に行って、飛行機に乗りました。",
+      "空港に行きました。そして、飛行機に乗りました。",
+      "空港を行って、飛行機に乗りました。"
+     ],
+     "answer": 0,
+     "why": "Option A links the two actions smoothly with the te-form (itte), turning two short flat sentences into one natural one. Option B is grammatical but soshite just chains two facts together, so it still reads as a list rather than a connected story. Option C swaps in the particle o for the destination, but iku needs ni or e for a simple destination, so kūkō o itte is a common particle error."
+    },
+    {
+     "weak": [
+      "切符を買いました。電車に乗りました。",
+      "きっぷをかいました。でんしゃにのりました。",
+      "Kippu o kaimashita. Densha ni norimashita.",
+      "I bought a ticket. I got on the train."
+     ],
+     "options": [
+      "切符を買いました。それから、電車に乗りました。",
+      "切符を買ってから、電車に乗りました。",
+      "切符が買いました。"
+     ],
+     "answer": 1,
+     "why": "Option A uses te kara to show one action clearly happening before the next, giving a natural sense of sequence. Option B is grammatical and does show order with sore kara, but it is still two separate sentences bolted together rather than one flowing sentence. Option C has a particle error: kau is a transitive verb that takes o, so kippu ga kaimashita should be kippu o kaimashita."
+    },
+    {
+     "weak": [
+      "温泉はよかったです。",
+      "おんせんはよかったです。",
+      "Onsen wa yokatta desu.",
+      "The hot spring was good."
+     ],
+     "options": [
+      "温泉はよかったです。とてもよかったです。",
+      "温泉わよかったでした。",
+      "初めて温泉に入ったことがあって、本当にリラックスできました。"
+     ],
+     "answer": 2,
+     "why": "Option A adds that it was a first experience, haitta koto ga atte, and a specific result, hontō ni rirakkusu dekimashita, giving genuine detail instead of a flat statement. Option B is grammatical but just repeats 'good' a second time without adding anything new. Option C has two errors: the topic particle wa is written as わ instead of は, a common spelling slip since は is pronounced 'wa', and yokatta deshita is wrong because the past tense of the i-adjective ii or yoi is yokatta desu, not yokatta deshita."
+    }
+   ]
+  }
+ },
+ "shakai": {
+  "qa": [
+   {
+    "q": [
+     "環境の問題について、どう思いますか。",
+     "かんきょうのもんだいについて、どうおもいますか。",
+     "Kankyō no mondai ni tsuite, dō omoimasu ka.",
+     "What do you think about environmental problems?"
+    ],
+    "a": [
+     "私は環境の問題はとても大切だと思います。資源が少なくなっているからです。",
+     "わたしはかんきょうのもんだいはとてもたいせつだとおもいます。しげんがすくなくなっているからです。",
+     "Watashi wa kankyō no mondai wa totemo taisetsu da to omoimasu. Shigen ga sukunaku natte iru kara desu.",
+     "I think environmental problems are very important. This is because resources are becoming scarce."
+    ],
+    "tip": "Swap 資源が少なくなっている for another reason such as 温暖化が進んでいる (global warming is advancing)."
+   },
+   {
+    "q": [
+     "あなたの家族は核家族ですか。",
+     "あなたのかぞくはかくかぞくですか。",
+     "Anata no kazoku wa kaku kazoku desu ka.",
+     "Is your family a nuclear family?"
+    ],
+    "a": [
+     "はい、私の家族は核家族です。両親と兄弟だけで住んでいます。",
+     "はい、わたしのかぞくはかくかぞくです。りょうしんときょうだいだけですんでいます。",
+     "Hai, watashi no kazoku wa kaku kazoku desu. Ryōshin to kyōdai dake de sunde imasu.",
+     "Yes, my family is a nuclear family. We live with just my parents and siblings."
+    ],
+    "tip": "Swap 核家族 for 大家族 (extended family) if that describes your situation instead."
+   },
+   {
+    "q": [
+     "日本の高齢化について何を知っていますか。",
+     "にほんのこうれいかについてなにをしっていますか。",
+     "Nihon no kōreika ni tsuite nani o shitte imasu ka.",
+     "What do you know about Japan's ageing population?"
+    ],
+    "a": [
+     "日本では高齢者の人口が増えていると思います。それに、少子化も問題です。",
+     "にほんではこうれいしゃのじんこうがふえているとおもいます。それに、しょうしかももんだいです。",
+     "Nihon de wa kōreisha no jinkō ga fuete iru to omoimasu. Sore ni, shōshika mo mondai desu.",
+     "I think the population of elderly people is increasing in Japan. In addition, the declining birthrate is also a problem."
+    ],
+    "tip": "Swap 少子化 for 温暖化 to talk about a different social issue instead."
+   },
+   {
+    "q": [
+     "あなたの町には老人が多いですか。",
+     "あなたのまちにはろうじんがおおいですか。",
+     "Anata no machi ni wa rōjin ga ōi desu ka.",
+     "Are there many elderly people in your town?"
+    ],
+    "a": [
+     "はい、多いと思います。私の町でも老人の人口が増えています。",
+     "はい、おおいとおもいます。わたしのまちでもろうじんのじんこうがふえています。",
+     "Hai, ōi to omoimasu. Watashi no machi de mo rōjin no jinkō ga fuete imasu.",
+     "Yes, I think there are a lot. The elderly population is growing in my town too."
+    ],
+    "tip": "Swap 増えています for 多くないです if that is truer of your town."
+   },
+   {
+    "q": [
+     "環境を守るために、何をしなければなりませんか。",
+     "かんきょうをまもるために、なにをしなければなりませんか。",
+     "Kankyō o mamoru tame ni, nani o shinakereba narimasen ka.",
+     "What must you do in order to protect the environment?"
+    ],
+    "a": [
+     "資源を大切に使わなければなりません。それに、ごみを減らしたりリサイクルをしたりします。",
+     "しげんをたいせつにつかわなければなりません。それに、ごみをへらしたりリサイクルをしたりします。",
+     "Shigen o taisetsu ni tsukawanakereba narimasen. Sore ni, gomi o herashitari risaikuru o shitari shimasu.",
+     "We must use resources carefully. Also, I do things like reducing rubbish and recycling."
+    ],
+    "tip": "Swap ごみを減らしたりリサイクルをしたりします for 電気を消したり水を大切に使ったりします (turning off lights, using water carefully) if you prefer another example."
+   },
+   {
+    "q": [
+     "少子化はなぜ問題だと思いますか。",
+     "しょうしかはなぜもんだいだとおもいますか。",
+     "Shōshika wa naze mondai da to omoimasu ka.",
+     "Why do you think the declining birthrate is a problem?"
+    ],
+    "a": [
+     "少子化が進むと、働く人が少なくなると思います。だから、社会にとって大きい問題です。",
+     "しょうしかがすすむと、はたらくひとがすくなくなるとおもいます。だから、しゃかいにとっておおきいもんだいです。",
+     "Shōshika ga susumu to, hataraku hito ga sukunaku naru to omoimasu. Dakara, shakai ni totte ōkii mondai desu.",
+     "I think that if the declining birthrate continues, there will be fewer working people. So, it is a big problem for society."
+    ],
+    "tip": "Swap 働く人が少なくなる for 学校が少なくなる (fewer schools) as another consequence."
+   }
+  ],
+  "craft": {
+   "intro": "A model answer explaining a personal view on Japan's environmental and ageing population problems, and what should be done about them.",
+   "model": [
+    {
+     "jp": [
+      "今、日本には大きい社会問題がたくさんあります。",
+      "いま、にほんにはおおきいしゃかいもんだいがたくさんあります。",
+      "Ima, Nihon ni wa ōkii shakai mondai ga takusan arimasu.",
+      "Right now, Japan has many big social problems."
+     ],
+     "note": "Introduces the topic"
+    },
+    {
+     "jp": [
+      "私は高齢化が一番大切な問題だと思います。",
+      "わたしはこうれいかがいちばんたいせつなもんだいだとおもいます。",
+      "Watashi wa kōreika ga ichiban taisetsu na mondai da to omoimasu.",
+      "I think the ageing population is the most important problem."
+     ],
+     "note": "States an opinion with と思います"
+    },
+    {
+     "jp": [
+      "なぜなら、高齢者の人口が増えているからです。",
+      "なぜなら、こうれいしゃのじんこうがふえているからです。",
+      "Naze nara, kōreisha no jinkō ga fuete iru kara desu.",
+      "This is because the population of elderly people is increasing."
+     ],
+     "note": "Gives a reason with から"
+    },
+    {
+     "jp": [
+      "それに、少子化も同時に進んでいます。",
+      "それに、しょうしかもどうじにすすんでいます。",
+      "Sore ni, shōshika mo dōji ni susunde imasu.",
+      "In addition, the declining birthrate is also happening at the same time."
+     ],
+     "note": "Adds a second point with それに"
+    },
+    {
+     "jp": [
+      "でも、環境の問題も忘れてはいけないと思います。",
+      "でも、かんきょうのもんだいもわすれてはいけないとおもいます。",
+      "Demo, kankyō no mondai mo wasurete wa ikenai to omoimasu.",
+      "But I don't think we should forget about environmental problems either."
+     ],
+     "note": "Adds contrast with でも"
+    },
+    {
+     "jp": [
+      "だから、私たちは資源を大切に使わなければならないと思います。",
+      "だから、わたしたちはしげんをたいせつにつかわなければならないとおもいます。",
+      "Dakara, watashitachi wa shigen o taisetsu ni tsukawanakereba naranai to omoimasu.",
+      "So, I think we must use resources carefully."
+     ],
+     "note": "Lands the conclusion with なければなりません"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "環境は大切です。",
+      "かんきょうはたいせつです。",
+      "Kankyō wa taisetsu desu.",
+      "The environment is important."
+     ],
+     "options": [
+      "私は環境の問題はとても大切だと思います。資源が少なくなっているからです。",
+      "環境はとても大切です。",
+      "環境はたぶん大切だと思います。"
+     ],
+     "answer": 0,
+     "why": "Option A is the strongest choice because it gives a personal opinion with と思います and supports it with a reason using から, which is exactly what an examiner wants to see. Option B just repeats the same flat fact with とても added, so it still has no opinion or reasoning. Option C adds と思います but pairs it with たぶん, which makes the opinion sound unsure instead of confident."
+    },
+    {
+     "weak": [
+      "私の家族は四人です。",
+      "わたしのかぞくはよにんです。",
+      "Watashi no kazoku wa yonin desu.",
+      "My family has four people."
+     ],
+     "options": [
+      "私の家族は四人家族です。",
+      "私の家族は核家族で、両親と妹と私です。",
+      "私の家族は四人だと思います。"
+     ],
+     "answer": 1,
+     "why": "Option A is the best answer because it uses the topic vocabulary 核家族 and gives concrete detail about who is in the family, showing control of the unit's language. Option B is grammatically fine but just restates the number of people without adding new information or vocabulary. Option C is actually wrong: と思います should not be used for a fact you know for certain, like how many people are in your own family."
+    },
+    {
+     "weak": [
+      "日本は高齢化の問題があります。",
+      "にほんはこうれいかのもんだいがあります。",
+      "Nihon wa kōreika no mondai ga arimasu.",
+      "Japan has the problem of an ageing population."
+     ],
+     "options": [
+      "日本は高齢化の問題があると思います。",
+      "日本が高齢化の問題があります。",
+      "日本では高齢化が進んでいると思います。それに、少子化も社会の大きい問題です。"
+     ],
+     "answer": 2,
+     "why": "Option A is the strongest because it links two related issues, 高齢化 and 少子化, with それに and gives a fuller opinion, showing range across the unit's vocabulary. Option B only adds と思います to the original sentence without developing the idea further, so it stays basic. Option C swaps the topic particle は for が, which sounds unnatural here since 日本 is the topic being discussed, not a newly introduced subject."
+    }
+   ]
+  }
+ },
+ "tsuushin": {
+  "qa": [
+   {
+    "q": [
+     "毎日、どうやってニュースの情報を得ますか。",
+     "まいにち、どうやってニュースのじょうほうをえますか。",
+     "Mainichi, dōyatte nyūsu no jōhō o emasu ka.",
+     "How do you get news information every day?"
+    ],
+    "a": [
+     "私は携帯でニュースの記事を読んで、情報を得ます。",
+     "わたしはけいたいでニュースのきじをよんで、じょうほうをえます。",
+     "Watashi wa keitai de nyūsu no kiji o yonde, jōhō o emasu.",
+     "I get information by reading news articles on my mobile phone."
+    ],
+    "tip": "Swap 携帯でニュースの記事を読んで for 新聞を読んで (reading a newspaper) or テレビの番組を見て (watching a TV programme)."
+   },
+   {
+    "q": [
+     "新聞を読みますか、それとも携帯でニュースを見ますか。",
+     "しんぶんをよみますか、それともけいたいでニュースをみますか。",
+     "Shinbun o yomimasu ka, sore tomo keitai de nyūsu o mimasu ka.",
+     "Do you read a newspaper, or do you check the news on your phone?"
+    ],
+    "a": [
+     "私は新聞を読むより、携帯でニュースを見るほうが多いです。新聞社のウェブサイトも便利です。",
+     "わたしはしんぶんをよむより、けいたいでニュースをみるほうがおおいです。しんぶんしゃのウェブサイトもべんりです。",
+     "Watashi wa shinbun o yomu yori, keitai de nyūsu o miru hō ga ōi desu. Shinbunsha no webusaito mo benri desu.",
+     "Rather than reading a newspaper, I more often check the news on my phone. Newspaper companies' websites are also convenient."
+    ],
+    "tip": "Swap 携帯でニュースを見る for テレビの番組でニュースを見る (watching news programmes on TV) for variety."
+   },
+   {
+    "q": [
+     "テレビの広告は好きですか。",
+     "テレビのこうこくはすきですか。",
+     "Terebi no kōkoku wa suki desu ka.",
+     "Do you like TV advertisements?"
+    ],
+    "a": [
+     "いいえ、あまり好きではありません。広告が多すぎると思います。",
+     "いいえ、あまりすきではありません。こうこくがおおすぎるとおもいます。",
+     "Iie, amari suki de wa arimasen. Kōkoku ga ōsugiru to omoimasu.",
+     "No, I don't like them very much. I think there are too many advertisements."
+    ],
+    "tip": "Swap 広告が多すぎる for 広告がうるさい (adverts are annoying) for a different reason."
+   },
+   {
+    "q": [
+     "好きなテレビ番組は何ですか。",
+     "すきなテレビばんぐみはなんですか。",
+     "Suki na terebi bangumi wa nan desu ka.",
+     "What is your favourite TV programme?"
+    ],
+    "a": [
+     "私が好きな番組はニュース番組です。会話の練習にもなると思います。",
+     "わたしがすきなばんぐみはニュースばんぐみです。かいわのれんしゅうにもなるとおもいます。",
+     "Watashi ga suki na bangumi wa nyūsu bangumi desu. Kaiwa no renshū ni mo naru to omoimasu.",
+     "My favourite programme is the news programme. I also think it helps with conversation practice."
+    ],
+    "tip": "Swap ニュース番組 for ドラマ (drama) or アニメ (anime) to talk about a different type of show."
+   },
+   {
+    "q": [
+     "電話で話すのと、メッセージを送るのと、どちらのほうが多いですか。",
+     "でんわではなすのと、メッセージをおくるのと、どちらのほうがおおいですか。",
+     "Denwa de hanasu no to, messēji o okuru no to, dochira no hō ga ōi desu ka.",
+     "Which do you do more, talking on the phone or sending messages?"
+    ],
+    "a": [
+     "私はメッセージを送るほうが多いです。友達との会話も、たいていメッセージでします。",
+     "わたしはメッセージをおくるほうがおおいです。ともだちとのかいわも、たいていメッセージでします。",
+     "Watashi wa messēji o okuru hō ga ōi desu. Tomodachi to no kaiwa mo, taitei messēji de shimasu.",
+     "I send messages more often. Most of my conversations with friends are also through messages."
+    ],
+    "tip": "Swap 友達との会話 for 家族との電話 (phone calls with family) to describe a different situation."
+   },
+   {
+    "q": [
+     "携帯の番号を交換したことがありますか。",
+     "けいたいのばんごうをこうかんしたことがありますか。",
+     "Keitai no bangō o kōkan shita koto ga arimasu ka.",
+     "Have you ever exchanged mobile phone numbers with someone?"
+    ],
+    "a": [
+     "はい、あります。新しい友達と携帯の番号を交換することができました。",
+     "はい、あります。あたらしいともだちとけいたいのばんごうをこうかんすることができました。",
+     "Hai, arimasu. Atarashii tomodachi to keitai no bangō o kōkan suru koto ga dekimashita.",
+     "Yes, I have. I was able to exchange phone numbers with a new friend."
+    ],
+    "tip": "Swap 新しい友達 for クラスメート (classmate) to describe someone else."
+   }
+  ],
+  "craft": {
+   "intro": "A model answer explaining how you get your news and what you think about modern media.",
+   "model": [
+    {
+     "jp": [
+      "今、情報を得る方法はたくさんあります。",
+      "いま、じょうほうをえるほうほうはたくさんあります。",
+      "Ima, jōhō o eru hōhō wa takusan arimasu.",
+      "These days, there are many ways to get information."
+     ],
+     "note": "Introduces the topic"
+    },
+    {
+     "jp": [
+      "私は新聞よりインターネットのほうが便利だと思います。",
+      "わたしはしんぶんよりインターネットのほうがべんりだとおもいます。",
+      "Watashi wa shinbun yori intānetto no hō ga benri da to omoimasu.",
+      "I think the internet is more convenient than newspapers."
+     ],
+     "note": "States an opinion with と思います"
+    },
+    {
+     "jp": [
+      "なぜなら、携帯でいつでも記事を読むことができるからです。",
+      "なぜなら、けいたいでいつでもきじをよむことができるからです。",
+      "Naze nara, keitai de itsudemo kiji o yomu koto ga dekiru kara desu.",
+      "This is because I can read articles on my phone anytime."
+     ],
+     "note": "Gives a reason with から and ことができます"
+    },
+    {
+     "jp": [
+      "それに、テレビの番組もインターネットで見ることができます。",
+      "それに、テレビのばんぐみもインターネットでみることができます。",
+      "Sore ni, terebi no bangumi mo intānetto de miru koto ga dekimasu.",
+      "Also, I can watch TV programmes on the internet too."
+     ],
+     "note": "Adds a second point with それに"
+    },
+    {
+     "jp": [
+      "でも、新聞社が書いた記事のほうが正確だと思うこともあります。",
+      "でも、しんぶんしゃがかいたきじのほうがせいかくだとおもうこともあります。",
+      "Demo, shinbunsha ga kaita kiji no hō ga seikaku da to omou koto mo arimasu.",
+      "But I sometimes think articles written by newspaper companies are more accurate."
+     ],
+     "note": "Adds contrast with でも"
+    },
+    {
+     "jp": [
+      "だから、私はいろいろな方法で情報を得たいと思います。",
+      "だから、わたしはいろいろなほうほうでじょうほうをえたいとおもいます。",
+      "Dakara, watashi wa iroiro na hōhō de jōhō o etai to omoimasu.",
+      "So, I want to get information through a variety of methods."
+     ],
+     "note": "Lands the conclusion"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "新聞は大切です。",
+      "しんぶんはたいせつです。",
+      "Shinbun wa taisetsu desu.",
+      "Newspapers are important."
+     ],
+     "options": [
+      "私は新聞のほうが正確な情報が多いと思います。だから、新聞は今でも大切だと思います。",
+      "新聞はとても大切です。",
+      "新聞はたぶん大切かもしれません。"
+     ],
+     "answer": 0,
+     "why": "Option A is the strongest because it gives a clear opinion with と思います, a reason, and a conclusion, showing more developed language. Option B just adds とても to the same flat statement, with no reasoning added. Option C stacks two hedging expressions together, たぶん and かもしれません, which makes the opinion sound too uncertain for a clear answer."
+    },
+    {
+     "weak": [
+      "広告があります。",
+      "こうこくがあります。",
+      "Kōkoku ga arimasu.",
+      "There are advertisements."
+     ],
+     "options": [
+      "広告がたくさんあります。",
+      "テレビには広告が多すぎると思います。見たい番組が広告で止まってしまうからです。",
+      "広告は好きじゃないと思います。"
+     ],
+     "answer": 1,
+     "why": "Option A works best because it gives an opinion with と思います and a specific reason using から, making the point concrete. Option B is grammatically correct but only restates the same basic fact with more advertisements mentioned, with no opinion given. Option C is a little odd because と思います is unnecessary for a simple like or dislike statement about yourself: 好きじゃないです alone is more natural."
+    },
+    {
+     "weak": [
+      "携帯で話します。",
+      "けいたいではなします。",
+      "Keitai de hanashimasu.",
+      "I talk on my mobile."
+     ],
+     "options": [
+      "携帯でよく話します。",
+      "携帯で話すことが好きです。",
+      "友達と話すとき、電話をかけるより、携帯でメッセージを送ったり写真を送ったりします。"
+     ],
+     "answer": 2,
+     "why": "Option A is the best choice because it uses the たり〜たりします pattern to list more than one habit and gives specific detail about how communication actually happens. Option B just adds よく to the flat original sentence, without expanding the idea. Option C is a reasonable sentence, but it only states a preference with no detail about what is actually done, so it is less developed than option A."
+    }
+   ]
+  }
+ },
+ "gijutsu": {
+  "qa": [
+   {
+    "q": [
+     "技術の進歩は生活を便利にすると思いますか。",
+     "ぎじゅつのしんぽはせいかつをべんりにするとおもいますか。",
+     "Gijutsu no shinpo wa seikatsu o benri ni suru to omoimasu ka.",
+     "Do you think that advances in technology make life more convenient?"
+    ],
+    "a": [
+     "はい、そう思います。新しい機械のおかげで、生活はとても便利になりました。",
+     "はい、そうおもいます。あたらしいきかいのおかげで、せいかつはとてもべんりになりました。",
+     "Hai, sō omoimasu. Atarashii kikai no okage de, seikatsu wa totemo benri ni narimashita.",
+     "Yes, I think so. Thanks to new machines, life has become very convenient."
+    ],
+    "tip": "Swap 新しい機械 for 人工知能 (artificial intelligence) if you'd rather talk about AI specifically."
+   },
+   {
+    "q": [
+     "将来、自動車はどう変わると思いますか。",
+     "しょうらい、じどうしゃはどうかわるとおもいますか。",
+     "Shōrai, jidōsha wa dō kawaru to omoimasu ka.",
+     "How do you think cars will change in the future?"
+    ],
+    "a": [
+     "未来の自動車は自動で運転することができると思います。",
+     "みらいのじどうしゃはじどうでうんてんすることができるとおもいます。",
+     "Mirai no jidōsha wa jidō de unten suru koto ga dekiru to omoimasu.",
+     "I think future cars will be able to drive automatically."
+    ],
+    "tip": "Swap 運転する for 動く (to move) for a simpler verb choice."
+   },
+   {
+    "q": [
+     "人工知能は便利だと思いますか、それとも危ないと思いますか。",
+     "じんこうちのうはべんりだとおもいますか、それともあぶないとおもいますか。",
+     "Jinkō chinō wa benri da to omoimasu ka, sore tomo abunai to omoimasu ka.",
+     "Do you think artificial intelligence is convenient, or do you think it's dangerous?"
+    ],
+    "a": [
+     "私は便利だと思いますが、少し心配な点もあります。",
+     "わたしはべんりだとおもいますが、すこししんぱいなてんもあります。",
+     "Watashi wa benri da to omoimasu ga, sukoshi shinpai na ten mo arimasu.",
+     "I think it's convenient, but there are also a few points that worry me a little."
+    ],
+    "tip": "Swap 心配な点 for 危ない点 (dangerous points) for a stronger word choice."
+   },
+   {
+    "q": [
+     "昔と比べて、技術はどのぐらい発展したと思いますか。",
+     "むかしとくらべて、ぎじゅつはどのぐらいはってんしたとおもいますか。",
+     "Mukashi to kurabete, gijutsu wa dono gurai hatten shita to omoimasu ka.",
+     "Compared to the past, how much do you think technology has developed?"
+    ],
+    "a": [
+     "技術はとても発展したと思います。電気や機械のおかげで、生活が変わりました。",
+     "ぎじゅつはとてもはってんしたとおもいます。でんきやきかいのおかげで、せいかつがかわりました。",
+     "Gijutsu wa totemo hatten shita to omoimasu. Denki ya kikai no okage de, seikatsu ga kawarimashita.",
+     "I think technology has developed a great deal. Life has changed thanks to electricity and machines."
+    ],
+    "tip": "Swap 電気や機械 for インターネット (the internet) as another example of the change."
+   },
+   {
+    "q": [
+     "新しい発明で、何がいちばん役に立ったと思いますか。",
+     "あたらしいはつめいで、なにがいちばんやくにたったとおもいますか。",
+     "Atarashii hatsumei de, nani ga ichiban yaku ni tatta to omoimasu ka.",
+     "Of new inventions, which do you think has been the most useful?"
+    ],
+    "a": [
+     "私はスマホがいちばん役に立った発明だと思います。連絡したり、情報を調べたりすることができるからです。",
+     "わたしはスマホがいちばんやくにたったはつめいだとおもいます。れんらくしたり、じょうほうをしらべたりすることができるからです。",
+     "Watashi wa sumaho ga ichiban yaku ni tatta hatsumei da to omoimasu. Renraku shitari, jōhō o shirabetari suru koto ga dekiru kara desu.",
+     "I think the smartphone is the invention that has been the most useful. This is because you can do things like contact people and look up information."
+    ],
+    "tip": "Swap スマホ for インターネット (the internet) as another example of a useful invention."
+   },
+   {
+    "q": [
+     "技術の進歩で、未来の生活はどう変わると思いますか。",
+     "ぎじゅつのしんぽで、みらいのせいかつはどうかわるとおもいますか。",
+     "Gijutsu no shinpo de, mirai no seikatsu wa dō kawaru to omoimasu ka.",
+     "With advances in technology, how do you think life in the future will change?"
+    ],
+    "a": [
+     "もっと便利になると思います。でも、機械が人間の仕事をするようになるかもしれません。",
+     "もっとべんりになるとおもいます。でも、きかいがにんげんのしごとをするようになるかもしれません。",
+     "Motto benri ni naru to omoimasu. Demo, kikai ga ningen no shigoto o suru yō ni naru kamoshiremasen.",
+     "I think it will become even more convenient. But machines might start doing jobs that humans do."
+    ],
+    "tip": "Swap 人間の仕事 for 先生の仕事 (teachers' jobs) to give a more specific example."
+   }
+  ],
+  "craft": {
+   "intro": "A model answer giving an opinion on whether new technology makes life better.",
+   "model": [
+    {
+     "jp": [
+      "今、技術はとても速く発展しています。",
+      "いま、ぎじゅつはとてもはやくはってんしています。",
+      "Ima, gijutsu wa totemo hayaku hatten shite imasu.",
+      "Right now, technology is developing very quickly."
+     ],
+     "note": "Introduces the topic"
+    },
+    {
+     "jp": [
+      "私は技術の進歩はいいことだと思います。",
+      "わたしはぎじゅつのしんぽはいいことだとおもいます。",
+      "Watashi wa gijutsu no shinpo wa ii koto da to omoimasu.",
+      "I think the progress of technology is a good thing."
+     ],
+     "note": "States an opinion with と思います"
+    },
+    {
+     "jp": [
+      "なぜなら、新しい機械のおかげで、生活がとても便利になったからです。",
+      "なぜなら、あたらしいきかいのおかげで、せいかつがとてもべんりになったからです。",
+      "Naze nara, atarashii kikai no okage de, seikatsu ga totemo benri ni natta kara desu.",
+      "This is because, thanks to new machines, life has become very convenient."
+     ],
+     "note": "Gives a reason with から"
+    },
+    {
+     "jp": [
+      "それに、人工知能はいろいろな問題を解決することができます。",
+      "それに、じんこうちのうはいろいろなもんだいをかいけつすることができます。",
+      "Sore ni, jinkō chinō wa iroiro na mondai o kaiketsu suru koto ga dekimasu.",
+      "Also, artificial intelligence can solve various problems."
+     ],
+     "note": "Adds a second point with それに and ことができます"
+    },
+    {
+     "jp": [
+      "でも、未来の技術は人間の仕事を減らすかもしれないと思います。",
+      "でも、みらいのぎじゅつはにんげんのしごとをへらすかもしれないとおもいます。",
+      "Demo, mirai no gijutsu wa ningen no shigoto o herasu kamoshirenai to omoimasu.",
+      "But I think future technology might reduce the amount of work for humans."
+     ],
+     "note": "Adds contrast with でも"
+    },
+    {
+     "jp": [
+      "だから、私たちは技術の発展についてよく考えなければならないと思います。",
+      "だから、わたしたちはぎじゅつのはってんについてよくかんがえなければならないとおもいます。",
+      "Dakara, watashitachi wa gijutsu no hatten ni tsuite yoku kangaenakereba naranai to omoimasu.",
+      "So, I think we must think carefully about the development of technology."
+     ],
+     "note": "Lands the conclusion with なければなりません"
+    }
+   ],
+   "edits": [
+    {
+     "weak": [
+      "機械は便利です。",
+      "きかいはべんりです。",
+      "Kikai wa benri desu.",
+      "Machines are convenient."
+     ],
+     "options": [
+      "私は新しい機械のおかげで生活がとても便利になったと思います。だから、技術の進歩はいいことだと思います。",
+      "機械はとても便利です。",
+      "機械はたぶん便利です。"
+     ],
+     "answer": 0,
+     "why": "Option A is the strongest because it links a reason with おかげで to an opinion and a conclusion, showing developed reasoning rather than a bare statement. Option B just adds とても to the same flat fact, with no opinion added. Option C uses たぶん without と思います, which is grammatically odd for expressing a personal opinion in this style."
+    },
+    {
+     "weak": [
+      "人工知能があります。",
+      "じんこうちのうがあります。",
+      "Jinkō chinō ga arimasu.",
+      "There is artificial intelligence."
+     ],
+     "options": [
+      "人工知能はすごいです。",
+      "人工知能はいろいろな問題を解決することができると思いますが、人間の仕事を減らすかもしれません。",
+      "人工知能が使利です。"
+     ],
+     "answer": 1,
+     "why": "Option A is the best choice because it gives a balanced opinion, a strength with ことができます and a concern with かもしれません, which shows more complex thinking. Option B is a simple reaction with no real content or reasoning behind it. Option C contains a kanji error: 使利 should be 便利, so even though the idea is reasonable, the sentence itself is not correct."
+    },
+    {
+     "weak": [
+      "自動車は未来に変わります。",
+      "じどうしゃはみらいにかわります。",
+      "Jidōsha wa mirai ni kawarimasu.",
+      "Cars will change in the future."
+     ],
+     "options": [
+      "自動車は未来に変わると思います。",
+      "自動車は未来でとても変わることになっています。",
+      "未来の自動車は自動で運転することができるようになると思います。"
+     ],
+     "answer": 2,
+     "why": "Option A is the strongest because it gives a specific, concrete prediction using ことができる and よう, rather than just a vague claim of change. Option B only adds と思います to the same vague original sentence without adding detail. Option C uses ことになっています, which means an arrangement has already been decided by someone else, so it does not fit a personal prediction about the future."
+    }
+   ]
+  }
+ }
+};
+
+/* ---- the parts bank: gloss + common name for every component used ---- */
+const PARTS = {
+  "亻":{g:"person",n:"にんべん"}, "主":{g:"master, main",n:"ぬし"},
+  "車":{g:"cart, wheel",n:"くるま"}, "云":{g:"to say; cloud",n:""},
+  "建":{g:"to build",n:"たてる"}, "重":{g:"heavy",n:"おもい"},
+  "力":{g:"strength",n:"ちから"}, "辶":{g:"road, walking",n:"しんにょう"},
+  "周":{g:"all around",n:"まわり"}, "女":{g:"woman",n:"おんな"},
+  "市":{g:"market, city",n:"いち"}, "未":{g:"not yet",n:""},
+  "牛":{g:"cow",n:"うし"}, "勿":{g:"must not",n:""},
+  "土":{g:"earth",n:"つち"}, "或":{g:"a certain",n:""},
+  "七":{g:"seven",n:"なな"}, "刀":{g:"sword",n:"かたな"},
+  "木":{g:"tree, wood",n:"き"}, "交":{g:"to cross, mix",n:""},
+  "言":{g:"words",n:"ごんべん"}, "式":{g:"style, ceremony",n:""},
+  "士":{g:"gentleman",n:""}, "免":{g:"to escape, excuse",n:""},
+  "艹":{g:"grass, plant",n:"くさかんむり"}, "化":{g:"to change",n:"ばける"},
+  "日":{g:"sun, day",n:"ひ"}, "央":{g:"centre",n:""},
+  "糸":{g:"thread",n:"いと"}, "充":{g:"to fill",n:""},
+  "行":{g:"to go; a road",n:"いく"}, "朮":{g:"a grain plant",n:""},
+  "首":{g:"neck, head",n:"くび"}, "乍":{g:"while",n:""},
+  "宀":{g:"roof",n:"うかんむり"}, "豕":{g:"pig",n:"いのこ"},
+  "巽":{g:"old compass sign",n:""}, "禾":{g:"grain plant",n:"のぎへん"},
+  "斗":{g:"measuring ladle",n:""}, "氵":{g:"water",n:"さんずい"},
+  "巷":{g:"lane, town",n:""}, "白":{g:"white",n:"しろ"},
+  "水":{g:"water",n:"みず"}, "金":{g:"metal, gold",n:"かね"},
+  "艮":{g:"to stop, stubborn",n:""}, "礻":{g:"altar",n:"しめすへん"},
+  "申":{g:"to say, report",n:""}, "失":{g:"to lose",n:"うしなう"},
+  "竟":{g:"to end",n:""}, "門":{g:"gate",n:"もんがまえ"},
+  "口":{g:"mouth",n:"くち"}, "是":{g:"this, right",n:""},
+  "頁":{g:"page, head",n:"おおがい"}, "歯":{g:"tooth",n:"は"},
+  "令":{g:"order, command",n:""}, "原":{g:"spring, origin",n:"はら"},
+  "忄":{g:"heart",n:"りっしんべん"}, "青":{g:"blue, clear",n:"あお"},
+  "舌":{g:"tongue",n:"した"}, "己":{g:"self",n:"おのれ"},
+  "耳":{g:"ear",n:"みみ"}, "且":{g:"stacked up",n:""},
+  "扌":{g:"hand",n:"てへん"}, "支":{g:"branch, support",n:""},
+  "幾":{g:"how many",n:""}, "月":{g:"moon",n:"つき"},
+  "矢":{g:"arrow",n:"や"}, "刂":{g:"blade",n:"りっとう"},
+};
+
+/* ---- step 2 targets: each unit's key kanji, decomposed into parts
+   IN LAYOUT ORDER (lr: left then right; tb: top then bottom;
+   kamae and nyou: enclosing part then inner part). role is the
+   part's job IN THIS CHARACTER, which is what lights up. ---- */
+const BUILDS = {
+seikatsu:[
+ {ch:"住",word:"住所",gloss:"to live, to dwell",read:"す(む)・ジュウ",pos:"lr",
+  parts:[{p:"亻",role:"sense"},{p:"主",role:"sound",sound:"ジュウ"}],
+  hook:"A person 亻 next to 主, which lends the sound: 住 ジュウ, 柱 チュウ. The person is the meaning; 主 is the engine of the sound."},
+ {ch:"転",word:"自転車",gloss:"to roll, to turn",read:"ころ(ぶ)・テン",pos:"lr",
+  parts:[{p:"車",role:"sense"},{p:"云",role:"sound",sound:"テン"}],
+  hook:"A wheel 車 does the rolling, so it is the meaning. 云 is only here for the sound."},
+ {ch:"健",word:"健康",gloss:"healthy, strong",read:"ケン",pos:"lr",
+  parts:[{p:"亻",role:"sense"},{p:"建",role:"sound",sound:"ケン"}],
+  hook:"亻 again: health belongs to a person. 建 ケン (to build) hands over its exact sound: 建 ケン, 健 ケン."},
+ {ch:"動",word:"運動",gloss:"to move",read:"うご(く)・ドウ",pos:"lr",
+  parts:[{p:"重",role:"sound",sound:"ドウ"},{p:"力",role:"sense"}],
+  hook:"Strength 力 makes things move, and this time the MEANING sits on the right. Position never tells you the job; the colour does."},
+ {ch:"週",word:"週末",gloss:"week",read:"シュウ",pos:"nyou",
+  parts:[{p:"辶",role:"sense"},{p:"周",role:"sound",sound:"シュウ"}],
+  hook:"The road part 辶 wraps around the bottom: weeks go around and come back. 周 シュウ is a perfect sound match."},
+],
+kankei:[
+ {ch:"姉",word:"姉妹",gloss:"older sister",read:"あね・シ",pos:"lr",
+  parts:[{p:"女",role:"sense"},{p:"市",role:"sound",sound:"シ"}],
+  hook:"女 carries the meaning. 市 シ (market, city) is only here for its sound: 姉 シ."},
+ {ch:"妹",word:"姉妹",gloss:"younger sister",read:"いもうと・マイ",pos:"lr",
+  parts:[{p:"女",role:"sense"},{p:"未",role:"sound",sound:"マイ"}],
+  hook:"Same 女, different sound part: 未 (not yet) gives 妹 マイ. The sisters share their meaning half."},
+ {ch:"物",word:"動物",gloss:"thing, creature",read:"もの・ブツ",pos:"lr",
+  parts:[{p:"牛",role:"sense"},{p:"勿",role:"sound",sound:"ブツ"}],
+  hook:"A cow 牛 once stood in for creatures and things in general. 勿 does the sound: ブツ・モツ."},
+ {ch:"域",word:"地域",gloss:"area, region",read:"イキ",pos:"lr",
+  parts:[{p:"土",role:"sense"},{p:"或",role:"sound",sound:"イキ"}],
+  hook:"Earth 土 for a patch of ground; 或 lends the sound."},
+ {ch:"切",word:"親切",gloss:"to cut; kind",read:"き(る)・セツ",pos:"lr",
+  parts:[{p:"七",role:"sound",sound:"セツ"},{p:"刀",role:"sense"}],
+  hook:"The sword 刀 does the cutting, and it sits on the RIGHT. 七 lends its old sound. Kindness 親切 is care cut exactly to fit."},
+],
+shinro:[
+ {ch:"校",word:"学校",gloss:"school",read:"コウ",pos:"lr",
+  parts:[{p:"木",role:"sense"},{p:"交",role:"sound",sound:"コウ"}],
+  hook:"Schools were wooden buildings, so 木 is the meaning. 交 コウ is a clean sound match: 校 コウ."},
+ {ch:"試",word:"試験",gloss:"to test, to try",read:"ため(す)・シ",pos:"lr",
+  parts:[{p:"言",role:"sense"},{p:"式",role:"sound",sound:"シ"}],
+  hook:"言 means words: a test asks you questions. 式 シキ lends the シ."},
+ {ch:"仕",word:"仕事",gloss:"to serve, to work",read:"シ",pos:"lr",
+  parts:[{p:"亻",role:"sense"},{p:"士",role:"sound",sound:"シ"}],
+  hook:"A person 亻 doing their job. 士 シ hands over its exact sound."},
+ {ch:"勉",word:"勉強",gloss:"to make an effort",read:"ベン",pos:"lr",
+  parts:[{p:"免",role:"sound",sound:"ベン"},{p:"力",role:"sense"}],
+  hook:"力 again, the same strength as in 動: effort is strength. And again the meaning half sits on the right."},
+],
+bunka:[
+ {ch:"花",word:"花火・花見",gloss:"flower",read:"はな・カ",pos:"tb",
+  parts:[{p:"艹",role:"sense"},{p:"化",role:"sound",sound:"カ"}],
+  hook:"The grass hat 艹 on top means plant, every single time. 化 カ (to change) is pure sound here. It is the same 化 that is pure MEANING in 高齢化. One part, two jobs."},
+ {ch:"映",word:"映画",gloss:"to reflect, project",read:"うつ(る)・エイ",pos:"lr",
+  parts:[{p:"日",role:"sense"},{p:"央",role:"sound",sound:"エイ"}],
+  hook:"Light 日 projects the picture. 央 is the sound part, though its sound has drifted over the centuries."},
+ {ch:"統",word:"伝統",gloss:"to unite, tie together",read:"トウ",pos:"lr",
+  parts:[{p:"糸",role:"sense"},{p:"充",role:"sound",sound:"トウ"}],
+  hook:"Thread 糸 ties the generations into one tradition. 充 is the sound part, drifted a little."},
+ {ch:"術",word:"芸術",gloss:"art, technique",read:"ジュツ",pos:"kamae",
+  parts:[{p:"行",role:"sense"},{p:"朮",role:"sound",sound:"ジュツ"}],
+  hook:"行 (a road) splits open and 朮 ジュツ steps inside with the sound. A skill is a road you walk a long way down."},
+ {ch:"道",word:"茶道・書道",gloss:"road, way",read:"みち・ドウ",pos:"nyou",
+  parts:[{p:"辶",role:"sense"},{p:"首",role:"sense"}],
+  hook:"Two meaning parts and no sound part: a head 首 travelling a road 辶. Some kanji are pictures of an idea, not sound machines."},
+],
+yuumei:[
+ {ch:"作",word:"作家",gloss:"to make",read:"つく(る)・サク",pos:"lr",
+  parts:[{p:"亻",role:"sense"},{p:"乍",role:"sound",sound:"サク"}],
+  hook:"A person 亻 making something. 乍 lends the sound サク."},
+ {ch:"家",word:"作家・画家",gloss:"house; a professional",read:"いえ・カ",pos:"tb",
+  parts:[{p:"宀",role:"sense"},{p:"豕",role:"sense"}],
+  hook:"A roof 宀 with a pig 豕 under it: a farmhouse. Both parts are meaning. In this unit 家 is a professional (作家, 画家, 音楽家): someone at home in their craft."},
+ {ch:"選",word:"選手",gloss:"to choose",read:"えら(ぶ)・セン",pos:"nyou",
+  parts:[{p:"辶",role:"sense"},{p:"巽",role:"sound",sound:"セン"}],
+  hook:"The road part 辶 again: choosing is picking a path. 巽 lends the sound."},
+ {ch:"科",word:"科学者",gloss:"branch of study",read:"カ",pos:"lr",
+  parts:[{p:"禾",role:"sense"},{p:"斗",role:"sense"}],
+  hook:"Grain 禾 and a measuring ladle 斗: sorting things into their kinds, which is what a science does. Both halves are meaning."},
+],
+nihon:[
+ {ch:"港",word:"空港",gloss:"harbour, port",read:"みなと・コウ",pos:"lr",
+  parts:[{p:"氵",role:"sense"},{p:"巷",role:"sound",sound:"コウ"}],
+  hook:"Water 氵, always meaning, never sound. 巷 コウ is a clean sound match. An airport 空港 is a sky harbour."},
+ {ch:"泉",word:"温泉",gloss:"spring of water",read:"いずみ・セン",pos:"tb",
+  parts:[{p:"白",role:"sense"},{p:"水",role:"sense"}],
+  hook:"Clear white 白 water 水 rising from the ground. Two meanings, no sound part. In the Kanji Factory, 泉 itself turns around and works as the SOUND in 線 セン."},
+ {ch:"銀",word:"銀行",gloss:"silver",read:"ギン",pos:"lr",
+  parts:[{p:"金",role:"sense"},{p:"艮",role:"sound",sound:"ギン"}],
+  hook:"Metal 金 carries the meaning; 艮 lends the sound. A bank 銀行 is literally a silver business."},
+ {ch:"神",word:"神社",gloss:"god, spirit",read:"かみ・ジン",pos:"lr",
+  parts:[{p:"礻",role:"sense"},{p:"申",role:"sound",sound:"シン"}],
+  hook:"礻 is a squashed 示, the altar part: shrine business, meaning only. 申 シン gives the sound: 神 シン・ジン."},
+ {ch:"鉄",word:"地下鉄",gloss:"iron",read:"テツ",pos:"lr",
+  parts:[{p:"金",role:"sense"},{p:"失",role:"sound",sound:"テツ"}],
+  hook:"金 again, the same metal as in 銀. 失 lends a drifted sound. The 地下鉄 is an underground iron road."},
+],
+shakai:[
+ {ch:"境",word:"環境",gloss:"boundary",read:"さかい・キョウ",pos:"lr",
+  parts:[{p:"土",role:"sense"},{p:"竟",role:"sound",sound:"キョウ"}],
+  hook:"Earth 土 for a border drawn on the land. 竟 キョウ is the sound."},
+ {ch:"問",word:"問題",gloss:"to ask",read:"と(う)・モン",pos:"kamae",
+  parts:[{p:"門",role:"sound",sound:"モン"},{p:"口",role:"sense"}],
+  hook:"You built this one in the Kanji Factory. The gate 門 is the SOUND and the little mouth 口 is the meaning. Here it is again, earning its keep in 問題."},
+ {ch:"題",word:"問題",gloss:"topic, title",read:"ダイ",pos:"lr",
+  parts:[{p:"是",role:"sound",sound:"ダイ"},{p:"頁",role:"sense"}],
+  hook:"頁 is a page: titles sit at the head of a page, so it is the meaning. 是 lends the sound, and once more the sound half is on the left."},
+ {ch:"齢",word:"高齢者",gloss:"age",read:"レイ",pos:"lr",
+  parts:[{p:"歯",role:"sense"},{p:"令",role:"sound",sound:"レイ"}],
+  hook:"Teeth 歯: you can tell an animal's age by its teeth. 令 レイ is a perfect sound match."},
+ {ch:"源",word:"資源",gloss:"source, origin",read:"みなもと・ゲン",pos:"lr",
+  parts:[{p:"氵",role:"sense"},{p:"原",role:"sound",sound:"ゲン"}],
+  hook:"Water 氵 plus 原 ゲン: the source of a river. 原 began as a picture of a spring under a cliff, and 泉 is hiding inside it."},
+],
+tsuushin:[
+ {ch:"情",word:"情報",gloss:"feeling; the state of things",read:"ジョウ",pos:"lr",
+  parts:[{p:"忄",role:"sense"},{p:"青",role:"sound",sound:"ジョウ"}],
+  hook:"忄 is the heart stood on its side, meaning only. 青 is the Factory's star sound part (晴 セイ, 清 セイ), drifting here to ジョウ."},
+ {ch:"話",word:"電話・会話",gloss:"to speak",read:"はな(す)・ワ",pos:"lr",
+  parts:[{p:"言",role:"sense"},{p:"舌",role:"sense"}],
+  hook:"Words 言 and a tongue 舌: speaking, drawn as a picture. No sound part at all."},
+ {ch:"記",word:"記事",gloss:"to write down",read:"キ",pos:"lr",
+  parts:[{p:"言",role:"sense"},{p:"己",role:"sound",sound:"キ"}],
+  hook:"言 again: records are made of words. 己 lends the sound: 記 キ."},
+ {ch:"聞",word:"新聞",gloss:"to hear",read:"き(く)・ブン",pos:"kamae",
+  parts:[{p:"門",role:"sound",sound:"ブン"},{p:"耳",role:"sense"}],
+  hook:"The Factory one again: an ear 耳 listening at the gate, with 門 doing the sound, ブン this time. A 新聞 is new things heard."},
+ {ch:"組",word:"番組",gloss:"to assemble; a group",read:"くみ・ソ",pos:"lr",
+  parts:[{p:"糸",role:"sense"},{p:"且",role:"sound",sound:"ソ"}],
+  hook:"Thread 糸 braids things into a set; 且 lends the sound. A TV 番組 is an assembled thing."},
+],
+gijutsu:[
+ {ch:"技",word:"技術",gloss:"skill",read:"わざ・ギ",pos:"lr",
+  parts:[{p:"扌",role:"sense"},{p:"支",role:"sound",sound:"ギ"}],
+  hook:"扌 is the hand part, bound form, meaning only: skill lives in the hands. 支 lends a drifted sound."},
+ {ch:"機",word:"機械・飛行機",gloss:"machine; moment",read:"キ",pos:"lr",
+  parts:[{p:"木",role:"sense"},{p:"幾",role:"sound",sound:"キ"}],
+  hook:"The first machines were wooden looms, so 木 is the meaning. 幾 キ is a perfect sound match: 機 キ."},
+ {ch:"明",word:"発明",gloss:"bright",read:"あか(るい)・メイ",pos:"lr",
+  parts:[{p:"日",role:"sense"},{p:"月",role:"sense"}],
+  hook:"The famous one: sun 日 and moon 月, the two bright things, side by side. Pure picture, no sound part. An invention 発明 makes the world brighter."},
+ {ch:"知",word:"知能",gloss:"to know",read:"し(る)・チ",pos:"lr",
+  parts:[{p:"矢",role:"sense"},{p:"口",role:"sense"}],
+  hook:"An arrow 矢 and a mouth 口: knowing is when the answer flies from the mouth straight as an arrow. Another picture kanji."},
+ {ch:"利",word:"便利",gloss:"sharp; advantage",read:"リ",pos:"lr",
+  parts:[{p:"禾",role:"sense"},{p:"刂",role:"sense"}],
+  hook:"Grain 禾 and a blade 刂 (a squashed 刀, the same sword as in 切): a sharp harvest knife gets the job done fast. That is 便利."},
+]};
+
+/* ---- step 4: the grammar each unit leans on, deep-linked into the
+   Grammar Hub. Skill choices are proposals for Andrew (Q19). ---- */
+const GMAP = {
+seikatsu:[
+ {id:"te-form-b2-core",label:"て形 · chaining your day",why:"Routines are て-form trains: おきて、あさごはんを たべて、がっこうに いきます。"},
+ {id:"verb-stem-choices",label:"ます-stem · habits and purpose",why:"The stem carries habits and purpose: うんどうを しに いきます。"},
+ {id:"particles-b1-core",label:"に・で · times and places",why:"Daily life runs on に and で: times take に, places where you do things take で."},
+],
+kankei:[
+ {id:"identity-y78",label:"は・も · saying who people are",why:"Family descriptions are identity frames: あねは やさしいです。おとうとも おもしろいです。"},
+ {id:"particles-sentences",label:"と・の · doing things with people",why:"People take と (ともだちと はなします), and family words chain with の."},
+ {id:"conjunctions-choices",label:"つなぎことば · joining traits",why:"Describing someone means joining traits smoothly: やさしくて、おもしろいです。"},
+],
+shinro:[
+ {id:"ta-tara-tari-b2",label:"たら · plans that follow plans",why:"Futures hang on たら: そつぎょうしたら、だいがくに いきたいです。"},
+ {id:"nominalisers-b4",label:"ことができる · your abilities",why:"The CV sentence: にほんごを はなすことが できます。"},
+ {id:"plain-form-expr-1-b3",label:"と思います · stating your plans",why:"Plans are opinions about your own future: いしゃに なりたいと おもいます。"},
+],
+bunka:[
+ {id:"ta-choices",label:"た形 · what you experienced",why:"Festivals are told in the past: おまつりで はなびを みました。"},
+ {id:"pf-expr-1-links",label:"そうです · customs you have heard about",why:"Hearsay is the culture pattern: おしょうがつに もちを たべるそうです。"},
+ {id:"extent-b3",label:"くらべる · old next to new",why:"Tradition and pop culture invite comparison: まんがのほうが にんきが あります。"},
+],
+yuumei:[
+ {id:"ta-choices",label:"た形 · telling a life story",why:"A biography lives in the past tense: たくさん えいがを つくりました。"},
+ {id:"plain-form-expr-2-b3",label:"つなぐ · making the facts flow",why:"A person's career is many facts joined into a story, not a list."},
+ {id:"pf-expr-1-links",label:"と思います · why you admire them",why:"The judgement sentence: せかいで いちばん すごい がかだと おもいます。"},
+],
+nihon:[
+ {id:"verb-stem-b2",label:"ます-stem + に行く · travelling on purpose",why:"Travel is purpose: おんせんに はいりに いきます。"},
+ {id:"te-form-2-choices",label:"てください · getting around politely",why:"Stations and shops run on requests: きっぷを みせてください。"},
+ {id:"particles-harder-b2",label:"へ・まで・で · transport and destinations",why:"Getting around is particle work: でんしゃで きょうとまで いきます。"},
+],
+shakai:[
+ {id:"pf-expr-2-argument",label:"いけん · taking a side",why:"Social issues need a stance plus a reason, built on the plain form."},
+ {id:"nai-form-b3",label:"なければ · what must be done",why:"Duty language: かんきょうを まもらなければ なりません。"},
+ {id:"extent-b3",label:"くらべる · more and fewer",why:"高齢化 is a comparing story: おとしよりが ふえて、こどもが へっています。"},
+],
+tsuushin:[
+ {id:"pf-expr-1-links",label:"そうです · reporting the news",why:"The news pattern itself: ニュースに よると、〜そうです。"},
+ {id:"sentence-final-b4",label:"ね・よ · giving and checking news",why:"会話 runs on ね and よ: telling people things, checking you agree."},
+ {id:"plain-form-expr-2-b3",label:"つなぐ · what happened and why it matters",why:"Reporting a story means joining the event to its meaning."},
+],
+gijutsu:[
+ {id:"comparative-analytical-b4",label:"くらべて分析 · then and now",why:"Technology talk is before-and-after: むかしより せいかつが べんりに なりました。"},
+ {id:"nominalisers-paragraphs",label:"ことができる · what machines can do",why:"Ability sentences about tools: AIは えを かくことが できます。"},
+ {id:"pf-expr-2-argument",label:"いけん · is it good for us?",why:"Take a side on technology and back it with a から reason."},
+]};
+
+/* ---- five steps, four forms each ---- */
+const STEPS = [
+ {k:"study",t:["ことば","ことば","kotoba","Words"],s:["単語と部品に会う","たんごとぶひんにあう","tango to buhin ni au","meet the words and their parts"]},
+ {k:"build",t:["漢字を組み立てる","かんじをくみたてる","kanji o kumitateru","Build the kanji"],s:["部品を正しい場所へ","ぶひんをただしいばしょへ","buhin o tadashii basho e","parts into the right positions"]},
+ {k:"qa",t:["問答","もんどう","mondō","Question and answer"],s:["聞かれて、答える","きかれて、こたえる","kikarete, kotaeru","hear the question, say your answer"]},
+ {k:"gram",t:["文法","ぶんぽう","bunpō","Grammar"],s:["この単元が頼る型","このたんげんがたよるかた","kono tangen ga tayoru kata","the patterns this unit leans on"]},
+ {k:"craft",t:["クラフト","クラフト","kurafuto","Craft and editing"],s:["良い答えを、もっと良く","よいこたえを、もっとよく","yoi kotae o, motto yoku","see the moves, then improve a draft"]},
+];
+
+const UI = {
+  title:   ["単元の道","たんげんのみち","tangen no michi","Unit Walk"],
+  subtitle:["一つのトピック、五つのステップ","ひとつのトピック、いつつのステップ",
+            "hitotsu no topikku, itsutsu no suteppu","one VCE topic, five steps, walked in order"],
+  how:     ["トピックをえらんでください","トピックをえらんでください","topikku o erande kudasai",
+            "Pick a topic. Each one walks the same road: words, kanji, talk, grammar, craft. Nothing is locked; the order is just the good order."],
+  back:    ["← ホーム","← ホーム","← hōmu","← home"],
+  backunit:["← 単元","← たんげん","← tangen","← unit"],
+};
+const UI_RUBY = { backunit:"← <ruby>単元<rt>たんげん</rt></ruby>" };
+
+/* ============================================================
+   STATE — session only, like every other PoC. First-try scoring.
+   ============================================================ */
+const S = {
+  screen:"home", unit:null,
+  done:{},      // key -> {study,build,qa,gram,craft}
+  first:{},     // "b:key:ch" / "e:key:i" -> true|false (first attempt)
+  built:{},     // "key:ch" -> true
+  qa:{},        // key -> {i, revealed, marks:{idx:"maru"|"later"}}
+  gram:{},      // "key:id" -> true
+  edits:{},     // "key:i" -> chosen-correct true
+  hide:false,
+};
+const $ = (id)=>document.getElementById(id);
+const esc = (s)=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const unit = ()=>UNITS.find((u)=>u.key===S.unit);
+const doneOf = (k)=>S.done[k]||(S.done[k]={study:false,build:false,qa:false,gram:false,craft:false});
+const content = (k)=>CONTENT[k];
+const F = ()=>window.HubLever.form();
+const tF = (arr)=>window.HubLever.tForm(arr);
+
+/* Japanese content block: kanji leads; the lever swaps in kana, or
+   stacks romaji / English underneath. */
+function jpBlock(arr){
+  const f=F();
+  if (f===0) return '<span class="jp">'+esc(arr[0])+'</span>';
+  if (f===1) return '<span class="jp">'+esc(arr[1])+'</span>';
+  return '<span class="jp">'+esc(arr[0])+'<span class="sub">'+esc(f===2?arr[2]:arr[3])+'</span></span>';
+}
+function firstTry(id, ok){ if (!(id in S.first)) S.first[id]=ok; }
+
+/* ============================================================
+   NAVIGATION + PAINT — every screen renders from state, so the
+   lever can repaint at any moment without losing anything.
+   ============================================================ */
+function go(screen){
+  S.screen=screen;
+  document.querySelectorAll(".screen").forEach((el)=>el.classList.remove("active"));
+  $("scr-"+screen).classList.add("active");
+  paint();
+  window.scrollTo({top:0});
+}
+function paint(){
+  ({home:paintHome,unit:paintUnit,study:paintStudy,build:paintBuild,
+    qa:paintQa,gram:paintGram,craft:paintCraft})[S.screen]();
+}
+
+/* ---------------- HOME ---------------- */
+function paintHome(){
+  const themes=[];
+  UNITS.forEach((u)=>{ if(!themes.includes(u.theme)) themes.push(u.theme); });
+  $("themes").innerHTML = themes.map((th)=>{
+    const us=UNITS.filter((u)=>u.theme===th);
+    return '<div class="themehead"><b>'+esc(us[0].themeJa)+'</b> '+esc(th)+'</div>'+
+      '<div class="unitgrid">'+us.map((u)=>{
+        const d=doneOf(u.key);
+        return '<button class="ucard" data-unit="'+u.key+'">'+
+          '<span class="ut">'+esc(u.title)+'</span>'+
+          '<span class="ub">'+esc(u.topic)+'</span>'+
+          '<span class="udots">'+STEPS.map((st)=>'<span class="udot'+(d[st.k]?" on":"")+'"></span>').join("")+'</span>'+
+          '</button>';
+      }).join("")+'</div>';
+  }).join("");
+  $("themes").querySelectorAll("[data-unit]").forEach((b)=>{
+    b.onclick=()=>{ S.unit=b.dataset.unit; go("unit"); };
+  });
+}
+
+/* ---------------- UNIT PAGE ---------------- */
+function stepTag(k){
+  const u=unit(), d=doneOf(u.key);
+  if (k==="build"){ const n=BUILDS[u.key].filter((b)=>S.built[u.key+":"+b.ch]).length;
+    return n? n+"/"+BUILDS[u.key].length+" built":""; }
+  if (k==="qa"){ const q=S.qa[u.key]; const n=q?Object.keys(q.marks).length:0;
+    return n? n+"/"+content(u.key).qa.length+" answered":""; }
+  if (k==="gram"){ const n=GMAP[u.key].filter((g)=>S.gram[u.key+":"+g.id]).length;
+    return n? n+"/"+GMAP[u.key].length+" ticked":""; }
+  if (k==="craft"){ const n=content(u.key).craft.edits.filter((e,i)=>S.edits[u.key+":"+i]).length;
+    return n? n+"/"+content(u.key).craft.edits.length+" edits":""; }
+  return d[k]?"done":"";
+}
+function paintUnit(){
+  const u=unit(), d=doneOf(u.key);
+  $("unit-head").innerHTML='<div class="ut">'+esc(u.title)+'</div>'+
+    '<div class="utheme">'+esc(u.themeJa)+' · '+esc(u.theme)+' · '+esc(u.topic)+'</div>'+
+    '<div class="ublurb">'+esc(u.blurb)+'</div>';
+  $("steps").innerHTML=STEPS.map((st,i)=>
+    '<button class="stepcard'+(d[st.k]?" done":"")+'" data-step="'+st.k+'">'+
+      '<span class="sn">'+(d[st.k]?"✓":i+1)+'</span>'+
+      '<span><span class="st">'+esc(tF(st.t))+'</span><br><span class="ss">'+esc(tF(st.s))+'</span></span>'+
+      '<span class="stag">'+esc(stepTag(st.k))+'</span>'+
+    '</button>').join("");
+  $("steps").querySelectorAll("[data-step]").forEach((b)=>{
+    b.onclick=()=>{ enterStep(b.dataset.step); };
+  });
+  const any=STEPS.some((st)=>d[st.k]);
+  $("report-row").innerHTML = any?
+    '<button class="btn btn-ghost" id="repBtn">通信簿 · report</button><div id="rep-out"></div>':"";
+  if (any) $("repBtn").onclick=showReport;
+}
+function showReport(){
+  const u=unit(), d=doneOf(u.key);
+  const lines=["単元の道 · "+u.title, u.themeJa+" · "+u.topic, ""];
+  const bAll=BUILDS[u.key], bGot=bAll.filter((b)=>S.built[u.key+":"+b.ch]).length,
+        bFt=bAll.filter((b)=>S.first["b:"+u.key+":"+b.ch]===true).length;
+  const q=S.qa[u.key]||{marks:{}}, marks=Object.values(q.marks),
+        maru=marks.filter((m)=>m==="maru").length;
+  const eAll=content(u.key).craft.edits,
+        eGot=eAll.filter((e,i)=>S.edits[u.key+":"+i]).length,
+        eFt=eAll.filter((e,i)=>S.first["e:"+u.key+":"+i]===true).length;
+  lines.push("1 ことば  studied: "+(d.study?"yes":"not yet"));
+  lines.push("2 漢字   built: "+bGot+"/"+bAll.length+" (first try "+bFt+")");
+  lines.push("3 問答   answered: "+marks.length+"/"+content(u.key).qa.length+" (○ "+maru+")");
+  lines.push("4 文法   ticked: "+GMAP[u.key].filter((g)=>S.gram[u.key+":"+g.id]).length+"/"+GMAP[u.key].length);
+  lines.push("5 クラフト edits: "+eGot+"/"+eAll.length+" (first try "+eFt+")");
+  const txt=lines.join("\n");
+  $("rep-out").innerHTML='<pre class="report">'+esc(txt)+'</pre>'+
+    '<button class="btn btn-ghost" id="copyBtn">copy</button>';
+  $("copyBtn").onclick=()=>{
+    if (navigator.clipboard) navigator.clipboard.writeText(txt);
+    $("copyBtn").textContent="copied ✓";
+  };
+}
+function enterStep(k){
+  if (k==="qa" && !S.qa[S.unit]) S.qa[S.unit]={i:0,revealed:false,marks:{}};
+  if (k==="build" && (B.unit!==S.unit)) { B.unit=S.unit; B.ch=null; B.placed={}; B.sel=null; }
+  go(k);
+}
+function stepHead(el,k){
+  const st=STEPS.find((s)=>s.k===k);
+  $(el).innerHTML='<div class="sh">'+esc(tF(st.t))+'</div><div class="shs">'+esc(unit().title)+'</div>';
+}
+
+/* ---------------- STEP 1 · STUDY ---------------- */
+function paintStudy(){
+  const u=unit();
+  stepHead("study-head","study");
+  document.body.classList.toggle("hidehelp",S.hide);
+  $("hideBtn").textContent=S.hide?"見せて · show the help":"かくして · hide the help and self-test";
+  $("study-table").innerHTML=u.words.map((w)=>
+    '<div class="wrow"><span class="wk">'+esc(w.w)+'</span><span class="wr">'+esc(w.r)+'</span>'+
+    '<span class="wdef">'+esc(w.def)+'</span>'+
+    '<span class="wparts">'+w.parts.map((p)=>{
+      const k=KANJI[p]||{};
+      return '<span class="pchip"><span class="pk">'+esc(p)+'</span><span class="pg">'+esc(k.g||"")+'</span></span>';
+    }).join("")+'</span></div>').join("");
+  $("study-prog").textContent=u.words.length+" words · every kanji part labelled";
+  $("study-next").textContent="つぎへ · I know these, walk on →";
+  $("study-next").onclick=()=>{ doneOf(u.key).study=true; enterStep("build"); };
+  $("hideBtn").onclick=()=>{ S.hide=!S.hide; paintStudy(); };
+}
+
+/* ---------------- STEP 2 · BUILD (Factory frames) ---------------- */
+const B={unit:null,ch:null,placed:{},sel:null};
+function bankParts(key){
+  const seen=[],out=[];
+  BUILDS[key].forEach((b)=>b.parts.forEach((pt)=>{
+    if(!seen.includes(pt.p)){seen.push(pt.p);out.push(pt.p);}
+  }));
+  return out;
+}
+function paintBuild(){
+  const u=unit(), builds=BUILDS[u.key];
+  stepHead("build-head","build");
+  /* the queue: any order, like the Word Builder */
+  $("queue").innerHTML=builds.map((b)=>{
+    const done=S.built[u.key+":"+b.ch];
+    const wordHtml=esc(b.word).split("").map((c)=>
+      c===b.ch?'<span class="gap">'+(done?esc(b.ch):"▢")+'</span>':c).join("");
+    return '<button class="qcard'+(done?" built":"")+(B.ch===b.ch?" sel":"")+'" data-ch="'+esc(b.ch)+'">'+
+      '<span class="qtick">'+(done?"✓":"")+'</span>'+
+      '<span class="qw">'+wordHtml+'</span>'+
+      '<span class="qg">'+esc(b.gloss)+'</span></button>';
+  }).join("");
+  $("queue").querySelectorAll("[data-ch]").forEach((c)=>{
+    c.onclick=()=>{ if(S.built[u.key+":"+c.dataset.ch])return;
+      B.ch=c.dataset.ch; B.placed={}; B.sel=null; paintBuild(); };
+  });
+  const got=builds.filter((b)=>S.built[u.key+":"+b.ch]).length;
+  $("build-prog").textContent=got+"/"+builds.length+" built";
+  const allDone=got===builds.length;
+  $("build-next").style.display=allDone?"":"none";
+  if(allDone){ doneOf(u.key).build=true;
+    $("build-next").textContent="つぎへ · walk on →";
+    $("build-next").onclick=()=>enterStep("qa"); }
+  if(!B.ch){ const nxt=builds.find((b)=>!S.built[u.key+":"+b.ch]);
+    if(nxt&&!allDone){B.ch=nxt.ch;} }
+  paintBench();
+}
+function slotLab(pos,i){
+  if(pos==="lr")return i===0?"ひだり left":"みぎ right";
+  if(pos==="tb")return i===0?"うえ top":"した bottom";
+  return i===0?"そと outside":"なか inside";
+}
+function paintBench(){
+  const u=unit(), b=BUILDS[u.key].find((x)=>x.ch===B.ch);
+  if(!b){ $("bench").innerHTML='<p class="intro">ぜんぶできた！ All built.</p>'; return; }
+  const done=false;
+  const slotCls=(i)=>{
+    if(b.pos==="kamae"||b.pos==="nyou")return i===0?"outer":"inner";
+    if(b.pos==="tb")return i===0?"top":"bottom";
+    return "";
+  };
+  $("bench").innerHTML=
+    '<div class="prompt">つくって: <b>'+esc(b.gloss)+'</b> · as in '+esc(b.word)+'</div>'+
+    '<div class="promptread" id="bench-read"></div>'+
+    '<div class="frame '+b.pos+'" id="frame">'+
+      b.parts.map((pt,i)=>'<div class="slot '+slotCls(i)+'" data-slot="'+i+'">'+
+        '<span class="slotlab">'+slotLab(b.pos,i)+'</span></div>').join("")+
+    '</div>'+
+    '<div class="builtline" id="builtline"></div>'+
+    '<div class="hookline" id="hookline"></div>'+
+    '<div class="bankhead">部品 · the parts (drag, or tap then tap)</div>'+
+    '<div class="bank" id="bank">'+bankParts(u.key).map((p)=>{
+      const info=PARTS[p]||{g:"",n:""};
+      return '<button class="piece" data-p="'+esc(p)+'" draggable="true">'+
+        '<span class="pc">'+esc(p)+'</span><span class="pg">'+esc(info.g)+'</span>'+
+        (info.n?'<span class="pn">'+esc(info.n)+'</span>':"")+'</button>';
+    }).join("")+'</div>';
+  wireBench(b);
+}
+function wireBench(b){
+  const u=unit();
+  const slots=[...$("frame").querySelectorAll(".slot")];
+  const pieces=[...$("bank").querySelectorAll(".piece")];
+  const usedParts=()=>Object.values(B.placed);
+  const refresh=()=>{
+    slots.forEach((s)=>{
+      const i=s.dataset.slot, p=B.placed[i];
+      s.classList.toggle("filled",!!p);
+      s.childNodes.forEach(()=>{});
+      s.innerHTML='<span class="slotlab">'+slotLab(b.pos,+i)+'</span>'+(p?esc(p):"");
+    });
+    pieces.forEach((pc)=>{
+      pc.classList.toggle("used",usedParts().includes(pc.dataset.p));
+      pc.classList.toggle("sel",B.sel===pc.dataset.p);
+    });
+  };
+  const drop=(i,p)=>{
+    if(usedParts().includes(p))return;
+    B.placed[i]=p; B.sel=null; refresh(); judge();
+  };
+  const judge=()=>{
+    if(Object.keys(B.placed).length!==b.parts.length)return;
+    const right=b.parts.every((pt,i)=>B.placed[i]===pt.p);
+    const id="b:"+u.key+":"+b.ch;
+    if(right){
+      firstTry(id,true);
+      slots.forEach((s,i)=>{
+        const role=b.parts[i].role;
+        s.classList.add("lit-"+role);
+        s.insertAdjacentHTML("beforeend",'<span class="rolebadge rb-'+role+'">'+
+          (role==="sound"?"おと sound"+(b.parts[i].sound?" "+esc(b.parts[i].sound):""):"いみ meaning")+'</span>');
+      });
+      $("bench-read").textContent=b.ch+" · "+b.read;
+      $("builtline").textContent="できた！ "+b.ch;
+      $("hookline").textContent=b.hook;
+      S.built[u.key+":"+b.ch]=true;
+      setTimeout(()=>{ B.ch=null; B.placed={}; paintBuild(); },2600);
+    }else{
+      firstTry(id,false);
+      $("frame").classList.add("shake");
+      setTimeout(()=>{ B.placed={}; paintBench(); },450);
+    }
+  };
+  slots.forEach((s)=>{
+    s.ondragover=(e)=>{e.preventDefault();s.classList.add("over");};
+    s.ondragleave=()=>s.classList.remove("over");
+    s.ondrop=(e)=>{e.preventDefault();s.classList.remove("over");
+      const p=e.dataTransfer.getData("text/plain"); if(p)drop(s.dataset.slot,p);};
+    s.onclick=()=>{
+      const i=s.dataset.slot;
+      if(B.sel){drop(i,B.sel);return;}
+      if(B.placed[i]){delete B.placed[i];refresh();}
+    };
+  });
+  pieces.forEach((pc)=>{
+    pc.ondragstart=(e)=>{e.dataTransfer.setData("text/plain",pc.dataset.p);pc.classList.add("dragging");};
+    pc.ondragend=()=>pc.classList.remove("dragging");
+    pc.onclick=()=>{B.sel=B.sel===pc.dataset.p?null:pc.dataset.p;refresh();};
+  });
+  refresh();
+}
+
+/* ---------------- STEP 3 · QA ---------------- */
+function paintQa(){
+  const u=unit(), qa=content(u.key).qa, q=S.qa[u.key];
+  stepHead("qa-head","qa");
+  const done=Object.keys(q.marks).length;
+  $("qa-prog").textContent=done+"/"+qa.length;
+  if(q.i>=qa.length){
+    doneOf(u.key).qa=true;
+    const maru=Object.values(q.marks).filter((m)=>m==="maru").length;
+    $("qa-area").innerHTML='<div class="qabox qadonep"><div class="big">'+
+      (maru===qa.length?"◎":"○")+'</div>'+
+      '<p>'+maru+' of '+qa.length+' felt solid. '+
+      (maru<qa.length?'The △ ones are the ones to ask again tomorrow.':'Ask them again tomorrow anyway; that is how they stick.')+'</p>'+
+      '<p style="margin-top:10px"><button class="btn btn-ghost" id="qa-again">もういちど · run them again</button> '+
+      '<button class="btn btn-primary" id="qa-on">つぎへ · walk on →</button></p></div>';
+    $("qa-again").onclick=()=>{ S.qa[u.key]={i:0,revealed:false,marks:{}}; paintQa(); };
+    $("qa-on").onclick=()=>enterStep("gram");
+    return;
+  }
+  const item=qa[q.i];
+  $("qa-area").innerHTML='<div class="qabox">'+
+    '<div class="qaq"><div class="qalab">しつもん · question '+(q.i+1)+'/'+qa.length+'</div>'+jpBlock(item.q)+'</div>'+
+    (q.revealed?
+      '<div class="qaa"><div class="qalab">モデルのこたえ · one good answer</div>'+jpBlock(item.a)+
+      '<div class="qatip">'+esc(item.tip)+'</div>'+
+      '<div class="qamarks"><button class="btn" id="qa-maru">○ こたえられた · I had it</button>'+
+      '<button class="btn btn-ghost" id="qa-later">△ まだ · not yet</button></div></div>'
+      :
+      '<p class="intro" style="margin:0 0 10px">Say your answer out loud, or in your head. Then check.</p>'+
+      '<p style="text-align:center"><button class="btn btn-primary" id="qa-reveal">見せて · show a good answer</button></p>')+
+    '</div>';
+  if(q.revealed){
+    const mark=(m)=>{ q.marks[q.i]=m; q.i++; q.revealed=false; paintQa(); };
+    $("qa-maru").onclick=()=>mark("maru");
+    $("qa-later").onclick=()=>mark("later");
+  }else{
+    $("qa-reveal").onclick=()=>{ q.revealed=true; paintQa(); };
+  }
+}
+
+/* ---------------- STEP 4 · GRAMMAR ---------------- */
+function paintGram(){
+  const u=unit(), rows=GMAP[u.key];
+  stepHead("gram-head","gram");
+  $("gram-rows").innerHTML=
+    '<p class="intro" style="margin-bottom:2px">This unit stands on three patterns. If one feels shaky, the link drops you on its exact shelf in the Grammar Hub. Tick what you are sure of.</p>'+
+    rows.map((g)=>{
+      const ok=S.gram[u.key+":"+g.id];
+      return '<div class="gramrow'+(ok?" ok":"")+'">'+
+        '<button class="gtick" data-g="'+esc(g.id)+'">'+(ok?"✓":"")+'</button>'+
+        '<div><div class="gt">'+esc(g.label)+'</div><div class="gw">'+esc(g.why)+'</div>'+
+        '<a class="hublink" href="../grammar/#'+esc(g.id)+'" target="_blank" rel="noopener">文法ホームで練習 · revise in the Grammar Hub →</a></div></div>';
+    }).join("");
+  $("gram-rows").querySelectorAll("[data-g]").forEach((b)=>{
+    b.onclick=()=>{ const k=u.key+":"+b.dataset.g; S.gram[k]=!S.gram[k];
+      if(rows.every((g)=>S.gram[u.key+":"+g.id])) doneOf(u.key).gram=true;
+      paintGram(); };
+  });
+  const n=rows.filter((g)=>S.gram[u.key+":"+g.id]).length;
+  $("gram-prog").textContent=n+"/"+rows.length+" ticked";
+  $("gram-next").textContent="つぎへ · walk on →";
+  $("gram-next").onclick=()=>{ enterStep("craft"); };
+}
+
+/* ---------------- STEP 5 · CRAFT ---------------- */
+function paintCraft(){
+  const u=unit(), c=content(u.key).craft;
+  stepHead("craft-head","craft");
+  $("craft-intro").textContent=c.intro;
+  $("craft-model").innerHTML=c.model.map((m)=>
+    '<div class="msent">'+(m.note?'<span class="move">'+esc(m.note)+'</span><br>':"")+jpBlock(m.jp)+'</div>').join("");
+  $("craft-edith").textContent="なおして · now edit: pick the stronger rewrite";
+  $("craft-edits").innerHTML=c.edits.map((e,i)=>{
+    const got=S.edits[u.key+":"+i];
+    return '<div class="edit" data-e="'+i+'">'+
+      '<div class="weaklab">よわい文 · a flat draft</div>'+jpBlock(e.weak)+
+      '<div class="opts">'+e.options.map((o,j)=>
+        '<button class="optbtn'+(got&&j===e.answer?" good":"")+'" data-o="'+j+'" '+(got?"disabled":"")+'>'+esc(o)+'</button>').join("")+'</div>'+
+      (got?'<div class="why">'+esc(e.why)+'</div>':"")+
+      '</div>';
+  }).join("");
+  $("craft-edits").querySelectorAll(".edit").forEach((box)=>{
+    const i=+box.dataset.e, e=c.edits[i];
+    box.querySelectorAll(".optbtn").forEach((ob)=>{
+      ob.onclick=()=>{
+        const j=+ob.dataset.o, id="e:"+u.key+":"+i;
+        if(j===e.answer){ firstTry(id,true); S.edits[u.key+":"+i]=true;
+          if(c.edits.every((x,k)=>S.edits[u.key+":"+k])) doneOf(u.key).craft=true;
+          paintCraft();
+        }else{ firstTry(id,false); ob.classList.add("bad"); ob.disabled=true; }
+      };
+    });
+  });
+  const got=c.edits.filter((e,i)=>S.edits[u.key+":"+i]).length;
+  $("craft-prog").textContent=got+"/"+c.edits.length+" edits";
+  $("craft-payoff").innerHTML = got===c.edits.length?
+    '<div class="payoff">この単元、あるいた。You walked the whole unit: words, kanji, talk, grammar, craft. '+
+    'The report on the unit page shows the walk. あしたも、もういちど。</div>':"";
+}
+
+/* ---------------- boot ---------------- */
+document.querySelectorAll("[data-go]").forEach((b)=>{
+  b.addEventListener("click",()=>go(b.dataset.go));
+});
+window.HubLever.init({ strings:UI, ruby:UI_RUBY, onChange:()=>paint() });
+paint();
+</script>
+</body>
+</html>
