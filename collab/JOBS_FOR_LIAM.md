@@ -223,54 +223,53 @@ in the repo — bonesparrowtrainer for structure, apps/* for house style,
 tasktypes.js for the item contract).
 Size: L
 
-### J14. かんじこうじょう Kanji Factory: function trays + position anatomy   SCOPED, READY TO BUILD
-Status: Scoped 2026-08-19 (Liam: two-box drag-and-drop idea, refined against
-what components actually do). Standalone PoC app at `apps/kanji-factory/`,
-live at `/kanji/` (the folder DEPLOYING.md reserved on day one). This is
-also the first real Script Trainer seed the parked `data/script-bank.js`
-was waiting for.
+### J14. かんじこうじょう Kanji Factory: light-up-on-assembly   SCOPED v2, READY TO BUILD
+Status: Scoped 2026-08-19, revised same day to Liam's better mechanic:
+"the colour comes when you assemble it... you just have all the radicals
+and their meanings, drag them into the box and then they light up."
+Standalone PoC app at `apps/kanji-factory/`, live at `/kanji/`. First
+real seed of the Script Trainer that `data/script-bank.js` was parked for.
 
-**The linguistics the design rests on** (all of it verifiable, none of it
-guessed): the common MEANING components are squished combining forms with
-no other job (氵亻忄扌艹疒宀辶) — a closed, learnable, always-meaning set.
-SOUND components are free characters that are consistent within their
-family (寺=ジ in 時・持・詩; 青=セイ in 晴・清) but only ~60% reliable
-across the jōyō set, with real betrayals (門=モン in 問・聞, but 間=カン).
-Position does NOT predict function (聞: the enclosing 門 is the sound, the
-tucked-in 耳 is the meaning). Japanese schools teach 部首 + positional
-names in grades 3-4 and 形声 meaning/sound analysis in grades 5-6, so this
-app teaches the national curriculum's own analysis, just made usable.
+**The design principle (Liam's, and it is the honest one):** a component
+does not HAVE a role, it has a role IN a character. 門 is the sound in
+問・聞 and the meaning in 開. So the bank is NEUTRAL: one tray of
+components, each tile showing the glyph, its gloss and its Japanese
+nickname (氵さんずい water, 門 もんがまえ gate, 日 sun, 寺 temple...),
+no role colour anywhere. Colour appears ON ASSEMBLY: when the character
+comes together, each piece lights up with the role it plays in THIS
+character (teal = meaning, amber = sound, the character builder's
+existing axis). Position slots stay grey anatomy labels (へん・つくり・
+かんむり) — named, never coloured.
 
-**Design:**
-- Two TRAYS coloured by FUNCTION (colour = job, per DESIGN_RULES): teal
-  meaning tray of ~10 classic combining forms, each with its Japanese
-  nickname (氵さんずい・亻にんべん・言ごんべん・日・木・口・耳・忄・艹・宀);
-  amber sound tray with reading badges (門=モン・寺=ジ・青=セイ・永=エイ).
-- Assembly SLOTS labelled by POSITION in grey (へん・つくり・かんむり・
-  あし・かまえ): position is taught as anatomy VOCABULARY (it is how
-  Japanese people describe kanji aloud: さんずいに青で清) but never
-  coloured, because position does not predict function.
-- BUILD round: gloss + reading prompt ("とき, said ジ") → drag one from
-  each tray into the position silhouette. What is graded is which part
-  does which JOB.
-- PAYOFF round (the 字族 move, cf. Taiwan/China family-text methods):
-  show an unbuilt family member (built 時? here is 詩) → "what is this
-  probably read as?" → the sound-family superpower pays out on a
-  character nobody taught you.
-- CURVEBALLS, honestly labelled: 会意 characters (休・明・好) where both
-  parts are meaning — the 80% rule taught as 80%; and 間 (カン) as the
-  family betrayal. Same honesty register as unit10's "memory hook, not
-  history".
-- Families chosen to intersect Andrew's lists and shipped apps: 門
-  (問・聞 — 聞 continuity with unit10), 寺 (時・持), 青 (晴・清), 永
-  (泳 — unit10 again). Mastery loop, first-try report, lever.js,
-  Japanese-first chrome, landing-page card in ことば section.
+**Round structure:**
+1. WATCH rounds (early): prompt = gloss + reading ("とき, said ジ",
+   position silhouette shown). Drag the right pieces in; on assembly the
+   character forms and the pieces light with their roles. Learning by
+   revelation; only piece-choice is graded.
+2. PREDICT rounds (later): same build, but before the light-up the app
+   asks "which part do you think says the sound?" — tap one, THEN it
+   lights. The prediction is the graded first-try decision. Same
+   study→task rhythm as the rest of the hub.
+3. PAYOFF round: an unbuilt family member appears (built 時? here is
+   詩) — "what is this probably read as?" The sound-family superpower
+   pays out on a character nobody taught.
 
-Decisions made: PoC-everything Decision Log entry; grammar-hub-is-grammar-
-only (this lives standalone); Q5 (Andrew's verdict on the kanji angle)
-still governs whether it grows.
-Done when: live at /kanji/, smoke-tested, Q5 updated with the link, Andrew
-can say build/kill.
+**The star set is 門, because one family demonstrates everything:**
+問 (口=meaning, 門=sound モン) → 聞 (耳=meaning, 門=sound モン, unit10
+continuity) → 開 (門=MEANING now: opening is a gate thing) → 間 (the
+family betrayal: カン, flagged honestly on reveal). The same tile
+changing colour between characters IS the lesson. Other families: 寺
+(時・持, payoff 詩), 青 (晴・清), 永 (泳, unit10 continuity). 会意
+curveballs (休・明・好) light BOTH pieces teal, labelled: the 80% rule
+taught as 80%.
+
+Mechanics: mastery loop, first-try report, lever.js copy, Japanese-first
+chrome, notranslate, optional-name-only report, landing card in ことば.
+Decisions made: PoC-everything entry; grammar-hub-is-grammar-only; the
+light-up principle (this entry). Q5 still governs whether it grows.
+Done when: live at /kanji/, smoke-tested (neutral bank, light-up,
+predict round graded, 門 changes colour between 問 and 開, betrayal
+flagged), Q5 updated with the link.
 Model: Opus. Size: M-L.
 
 ### J4. First topic module: digitise the Unit 10 pattern   NEEDS-INFO (Q6, Q7)
