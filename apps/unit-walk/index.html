@@ -15,10 +15,14 @@
                         with deep links into the Grammar Hub and
                         the Vocab Hub (identify gaps, plan help)
        1 ことば          the unit's words, every part glossed
-       2 組み立てる      Years 7-8 build WORDS from kana tiles
-                        (sokuon, small kana, long vowels earn their
-                        keep); Years 9-12 build KANJI from parts in
-                        position, Factory frames + role colours
+       2 組み立てる      the Bone Sparrow shape: study showed the
+                        analysis, HERE you build from meaning with
+                        nothing to copy. Years 7-8 build WORDS from
+                        kana tiles; Years 9-12 first rebuild the
+                        unit's words from a tile bank (defs only,
+                        words hidden), then assemble the key kanji
+                        from parts in position, Factory frames +
+                        role colours, the word context masked
        3 問答            reveal-and-self-mark conversation practice
        4 文法            the patterns the unit leans on, deep-linked
        5 クラフト        worked example, named moves, editing, then
@@ -228,6 +232,14 @@
   .krow.done .kbuilt{font-family:Georgia,serif;font-size:23px;color:var(--correct);font-weight:700}
   .krow.done .kkp{font-size:12px;color:var(--muted)}
   .krow.shake{animation:shake .4s}
+  .stagetabs{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+  .stagetab{border:1px solid var(--line);border-radius:9px;background:var(--bg);padding:7px 14px;
+       font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer}
+  .stagetab b{color:var(--correct);margin-left:4px}
+  .stagetab.on{background:var(--band);border-color:var(--accent);color:var(--ink)}
+  .ktile.kt-kanji{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 9px}
+  .ktile .ktg{font-family:'Segoe UI',sans-serif;font-size:8.5px;color:var(--muted);line-height:1.2;max-width:74px;
+       overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
   /* ---- step 3: QA ---- */
   .qabox{border:1px solid var(--line-soft);border-radius:12px;background:var(--paper);padding:18px 16px;max-width:640px;margin:0 auto}
@@ -11164,6 +11176,8 @@ const STEPS = [
 ];
 const KANA_BUILD_T=["ことばを組み立てる","ことばをくみたてる","kotoba o kumitateru","Build the words"];
 const KANA_BUILD_S=["かなで、音から","かなで、おとから","kana de, oto kara","kana tiles, sound by sound"];
+const KANJI_BUILD_S=["ことばを思い出してから、漢字を部品から","ことばをおもいだしてから、かんじをぶひんから",
+  "kotoba o omoidashite kara, kanji o buhin kara","recall the words from meaning, then build their kanji from parts"];
 
 const GROUPS=[
  {grp:"7", ja:"7年生", en:"Year 7"},
@@ -11254,10 +11268,11 @@ function paintHome(){
 function stepTag(k){
   const u=unit(), d=doneOf(u.key);
   if (k==="build"){
-    if(u.mode==="kana"){ const n=u.words.filter((w)=>S.built[u.key+":"+w.w]).length;
-      return n? n+"/"+u.words.length+" built":""; }
-    const n=(BUILDS[u.key]||[]).filter((b)=>S.built[u.key+":"+b.ch]).length;
-    return n? n+"/"+(BUILDS[u.key]||[]).length+" built":"";
+    const wGot=u.words.filter((w)=>S.built[u.key+":w:"+w.w]).length;
+    if(u.mode==="kana") return wGot? wGot+"/"+u.words.length+" built":"";
+    const bs=BUILDS[u.key]||[];
+    const bGot=bs.filter((b)=>S.built[u.key+":"+b.ch]).length;
+    return (wGot||bGot)? wGot+"/"+u.words.length+" ことば · "+bGot+"/"+bs.length+" 漢字":"";
   }
   if (k==="qa"){ const q=S.qa[u.key]; const n=q?Object.keys(q.marks).length:0;
     return n? n+"/"+(content(u.key).qa||[]).length+" answered":""; }
@@ -11289,7 +11304,7 @@ function paintUnit(){
   }
   $("steps").innerHTML=STEPS.map((st,i)=>{
     const t=(st.k==="build"&&u.mode==="kana")?KANA_BUILD_T:st.t;
-    const s=(st.k==="build"&&u.mode==="kana")?KANA_BUILD_S:st.s;
+    const s=(st.k==="build")?(u.mode==="kana"?KANA_BUILD_S:KANJI_BUILD_S):st.s;
     return '<button class="stepcard'+(d[st.k]?" done":"")+'" data-step="'+st.k+'">'+
       '<span class="sn">'+(d[st.k]?"✓":i+1)+'</span>'+
       '<span><span class="st">'+esc(tF(t))+'</span><br><span class="ss">'+esc(tF(s))+'</span></span>'+
@@ -11311,13 +11326,13 @@ function showReport(){
     const miss=gap.items.filter((it,i)=>gs.answers[i]!==it.answer).length;
     lines.push("0 チェック  "+(gap.items.length-miss)+"/"+gap.items.length+" solid"+(miss?", plan made for "+miss:""));
   }
-  let bGot=0,bAll=0,bFt=0;
-  if(u.mode==="kana"){ bAll=u.words.length;
-    bGot=u.words.filter((w)=>S.built[u.key+":"+w.w]).length;
-    bFt=u.words.filter((w)=>S.first["k:"+u.key+":"+w.w]===true).length;
-  }else{ const bs=BUILDS[u.key]||[]; bAll=bs.length;
-    bGot=bs.filter((b)=>S.built[u.key+":"+b.ch]).length;
-    bFt=bs.filter((b)=>S.first["b:"+u.key+":"+b.ch]===true).length;
+  let bGot=u.words.filter((w)=>S.built[u.key+":w:"+w.w]).length,
+      bAll=u.words.length,
+      bFt=u.words.filter((w)=>S.first["k:"+u.key+":"+w.w]===true).length;
+  if(u.mode!=="kana"){ const bs=BUILDS[u.key]||[];
+    bAll+=bs.length;
+    bGot+=bs.filter((b)=>S.built[u.key+":"+b.ch]).length;
+    bFt+=bs.filter((b)=>S.first["b:"+u.key+":"+b.ch]===true).length;
   }
   const q=S.qa[u.key]||{marks:{}}, marks=Object.values(q.marks),
         maru=marks.filter((m)=>m==="maru").length;
@@ -11339,7 +11354,11 @@ function showReport(){
 }
 function enterStep(k){
   if (k==="qa" && !S.qa[S.unit]) S.qa[S.unit]={i:0,revealed:false,marks:{}};
-  if (k==="build" && (B.unit!==S.unit)) { B.unit=S.unit; B.ch=null; B.placed={}; B.sel=null; K.sel=null; K.placed={}; }
+  if (k==="build" && (B.unit!==S.unit)) {
+    B.unit=S.unit; B.ch=null; B.placed={}; B.sel=null; K.sel=null; K.placed={};
+    const u=UNITS.find((x)=>x.key===S.unit);
+    B.stage=(u&&u.words.every((w)=>S.built[u.key+":w:"+w.w]))?"parts":"words";
+  }
   go(k);
 }
 function stepHead(el,k){
@@ -11421,12 +11440,30 @@ function paintStudy(){
 }
 
 /* ---------------- STEP 2 · BUILD (two modes) ---------------- */
-const B={unit:null,ch:null,placed:{},sel:null};
-const K={sel:null,placed:{}};   // kana mode: placed["wordIdx:slotIdx"]=tile
+const B={unit:null,ch:null,placed:{},sel:null,stage:"words"};
+const K={sel:null,placed:{}};   // word stage: placed["wordIdx:slotIdx"]=tile
 function paintBuild(){
   const u=unit();
   stepHead("build-head","build");
-  if(u.mode==="kana") paintBuildKana(); else paintBuildKanji();
+  if(u.mode==="kana"){ paintBuildWords(); return; }
+  if(B.stage==="words") paintBuildWords(); else paintBuildParts();
+}
+/* the stage switcher for kanji units: recall the words first, then the
+   parts inside their kanji. Never locked, just the good order. */
+function stageTabs(u){
+  if(u.mode==="kana")return "";
+  const wGot=u.words.filter((w)=>S.built[u.key+":w:"+w.w]).length;
+  const bs=BUILDS[u.key]||[];
+  const bGot=bs.filter((b)=>S.built[u.key+":"+b.ch]).length;
+  return '<div class="stagetabs">'+
+    '<button class="stagetab'+(B.stage==="words"?" on":"")+'" data-st="words">1 ことばから · recall the words <b>'+wGot+'/'+u.words.length+'</b></button>'+
+    '<button class="stagetab'+(B.stage==="parts"?" on":"")+'" data-st="parts">2 漢字のなか · inside the kanji <b>'+bGot+'/'+bs.length+'</b></button>'+
+    '</div>';
+}
+function wireStageTabs(){
+  document.querySelectorAll(".stagetab").forEach((b)=>{
+    b.onclick=()=>{ B.stage=b.dataset.st; paintBuild(); };
+  });
 }
 
 /* ---- kana mode: the word builder mechanic with kana tiles.
@@ -11440,18 +11477,26 @@ function kanaBank(u){
   [...seen].forEach((t)=>{ if(SMALL_BIG[t])seen.add(SMALL_BIG[t]); });
   return [...seen].sort((a,b)=>a.localeCompare(b,"ja"));
 }
-function paintBuildKana(){
+function paintBuildWords(){
   const u=unit();
   const bank=kanaBank(u);
-  const got=u.words.filter((w)=>S.built[u.key+":"+w.w]).length;
-  $("build-area").innerHTML=
-    '<p class="intro">Each meaning below is one of the unit\'s words. Say it, then build its sound from the tiles: every small かな and every ー is its own tile, on purpose.</p>'+
-    '<div class="kbankwrap"><div class="bankhead">かなタイル · the tiles</div>'+
-    '<div class="kbank">'+bank.map((t)=>'<button class="ktile" data-t="'+esc(t)+'" draggable="true">'+esc(t)+'</button>').join("")+'</div></div>'+
+  const got=u.words.filter((w)=>S.built[u.key+":w:"+w.w]).length;
+  const kanjiMode=u.mode!=="kana";
+  $("build-area").innerHTML=stageTabs(u)+
+    '<p class="intro">'+(kanjiMode
+      ?'Each meaning below is one of the unit\'s words. You studied them with their parts showing; now the words are hidden and you rebuild each one from its meaning alone. Kanji tiles carry their gloss to jog you.'
+      :'Each meaning below is one of the unit\'s words. Say it, then build its sound from the tiles: every small かな and every ー is its own tile, on purpose.')+'</p>'+
+    '<div class="kbankwrap"><div class="bankhead">'+(kanjiMode?"タイル · kanji and kana tiles":"かなタイル · the tiles")+'</div>'+
+    '<div class="kbank">'+bank.map((t)=>{
+      const k=kanjiMode&&KANJI[t];
+      return '<button class="ktile'+(k?" kt-kanji":"")+'" data-t="'+esc(t)+'" draggable="true">'+esc(t)+
+        (k?'<span class="ktg">'+esc(k.g)+'</span>':"")+'</button>';
+    }).join("")+'</div></div>'+
     '<div class="krows">'+u.words.map((w,wi)=>{
-      const done=S.built[u.key+":"+w.w];
+      const done=S.built[u.key+":w:"+w.w];
       if(done) return '<div class="krow done"><span class="kdef">'+esc(w.def)+'</span>'+
-        '<span class="kbuilt">'+esc(w.w)+'</span>'+(w.kp?'<span class="kkp">'+esc(w.kp)+'</span>':"")+'</div>';
+        '<span class="kbuilt">'+esc(w.w)+'</span>'+
+        (w.kp?'<span class="kkp">'+esc(w.kp)+'</span>':(w.r&&w.r!==w.w?'<span class="kkp">'+esc(w.r)+'</span>':""))+'</div>';
       const n=tiles(w.w).length;
       let slots="";
       for(let i=0;i<n;i++){
@@ -11460,13 +11505,23 @@ function paintBuildKana(){
       }
       return '<div class="krow" data-row="'+wi+'"><span class="kdef">'+esc(w.def)+'</span><span class="kslots">'+slots+'</span></div>';
     }).join("")+'</div>';
-  $("build-prog").textContent=got+"/"+u.words.length+" built";
-  const allDone=got===u.words.length;
+  paintBuildFoot();
+  wireKana();
+  wireStageTabs();
+}
+function paintBuildFoot(){
+  const u=unit();
+  const wGot=u.words.filter((w)=>S.built[u.key+":w:"+w.w]).length;
+  const bs=u.mode==="kana"?[]:(BUILDS[u.key]||[]);
+  const bGot=bs.filter((b)=>S.built[u.key+":"+b.ch]).length;
+  $("build-prog").textContent=u.mode==="kana"
+    ? wGot+"/"+u.words.length+" built"
+    : wGot+"/"+u.words.length+" ことば · "+bGot+"/"+bs.length+" 漢字";
+  const allDone=wGot===u.words.length&&bGot===bs.length;
   $("build-next").style.display=allDone?"":"none";
   if(allDone){ doneOf(u.key).build=true;
     $("build-next").textContent="つぎへ · walk on →";
     $("build-next").onclick=()=>enterStep("qa"); }
-  wireKana();
 }
 function wireKana(){
   const u=unit();
@@ -11475,17 +11530,19 @@ function wireKana(){
     const w=u.words[wi], n=tiles(w.w).length;
     let full=true, guess="";
     for(let i=0;i<n;i++){ const p=K.placed[wi+":"+i]; if(!p){full=false;break;} guess+=p; }
-    if(!full){ paintBuildKana(); return; }
+    if(!full){ paintBuildWords(); return; }
     const id="k:"+u.key+":"+w.w;
     if(guess===w.w){
-      firstTry(id,true); S.built[u.key+":"+w.w]=true;
+      firstTry(id,true); S.built[u.key+":w:"+w.w]=true;
       for(let i=0;i<n;i++) delete K.placed[wi+":"+i];
-      paintBuildKana();
+      const left=u.words.filter((x)=>!S.built[u.key+":w:"+x.w]).length;
+      if(left===0&&u.mode!=="kana"){ B.stage="parts"; paintBuild(); }
+      else paintBuildWords();
     }else{
       firstTry(id,false);
       const row=document.querySelector('.krow[data-row="'+wi+'"]');
       if(row){ row.classList.add("shake");
-        setTimeout(()=>{ for(let i=0;i<n;i++) delete K.placed[wi+":"+i]; paintBuildKana(); },450);
+        setTimeout(()=>{ for(let i=0;i<n;i++) delete K.placed[wi+":"+i]; paintBuildWords(); },450);
       }
     }
   };
@@ -11503,7 +11560,7 @@ function wireKana(){
       const t=e.dataTransfer.getData("text/plain"); if(t)dropTile(wi,si,t);};
     s.onclick=()=>{
       if(K.sel){ dropTile(wi,si,K.sel); return; }
-      if(K.placed[wi+":"+si]){ delete K.placed[wi+":"+si]; paintBuildKana(); }
+      if(K.placed[wi+":"+si]){ delete K.placed[wi+":"+si]; paintBuildWords(); }
     };
   });
 }
@@ -11516,9 +11573,9 @@ function bankParts(key){
   }));
   return out;
 }
-function paintBuildKanji(){
+function paintBuildParts(){
   const u=unit(), builds=BUILDS[u.key]||[];
-  $("build-area").innerHTML='<div class="queue" id="queue"></div><div class="bench" id="bench"></div>';
+  $("build-area").innerHTML=stageTabs(u)+'<div class="queue" id="queue"></div><div class="bench" id="bench"></div>';
   $("queue").innerHTML=builds.map((b)=>{
     const done=S.built[u.key+":"+b.ch];
     const wordHtml=esc(b.word).split("").map((c)=>
@@ -11532,16 +11589,12 @@ function paintBuildKanji(){
     c.onclick=()=>{ if(S.built[u.key+":"+c.dataset.ch])return;
       B.ch=c.dataset.ch; B.placed={}; B.sel=null; paintBuild(); };
   });
+  paintBuildFoot();
   const got=builds.filter((b)=>S.built[u.key+":"+b.ch]).length;
-  $("build-prog").textContent=got+"/"+builds.length+" built";
-  const allDone=got===builds.length&&builds.length>0;
-  $("build-next").style.display=allDone?"":"none";
-  if(allDone){ doneOf(u.key).build=true;
-    $("build-next").textContent="つぎへ · walk on →";
-    $("build-next").onclick=()=>enterStep("qa"); }
   if(!B.ch){ const nxt=builds.find((b)=>!S.built[u.key+":"+b.ch]);
-    if(nxt&&!allDone){B.ch=nxt.ch;} }
+    if(nxt&&got<builds.length){B.ch=nxt.ch;} }
   paintBench();
+  wireStageTabs();
 }
 function slotLab(pos,i){
   if(pos==="lr")return i===0?"ひだり left":"みぎ right";
@@ -11557,7 +11610,7 @@ function paintBench(){
     return "";
   };
   $("bench").innerHTML=
-    '<div class="prompt">つくって: <b>'+esc(b.gloss)+'</b> · as in '+esc(b.word)+'</div>'+
+    '<div class="prompt">つくって: <b>'+esc(b.gloss)+'</b> · as in '+esc(b.word).split("").map((c)=>c===b.ch?"▢":c).join("")+'</div>'+
     '<div class="promptread" id="bench-read"></div>'+
     '<div class="frame '+b.pos+'" id="frame">'+
       b.parts.map((pt,i)=>'<div class="slot '+slotCls(i)+'" data-slot="'+i+'">'+
