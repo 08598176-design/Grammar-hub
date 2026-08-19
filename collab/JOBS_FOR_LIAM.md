@@ -223,8 +223,13 @@ in the repo — bonesparrowtrainer for structure, apps/* for house style,
 tasktypes.js for the item contract).
 Size: L
 
-### J14. かんじこうじょう Kanji Factory: light-up-on-assembly   SCOPED v2, READY TO BUILD
-Status: Scoped 2026-08-19, revised same day to Liam's better mechanic:
+### J14. かんじこうじょう Kanji Factory: light-up-on-assembly   DONE (2026-08-19)
+Status: **BUILT and live at `/kanji/`** 2026-08-19. Five families, 13
+rounds, watch/sort modes, three bins in blue/red/purple, payoff rounds on
+詩・精・詠, first-try report. 27-check suite passing. Awaiting Andrew
+(Q5): every split, every sound claim, and whether the whole kanji angle
+is worth growing.
+Scoped 2026-08-19, revised same day to Liam's better mechanic:
 "the colour comes when you assemble it... you just have all the radicals
 and their meanings, drag them into the box and then they light up."
 Standalone PoC app at `apps/kanji-factory/`, live at `/kanji/`. First

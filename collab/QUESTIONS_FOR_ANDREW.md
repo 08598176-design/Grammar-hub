@@ -92,6 +92,18 @@ kanji may be different because it could tie to *your* prescribed lists.
 https://liaminhawai-cmd.github.io/japanese-hub/words/ — three kanji
 families (食・費・調) built from the 給食 unit's own vocabulary: meet the
 family, build each word from its parts, then derive meanings. Delete-able.
+**A second, deeper proof of concept is now live:**
+https://liaminhawai-cmd.github.io/japanese-hub/kanji/ — the Kanji
+Factory. Parts sit in a neutral bank with no colour; build a character
+and they light up with the job they do IN it: blue for meaning, red for
+sound, purple for both. The 門 family is the argument: 門 lights red in
+問 and 聞 (it gives the reading モン/ブン) and blue in 開 (where it is
+the meaning and nothing gives the sound), closing on 間 to show the
+trick is a strong bet, not a law. Then you read 詩, 精 and 詠 cold.
+**Also ask:** are those component splits and sound claims ones you would
+teach? Is 会意兼形声 (used only for 忘) a distinction you want students
+to meet, or noise at this level? And the big one: is THIS the version of
+the kanji angle worth growing, or the word-level Word Lab, or neither?
 **Ask:** Open the link and try one family. Does part-by-part word building
 match how you'd teach kanji vocabulary, or do apps (WaniKani etc.) already
 own this space? If it's worth growing: which list first — the VCE
