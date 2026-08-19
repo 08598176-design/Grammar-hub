@@ -145,10 +145,14 @@ Model: Sonnet once Andrew supplies the pattern wordings; the mechanical
 application is scriptable.
 Size: M
 
-### J13. Unit hub PoC: Unit 10 できること・すきなこと   SCOPED, READY TO BUILD
-Status: Scoped 2026-08-18 (this entry IS the build spec — supersedes J4's
-wait-for-Q6: Liam's call, "if you've got enough, have a go". Unit 10 is the
-one unit with enough in-repo material to build honestly.)
+### J13. Unit hub PoC: Unit 10 できること・すきなこと   DONE (commits 179a91e, 1fbd14a)
+Status: **BUILT and live at `/unit10/`** 2026-08-18. Five steps, the vocab
+bank in the future vocab-hub schema, grammar stages deep-linking into the
+Grammar Hub, a three-tier reading ending in an evidence step, and a
+first-try report. 30-check smoke suite passing. Awaiting Andrew: accuracy
+of the 23 words and every authored sentence (new Q18), and whether the
+step order matches how he actually teaches the unit.
+Built from the spec below, which stays for the record.
 
 **What it is:** a Bone Sparrow-style unit hub for Andrew's Year 9 Unit 10
 (Abilities and Preferences: sports, jobs, plain form, ことができる・

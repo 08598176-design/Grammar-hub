@@ -40,7 +40,7 @@ data/script-bank.js  the parked Script strand (5 nodes, 40 items) →
                      window.SCRIPT_BANK. Grammar hub is grammar only; this
                      is the seed bank for a future stand-alone script app.
 apps/                stand-alone proof-of-concept apps (word-lab, oral,
-                     writing-wall, level-up), each an index.html plus its
+                     writing-wall, level-up, unit10), each an index.html plus its
                      own copy of lever.js, so a folder can be deleted or
                      handed over whole. They share the design tokens and
                      the lever, but none of the hub's other JS.
@@ -307,6 +307,16 @@ console.log("cover problems",bad)'
 
 Must print `cover problems 0`. (The old "no duplicate category+band" rule is
 retired — chunks address nodes by id, §3.)
+
+## 9b. Deep links between tools
+
+Any tool in the hub can send a student to the Grammar Hub step that owns a
+skill by linking to `../grammar/#<skillId>`. The engine queues that skill,
+finds the timeline chunk whose `covers` contains it, scrolls it into view
+and marks it `.deeplinked` for a moment. A chunk may cover several skills,
+so it still only renders `.selected` when *all* of them are queued; the
+ping is what locates the student. Unknown ids are ignored. `apps/unit10/`
+uses this from each grammar stage — the pattern for every future unit hub.
 
 ## 10. Roadmap
 

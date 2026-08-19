@@ -184,6 +184,23 @@ language" under both versions, so nothing is blocked — this is about labels.
 view show the continuum's current VC1 strand names as-is, or the VC2
 sub-strand names? (VCAA's own mapping is in `collab/research/VC2_COMPARISON.md`.)
 
+### Q18. Unit 10 hub: is the content right, and is the shape right?
+**Context:** Your Unit 10 folder has been built into a working unit hub:
+https://liaminhawai-cmd.github.io/japanese-hub/unit10/ — 23 frontloaded
+words, a vocabulary task per word, three grammar stages (plain form →
+ことができる → 好き・とくい・下手), a job-suitability reading at three
+tiers that ends by asking students to point at the sentences proving
+their choice, and a first-try report. It is built FROM your materials
+(the p203 verb table, your ことができる worksheets, the shape of your
+reading CATs) but every sentence in it is authored fresh: the Obento page
+scans are textbook images and nothing reproduces them.
+**Ask:** Three things. (a) Are the 23 words the right 23, and are the
+readings, groups and example sentences accurate? (b) Do the three grammar
+stages match the order you actually teach them in, and is the 上手 vs
+とくい note right? (c) Are the three reading profiles pitched at the right
+levels, and would you accept the job each one points to? Anything wrong
+here is a one-line fix, so mark it up freely.
+
 ### Q11. Furigana policy
 **Context:** Items currently use `<ruby>` furigana ad hoc and avoid off-list
 kanji. A per-band rule would let content generation scale consistently. (The
@@ -234,6 +251,17 @@ teacher setting; if no, we keep the mechanic pure.
 ## Decision log
 
 *(newest first — record: date · question · Andrew's decision)*
+
+- **2026-08-18 (Liam):** **Units get their own hub, and the tools join
+  up.** Unit 10 is built end to end at `/unit10/` as the proof: a unit
+  frontloads its vocabulary in the schema the future site-wide vocabulary
+  hub will read (so units feed the bank rather than siloing words), and
+  its grammar stages deep-link into the Grammar Hub step that owns each
+  skill rather than duplicating it. Liam's brief: "give a proof of concept
+  of how it will kinda connect and the report function and everything."
+  Two rules of this repo overrode the Bone Sparrow original it was ported
+  from: no step is locked, and the report takes an optional first name
+  only, never a student ID.
 
 - **2026-08-18 (Liam):** **Grammar hub is grammar only.** "Don't force
   scripts onto grammar hub — a word builder can be its own app." The Script

@@ -11,6 +11,7 @@ from the public repo `liaminhawai-cmd/japanese-hub` via GitHub Pages:
 | https://liaminhawai-cmd.github.io/japanese-hub/oral/ | Oral practice player (47 questions + audio) — PoC, Q1 |
 | https://liaminhawai-cmd.github.io/japanese-hub/writing/ | Writing Wall (marked-up model text) — PoC, Q9 |
 | https://liaminhawai-cmd.github.io/japanese-hub/levelup/ | Level Up Wall (one task, nine rungs) — PoC, Q17 |
+| https://liaminhawai-cmd.github.io/japanese-hub/unit10/ | Unit 10 hub (a whole unit end to end) — PoC, Q18 |
 
 The repo is named for the whole suite, not just grammar: each new tool gets
 its **own folder** (`/oral/`, `/topics/`, `/writing/`, `/kanji/`) plus a card
@@ -50,7 +51,7 @@ when in doubt, the URL wins.
 
 PoC apps deploy the same way: copy `apps/<name>/index.html` **and its
 `lever.js`** verbatim to the matching live folder (`words/`, `oral/`,
-`writing/`, `levelup/`), and keep a copy of `lever.js` at the live root for
+`writing/`, `levelup/`, `unit10/`), and keep a copy of `lever.js` at the live root for
 the landing page.
 
 **`lever.js` is one file with several copies on purpose.** The canonical
