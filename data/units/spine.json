@@ -1,0 +1,144 @@
+{
+  "note": "Years 7-10 curriculum spine, drafted for Andrew to trim (Q20). buildMode kana = assemble each word from kana tiles (script fluency: rendaku, sokuon, small kana, long vowels). buildMode kanji = assemble key kanji from parts in position, Factory-style. prior = the unit a gap check reaches back to.",
+  "units": [
+    { "key":"u71", "year":7, "title":"はじめまして · First Meetings", "topic":"Greetings and introducing yourself",
+      "blurb":"Your first real conversations: hello and goodbye at the right time of day, your name, your age, please and thank you.",
+      "prior":null, "buildMode":"kana",
+      "gram":[
+        {"id":"greet-y34","label":"あいさつ · greetings that fit the moment","why":"おはよう before school, こんにちは after lunch, さようなら at the gate. Each greeting has its hour."},
+        {"id":"identity-y34","label":"〜です · saying who you are","why":"The first frame: なまえは ______です。______さいです。"},
+        {"id":"num-y34","label":"かず · numbers you own","why":"Your age, your class, how many. Numbers carry your first facts."}
+      ]},
+    { "key":"u72", "year":7, "title":"かぞくとペット · Family and Pets", "topic":"Family members and animals at home",
+      "blurb":"The people and animals at your place: who they are, how many there are, and the words Japanese uses for YOUR family versus someone else's.",
+      "prior":"u71", "buildMode":"kana",
+      "gram":[
+        {"id":"identity-y56","label":"〜がいます · who is at home","why":"People and pets take います: あねが います。いぬも います。"},
+        {"id":"particles-sentences","label":"は・が・も · pointing at people","why":"は sets the topic, が counts them, も adds the dog."},
+        {"id":"num-y56","label":"にん・ひき · counting people and pets","why":"Japanese counts people with にん and small animals with ひき. The counter is part of the fact."}
+      ]},
+    { "key":"u73", "year":7, "title":"すきなもの · Things I Like", "topic":"Likes and dislikes: food, colours, hobbies",
+      "blurb":"The sentence that opens every friendship: what you like, what you do not, and asking someone else theirs.",
+      "prior":"u72", "buildMode":"kana",
+      "gram":[
+        {"id":"identity-y78","label":"すき・きらい · likes as sentences","why":"______が すきです。______は ちょっと…。Liking is a です sentence, not a verb."},
+        {"id":"particles-b1-core","label":"が・は · what the liking sticks to","why":"The liked thing takes が. The thing you pass over takes は."},
+        {"id":"sfp-sentences","label":"か・ね · asking and agreeing","why":"すきですか。turns it into a question; すきですね。shares it."}
+      ]},
+    { "key":"u74", "year":7, "title":"がっこうのいちにち · A School Day", "topic":"School subjects, days and times",
+      "blurb":"Your timetable in Japanese: subjects, the days of the week, what time things start, and what you think of Monday.",
+      "prior":"u73", "buildMode":"kana",
+      "gram":[
+        {"id":"num-y78","label":"じかん · clock times and days","why":"〜じ、〜ようび: the timetable is numbers wearing uniforms."},
+        {"id":"particles-b1-core","label":"に・で · when and where","why":"Times take に: くじに はじまります。Places of doing take で."},
+        {"id":"polite-finite-s","label":"〜ます · school verbs, politely","why":"べんきょうします、はじまります: the ます ending is school register."}
+      ]},
+    { "key":"u81", "year":8, "title":"まいにちのせいかつ · Daily Routines and Time", "topic":"Daily routine, morning to night",
+      "blurb":"Your whole day as a chain of verbs: getting up, eating, going, coming home, sleeping, and the times that pin each one down.",
+      "prior":"u74", "buildMode":"kana",
+      "gram":[
+        {"id":"polite-finite-s","label":"〜ます・〜ました · doing and did","why":"おきます、たべます、ねます: the routine verbs, present and past."},
+        {"id":"num-y78","label":"じこく · times through the day","why":"しちじに おきます。The に after a time is the nail the day hangs on."},
+        {"id":"verb-stem-choices","label":"ます-stem · the verb's working part","why":"Take off ます and the stem is what everything later builds on."}
+      ]},
+    { "key":"u82", "year":8, "title":"たべものとかいもの · Food and Shopping", "topic":"Food, drink, ordering and prices",
+      "blurb":"Eating out and buying things: menus, prices in yen, ordering politely, and the counters that come with food.",
+      "prior":"u81", "buildMode":"kana",
+      "gram":[
+        {"id":"te-form-2-choices","label":"〜てください · asking for things","why":"みせてください、ください: the shop runs on polite requests."},
+        {"id":"num-y78","label":"ねだん · prices and big numbers","why":"ひゃく、せん、まん: yen prices make big numbers real."},
+        {"id":"extent-sentences","label":"どのぐらい · how much, how many","why":"Amounts and comparisons start here: もっと、たくさん、ちょっと."}
+      ]},
+    { "key":"u83", "year":8, "title":"しゅみとスポーツ · Hobbies and Sport", "topic":"Hobbies, sport and inviting a friend",
+      "blurb":"What you do for fun and how to invite someone along: playing, watching, practising, and ませんか, the sentence that makes plans.",
+      "prior":"u82", "buildMode":"kana",
+      "gram":[
+        {"id":"verb-stem-choices","label":"〜ませんか・〜ましょう · inviting","why":"いっしょに しませんか。しましょう!: invitations are stem work."},
+        {"id":"particles-b1-core","label":"を・で · what you play, where","why":"テニスを します。こうえんで します。The particles carry the plan."},
+        {"id":"sfp-sentences","label":"ね・よ · keeping the chat going","why":"じょうずですね。たのしいですよ。Agreement and news, one syllable each."}
+      ]},
+    { "key":"u84", "year":8, "title":"わたしのまちとしゅうまつ · My Town and Weekends", "topic":"Places in town, going places, weekend plans",
+      "blurb":"Your town as a map of verbs: places you go, how you get there, and what last weekend actually looked like.",
+      "prior":"u83", "buildMode":"kana",
+      "gram":[
+        {"id":"particles-b1-core","label":"に・へ・で · going and doing","why":"としょかんに いきます。バスで いきます。Movement is particle work."},
+        {"id":"polite-finite-s","label":"〜ました · the weekend in past tense","why":"どこに いきましたか。The weekend question every Monday."},
+        {"id":"conjunctions-choices","label":"そして・それから · chaining the day","why":"Went here, then there: the day joins up with connectives."}
+      ]},
+    { "key":"u91", "year":9, "title":"まちをあるく · Getting Around Town", "topic":"Directions, shops and stations",
+      "blurb":"Finding your way: stations and streets, asking where things are, understanding the answer, and your first kanji built from their parts.",
+      "prior":"u84", "buildMode":"kanji",
+      "gram":[
+        {"id":"te-form-2-choices","label":"〜てください · directions as requests","why":"まっすぐ いってください。みぎに まがってください。Directions are て-form."},
+        {"id":"particles-harder-b2","label":"まで・から · from here to there","why":"えきから みせまで: the route lives between から and まで."},
+        {"id":"reading-1-b1","label":"よむ · signs and short texts","why":"Town is full of short reading: signs, maps, notices."}
+      ]},
+    { "key":"u92", "year":9, "title":"たべることとけんこう · Food and Health", "topic":"Meals, taste, cooking and healthy habits",
+      "blurb":"What you eat and what it does for you: taste words, cooking, meals through the day, and saying what is good for you.",
+      "prior":"u91", "buildMode":"kanji",
+      "gram":[
+        {"id":"extent-sentences","label":"くらべる · more, less, too much","why":"やさいのほうが けんこうに いいです: food talk is comparison talk."},
+        {"id":"te-form-b2-core","label":"〜て · cooking as a chain","why":"きって、いためて、たべます: recipes are て-form trains."},
+        {"id":"vocab-kyushoku-pool","label":"きゅうしょくのことば · the food word pool","why":"The hub's school-lunch vocabulary set backs this whole unit."}
+      ]},
+    { "key":"u93", "year":9, "title":"てんきときせつ · Weather, Seasons and Festivals", "topic":"Weather, the four seasons and seasonal events",
+      "blurb":"The sky and the calendar: weather words, the four seasons and what each one brings, from summer fireworks to autumn leaves.",
+      "prior":"u92", "buildMode":"kanji",
+      "gram":[
+        {"id":"conjunctions-choices","label":"から・ので · because it is hot","why":"あついから、うみに いきます。Weather is the classic reason-giver."},
+        {"id":"extent-b3","label":"いちばん · the superlative season","why":"ふゆが いちばん すきです: seasons invite ranking."},
+        {"id":"ta-choices","label":"〜ました · the festival you went to","why":"はなびを みました: seasonal events live in the past tense."}
+      ]},
+    { "key":"u94", "year":9, "title":"がっこうせいかつ · School Life Here and in Japan", "topic":"School life, clubs and comparing schools",
+      "blurb":"School on both sides of the equator: subjects and clubs, what Japanese schools do differently, and reading about a school day that is not yours.",
+      "prior":"u93", "buildMode":"kanji",
+      "gram":[
+        {"id":"plain-finite-l","label":"じしょ形 · the plain form arrives","why":"Friends at school do not speak in ます. The plain form is the club-room register."},
+        {"id":"conjunctions-choices","label":"でも・が · same but different","why":"Comparing schools needs contrast: にほんでは…でも、ここでは…"},
+        {"id":"reading-2-pool","label":"よむ · longer school texts","why":"The reading pool's school texts back this unit's comparisons."}
+      ]},
+    { "key":"u101", "year":10, "title":"じぶんをかたる · Talking About Yourself", "topic":"Extended self-introduction: identity, strengths, story",
+      "blurb":"The self-introduction grown up: not just name and age but where you are from, what you are good at, and the story that makes it yours. Pairs with the Level Up Wall.",
+      "prior":"u94", "buildMode":"kanji",
+      "gram":[
+        {"id":"identity-y78","label":"〜で、〜です · stacking who you are","why":"じゅうごさいで、オーストラリアじんです: identity facts chain with で."},
+        {"id":"plain-finite-l","label":"ふつう体 · plain form fluency","why":"Talking ABOUT yourself needs plain-form clauses inside polite sentences."},
+        {"id":"sfp-links","label":"よ・ね・かな · voice and stance","why":"The particles that make a self-introduction sound like a person."}
+      ]},
+    { "key":"u102", "year":10, "title":"たびのじゅんび · Planning a Trip", "topic":"Travel plans, bookings and itineraries",
+      "blurb":"A trip before it happens: where to stay, what to book, waiting and buying and packing, and the たら that turns plans into sentences.",
+      "prior":"u101", "buildMode":"kanji",
+      "gram":[
+        {"id":"te-form-b2-extended","label":"〜てから · the itinerary in order","why":"チェックインしてから、まちを あるきます: itineraries are sequenced て-forms."},
+        {"id":"ta-tara-tari-b2","label":"〜たら · if the weather holds","why":"はれたら、やまに いきます: every plan has a たら inside it."},
+        {"id":"verb-stem-b2","label":"〜に行く · travelling on purpose","why":"おんせんに はいりに いく: the stem plus に行く is why you travel."}
+      ]},
+    { "key":"u103", "year":10, "title":"メディアのせかい · The World of Media", "topic":"Music, shows, articles and what you follow",
+      "blurb":"What you watch, read and listen to: songs and programmes, articles and posts, and saying what something is about and why you follow it.",
+      "prior":"u102", "buildMode":"kanji",
+      "gram":[
+        {"id":"pf-expr-1-links","label":"〜そうです · what you heard","why":"あたらしい ばんぐみが はじまるそうです: media talk is reported talk."},
+        {"id":"nominalisers-b4","label":"〜のが好き · liking a doing","why":"うたを きくのが すきです: the の turns watching into a thing you can like."},
+        {"id":"extent-b3","label":"くらべる · better than the book","why":"えいがより ほんのほうが おもしろいです: media invites ranking."}
+      ]},
+    { "key":"u104", "year":10, "title":"はたらくみらい · Work and the Future", "topic":"Part-time work, jobs and plans after school",
+      "blurb":"Work as a place your Japanese is going: busy days, part-time jobs, what you can do, and the future you are aiming at. Bridges straight into VCE.",
+      "prior":"u103", "buildMode":"kanji",
+      "gram":[
+        {"id":"nominalisers-b4","label":"ことができる · what you can do","why":"にほんごで でんわに でることが できます: the CV sentence."},
+        {"id":"ta-tara-tari-b2","label":"〜たら · after graduating","why":"そつぎょうしたら…: the future hangs on たら."},
+        {"id":"misc-b4","label":"なければ · what work demands","why":"はやく おきなければ なりません: obligation enters with work."}
+      ]}
+  ],
+  "vcePriors": { "seikatsu":"u81", "kankei":"u72", "shinro":"u104", "bunka":"u93", "yuumei":"u103", "nihon":"u102", "shakai":"u84", "tsuushin":"u103", "gijutsu":"u94" },
+  "seeds": {
+    "u91":["町(まち)","店(みせ)","駅(えき)","道(みち)"],
+    "u92":["味(あじ)","料理(りょうり)","飲み物(のみもの)"],
+    "u93":["晴れ(はれ)","雲(くも)","暑い(あつい)","秋(あき)"],
+    "u94":["日本語(にほんご)","読書(どくしょ)","答え(こたえ)","教室(きょうしつ)"],
+    "u101":["名前(なまえ)","私(わたし)","紹介(しょうかい)","会話(かいわ)"],
+    "u102":["泊まる(とまる)","待つ(まつ)","買い物(かいもの)","荷物(にもつ)"],
+    "u103":["歌(うた)","記事(きじ)","番組(ばんぐみ)","組(くみ)"],
+    "u104":["働く(はたらく)","忙しい(いそがしい)","仕事(しごと)","会社(かいしゃ)"]
+  }
+}

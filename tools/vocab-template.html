@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en-AU" translate="no" class="notranslate">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
+<title>ことばのホーム · Vocab Hub</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
+<style>
+  /* ============================================================
+     ことばのホーム — every word in the 7-12 suite, in one place.
+     The units are the front doors; this is the warehouse behind
+     them. A word met in Year 8 and met again at VCE shows BOTH
+     doors on its card: that is multiple exposures made visible.
+
+     Browse by year or unit, open a word to see its parts (with
+     the suite's capacity colours where the classification has
+     been audited), and quiz yourself on any shelf. Deep links:
+     #unit:<key> and #year:<7|8|9|10|VCE>. Units link in from the
+     Unit Walk; every card links back out to its units.
+
+     GENERATED FILE — edit tools/vocab-template.html and the JSON
+     under data/units/, then run tools/gen-units.js.
+     ============================================================ */
+  :root{
+    --bg:#f4efe6; --paper:#fbf7ee; --ink:#1f1f1f; --muted:#6b6256;
+    --line:#d8cfbb; --line-soft:#e8e0cd; --accent:#a83232;
+    --correct:#2f6a3e; --wrong:#a83232; --okbg:#eef5ee; --badbg:#f7ecec;
+    --band:#f5f0e6; --amber:#8a6d1e; --pos:#8d8577;
+    --sense:#b5342a; --sense-bg:#fae7e4;
+    --sound:#2f5d8f; --sound-bg:#e3ecf5;
+    --both:#6b4a9e;  --both-bg:#ece4f6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--ink);
+       line-height:1.5;min-height:100vh;padding:16px}
+  .wrap{max-width:1000px;margin:0 auto}
+  .container{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+       padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  h1{text-align:center;font-size:22px;font-family:Georgia,'Times New Roman',serif;letter-spacing:.5px}
+  .subtitle{color:var(--muted);text-align:center;margin:6px 0 4px;font-size:13px}
+  .poc{display:block;text-align:center;font-size:11px;color:var(--muted);margin-bottom:14px}
+  .poc b{color:var(--accent)}
+  button{font-family:inherit}
+  .btn{padding:10px 17px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-weight:600;
+       cursor:pointer;background:var(--paper);color:var(--ink)}
+  .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn-ghost{background:var(--bg);color:var(--muted)}
+  .intro{font-size:13.5px;color:var(--muted);margin:2px 0 14px;text-align:center}
+
+  /* ---- filters ---- */
+  .filters{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:8px}
+  .fchip{border:1px solid var(--line);border-radius:16px;background:var(--paper);padding:5px 14px;
+       font-size:13px;font-weight:700;cursor:pointer;color:var(--muted)}
+  .fchip:hover{border-color:var(--accent)}
+  .fchip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .uchips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+  .uchip{border:1px solid var(--line);border-radius:9px;background:var(--bg);padding:4px 11px;
+       font-size:12px;font-weight:600;cursor:pointer;color:var(--muted)}
+  .uchip:hover{border-color:var(--accent)}
+  .uchip.on{background:var(--band);border-color:var(--accent);color:var(--ink)}
+  .toolrow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 0 12px;flex-wrap:wrap}
+  .count{font-size:12px;color:var(--muted);font-weight:700}
+  .walkto{font-size:12.5px;font-weight:700;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+       border-radius:7px;padding:4px 10px;background:var(--bg)}
+  .walkto:hover{border-color:var(--accent)}
+
+  /* ---- word grid ---- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px}
+  .wcard{text-align:left;border:1px solid var(--line);border-radius:10px;background:var(--paper);
+       padding:11px 13px;cursor:pointer;display:flex;flex-direction:column;gap:3px}
+  .wcard:hover{border-color:var(--accent)}
+  .wcard .ww{font-family:Georgia,serif;font-size:21px;line-height:1.3}
+  .wcard .wr{font-size:11.5px;color:var(--muted)}
+  .wcard .wd{font-size:11.5px;color:var(--muted)}
+  .wcard.open{border-color:var(--accent);box-shadow:0 0 0 2px rgba(168,50,50,.12)}
+  .wdetail{grid-column:1/-1;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;
+       background:var(--band);padding:14px 16px}
+  .wdetail .dw{font-family:Georgia,serif;font-size:26px}
+  .wdetail .dr{font-size:13px;color:var(--muted);margin-bottom:6px}
+  .wdetail .dd{font-size:13px;margin-bottom:8px}
+  .wdetail .dex{font-family:Georgia,serif;font-size:15px;margin:6px 0 2px}
+  .wdetail .dexg{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .dparts{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+  .dpart{display:flex;flex-direction:column;align-items:center;border:1px solid var(--line);border-radius:8px;
+       padding:4px 10px;background:var(--paper);min-width:52px}
+  .dpart .pk{font-family:Georgia,serif;font-size:20px;line-height:1.2}
+  .dpart .pg{font-size:9px;color:var(--muted)}
+  .dpart.cap-sense{border-color:var(--sense);background:var(--sense-bg)}
+  .dpart.cap-sound{border-color:var(--sound);background:var(--sound-bg)}
+  .dpart.cap-both{border-color:var(--both);background:var(--both-bg)}
+  .dunits{display:flex;gap:6px;flex-wrap:wrap}
+  .dunit{font-size:12px;font-weight:700;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+       border-radius:7px;padding:4px 10px;background:var(--paper)}
+  .dunit:hover{border-color:var(--accent)}
+  .kpnote{font-size:11px;color:var(--muted)}
+  .kpnote b{font-family:Georgia,serif;font-size:14px}
+
+  /* ---- quiz ---- */
+  .quizbox{border:1px solid var(--line-soft);border-radius:12px;background:var(--paper);padding:18px 16px;max-width:640px;margin:0 auto}
+  .qlab{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .qdef{font-size:14.5px;margin-bottom:14px}
+  .qopts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .qopt{font-family:Georgia,serif;font-size:19px;padding:12px;border:1px solid var(--line);border-radius:9px;
+       background:var(--bg);cursor:pointer;text-align:center}
+  .qopt:hover{border-color:var(--accent)}
+  .qopt.good{border-color:var(--correct);background:var(--okbg);color:var(--correct)}
+  .qopt.bad{border-color:var(--wrong);background:var(--badbg);animation:shake .4s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+  .qnext{text-align:center;margin-top:12px;min-height:44px}
+  .qdone{text-align:center;padding:16px 0}
+  .qdone .big{font-size:34px}
+  .screen{display:none}.screen.active{display:block}
+  .navrow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+  .linkbtn{background:none;border:none;color:var(--accent);font-weight:600;font-size:13px;cursor:pointer;padding:4px 8px}
+  .buildtag{margin-top:18px;font-size:10px;color:var(--muted);opacity:.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="container">
+    <h1 class="jt-tap" data-jt="title">ことばのホーム</h1>
+    <p class="subtitle jt-tap" data-jt="subtitle">Every word in the suite, one warehouse</p>
+    <span class="poc"><b>PoC.</b> Word lists are drafts (Q6, Q19, Q20); Andrew trims, this page follows.</span>
+
+    <section id="scr-browse" class="screen active">
+      <p class="intro jt-tap" data-jt="how">Pick a year or a unit.</p>
+      <div class="filters" id="grpChips"></div>
+      <div class="uchips" id="unitChips"></div>
+      <div class="toolrow">
+        <span class="count" id="count"></span>
+        <span>
+          <a class="walkto" id="walkLink" href="../walk/" target="_blank" rel="noopener" style="display:none"></a>
+          <button class="btn btn-primary" id="quizBtn">クイズ · quiz this shelf</button>
+        </span>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section id="scr-quiz" class="screen">
+      <div class="navrow"><button class="linkbtn" id="quizBack">← ことば</button>
+        <span id="quizLever" data-scope="#scr-quiz"></span></div>
+      <div id="quiz-area"></div>
+    </section>
+
+    <div class="buildtag">ことばのホーム build 2026-08-20 · PoC · generated by tools/gen-units.js</div>
+  </div>
+</div>
+
+<script src="lever.js"></script>
+<script>
+"use strict";
+/* DATA — generated. */
+const VWORDS = /*__VWORDS__*/;
+const VUNITS = /*__VUNITS__*/;
+const VKANJI = /*__VKANJI__*/;
+
+const GROUPS=[
+ {grp:"7", label:"7年生"}, {grp:"8", label:"8年生"}, {grp:"9", label:"9年生"},
+ {grp:"10", label:"10年生"}, {grp:"VCE", label:"VCE"},
+];
+const UI = {
+  title:["ことばのホーム","ことばのホーム","kotoba no hōmu","Vocab Hub"],
+  subtitle:["スイートの全部のことば、一つの倉庫に","スイートのぜんぶのことば、ひとつのそうこに",
+    "suīto no zenbu no kotoba, hitotsu no sōko ni","every word in the suite, one warehouse"],
+  how:["年かユニットをえらんでください","ねんかユニットをえらんでください","nen ka yunitto o erande kudasai",
+    "Pick a year or a unit. A word that appears in more than one unit shows every door it lives behind; that is the point."],
+};
+
+const S={grp:"7",unit:null,open:null,quiz:null};
+const $=(id)=>document.getElementById(id);
+const esc=(s)=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const F=()=>window.HubLever.form();
+
+function selWords(){
+  if(S.unit){ const u=VUNITS.find((x)=>x.key===S.unit);
+    return u? u.words.map((i)=>VWORDS[i]) : []; }
+  return VWORDS.filter((w)=>w.grp===S.grp);
+}
+function unitOf(key){ return VUNITS.find((x)=>x.key===key); }
+function unitHref(key){
+  const u=unitOf(key);
+  return u&&u.app==="unit10" ? "../unit10/" : "../walk/#unit:"+key;
+}
+
+function paint(){
+  $("grpChips").innerHTML=GROUPS.map((g)=>
+    '<button class="fchip'+(S.grp===g.grp&&!S.unit?" on":(S.grp===g.grp?" on":""))+'" data-g="'+g.grp+'">'+esc(g.label)+'</button>').join("");
+  $("grpChips").querySelectorAll("[data-g]").forEach((b)=>{
+    b.onclick=()=>{ S.grp=b.dataset.g; S.unit=null; S.open=null; paint(); };
+  });
+  const us=VUNITS.filter((u)=>u.grp===S.grp);
+  $("unitChips").innerHTML=us.map((u)=>
+    '<button class="uchip'+(S.unit===u.key?" on":"")+'" data-u="'+u.key+'">'+esc(u.title)+'</button>').join("");
+  $("unitChips").querySelectorAll("[data-u]").forEach((b)=>{
+    b.onclick=()=>{ S.unit=S.unit===b.dataset.u?null:b.dataset.u; S.open=null; paint(); };
+  });
+  const words=selWords();
+  $("count").textContent=words.length+" words · "+(S.unit?"1 unit":us.length+" units");
+  const wl=$("walkLink");
+  if(S.unit){ const u=unitOf(S.unit);
+    wl.style.display=""; wl.href=unitHref(S.unit);
+    wl.textContent=(u.app==="unit10"?"ユニット10で歩く":"単元の道で歩く")+" · walk this unit →";
+  } else wl.style.display="none";
+  let html="";
+  words.forEach((w,i)=>{
+    const kana=!w.parts||!w.parts.length;
+    html+='<button class="wcard'+(S.open===i?" open":"")+'" data-i="'+i+'">'+
+      '<span class="ww">'+esc(w.w)+'</span>'+
+      (kana?(w.kp?'<span class="wr">'+esc(w.kp)+' · the kanji you will meet</span>':""):'<span class="wr">'+esc(w.r)+'</span>')+
+      '<span class="wd">'+esc(w.def)+'</span></button>';
+    if(S.open===i){
+      const partsHtml=(w.parts||[]).map((p)=>{
+        const k=VKANJI[p]||{};
+        const cap=k.cap?' cap-'+k.cap:'';
+        return '<span class="dpart'+cap+'"><span class="pk">'+esc(p)+'</span><span class="pg">'+esc(k.g||"")+'</span></span>';
+      }).join("");
+      const unitsHtml=w.units.map((k)=>{
+        const u=unitOf(k);
+        return '<a class="dunit" href="'+esc(unitHref(k))+'" target="_blank" rel="noopener">'+esc(u?u.title:k)+' →</a>';
+      }).join("");
+      html+='<div class="wdetail">'+
+        '<div class="dw">'+esc(w.w)+'</div>'+
+        '<div class="dr">'+esc(w.r&&w.r!==w.w?w.r:"")+(w.kp?' <span class="kpnote">漢字: <b>'+esc(w.kp)+'</b></span>':"")+'</div>'+
+        '<div class="dd">'+esc(w.def)+'</div>'+
+        (w.ex?'<div class="dex">'+esc(w.ex)+'</div><div class="dexg">'+esc(w.exGloss||"")+'</div>':"")+
+        (partsHtml?'<div class="qlab">部品 · the parts (colours only where the classification is audited)</div><div class="dparts">'+partsHtml+'</div>':"")+
+        '<div class="qlab">この単元で · lives in these units</div>'+
+        '<div class="dunits">'+unitsHtml+'</div></div>';
+    }
+  });
+  $("grid").innerHTML=html;
+  $("grid").querySelectorAll(".wcard").forEach((c)=>{
+    c.onclick=()=>{ S.open=S.open===+c.dataset.i?null:+c.dataset.i; paint(); };
+  });
+  $("quizBtn").onclick=startQuiz;
+}
+
+/* ---- quiz: meaning shown, pick the word. Distractors come from the
+   same shelf (falling back to the whole year) so they are fair. ---- */
+function startQuiz(){
+  const words=selWords();
+  if(words.length<4)return;
+  const order=words.map((w,i)=>i);
+  for(let i=order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+  S.quiz={words,order:order.slice(0,Math.min(10,order.length)),i:0,right:0,firstTryDone:false};
+  document.querySelectorAll(".screen").forEach((el)=>el.classList.remove("active"));
+  $("scr-quiz").classList.add("active");
+  paintQuiz();
+}
+function paintQuiz(){
+  const z=S.quiz;
+  if(!z)return;
+  if(z.i>=z.order.length){
+    $("quiz-area").innerHTML='<div class="quizbox qdone"><div class="big">'+(z.right===z.order.length?"◎":"○")+'</div>'+
+      '<p>First try: '+z.right+'/'+z.order.length+'.</p>'+
+      '<p style="margin-top:10px"><button class="btn btn-ghost" id="qAgain">もういちど</button> '+
+      '<button class="btn btn-primary" id="qBack2">ことばへ →</button></p></div>';
+    $("qAgain").onclick=startQuiz;
+    $("qBack2").onclick=backToBrowse;
+    return;
+  }
+  const w=z.words[z.order[z.i]];
+  const pool=z.words.length>=4?z.words:VWORDS.filter((x)=>x.grp===w.grp);
+  const opts=[w];
+  while(opts.length<4){
+    const cand=pool[Math.floor(Math.random()*pool.length)];
+    if(!opts.some((o)=>o.w===cand.w))opts.push(cand);
+  }
+  for(let i=opts.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [opts[i],opts[j]]=[opts[j],opts[i]]; }
+  z.firstTryDone=false;
+  $("quiz-area").innerHTML='<div class="quizbox">'+
+    '<div class="qlab">'+(z.i+1)+'/'+z.order.length+' · どのことば？ which word is this?</div>'+
+    '<div class="qdef">'+esc(w.def)+'</div>'+
+    '<div class="qopts">'+opts.map((o)=>'<button class="qopt" data-w="'+esc(o.w)+'">'+esc(o.w)+'</button>').join("")+'</div>'+
+    '<div class="qnext" id="qnext"></div></div>';
+  $("quiz-area").querySelectorAll(".qopt").forEach((b)=>{
+    b.onclick=()=>{
+      if(b.dataset.w===w.w){
+        if(!z.firstTryDone){ z.right++; }
+        b.classList.add("good");
+        $("qnext").innerHTML='<div style="font-size:12.5px;color:var(--muted);margin-bottom:6px">'+esc(w.r&&w.r!==w.w?w.r:"")+'</div>'+
+          '<button class="btn btn-primary" id="qOn">つぎへ →</button>';
+        $("qOn").onclick=()=>{ z.i++; paintQuiz(); };
+        $("quiz-area").querySelectorAll(".qopt").forEach((x)=>x.disabled=true);
+      }else{
+        z.firstTryDone=true;
+        b.classList.add("bad"); b.disabled=true;
+      }
+    };
+  });
+}
+function backToBrowse(){
+  S.quiz=null;
+  document.querySelectorAll(".screen").forEach((el)=>el.classList.remove("active"));
+  $("scr-browse").classList.add("active");
+  paint();
+}
+$("quizBack").onclick=backToBrowse;
+
+/* ---- boot + deep links ---- */
+window.HubLever.init({ strings:UI, ruby:{}, onChange:()=>{ if(S.quiz)paintQuiz(); else paint(); } });
+function applyHash(){
+  const mu=(location.hash||"").match(/^#unit:([a-z0-9]+)/);
+  const my=(location.hash||"").match(/^#year:(7|8|9|10|VCE)/);
+  if(mu){ const u=VUNITS.find((x)=>x.key===mu[1]);
+    if(u){ S.grp=u.grp; S.unit=u.key; S.open=null; } }
+  else if(my){ S.grp=my[1]; S.unit=null; S.open=null; }
+  if(S.quiz)backToBrowse(); else paint();
+}
+window.addEventListener("hashchange",applyHash);
+applyHash();
+</script>
+</body>
+</html>

@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en-AU" translate="no" class="notranslate">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
+<title>単元の道 · Unit Walk</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9A%B6%3C/text%3E%3C/svg%3E">
+<style>
+  /* ============================================================
+     単元の道 v2 — the whole 7-12 spine. Every unit walks the same
+     road, with a gap check at the gate:
+
+       0 はじめるまえに  five quick checks; misses become a PLAN
+                        with deep links into the Grammar Hub and
+                        the Vocab Hub (identify gaps, plan help)
+       1 ことば          the unit's words, every part glossed
+       2 組み立てる      Years 7-8 build WORDS from kana tiles
+                        (sokuon, small kana, long vowels earn their
+                        keep); Years 9-12 build KANJI from parts in
+                        position, Factory frames + role colours
+       3 問答            reveal-and-self-mark conversation practice
+       4 文法            the patterns the unit leans on, deep-linked
+       5 クラフト        worked example, named moves, editing, then
+                        an EXTENSION task with a self-check list
+
+     GENERATED FILE — edit tools/walk-template.html and the JSON
+     under data/units/, then run tools/gen-units.js. Do not edit
+     the generated app by hand.
+     ============================================================ */
+  :root{
+    --bg:#f4efe6; --paper:#fbf7ee; --ink:#1f1f1f; --muted:#6b6256;
+    --line:#d8cfbb; --line-soft:#e8e0cd; --accent:#a83232;
+    --correct:#2f6a3e; --wrong:#a83232; --okbg:#eef5ee; --badbg:#f7ecec;
+    --band:#f5f0e6; --amber:#8a6d1e; --pos:#8d8577;
+    --sense:#b5342a; --sense-bg:#fae7e4;
+    --sound:#2f5d8f; --sound-bg:#e3ecf5;
+    --both:#6b4a9e;  --both-bg:#ece4f6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--ink);
+       line-height:1.5;min-height:100vh;padding:16px}
+  .wrap{max-width:1000px;margin:0 auto}
+  .container{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+       padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  h1{text-align:center;font-size:22px;font-family:Georgia,'Times New Roman',serif;letter-spacing:.5px}
+  h2{font-family:Georgia,serif;font-size:17px;margin:0 0 4px}
+  .subtitle{color:var(--muted);text-align:center;margin:6px 0 4px;font-size:13px}
+  .poc{display:block;text-align:center;font-size:11px;color:var(--muted);margin-bottom:14px}
+  .poc b{color:var(--accent)}
+  .screen{display:none}.screen.active{display:block}
+  button{font-family:inherit}
+  .btn{padding:10px 17px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-weight:600;
+       cursor:pointer;background:var(--paper);color:var(--ink)}
+  .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn-ghost{background:var(--bg);color:var(--muted)}
+  .btn:disabled{opacity:.45;cursor:default}
+  .linkbtn{background:none;border:none;color:var(--accent);font-weight:600;font-size:13px;cursor:pointer;padding:4px 8px}
+  .navrow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+  .intro{font-size:13.5px;color:var(--muted);margin:2px 0 14px;text-align:center}
+
+  /* ---- home: year groups and unit cards ---- */
+  .themehead{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+       color:var(--muted);margin:18px 0 8px;border-bottom:1px solid var(--line-soft);padding-bottom:4px}
+  .themehead b{color:var(--ink);font-size:14px;letter-spacing:0;text-transform:none;font-family:Georgia,serif;margin-right:8px}
+  .unitgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+  .ucard{text-align:left;border:1px solid var(--line);border-radius:10px;background:var(--paper);
+       padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;gap:5px}
+  .ucard:hover{border-color:var(--accent)}
+  .ucard .ut{font-family:Georgia,serif;font-size:15.5px}
+  .ucard .ub{font-size:12px;color:var(--muted)}
+  .ucard .uth{font-size:10px;color:var(--pos);font-weight:700}
+  .udots{display:flex;gap:5px;margin-top:2px}
+  .udot{width:9px;height:9px;border-radius:50%;background:var(--line);border:1px solid var(--line)}
+  .udot.on{background:var(--correct);border-color:var(--correct)}
+  a.ucard{text-decoration:none;color:inherit}
+
+  /* ---- unit page: gap gate + five step cards ---- */
+  .uhead{text-align:center;margin-bottom:4px}
+  .uhead .ut{font-family:Georgia,serif;font-size:19px}
+  .uhead .utheme{font-size:11.5px;color:var(--muted)}
+  .uhead .ublurb{font-size:13px;color:var(--muted);max-width:640px;margin:4px auto 0}
+  .gapcard{display:flex;align-items:center;gap:14px;text-align:left;border:1px dashed var(--amber);
+       border-radius:10px;background:#faf6ea;padding:11px 14px;cursor:pointer;margin:16px 0 0}
+  .gapcard:hover{border-style:solid}
+  .gapcard .sn{width:34px;height:34px;border-radius:50%;border:2px dashed var(--amber);color:var(--amber);
+       display:grid;place-items:center;font-weight:800;font-size:15px;flex:none}
+  .gapcard .st{font-family:Georgia,serif;font-size:15px}
+  .gapcard .ss{font-size:12px;color:var(--muted)}
+  .gapcard .stag{margin-left:auto;font-size:11.5px;font-weight:700;white-space:nowrap;color:var(--amber)}
+  .gapcard.ok .stag{color:var(--correct)}
+  .steps{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+  .stepcard{display:flex;align-items:center;gap:14px;text-align:left;border:1px solid var(--line);
+       border-radius:10px;background:var(--paper);padding:11px 14px;cursor:pointer}
+  .stepcard:hover{border-color:var(--accent)}
+  .stepcard .sn{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);color:var(--muted);
+       display:grid;place-items:center;font-weight:800;font-size:15px;flex:none}
+  .stepcard.done .sn{border-color:var(--correct);background:var(--okbg);color:var(--correct)}
+  .stepcard .st{font-family:Georgia,serif;font-size:15.5px}
+  .stepcard .ss{font-size:12px;color:var(--muted)}
+  .stepcard .stag{margin-left:auto;font-size:11.5px;color:var(--correct);font-weight:700;white-space:nowrap}
+  .reportrow{text-align:center;margin-top:14px}
+  pre.report{white-space:pre-wrap;text-align:left;background:var(--bg);border:1px solid var(--line);
+       border-radius:8px;padding:12px 14px;font-size:12.5px;margin:10px 0}
+
+  /* ---- generic step chrome ---- */
+  .stephead{text-align:center;margin-bottom:12px}
+  .stephead .sh{font-family:Georgia,serif;font-size:18px}
+  .stephead .shs{font-size:12.5px;color:var(--muted)}
+  .stepfoot{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px}
+  .prog{font-size:12px;color:var(--muted);font-weight:700}
+
+  /* ---- step 0: gap check ---- */
+  .gapbox{border:1px solid var(--line-soft);border-radius:12px;background:var(--paper);padding:18px 16px;max-width:640px;margin:0 auto}
+  .gapopts{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+  .planrow{border:1px solid var(--line-soft);border-left:4px solid var(--amber);border-radius:8px;
+       background:var(--paper);padding:10px 14px;margin-bottom:8px;font-size:13px}
+  .planrow.ok{border-left-color:var(--correct)}
+  .planrow .pw{font-weight:700}
+  .planrow .plink{margin-top:4px}
+
+  /* ---- step 1: study table ---- */
+  .wtable{display:flex;flex-direction:column;gap:8px}
+  .wrow{display:flex;align-items:center;gap:14px;border:1px solid var(--line-soft);border-radius:10px;
+       background:var(--paper);padding:9px 12px}
+  .wrow .wk{font-family:Georgia,serif;font-size:27px;min-width:96px;text-align:center}
+  .wrow .wr{font-size:12.5px;color:var(--muted);min-width:86px;text-align:center}
+  .wrow .wdef{font-size:12.5px;color:var(--muted);flex:1}
+  .wrow .wparts{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+  .pchip{display:flex;flex-direction:column;align-items:center;border:1px solid var(--line);border-radius:8px;
+       padding:3px 8px;background:var(--bg);min-width:44px}
+  .pchip .pk{font-family:Georgia,serif;font-size:17px;line-height:1.2}
+  .pchip .pg{font-size:8.5px;color:var(--muted);white-space:nowrap}
+  .kpchip{border:1px dashed var(--line);border-radius:8px;padding:3px 10px;background:var(--bg);
+       font-family:Georgia,serif;font-size:16px;color:var(--muted)}
+  .kpchip small{display:block;font-family:'Segoe UI',sans-serif;font-size:8.5px}
+  body.hidehelp .wr,body.hidehelp .wdef{visibility:hidden}
+  .studytools{text-align:center;margin:0 0 12px}
+  .vocablink{text-align:center;margin-top:14px;font-size:12.5px}
+  .vocablink a{color:var(--accent);font-weight:700;text-decoration:none;border:1px solid var(--line);
+       border-radius:7px;padding:5px 12px;background:var(--bg)}
+  .vocablink a:hover{border-color:var(--accent)}
+
+  /* ---- step 2 kanji mode: queue + workbench (Factory frames) ---- */
+  .queue{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+  .qcard{display:flex;flex-direction:column;align-items:center;border:1px solid var(--line);border-radius:10px;
+       background:var(--paper);padding:7px 12px;cursor:pointer;min-width:84px}
+  .qcard:hover{border-color:var(--accent)}
+  .qcard.sel{border-color:var(--accent);box-shadow:0 0 0 2px rgba(168,50,50,.18)}
+  .qcard.built{border-color:var(--correct);background:var(--okbg);cursor:default}
+  .qcard .qw{font-family:Georgia,serif;font-size:19px}
+  .qcard .qw .gap{color:var(--accent);font-weight:700}
+  .qcard.built .qw .gap{color:var(--correct)}
+  .qcard .qg{font-size:10px;color:var(--muted)}
+  .qcard .qtick{font-size:11px;font-weight:800;color:var(--correct);min-height:15px}
+  .bench{border:1px solid var(--line-soft);border-radius:12px;background:var(--band);padding:16px 14px 14px;margin-bottom:8px}
+  .prompt{text-align:center;font-size:14px;margin-bottom:2px}
+  .prompt b{font-family:Georgia,serif;font-size:17px}
+  .promptread{text-align:center;font-size:13px;color:var(--muted);margin-bottom:14px;min-height:19px}
+  .frame{display:grid;gap:8px;justify-content:center;margin-bottom:6px;padding-top:12px}
+  .frame.lr{grid-template-columns:96px 96px}
+  .frame.tb{grid-template-columns:110px}
+  .frame.tb .slot.top{height:64px;font-size:34px}
+  .frame.kamae{grid-template-columns:150px;position:relative}
+  .frame.nyou{grid-template-columns:150px;position:relative}
+  .frame.tare{grid-template-columns:150px;position:relative}
+  .slot{height:96px;border:2px dashed var(--line);border-radius:12px;background:var(--bg);
+       display:grid;place-items:center;font-family:Georgia,serif;font-size:44px;color:var(--ink);
+       position:relative;transition:border-color .15s,background .3s,color .3s}
+  .frame.kamae .slot.outer{height:150px;place-items:start center;padding-top:10px}
+  .frame.kamae .slot.inner{position:absolute;left:50%;top:62px;transform:translateX(-50%);
+       width:78px;height:74px;font-size:34px;z-index:2;background:var(--paper)}
+  .frame.nyou .slot.outer{height:150px;place-items:end start;padding:0 0 8px 10px}
+  .frame.nyou .slot.inner{position:absolute;right:8px;top:20px;width:84px;height:80px;
+       font-size:34px;z-index:2;background:var(--paper)}
+  .frame.tare .slot.outer{height:150px;place-items:start start;padding:8px 0 0 10px}
+  .frame.tare .slot.inner{position:absolute;right:8px;bottom:8px;width:84px;height:80px;
+       font-size:34px;z-index:2;background:var(--paper)}
+  .slot.over{border-color:var(--accent);background:#faf5f0}
+  .slot .slotlab{position:absolute;bottom:4px;left:0;right:0;text-align:center;
+       font-size:9px;font-weight:800;letter-spacing:.06em;color:var(--pos);text-transform:uppercase}
+  .frame.nyou .slot.outer .slotlab{text-align:left;padding-left:10px}
+  .frame.tare .slot.outer .slotlab{text-align:left;padding-left:10px;bottom:auto;top:38px}
+  .slot.filled{border-style:solid;cursor:pointer}
+  .slot.lit-sense{border-color:var(--sense);background:var(--sense-bg);color:var(--sense);animation:pop .45s ease-out}
+  .slot.lit-sound{border-color:var(--sound);background:var(--sound-bg);color:var(--sound);animation:pop .45s ease-out}
+  @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.13)}100%{transform:scale(1)}}
+  .rolebadge{position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;
+       letter-spacing:.06em;padding:1px 8px;border-radius:9px;text-transform:uppercase;white-space:nowrap;z-index:3}
+  .rb-sense{background:var(--sense);color:#fff}
+  .rb-sound{background:var(--sound);color:#fff}
+  .frame.shake{animation:shake .4s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+  .builtline{text-align:center;font-size:13px;color:var(--correct);font-weight:700;min-height:20px;margin:6px 0 2px}
+  .hookline{text-align:center;font-size:12.5px;color:var(--muted);max-width:560px;margin:0 auto 6px;min-height:0}
+  .bankhead{font-size:10.5px;font-weight:800;letter-spacing:.09em;color:var(--muted);
+       text-transform:uppercase;text-align:center;margin:14px 0 8px}
+  .bank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .piece{display:flex;flex-direction:column;align-items:center;gap:1px;background:var(--paper);
+       border:1px solid var(--line);border-radius:10px;padding:7px 11px;cursor:grab;min-width:62px}
+  .piece:hover{border-color:var(--accent)}
+  .piece.used{opacity:.28;pointer-events:none}
+  .piece.sel{border-color:var(--accent);box-shadow:0 0 0 2px rgba(168,50,50,.18)}
+  .piece .pc{font-family:Georgia,serif;font-size:27px;line-height:1.1}
+  .piece .pg{font-size:9.5px;color:var(--muted);font-weight:600}
+  .piece .pn{font-size:8.5px;color:var(--pos)}
+  .piece.dragging{opacity:.4}
+
+  /* ---- step 2 kana mode: word rows built from a shared tile bank ---- */
+  .kbankwrap{position:sticky;top:0;z-index:5;background:var(--band);border:1px solid var(--line-soft);
+       border-radius:12px;padding:10px 12px 12px;margin-bottom:14px}
+  .kbank{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+  .ktile{font-family:Georgia,serif;font-size:21px;line-height:1;padding:8px 10px;border:1px solid var(--line);
+       border-radius:9px;background:var(--paper);cursor:grab;min-width:40px;text-align:center}
+  .ktile:hover{border-color:var(--accent)}
+  .ktile.sel{border-color:var(--accent);box-shadow:0 0 0 2px rgba(168,50,50,.18)}
+  .ktile.dragging{opacity:.4}
+  .krows{display:flex;flex-direction:column;gap:8px}
+  .krow{display:flex;align-items:center;gap:12px;border:1px solid var(--line-soft);border-radius:10px;
+       background:var(--paper);padding:9px 12px;flex-wrap:wrap}
+  .krow .kdef{font-size:12.5px;color:var(--muted);flex:1;min-width:200px}
+  .krow .kslots{display:flex;gap:5px}
+  .kslot{width:44px;height:48px;border:2px dashed var(--line);border-radius:9px;background:var(--bg);
+       display:grid;place-items:center;font-family:Georgia,serif;font-size:22px;cursor:pointer}
+  .kslot.over{border-color:var(--accent);background:#faf5f0}
+  .kslot.filled{border-style:solid}
+  .krow.done{border-color:var(--correct);background:var(--okbg)}
+  .krow.done .kbuilt{font-family:Georgia,serif;font-size:23px;color:var(--correct);font-weight:700}
+  .krow.done .kkp{font-size:12px;color:var(--muted)}
+  .krow.shake{animation:shake .4s}
+
+  /* ---- step 3: QA ---- */
+  .qabox{border:1px solid var(--line-soft);border-radius:12px;background:var(--paper);padding:18px 16px;max-width:640px;margin:0 auto}
+  .qaq{margin-bottom:12px}
+  .jp{font-family:Georgia,serif;font-size:19px;line-height:1.7}
+  .jp .sub{display:block;font-family:'Segoe UI',sans-serif;font-size:12.5px;color:var(--muted)}
+  .qalab{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .qaa{border-top:1px dashed var(--line);padding-top:12px;margin-top:6px}
+  .qatip{font-size:12.5px;color:var(--amber);margin-top:8px}
+  .qamarks{display:flex;gap:10px;justify-content:center;margin-top:14px}
+  .qadonep{text-align:center;padding:20px 0}
+  .qadonep .big{font-size:34px}
+
+  /* ---- step 4: grammar ---- */
+  .gramrows{display:flex;flex-direction:column;gap:10px;max-width:680px;margin:0 auto}
+  .gramrow{border:1px solid var(--line-soft);border-radius:10px;background:var(--paper);padding:12px 14px;
+       display:flex;gap:12px;align-items:flex-start}
+  .gramrow .gt{font-weight:700;font-size:14px}
+  .gramrow .gw{font-size:12.5px;color:var(--muted);margin:2px 0 6px}
+  .gramrow .gtick{flex:none;width:26px;height:26px;border-radius:6px;border:2px solid var(--line);
+       background:var(--bg);cursor:pointer;font-size:14px;color:var(--correct);font-weight:800;line-height:1}
+  .gramrow.ok .gtick{border-color:var(--correct);background:var(--okbg)}
+  .hublink{font-size:12.5px;font-weight:700;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+       border-radius:7px;padding:4px 10px;display:inline-block;background:var(--bg)}
+  .hublink:hover{border-color:var(--accent)}
+
+  /* ---- step 5: craft + extension ---- */
+  .craftintro{font-size:13px;color:var(--muted);text-align:center;max-width:620px;margin:0 auto 14px}
+  .model{max-width:680px;margin:0 auto 20px;display:flex;flex-direction:column;gap:9px}
+  .msent{border:1px solid var(--line-soft);border-radius:10px;background:var(--paper);padding:10px 14px;position:relative}
+  .msent .move{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+       color:#fff;background:var(--amber);border-radius:8px;padding:1px 8px;margin-bottom:4px}
+  .edits{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  .edit{border:1px solid var(--line-soft);border-radius:10px;background:var(--paper);padding:14px}
+  .edit .weaklab{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--wrong);margin-bottom:3px}
+  .edit .opts{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+  .optbtn{text-align:left;font-family:Georgia,serif;font-size:15.5px;padding:9px 12px;border:1px solid var(--line);
+       border-radius:8px;background:var(--bg);cursor:pointer}
+  .optbtn:hover{border-color:var(--accent)}
+  .optbtn.good{border-color:var(--correct);background:var(--okbg);color:var(--correct)}
+  .optbtn.bad{border-color:var(--wrong);background:var(--badbg);animation:shake .4s}
+  .edit .why{font-size:12.5px;color:var(--muted);margin-top:9px;border-top:1px dashed var(--line);padding-top:8px}
+  .payoff{max-width:620px;margin:16px auto 0;border:1px solid var(--line);border-left:4px solid var(--correct);
+       border-radius:8px;background:var(--okbg);padding:12px 16px;font-size:13.5px}
+  .stretch{max-width:620px;margin:14px auto 0;border:1px solid var(--line);border-left:4px solid var(--amber);
+       border-radius:8px;background:#faf6ea;padding:12px 16px}
+  .stretch .xh{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--amber);margin-bottom:6px}
+  .stretch .xcheck{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+  .stretch .xrow{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--muted)}
+  .stretch .xtick{flex:none;width:22px;height:22px;border-radius:5px;border:2px solid var(--line);background:var(--paper);
+       cursor:pointer;font-size:12px;color:var(--correct);font-weight:800;line-height:1}
+  .stretch .xrow.ok .xtick{border-color:var(--correct);background:var(--okbg)}
+
+  .buildtag{margin-top:18px;font-size:10px;color:var(--muted);opacity:.7}
+  @media (max-width:640px){
+    .wrow{flex-wrap:wrap}.wrow .wparts{justify-content:flex-start}
+    .frame.lr{grid-template-columns:80px 80px}
+    .kslot{width:38px;height:42px;font-size:19px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="container">
+    <h1 class="jt-tap" data-jt="title">単元の道</h1>
+    <p class="subtitle jt-tap" data-jt="subtitle">Years 7 to 12, one road</p>
+    <span class="poc"><b>PoC.</b> The Year 7-10 sequence, word lists, questions and models are drafts for Andrew to reshape, not settled curriculum (Q19, Q20).</span>
+
+    <!-- ============ HOME ============ -->
+    <section id="scr-home" class="screen active">
+      <p class="intro jt-tap" data-jt="how">Pick a topic.</p>
+      <div id="themes"></div>
+    </section>
+
+    <!-- ============ UNIT PAGE ============ -->
+    <section id="scr-unit" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="home" data-jt="back">← ホーム</button><span></span></div>
+      <div class="uhead" id="unit-head"></div>
+      <div id="gap-gate"></div>
+      <div class="steps" id="steps"></div>
+      <div class="reportrow" id="report-row"></div>
+    </section>
+
+    <!-- ============ STEP 0 GAP CHECK ============ -->
+    <section id="scr-gap" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="unit" data-jt="backunit">← 単元</button></div>
+      <div class="stephead" id="gap-head"></div>
+      <div id="gap-area"></div>
+      <div class="stepfoot"><span class="prog" id="gap-prog"></span><span></span></div>
+    </section>
+
+    <!-- ============ STEP 1 STUDY ============ -->
+    <section id="scr-study" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="unit" data-jt="backunit">← 単元</button>
+        <span id="studyLever" data-scope="#scr-study"></span></div>
+      <div class="stephead" id="study-head"></div>
+      <div class="studytools"><button class="btn btn-ghost" id="hideBtn"></button></div>
+      <div class="wtable" id="study-table"></div>
+      <div class="vocablink" id="study-vocab"></div>
+      <div class="stepfoot"><span class="prog" id="study-prog"></span>
+        <button class="btn btn-primary" id="study-next"></button></div>
+    </section>
+
+    <!-- ============ STEP 2 BUILD ============ -->
+    <section id="scr-build" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="unit" data-jt="backunit">← 単元</button>
+        <span id="buildLever" data-scope="#scr-build"></span></div>
+      <div class="stephead" id="build-head"></div>
+      <div id="build-area"></div>
+      <div class="stepfoot"><span class="prog" id="build-prog"></span>
+        <button class="btn btn-primary" id="build-next" style="display:none"></button></div>
+    </section>
+
+    <!-- ============ STEP 3 QA ============ -->
+    <section id="scr-qa" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="unit" data-jt="backunit">← 単元</button>
+        <span id="qaLever" data-scope="#scr-qa"></span></div>
+      <div class="stephead" id="qa-head"></div>
+      <div id="qa-area"></div>
+      <div class="stepfoot"><span class="prog" id="qa-prog"></span><span></span></div>
+    </section>
+
+    <!-- ============ STEP 4 GRAMMAR ============ -->
+    <section id="scr-gram" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="unit" data-jt="backunit">← 単元</button></div>
+      <div class="stephead" id="gram-head"></div>
+      <div class="gramrows" id="gram-rows"></div>
+      <div class="stepfoot"><span class="prog" id="gram-prog"></span>
+        <button class="btn btn-primary" id="gram-next"></button></div>
+    </section>
+
+    <!-- ============ STEP 5 CRAFT ============ -->
+    <section id="scr-craft" class="screen">
+      <div class="navrow"><button class="linkbtn" data-go="unit" data-jt="backunit">← 単元</button>
+        <span id="craftLever" data-scope="#scr-craft"></span></div>
+      <div class="stephead" id="craft-head"></div>
+      <p class="craftintro" id="craft-intro"></p>
+      <div class="model" id="craft-model"></div>
+      <div class="stephead"><div class="sh" id="craft-edith"></div>
+        <div class="shs">One is genuinely better. The other two are flat, or hide a common error.</div></div>
+      <div class="edits" id="craft-edits"></div>
+      <div id="craft-payoff"></div>
+      <div id="craft-stretch"></div>
+      <div class="stepfoot"><span class="prog" id="craft-prog"></span><span></span></div>
+    </section>
+
+    <div class="buildtag">単元の道 build 2026-08-20 · PoC · generated by tools/gen-units.js</div>
+  </div>
+</div>
+
+<script src="lever.js"></script>
+<script>
+"use strict";
+/* ============================================================
+   DATA — everything below the markers is generated. VCE word
+   lists come from the Word Builder verbatim; junior units from
+   data/units/y*.json; QA/craft/gap/extension from data/units/.
+   ============================================================ */
+
+const KANJI = /*__KANJI__*/;
+
+const UNITS = /*__UNITS__*/;
+
+const CONTENT = /*__CONTENT__*/;
+
+const GMAP_JR = /*__GMAP_JR__*/;
+
+/* ---- the parts bank: gloss + common name for every component used ---- */
+const PARTS = {
+  "亻":{g:"person",n:"にんべん"}, "主":{g:"master, main",n:"ぬし"},
+  "車":{g:"cart, wheel",n:"くるま"}, "云":{g:"to say; cloud",n:""},
+  "建":{g:"to build",n:"たてる"}, "重":{g:"heavy",n:"おもい"},
+  "力":{g:"strength",n:"ちから"}, "辶":{g:"road, walking",n:"しんにょう"},
+  "周":{g:"all around",n:"まわり"}, "女":{g:"woman",n:"おんな"},
+  "市":{g:"market, city",n:"いち"}, "未":{g:"not yet",n:""},
+  "牛":{g:"cow",n:"うし"}, "勿":{g:"must not",n:""},
+  "土":{g:"earth",n:"つち"}, "或":{g:"a certain",n:""},
+  "七":{g:"seven",n:"なな"}, "刀":{g:"sword",n:"かたな"},
+  "木":{g:"tree, wood",n:"き"}, "交":{g:"to cross, mix",n:""},
+  "言":{g:"words",n:"ごんべん"}, "式":{g:"style, ceremony",n:""},
+  "士":{g:"gentleman",n:""}, "免":{g:"to escape, excuse",n:""},
+  "艹":{g:"grass, plant",n:"くさかんむり"}, "化":{g:"to change",n:"ばける"},
+  "日":{g:"sun, day",n:"ひ"}, "央":{g:"centre",n:""},
+  "糸":{g:"thread",n:"いと"}, "充":{g:"to fill",n:""},
+  "行":{g:"to go; a road",n:"いく"}, "朮":{g:"a grain plant",n:""},
+  "首":{g:"neck, head",n:"くび"}, "乍":{g:"while",n:""},
+  "宀":{g:"roof",n:"うかんむり"}, "豕":{g:"pig",n:"いのこ"},
+  "巽":{g:"old compass sign",n:""}, "禾":{g:"grain plant",n:"のぎへん"},
+  "斗":{g:"measuring ladle",n:""}, "氵":{g:"water",n:"さんずい"},
+  "巷":{g:"lane, town",n:""}, "白":{g:"white",n:"しろ"},
+  "水":{g:"water",n:"みず"}, "金":{g:"metal, gold",n:"かね"},
+  "艮":{g:"to stop, stubborn",n:""}, "礻":{g:"altar",n:"しめすへん"},
+  "申":{g:"to say, report",n:""}, "失":{g:"to lose",n:"うしなう"},
+  "竟":{g:"to end",n:""}, "門":{g:"gate",n:"もんがまえ"},
+  "口":{g:"mouth",n:"くち"}, "是":{g:"this, right",n:""},
+  "頁":{g:"page, head",n:"おおがい"}, "歯":{g:"tooth",n:"は"},
+  "令":{g:"order, command",n:""}, "原":{g:"spring, origin",n:"はら"},
+  "忄":{g:"heart",n:"りっしんべん"}, "青":{g:"blue, clear",n:"あお"},
+  "舌":{g:"tongue",n:"した"}, "己":{g:"self",n:"おのれ"},
+  "耳":{g:"ear",n:"みみ"}, "且":{g:"stacked up",n:""},
+  "扌":{g:"hand",n:"てへん"}, "支":{g:"branch, support",n:""},
+  "幾":{g:"how many",n:""}, "月":{g:"moon",n:"つき"},
+  "矢":{g:"arrow",n:"や"}, "刂":{g:"blade",n:"りっとう"},
+  "田":{g:"rice field",n:"た"}, "丁":{g:"street block, nail",n:""},
+  "广":{g:"roof on a cliff",n:"まだれ"}, "占":{g:"to divine, occupy",n:""},
+  "馬":{g:"horse",n:"うま"}, "尺":{g:"length measure",n:""},
+  "飠":{g:"food",n:"しょくへん"}, "欠":{g:"open mouth, lack",n:""},
+  "米":{g:"rice",n:"こめ"}, "王":{g:"king; jewel",n:"おう"},
+  "里":{g:"village",n:"さと"}, "吾":{g:"I, me (old)",n:""},
+  "売":{g:"to sell",n:"う(る)"}, "竹":{g:"bamboo",n:"たけ"},
+  "合":{g:"to fit, join",n:""}, "夕":{g:"evening",n:"ゆう"},
+  "厶":{g:"private (old)",n:""}, "召":{g:"to summon",n:""},
+  "彳":{g:"step, road",n:"ぎょうにんべん"}, "罒":{g:"net",n:"あみがしら"},
+  "貝":{g:"shell, money",n:"かい"}, "何":{g:"what",n:"なに"},
+  "哥":{g:"song (old form)",n:""}, "釆":{g:"to sort, sow",n:""},
+  "亡":{g:"to vanish",n:"ボウ"}, "孝":{g:"filial duty",n:""},
+  "攵":{g:"action hand",n:"のぶん"}, "雨":{g:"rain",n:"あめ"},
+};
+
+/* ---- step 2 kanji targets: parts IN LAYOUT ORDER (lr: left,right;
+   tb: top,bottom; kamae/nyou/tare: enclosing part, inner part).
+   role is the part's job IN THIS CHARACTER. ---- */
+const BUILDS = {
+/* ---------- Years 9-10 ---------- */
+u91:[
+ {ch:"町",word:"町",gloss:"town",read:"まち・チョウ",pos:"lr",
+  parts:[{p:"田",role:"sense"},{p:"丁",role:"sound",sound:"チョウ"}],
+  hook:"Rice fields 田 marked out in blocks: that is what a town grew from. 丁 チョウ is a perfect sound match: 町 チョウ."},
+ {ch:"店",word:"店",gloss:"shop",read:"みせ・テン",pos:"tare",
+  parts:[{p:"广",role:"sense"},{p:"占",role:"sound",sound:"テン"}],
+  hook:"广 is a roof built out from a cliff: a lean-to where you set out goods. 占 lends the sound テン."},
+ {ch:"駅",word:"駅",gloss:"station",read:"エキ",pos:"lr",
+  parts:[{p:"馬",role:"sense"},{p:"尺",role:"sound",sound:"エキ"}],
+  hook:"Stations were where you changed HORSES 馬, long before trains. 尺 lends a sound worn smooth by centuries: 駅 エキ."},
+ {ch:"道",word:"道",gloss:"road, way",read:"みち・ドウ",pos:"nyou",
+  parts:[{p:"辶",role:"sense"},{p:"首",role:"sense"}],
+  hook:"A head 首 travelling a road 辶: two meanings, no sound part. The same 道 comes back at VCE in 茶道 and 書道."},
+],
+u92:[
+ {ch:"飲",word:"飲み物",gloss:"to drink",read:"の(む)・イン",pos:"lr",
+  parts:[{p:"飠",role:"sense"},{p:"欠",role:"sense"}],
+  hook:"The food part 飠 next to 欠, a wide-open mouth. A picture of drinking; no sound part at all."},
+ {ch:"味",word:"味",gloss:"taste, flavour",read:"あじ・ミ",pos:"lr",
+  parts:[{p:"口",role:"sense"},{p:"未",role:"sound",sound:"ミ"}],
+  hook:"A mouth 口 doing the tasting. 未 lends the sound ミ, exactly as it does in 妹."},
+ {ch:"料",word:"料理",gloss:"ingredients, to measure",read:"リョウ",pos:"lr",
+  parts:[{p:"米",role:"sense"},{p:"斗",role:"sense"}],
+  hook:"Rice 米 and the measuring ladle 斗: weighing out ingredients. Both halves are meaning."},
+ {ch:"理",word:"料理",gloss:"logic, right order",read:"リ",pos:"lr",
+  parts:[{p:"王",role:"sense"},{p:"里",role:"sound",sound:"リ"}],
+  hook:"王 here is a jewel being cut along its natural lines: doing a thing the RIGHT way. 里 リ is a perfect sound match. 料理: measured ingredients, handled right."},
+],
+u93:[
+ {ch:"晴",word:"晴れ",gloss:"clear weather",read:"は(れる)・セイ",pos:"lr",
+  parts:[{p:"日",role:"sense"},{p:"青",role:"sound",sound:"セイ"}],
+  hook:"The Kanji Factory's star pair, out in the weather: sun 日 plus 青 セイ. Blue-sky clear."},
+ {ch:"雲",word:"雲",gloss:"cloud",read:"くも・ウン",pos:"tb",
+  parts:[{p:"雨",role:"sense"},{p:"云",role:"sound",sound:"ウン"}],
+  hook:"Rain 雨 sits on top of 云, which began as the actual drawing of a cloud, and it still lends the sound: 雲 ウン. One part, both jobs at once."},
+ {ch:"暑",word:"暑い",gloss:"hot weather",read:"あつ(い)・ショ",pos:"tb",
+  parts:[{p:"日",role:"sense"},{p:"者",role:"sound",sound:"ショ"}],
+  hook:"The sun 日 bearing down. 者 lends the sound here, the same 者 that is a person in 科学者. Parts moonlight."},
+ {ch:"秋",word:"秋",gloss:"autumn",read:"あき・シュウ",pos:"lr",
+  parts:[{p:"禾",role:"sense"},{p:"火",role:"sense"}],
+  hook:"Grain 禾 and fire 火: the harvest brought in and the stubble burned. Autumn as a picture, no sound part."},
+],
+u94:[
+ {ch:"語",word:"日本語",gloss:"language, words",read:"ゴ",pos:"lr",
+  parts:[{p:"言",role:"sense"},{p:"吾",role:"sound",sound:"ゴ"}],
+  hook:"言 again: a language is made of words. 吾 ゴ is a perfect sound match: 語 ゴ."},
+ {ch:"読",word:"読書",gloss:"to read",read:"よ(む)・ドク",pos:"lr",
+  parts:[{p:"言",role:"sense"},{p:"売",role:"sound",sound:"ドク"}],
+  hook:"Words 言 are what you read. 売 (to sell) lends a sound worn far out of shape over the centuries; trust the meaning half."},
+ {ch:"答",word:"答え",gloss:"answer",read:"こた(え)・トウ",pos:"tb",
+  parts:[{p:"竹",role:"sense"},{p:"合",role:"sound",sound:"トウ"}],
+  hook:"Answers were once written on strips of bamboo 竹. 合 (to fit) lends the sound, and a good answer FITS its question."},
+ {ch:"教",word:"教室",gloss:"to teach",read:"おし(える)・キョウ",pos:"lr",
+  parts:[{p:"孝",role:"sound",sound:"キョウ"},{p:"攵",role:"sense"}],
+  hook:"攵 is the action hand: teaching is something you DO. 孝 lends the sound, and it sits on the LEFT. Position never tells you the job."},
+],
+u101:[
+ {ch:"名",word:"名前",gloss:"name",read:"な・メイ",pos:"tb",
+  parts:[{p:"夕",role:"sense"},{p:"口",role:"sense"}],
+  hook:"Evening 夕 over a mouth 口: in the dark nobody can see you, so you call out your name. A story-picture, no sound part."},
+ {ch:"私",word:"私",gloss:"I, private",read:"わたし・シ",pos:"lr",
+  parts:[{p:"禾",role:"sense"},{p:"厶",role:"sound",sound:"シ"}],
+  hook:"Grain 禾 marked off as mine, not the village's. 厶 lends the sound シ."},
+ {ch:"紹",word:"紹介",gloss:"to introduce",read:"ショウ",pos:"lr",
+  parts:[{p:"糸",role:"sense"},{p:"召",role:"sound",sound:"ショウ"}],
+  hook:"Thread 糸 tying two people together: an introduction. 召 ショウ is a perfect sound match."},
+ {ch:"話",word:"会話",gloss:"to speak",read:"はな(す)・ワ",pos:"lr",
+  parts:[{p:"言",role:"sense"},{p:"舌",role:"sense"}],
+  hook:"Words 言 and a tongue 舌: speaking, drawn as a picture. You will build this one again at VCE, and it will be an old friend."},
+],
+u102:[
+ {ch:"泊",word:"泊まる",gloss:"to stay overnight",read:"と(まる)・ハク",pos:"lr",
+  parts:[{p:"氵",role:"sense"},{p:"白",role:"sound",sound:"ハク"}],
+  hook:"Water 氵 because travellers moored their boats for the night. 白 is the Factory's blue sound part doing exactly its blue job: 泊 ハク."},
+ {ch:"待",word:"待つ",gloss:"to wait",read:"ま(つ)・タイ",pos:"lr",
+  parts:[{p:"彳",role:"sense"},{p:"寺",role:"sound",sound:"タイ"}],
+  hook:"彳 is a step on the road: waiting happens on the way somewhere. And 寺, the Factory's temple, extends its sound family again: 時 ジ, 持 ジ, now 待 タイ."},
+ {ch:"買",word:"買い物",gloss:"to buy",read:"か(う)・バイ",pos:"tb",
+  parts:[{p:"罒",role:"sense"},{p:"貝",role:"sense"}],
+  hook:"A net 罒 over shell-money 貝: scooping up what you paid for. Shells were money once, and 貝 still means it inside kanji."},
+ {ch:"荷",word:"荷物",gloss:"load, luggage",read:"に・カ",pos:"tb",
+  parts:[{p:"艹",role:"sense"},{p:"何",role:"sound",sound:"カ"}],
+  hook:"The plant hat 艹 because loads were bundles of reeds and straw. 何 (what?) lends the sound カ: 荷物, your what-have-you."},
+],
+u103:[
+ {ch:"歌",word:"歌",gloss:"song, to sing",read:"うた・カ",pos:"lr",
+  parts:[{p:"哥",role:"sound",sound:"カ"},{p:"欠",role:"sense"}],
+  hook:"欠 is the wide-open mouth again, the same one drinking in 飲. 哥 カ, an old word for song, lends the sound from the LEFT."},
+ {ch:"記",word:"記事",gloss:"to write down",read:"キ",pos:"lr",
+  parts:[{p:"言",role:"sense"},{p:"己",role:"sound",sound:"キ"}],
+  hook:"Words 言 set down for the record; 己 lends the sound. The same 記 sits inside VCE's 記事."},
+ {ch:"番",word:"番組",gloss:"turn, number in order",read:"バン",pos:"tb",
+  parts:[{p:"釆",role:"sense"},{p:"田",role:"sense"}],
+  hook:"A sowing hand 釆 over a field 田: seed goes in row by row, IN ORDER. Order became turn, and turn became a numbered programme."},
+ {ch:"組",word:"番組",gloss:"group, to assemble",read:"くみ・ソ",pos:"lr",
+  parts:[{p:"糸",role:"sense"},{p:"且",role:"sound",sound:"ソ"}],
+  hook:"Thread 糸 braiding things into a set, 且 lending the sound. A 番組 is an assembled thing with a number."},
+],
+u104:[
+ {ch:"働",word:"働く",gloss:"to work",read:"はたら(く)・ドウ",pos:"lr",
+  parts:[{p:"亻",role:"sense"},{p:"動",role:"sound",sound:"ドウ"}],
+  hook:"A person 亻 in motion. Japan built this kanji itself, one of the few coined here. 動 brings its whole sound ドウ across, and its meaning tags along free."},
+ {ch:"忙",word:"忙しい",gloss:"busy",read:"いそが(しい)・ボウ",pos:"lr",
+  parts:[{p:"忄",role:"sense"},{p:"亡",role:"sound",sound:"ボウ"}],
+  hook:"The heart 忄 beside 亡, to vanish: busyness is your heart disappearing. 亡 also lends the sound ボウ. One part, both jobs."},
+ {ch:"仕",word:"仕事",gloss:"to serve, to work",read:"シ",pos:"lr",
+  parts:[{p:"亻",role:"sense"},{p:"士",role:"sound",sound:"シ"}],
+  hook:"A person 亻 doing their job; 士 hands over its exact sound. You will build this again in VCE's 仕事, and it will be old news."},
+ {ch:"社",word:"会社",gloss:"shrine; company",read:"シャ",pos:"lr",
+  parts:[{p:"礻",role:"sense"},{p:"土",role:"sense"}],
+  hook:"The altar part 礻 and the earth 土: the shrine of the local land god, where the whole village gathered. A gathering became a company: 会社."},
+],
+/* ---------- VCE ---------- */
+seikatsu:[
+ {ch:"住",word:"住所",gloss:"to live, to dwell",read:"す(む)・ジュウ",pos:"lr",
+  parts:[{p:"亻",role:"sense"},{p:"主",role:"sound",sound:"ジュウ"}],
+  hook:"A person 亻 next to 主, which lends the sound: 住 ジュウ, 柱 チュウ. The person is the meaning; 主 is the engine of the sound."},
+ {ch:"転",word:"自転車",gloss:"to roll, to turn",read:"ころ(ぶ)・テン",pos:"lr",
+  parts:[{p:"車",role:"sense"},{p:"云",role:"sound",sound:"テン"}],
+  hook:"A wheel 車 does the rolling, so it is the meaning. 云 is only here for the sound."},
+ {ch:"健",word:"健康",gloss:"healthy, strong",read:"ケン",pos:"lr",
+  parts:[{p:"亻",role:"sense"},{p:"建",role:"sound",sound:"ケン"}],
+  hook:"亻 again: health belongs to a person. 建 ケン (to build) hands over its exact sound: 建 ケン, 健 ケン."},
+ {ch:"動",word:"運動",gloss:"to move",read:"うご(く)・ドウ",pos:"lr",
+  parts:[{p:"重",role:"sound",sound:"ドウ"},{p:"力",role:"sense"}],
+  hook:"Strength 力 makes things move, and this time the MEANING sits on the right. Position never tells you the job; the colour does."},
+ {ch:"週",word:"週末",gloss:"week",read:"シュウ",pos:"nyou",
+  parts:[{p:"辶",role:"sense"},{p:"周",role:"sound",sound:"シュウ"}],
+  hook:"The road part 辶 wraps around the bottom: weeks go around and come back. 周 シュウ is a perfect sound match."},
+],
+kankei:[
+ {ch:"姉",word:"姉妹",gloss:"older sister",read:"あね・シ",pos:"lr",
+  parts:[{p:"女",role:"sense"},{p:"市",role:"sound",sound:"シ"}],
+  hook:"女 carries the meaning. 市 シ (market, city) is only here for its sound: 姉 シ."},
+ {ch:"妹",word:"姉妹",gloss:"younger sister",read:"いもうと・マイ",pos:"lr",
+  parts:[{p:"女",role:"sense"},{p:"未",role:"sound",sound:"マイ"}],
+  hook:"Same 女, different sound part: 未 (not yet) gives 妹 マイ. The sisters share their meaning half."},
+ {ch:"物",word:"動物",gloss:"thing, creature",read:"もの・ブツ",pos:"lr",
+  parts:[{p:"牛",role:"sense"},{p:"勿",role:"sound",sound:"ブツ"}],
+  hook:"A cow 牛 once stood in for creatures and things in general. 勿 does the sound: ブツ・モツ."},
+ {ch:"域",word:"地域",gloss:"area, region",read:"イキ",pos:"lr",
+  parts:[{p:"土",role:"sense"},{p:"或",role:"sound",sound:"イキ"}],
+  hook:"Earth 土 for a patch of ground; 或 lends the sound."},
+ {ch:"切",word:"親切",gloss:"to cut; kind",read:"き(る)・セツ",pos:"lr",
+  parts:[{p:"七",role:"sound",sound:"セツ"},{p:"刀",role:"sense"}],
+  hook:"The sword 刀 does the cutting, and it sits on the RIGHT. 七 lends its old sound. Kindness 親切 is care cut exactly to fit."},
+],
+shinro:[
+ {ch:"校",word:"学校",gloss:"school",read:"コウ",pos:"lr",
+  parts:[{p:"木",role:"sense"},{p:"交",role:"sound",sound:"コウ"}],
+  hook:"Schools were wooden buildings, so 木 is the meaning. 交 コウ is a clean sound match: 校 コウ."},
+ {ch:"試",word:"試験",gloss:"to test, to try",read:"ため(す)・シ",pos:"lr",
+  parts:[{p:"言",role:"sense"},{p:"式",role:"sound",sound:"シ"}],
+  hook:"言 means words: a test asks you questions. 式 シキ lends the シ."},
+ {ch:"仕",word:"仕事",gloss:"to serve, to work",read:"シ",pos:"lr",
+  parts:[{p:"亻",role:"sense"},{p:"士",role:"sound",sound:"シ"}],
+  hook:"A person 亻 doing their job. 士 シ hands over its exact sound."},
+ {ch:"勉",word:"勉強",gloss:"to make an effort",read:"ベン",pos:"lr",
+  parts:[{p:"免",role:"sound",sound:"ベン"},{p:"力",role:"sense"}],
+  hook:"力 again, the same strength as in 動: effort is strength. And again the meaning half sits on the right."},
+],
+bunka:[
+ {ch:"花",word:"花火・花見",gloss:"flower",read:"はな・カ",pos:"tb",
+  parts:[{p:"艹",role:"sense"},{p:"化",role:"sound",sound:"カ"}],
+  hook:"The grass hat 艹 on top means plant, every single time. 化 カ (to change) is pure sound here. It is the same 化 that is pure MEANING in 高齢化. One part, two jobs."},
+ {ch:"映",word:"映画",gloss:"to reflect, project",read:"うつ(る)・エイ",pos:"lr",
+  parts:[{p:"日",role:"sense"},{p:"央",role:"sound",sound:"エイ"}],
+  hook:"Light 日 projects the picture. 央 is the sound part, though its sound has drifted over the centuries."},
+ {ch:"統",word:"伝統",gloss:"to unite, tie together",read:"トウ",pos:"lr",
+  parts:[{p:"糸",role:"sense"},{p:"充",role:"sound",sound:"トウ"}],
+  hook:"Thread 糸 ties the generations into one tradition. 充 is the sound part, drifted a little."},
+ {ch:"術",word:"芸術",gloss:"art, technique",read:"ジュツ",pos:"kamae",
+  parts:[{p:"行",role:"sense"},{p:"朮",role:"sound",sound:"ジュツ"}],
+  hook:"行 (a road) splits open and 朮 ジュツ steps inside with the sound. A skill is a road you walk a long way down."},
+ {ch:"道",word:"茶道・書道",gloss:"road, way",read:"みち・ドウ",pos:"nyou",
+  parts:[{p:"辶",role:"sense"},{p:"首",role:"sense"}],
+  hook:"Two meaning parts and no sound part: a head 首 travelling a road 辶. Some kanji are pictures of an idea, not sound machines."},
+],
+yuumei:[
+ {ch:"作",word:"作家",gloss:"to make",read:"つく(る)・サク",pos:"lr",
+  parts:[{p:"亻",role:"sense"},{p:"乍",role:"sound",sound:"サク"}],
+  hook:"A person 亻 making something. 乍 lends the sound サク."},
+ {ch:"家",word:"作家・画家",gloss:"house; a professional",read:"いえ・カ",pos:"tb",
+  parts:[{p:"宀",role:"sense"},{p:"豕",role:"sense"}],
+  hook:"A roof 宀 with a pig 豕 under it: a farmhouse. Both parts are meaning. In this unit 家 is a professional (作家, 画家, 音楽家): someone at home in their craft."},
+ {ch:"選",word:"選手",gloss:"to choose",read:"えら(ぶ)・セン",pos:"nyou",
+  parts:[{p:"辶",role:"sense"},{p:"巽",role:"sound",sound:"セン"}],
+  hook:"The road part 辶 again: choosing is picking a path. 巽 lends the sound."},
+ {ch:"科",word:"科学者",gloss:"branch of study",read:"カ",pos:"lr",
+  parts:[{p:"禾",role:"sense"},{p:"斗",role:"sense"}],
+  hook:"Grain 禾 and a measuring ladle 斗: sorting things into their kinds, which is what a science does. Both halves are meaning."},
+],
+nihon:[
+ {ch:"港",word:"空港",gloss:"harbour, port",read:"みなと・コウ",pos:"lr",
+  parts:[{p:"氵",role:"sense"},{p:"巷",role:"sound",sound:"コウ"}],
+  hook:"Water 氵, always meaning, never sound. 巷 コウ is a clean sound match. An airport 空港 is a sky harbour."},
+ {ch:"泉",word:"温泉",gloss:"spring of water",read:"いずみ・セン",pos:"tb",
+  parts:[{p:"白",role:"sense"},{p:"水",role:"sense"}],
+  hook:"Clear white 白 water 水 rising from the ground. Two meanings, no sound part. In the Kanji Factory, 泉 itself turns around and works as the SOUND in 線 セン."},
+ {ch:"銀",word:"銀行",gloss:"silver",read:"ギン",pos:"lr",
+  parts:[{p:"金",role:"sense"},{p:"艮",role:"sound",sound:"ギン"}],
+  hook:"Metal 金 carries the meaning; 艮 lends the sound. A bank 銀行 is literally a silver business."},
+ {ch:"神",word:"神社",gloss:"god, spirit",read:"かみ・ジン",pos:"lr",
+  parts:[{p:"礻",role:"sense"},{p:"申",role:"sound",sound:"シン"}],
+  hook:"礻 is a squashed 示, the altar part: shrine business, meaning only. 申 シン gives the sound: 神 シン・ジン."},
+ {ch:"鉄",word:"地下鉄",gloss:"iron",read:"テツ",pos:"lr",
+  parts:[{p:"金",role:"sense"},{p:"失",role:"sound",sound:"テツ"}],
+  hook:"金 again, the same metal as in 銀. 失 lends a drifted sound. The 地下鉄 is an underground iron road."},
+],
+shakai:[
+ {ch:"境",word:"環境",gloss:"boundary",read:"さかい・キョウ",pos:"lr",
+  parts:[{p:"土",role:"sense"},{p:"竟",role:"sound",sound:"キョウ"}],
+  hook:"Earth 土 for a border drawn on the land. 竟 キョウ is the sound."},
+ {ch:"問",word:"問題",gloss:"to ask",read:"と(う)・モン",pos:"kamae",
+  parts:[{p:"門",role:"sound",sound:"モン"},{p:"口",role:"sense"}],
+  hook:"You built this one in the Kanji Factory. The gate 門 is the SOUND and the little mouth 口 is the meaning. Here it is again, earning its keep in 問題."},
+ {ch:"題",word:"問題",gloss:"topic, title",read:"ダイ",pos:"lr",
+  parts:[{p:"是",role:"sound",sound:"ダイ"},{p:"頁",role:"sense"}],
+  hook:"頁 is a page: titles sit at the head of a page, so it is the meaning. 是 lends the sound, and once more the sound half is on the left."},
+ {ch:"齢",word:"高齢者",gloss:"age",read:"レイ",pos:"lr",
+  parts:[{p:"歯",role:"sense"},{p:"令",role:"sound",sound:"レイ"}],
+  hook:"Teeth 歯: you can tell an animal's age by its teeth. 令 レイ is a perfect sound match."},
+ {ch:"源",word:"資源",gloss:"source, origin",read:"みなもと・ゲン",pos:"lr",
+  parts:[{p:"氵",role:"sense"},{p:"原",role:"sound",sound:"ゲン"}],
+  hook:"Water 氵 plus 原 ゲン: the source of a river. 原 began as a picture of a spring under a cliff, and 泉 is hiding inside it."},
+],
+tsuushin:[
+ {ch:"情",word:"情報",gloss:"feeling; the state of things",read:"ジョウ",pos:"lr",
+  parts:[{p:"忄",role:"sense"},{p:"青",role:"sound",sound:"ジョウ"}],
+  hook:"忄 is the heart stood on its side, meaning only. 青 is the Factory's star sound part (晴 セイ, 清 セイ), drifting here to ジョウ."},
+ {ch:"話",word:"電話・会話",gloss:"to speak",read:"はな(す)・ワ",pos:"lr",
+  parts:[{p:"言",role:"sense"},{p:"舌",role:"sense"}],
+  hook:"Words 言 and a tongue 舌: speaking, drawn as a picture. No sound part at all."},
+ {ch:"記",word:"記事",gloss:"to write down",read:"キ",pos:"lr",
+  parts:[{p:"言",role:"sense"},{p:"己",role:"sound",sound:"キ"}],
+  hook:"言 again: records are made of words. 己 lends the sound: 記 キ."},
+ {ch:"聞",word:"新聞",gloss:"to hear",read:"き(く)・ブン",pos:"kamae",
+  parts:[{p:"門",role:"sound",sound:"ブン"},{p:"耳",role:"sense"}],
+  hook:"The Factory one again: an ear 耳 listening at the gate, with 門 doing the sound, ブン this time. A 新聞 is new things heard."},
+ {ch:"組",word:"番組",gloss:"to assemble; a group",read:"くみ・ソ",pos:"lr",
+  parts:[{p:"糸",role:"sense"},{p:"且",role:"sound",sound:"ソ"}],
+  hook:"Thread 糸 braiding things into a set; 且 lends the sound. A TV 番組 is an assembled thing."},
+],
+gijutsu:[
+ {ch:"技",word:"技術",gloss:"skill",read:"わざ・ギ",pos:"lr",
+  parts:[{p:"扌",role:"sense"},{p:"支",role:"sound",sound:"ギ"}],
+  hook:"扌 is the hand part, bound form, meaning only: skill lives in the hands. 支 lends a drifted sound."},
+ {ch:"機",word:"機械・飛行機",gloss:"machine; moment",read:"キ",pos:"lr",
+  parts:[{p:"木",role:"sense"},{p:"幾",role:"sound",sound:"キ"}],
+  hook:"The first machines were wooden looms, so 木 is the meaning. 幾 キ is a perfect sound match: 機 キ."},
+ {ch:"明",word:"発明",gloss:"bright",read:"あか(るい)・メイ",pos:"lr",
+  parts:[{p:"日",role:"sense"},{p:"月",role:"sense"}],
+  hook:"The famous one: sun 日 and moon 月, the two bright things, side by side. Pure picture, no sound part. An invention 発明 makes the world brighter."},
+ {ch:"知",word:"知能",gloss:"to know",read:"し(る)・チ",pos:"lr",
+  parts:[{p:"矢",role:"sense"},{p:"口",role:"sense"}],
+  hook:"An arrow 矢 and a mouth 口: knowing is when the answer flies from the mouth straight as an arrow. Another picture kanji."},
+ {ch:"利",word:"便利",gloss:"sharp; advantage",read:"リ",pos:"lr",
+  parts:[{p:"禾",role:"sense"},{p:"刂",role:"sense"}],
+  hook:"Grain 禾 and a blade 刂 (a squashed 刀, the same sword as in 切): a sharp harvest knife gets the job done fast. That is 便利."},
+]};
+
+/* ---- step 4: the grammar each unit leans on. VCE mappings below;
+   junior mappings arrive from the spine via GMAP_JR. All are
+   proposals for Andrew (Q19/Q20). ---- */
+const GMAP = Object.assign({}, GMAP_JR, {
+seikatsu:[
+ {id:"te-form-b2-core",label:"て形 · chaining your day",why:"Routines are て-form trains: おきて、あさごはんを たべて、がっこうに いきます。"},
+ {id:"verb-stem-choices",label:"ます-stem · habits and purpose",why:"The stem carries habits and purpose: うんどうを しに いきます。"},
+ {id:"particles-b1-core",label:"に・で · times and places",why:"Daily life runs on に and で: times take に, places where you do things take で."},
+],
+kankei:[
+ {id:"identity-y78",label:"は・も · saying who people are",why:"Family descriptions are identity frames: あねは やさしいです。おとうとも おもしろいです。"},
+ {id:"particles-sentences",label:"と・の · doing things with people",why:"People take と (ともだちと はなします), and family words chain with の."},
+ {id:"conjunctions-choices",label:"つなぎことば · joining traits",why:"Describing someone means joining traits smoothly: やさしくて、おもしろいです。"},
+],
+shinro:[
+ {id:"ta-tara-tari-b2",label:"たら · plans that follow plans",why:"Futures hang on たら: そつぎょうしたら、だいがくに いきたいです。"},
+ {id:"nominalisers-b4",label:"ことができる · your abilities",why:"The CV sentence: にほんごを はなすことが できます。"},
+ {id:"plain-form-expr-1-b3",label:"と思います · stating your plans",why:"Plans are opinions about your own future: いしゃに なりたいと おもいます。"},
+],
+bunka:[
+ {id:"ta-choices",label:"た形 · what you experienced",why:"Festivals are told in the past: おまつりで はなびを みました。"},
+ {id:"pf-expr-1-links",label:"そうです · customs you have heard about",why:"Hearsay is the culture pattern: おしょうがつに もちを たべるそうです。"},
+ {id:"extent-b3",label:"くらべる · old next to new",why:"Tradition and pop culture invite comparison: まんがのほうが にんきが あります。"},
+],
+yuumei:[
+ {id:"ta-choices",label:"た形 · telling a life story",why:"A biography lives in the past tense: たくさん えいがを つくりました。"},
+ {id:"plain-form-expr-2-b3",label:"つなぐ · making the facts flow",why:"A person's career is many facts joined into a story, not a list."},
+ {id:"pf-expr-1-links",label:"と思います · why you admire them",why:"The judgement sentence: せかいで いちばん すごい がかだと おもいます。"},
+],
+nihon:[
+ {id:"verb-stem-b2",label:"ます-stem + に行く · travelling on purpose",why:"Travel is purpose: おんせんに はいりに いきます。"},
+ {id:"te-form-2-choices",label:"てください · getting around politely",why:"Stations and shops run on requests: きっぷを みせてください。"},
+ {id:"particles-harder-b2",label:"へ・まで・で · transport and destinations",why:"Getting around is particle work: でんしゃで きょうとまで いきます。"},
+],
+shakai:[
+ {id:"pf-expr-2-argument",label:"いけん · taking a side",why:"Social issues need a stance plus a reason, built on the plain form."},
+ {id:"nai-form-b3",label:"なければ · what must be done",why:"Duty language: かんきょうを まもらなければ なりません。"},
+ {id:"extent-b3",label:"くらべる · more and fewer",why:"高齢化 is a comparing story: おとしよりが ふえて、こどもが へっています。"},
+],
+tsuushin:[
+ {id:"pf-expr-1-links",label:"そうです · reporting the news",why:"The news pattern itself: ニュースに よると、〜そうです。"},
+ {id:"sentence-final-b4",label:"ね・よ · giving and checking news",why:"会話 runs on ね and よ: telling people things, checking you agree."},
+ {id:"plain-form-expr-2-b3",label:"つなぐ · what happened and why it matters",why:"Reporting a story means joining the event to its meaning."},
+],
+gijutsu:[
+ {id:"comparative-analytical-b4",label:"くらべて分析 · then and now",why:"Technology talk is before-and-after: むかしより せいかつが べんりに なりました。"},
+ {id:"nominalisers-paragraphs",label:"ことができる · what machines can do",why:"Ability sentences about tools: AIは えを かくことが できます。"},
+ {id:"pf-expr-2-argument",label:"いけん · is it good for us?",why:"Take a side on technology and back it with a から reason."},
+]});
+
+/* ---- five steps, four forms each ---- */
+const STEPS = [
+ {k:"study",t:["ことば","ことば","kotoba","Words"],s:["単語と部品に会う","たんごとぶひんにあう","tango to buhin ni au","meet the words and their parts"]},
+ {k:"build",t:["漢字を組み立てる","かんじをくみたてる","kanji o kumitateru","Build the kanji"],s:["部品を正しい場所へ","ぶひんをただしいばしょへ","buhin o tadashii basho e","parts into the right positions"]},
+ {k:"qa",t:["問答","もんどう","mondō","Question and answer"],s:["聞かれて、答える","きかれて、こたえる","kikarete, kotaeru","hear the question, say your answer"]},
+ {k:"gram",t:["文法","ぶんぽう","bunpō","Grammar"],s:["この単元が頼る型","このたんげんがたよるかた","kono tangen ga tayoru kata","the patterns this unit leans on"]},
+ {k:"craft",t:["クラフト","クラフト","kurafuto","Craft and editing"],s:["良い答えを、もっと良く","よいこたえを、もっとよく","yoi kotae o, motto yoku","see the moves, improve a draft, then stretch"]},
+];
+const KANA_BUILD_T=["ことばを組み立てる","ことばをくみたてる","kotoba o kumitateru","Build the words"];
+const KANA_BUILD_S=["かなで、音から","かなで、おとから","kana de, oto kara","kana tiles, sound by sound"];
+
+const GROUPS=[
+ {grp:"7", ja:"7年生", en:"Year 7"},
+ {grp:"8", ja:"8年生", en:"Year 8"},
+ {grp:"9", ja:"9年生", en:"Year 9"},
+ {grp:"10", ja:"10年生", en:"Year 10"},
+ {grp:"VCE", ja:"VCE", en:"VCE · the nine study-design topics"},
+];
+
+const UI = {
+  title:   ["単元の道","たんげんのみち","tangen no michi","Unit Walk"],
+  subtitle:["7年生から12年生まで、一つの道","しちねんせいからじゅうにねんせいまで、ひとつのみち",
+            "shichinensei kara jūninensei made, hitotsu no michi","Years 7 to 12, one road"],
+  how:     ["トピックをえらんでください","トピックをえらんでください","topikku o erande kudasai",
+            "Pick a topic. Every unit walks the same road: check, words, build, talk, grammar, craft. Nothing is locked; the order is just the good order."],
+  back:    ["← ホーム","← ホーム","← hōmu","← home"],
+  backunit:["← 単元","← たんげん","← tangen","← unit"],
+};
+const UI_RUBY = { backunit:"← <ruby>単元<rt>たんげん</rt></ruby>" };
+
+/* ============================================================
+   STATE — session only. First-try scoring throughout.
+   ============================================================ */
+const S = {
+  screen:"home", unit:null,
+  done:{}, first:{}, built:{},
+  qa:{}, gram:{}, edits:{}, xticks:{},
+  gapState:{},   // key -> {i, answers:[idx...], done:bool}
+  hide:false,
+};
+const $ = (id)=>document.getElementById(id);
+const esc = (s)=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const unit = ()=>UNITS.find((u)=>u.key===S.unit);
+const doneOf = (k)=>S.done[k]||(S.done[k]={study:false,build:false,qa:false,gram:false,craft:false});
+const content = (k)=>CONTENT[k]||{};
+const F = ()=>window.HubLever.form();
+const tF = (arr)=>window.HubLever.tForm(arr);
+function jpBlock(arr){
+  const f=F();
+  if (f===0) return '<span class="jp">'+esc(arr[0])+'</span>';
+  if (f===1) return '<span class="jp">'+esc(arr[1])+'</span>';
+  return '<span class="jp">'+esc(arr[0])+'<span class="sub">'+esc(f===2?arr[2]:arr[3])+'</span></span>';
+}
+function firstTry(id, ok){ if (!(id in S.first)) S.first[id]=ok; }
+/* split a kana word into tiles: every character is a tile, small kana
+   and ー deliberately included — they are the teaching points */
+const tiles = (w)=>[...w];
+
+/* ============================================================
+   NAVIGATION + PAINT
+   ============================================================ */
+function go(screen){
+  S.screen=screen;
+  document.querySelectorAll(".screen").forEach((el)=>el.classList.remove("active"));
+  $("scr-"+screen).classList.add("active");
+  paint();
+  window.scrollTo({top:0});
+}
+function paint(){
+  ({home:paintHome,unit:paintUnit,gap:paintGap,study:paintStudy,build:paintBuild,
+    qa:paintQa,gram:paintGram,craft:paintCraft})[S.screen]();
+}
+
+/* ---------------- HOME ---------------- */
+function paintHome(){
+  $("themes").innerHTML = GROUPS.map((g)=>{
+    const us=UNITS.filter((u)=>u.grp===g.grp);
+    if(!us.length)return "";
+    return '<div class="themehead"><b>'+esc(g.ja)+'</b> '+esc(g.en)+'</div>'+
+      '<div class="unitgrid">'+us.map((u)=>{
+        const d=doneOf(u.key);
+        return '<button class="ucard" data-unit="'+u.key+'">'+
+          '<span class="ut">'+esc(u.title)+'</span>'+
+          '<span class="ub">'+esc(u.topic)+'</span>'+
+          (u.themeJa?'<span class="uth">'+esc(u.themeJa)+' · '+esc(u.theme)+'</span>':"")+
+          '<span class="udots">'+STEPS.map((st)=>'<span class="udot'+(d[st.k]?" on":"")+'"></span>').join("")+'</span>'+
+          '</button>';
+      }).join("")+
+      (g.grp==="10"?'<a class="ucard" href="../unit10/"><span class="ut">ユニット10 · Abilities and Preferences</span><span class="ub">The full unit-hub PoC: vocabulary tasks, kanji builder, grammar gym, tiered reading, report</span><span class="uth">べつのアプリ · opens the Unit 10 hub</span></a>':"")+
+      '</div>';
+  }).join("");
+  $("themes").querySelectorAll("button[data-unit]").forEach((b)=>{
+    b.onclick=()=>{ S.unit=b.dataset.unit; go("unit"); };
+  });
+}
+
+/* ---------------- UNIT PAGE ---------------- */
+function stepTag(k){
+  const u=unit(), d=doneOf(u.key);
+  if (k==="build"){
+    if(u.mode==="kana"){ const n=u.words.filter((w)=>S.built[u.key+":"+w.w]).length;
+      return n? n+"/"+u.words.length+" built":""; }
+    const n=(BUILDS[u.key]||[]).filter((b)=>S.built[u.key+":"+b.ch]).length;
+    return n? n+"/"+(BUILDS[u.key]||[]).length+" built":"";
+  }
+  if (k==="qa"){ const q=S.qa[u.key]; const n=q?Object.keys(q.marks).length:0;
+    return n? n+"/"+(content(u.key).qa||[]).length+" answered":""; }
+  if (k==="gram"){ const n=(GMAP[u.key]||[]).filter((g)=>S.gram[u.key+":"+g.id]).length;
+    return n? n+"/"+(GMAP[u.key]||[]).length+" ticked":""; }
+  if (k==="craft"){ const es=(content(u.key).craft||{}).edits||[];
+    const n=es.filter((e,i)=>S.edits[u.key+":"+i]).length;
+    return n? n+"/"+es.length+" edits":""; }
+  return d[k]?"done":"";
+}
+function paintUnit(){
+  const u=unit(), d=doneOf(u.key);
+  $("unit-head").innerHTML='<div class="ut">'+esc(u.title)+'</div>'+
+    '<div class="utheme">'+(u.themeJa?esc(u.themeJa)+' · ':"")+esc(u.grp==="VCE"?u.theme:"Year "+u.year)+' · '+esc(u.topic)+'</div>'+
+    '<div class="ublurb">'+esc(u.blurb)+'</div>';
+  /* the gap gate */
+  const gap=content(u.key).gap;
+  if(gap){
+    const gs=S.gapState[u.key];
+    const misses=gs&&gs.done? gap.items.filter((it,i)=>gs.answers[i]!==it.answer).length : null;
+    $("gap-gate").innerHTML='<button class="gapcard'+(gs&&gs.done&&misses===0?" ok":"")+'" id="gapBtn">'+
+      '<span class="sn">?</span>'+
+      '<span><span class="st">はじめるまえに · before you start</span><br>'+
+      '<span class="ss">Five quick checks on what this unit stands on. Misses become a plan, not a mark.</span></span>'+
+      '<span class="stag">'+(gs&&gs.done?(misses===0?"みちはひらいている ✓":misses+" to shore up"):"not checked yet")+'</span></button>';
+    $("gapBtn").onclick=()=>{ if(!S.gapState[u.key])S.gapState[u.key]={i:0,answers:[],done:false}; go("gap"); };
+  }else{
+    $("gap-gate").innerHTML="";
+  }
+  $("steps").innerHTML=STEPS.map((st,i)=>{
+    const t=(st.k==="build"&&u.mode==="kana")?KANA_BUILD_T:st.t;
+    const s=(st.k==="build"&&u.mode==="kana")?KANA_BUILD_S:st.s;
+    return '<button class="stepcard'+(d[st.k]?" done":"")+'" data-step="'+st.k+'">'+
+      '<span class="sn">'+(d[st.k]?"✓":i+1)+'</span>'+
+      '<span><span class="st">'+esc(tF(t))+'</span><br><span class="ss">'+esc(tF(s))+'</span></span>'+
+      '<span class="stag">'+esc(stepTag(st.k))+'</span>'+
+    '</button>';}).join("");
+  $("steps").querySelectorAll("[data-step]").forEach((b)=>{
+    b.onclick=()=>{ enterStep(b.dataset.step); };
+  });
+  const any=STEPS.some((st)=>d[st.k]);
+  $("report-row").innerHTML = any?
+    '<button class="btn btn-ghost" id="repBtn">通信簿 · report</button><div id="rep-out"></div>':"";
+  if (any) $("repBtn").onclick=showReport;
+}
+function showReport(){
+  const u=unit(), d=doneOf(u.key);
+  const lines=["単元の道 · "+u.title, (u.grp==="VCE"?u.themeJa+" · ":"Year "+u.year+" · ")+u.topic, ""];
+  const gap=content(u.key).gap, gs=S.gapState[u.key];
+  if(gap&&gs&&gs.done){
+    const miss=gap.items.filter((it,i)=>gs.answers[i]!==it.answer).length;
+    lines.push("0 チェック  "+(gap.items.length-miss)+"/"+gap.items.length+" solid"+(miss?", plan made for "+miss:""));
+  }
+  let bGot=0,bAll=0,bFt=0;
+  if(u.mode==="kana"){ bAll=u.words.length;
+    bGot=u.words.filter((w)=>S.built[u.key+":"+w.w]).length;
+    bFt=u.words.filter((w)=>S.first["k:"+u.key+":"+w.w]===true).length;
+  }else{ const bs=BUILDS[u.key]||[]; bAll=bs.length;
+    bGot=bs.filter((b)=>S.built[u.key+":"+b.ch]).length;
+    bFt=bs.filter((b)=>S.first["b:"+u.key+":"+b.ch]===true).length;
+  }
+  const q=S.qa[u.key]||{marks:{}}, marks=Object.values(q.marks),
+        maru=marks.filter((m)=>m==="maru").length;
+  const eAll=(content(u.key).craft||{}).edits||[],
+        eGot=eAll.filter((e,i)=>S.edits[u.key+":"+i]).length,
+        eFt=eAll.filter((e,i)=>S.first["e:"+u.key+":"+i]===true).length;
+  lines.push("1 ことば   studied: "+(d.study?"yes":"not yet"));
+  lines.push("2 組み立て  built: "+bGot+"/"+bAll+" (first try "+bFt+")");
+  lines.push("3 問答    answered: "+marks.length+"/"+(content(u.key).qa||[]).length+" (○ "+maru+")");
+  lines.push("4 文法    ticked: "+(GMAP[u.key]||[]).filter((g)=>S.gram[u.key+":"+g.id]).length+"/"+(GMAP[u.key]||[]).length);
+  lines.push("5 クラフト  edits: "+eGot+"/"+eAll.length+" (first try "+eFt+")");
+  const txt=lines.join("\n");
+  $("rep-out").innerHTML='<pre class="report">'+esc(txt)+'</pre>'+
+    '<button class="btn btn-ghost" id="copyBtn">copy</button>';
+  $("copyBtn").onclick=()=>{
+    if (navigator.clipboard) navigator.clipboard.writeText(txt);
+    $("copyBtn").textContent="copied ✓";
+  };
+}
+function enterStep(k){
+  if (k==="qa" && !S.qa[S.unit]) S.qa[S.unit]={i:0,revealed:false,marks:{}};
+  if (k==="build" && (B.unit!==S.unit)) { B.unit=S.unit; B.ch=null; B.placed={}; B.sel=null; K.sel=null; K.placed={}; }
+  go(k);
+}
+function stepHead(el,k){
+  const u=unit();
+  const st=STEPS.find((s)=>s.k===k);
+  const t=(k==="build"&&u.mode==="kana")?KANA_BUILD_T:(st?st.t:["","","",""]);
+  $(el).innerHTML='<div class="sh">'+esc(tF(t))+'</div><div class="shs">'+esc(u.title)+'</div>';
+}
+
+/* ---------------- STEP 0 · GAP CHECK ---------------- */
+function paintGap(){
+  const u=unit(), gap=content(u.key).gap, gs=S.gapState[u.key];
+  $("gap-head").innerHTML='<div class="sh">はじめるまえに · before you start</div><div class="shs">'+esc(u.title)+'</div>';
+  if(!gap){ $("gap-area").innerHTML=""; return; }
+  $("gap-prog").textContent=Math.min(gs.i,gap.items.length)+"/"+gap.items.length;
+  if(gs.i>=gap.items.length){
+    gs.done=true;
+    const rows=gap.items.map((it,i)=>{
+      const ok=gs.answers[i]===it.answer;
+      let link="";
+      if(!ok){
+        if(it.skill) link='<a class="hublink" href="../grammar/#'+esc(it.skill)+'" target="_blank" rel="noopener">文法ホームで直す · shore this up in the Grammar Hub →</a>';
+        else if(it.priorUnit){
+          const pu=UNITS.find((x)=>x.key===it.priorUnit);
+          link='<a class="hublink" href="../vocab/#unit:'+esc(it.priorUnit)+'" target="_blank" rel="noopener">ことばのホームでふくしゅう · review '+(pu?esc(pu.title):"the earlier words")+' →</a>';
+        }
+      }
+      return '<div class="planrow'+(ok?" ok":"")+'"><span class="pw">'+(ok?"✓":"→")+' '+esc(it.about)+'</span>'+
+        (ok?"":'<div style="font-size:12px;color:var(--muted);margin-top:2px">'+esc(it.why)+'</div><div class="plink">'+link+'</div>')+'</div>';
+    }).join("");
+    const miss=gap.items.filter((it,i)=>gs.answers[i]!==it.answer).length;
+    $("gap-area").innerHTML='<div class="gapbox"><div class="qalab">けっか · your plan</div>'+
+      '<p class="intro" style="text-align:left;margin:4px 0 12px">'+
+      (miss===0?"All five are solid. The road is open; walk on.":
+       miss+" of five wobbled. That is not a mark, it is a plan: the links below drop you exactly where each one lives. Shore them up, then walk the unit.")+'</p>'+
+      rows+
+      '<p style="text-align:center;margin-top:12px"><button class="btn btn-ghost" id="gap-again">もういちど · check again</button> '+
+      '<button class="btn btn-primary" id="gap-on">ことばへ · start the unit →</button></p></div>';
+    $("gap-again").onclick=()=>{ S.gapState[u.key]={i:0,answers:[],done:false}; paintGap(); };
+    $("gap-on").onclick=()=>enterStep("study");
+    return;
+  }
+  const it=gap.items[gs.i];
+  $("gap-area").innerHTML='<div class="gapbox">'+
+    '<div class="qalab">チェック '+(gs.i+1)+'/'+gap.items.length+' · '+esc(it.about)+'</div>'+
+    jpBlock(it.q)+
+    '<div class="gapopts">'+it.options.map((o,j)=>
+      '<button class="optbtn" data-o="'+j+'">'+esc(o)+'</button>').join("")+'</div></div>';
+  $("gap-area").querySelectorAll(".optbtn").forEach((b)=>{
+    b.onclick=()=>{ gs.answers.push(+b.dataset.o); gs.i++; paintGap(); };
+  });
+}
+
+/* ---------------- STEP 1 · STUDY ---------------- */
+function paintStudy(){
+  const u=unit();
+  stepHead("study-head","study");
+  document.body.classList.toggle("hidehelp",S.hide);
+  $("hideBtn").textContent=S.hide?"見せて · show the help":"かくして · hide the help and self-test";
+  $("study-table").innerHTML=u.words.map((w)=>{
+    if(u.mode==="kana"){
+      return '<div class="wrow"><span class="wk">'+esc(w.w)+'</span>'+
+        '<span class="wdef">'+esc(w.def)+'</span>'+
+        (w.kp?'<span class="kpchip">'+esc(w.kp)+'<small>あとで会う漢字 · the kanji you will meet later</small></span>':"")+
+        '</div>';
+    }
+    return '<div class="wrow"><span class="wk">'+esc(w.w)+'</span><span class="wr">'+esc(w.r)+'</span>'+
+    '<span class="wdef">'+esc(w.def)+'</span>'+
+    '<span class="wparts">'+(w.parts||[]).map((p)=>{
+      const k=KANJI[p]||{};
+      return '<span class="pchip"><span class="pk">'+esc(p)+'</span><span class="pg">'+esc(k.g||"")+'</span></span>';
+    }).join("")+'</span></div>';
+  }).join("");
+  $("study-vocab").innerHTML='<a href="../vocab/#unit:'+esc(u.key)+'" target="_blank" rel="noopener">この単元のことばを、ことばのホームでも → see these words in the Vocab Hub</a>';
+  $("study-prog").textContent=u.words.length+" words"+(u.mode==="kana"?"":" · every kanji part labelled");
+  $("study-next").textContent="つぎへ · I know these, walk on →";
+  $("study-next").onclick=()=>{ doneOf(u.key).study=true; enterStep("build"); };
+  $("hideBtn").onclick=()=>{ S.hide=!S.hide; paintStudy(); };
+}
+
+/* ---------------- STEP 2 · BUILD (two modes) ---------------- */
+const B={unit:null,ch:null,placed:{},sel:null};
+const K={sel:null,placed:{}};   // kana mode: placed["wordIdx:slotIdx"]=tile
+function paintBuild(){
+  const u=unit();
+  stepHead("build-head","build");
+  if(u.mode==="kana") paintBuildKana(); else paintBuildKanji();
+}
+
+/* ---- kana mode: the word builder mechanic with kana tiles.
+   Every small kana in the bank brings its BIG twin along as a decoy:
+   without つ on the table, choosing っ correctly teaches nothing. ---- */
+const SMALL_BIG={"っ":"つ","ゃ":"や","ゅ":"ゆ","ょ":"よ","ッ":"ツ","ャ":"ヤ","ュ":"ユ","ョ":"ヨ",
+  "ぁ":"あ","ぃ":"い","ぅ":"う","ぇ":"え","ぉ":"お","ァ":"ア","ィ":"イ","ゥ":"ウ","ェ":"エ","ォ":"オ"};
+function kanaBank(u){
+  const seen=new Set();
+  u.words.forEach((w)=>tiles(w.w).forEach((t)=>seen.add(t)));
+  [...seen].forEach((t)=>{ if(SMALL_BIG[t])seen.add(SMALL_BIG[t]); });
+  return [...seen].sort((a,b)=>a.localeCompare(b,"ja"));
+}
+function paintBuildKana(){
+  const u=unit();
+  const bank=kanaBank(u);
+  const got=u.words.filter((w)=>S.built[u.key+":"+w.w]).length;
+  $("build-area").innerHTML=
+    '<p class="intro">Each meaning below is one of the unit\'s words. Say it, then build its sound from the tiles: every small かな and every ー is its own tile, on purpose.</p>'+
+    '<div class="kbankwrap"><div class="bankhead">かなタイル · the tiles</div>'+
+    '<div class="kbank">'+bank.map((t)=>'<button class="ktile" data-t="'+esc(t)+'" draggable="true">'+esc(t)+'</button>').join("")+'</div></div>'+
+    '<div class="krows">'+u.words.map((w,wi)=>{
+      const done=S.built[u.key+":"+w.w];
+      if(done) return '<div class="krow done"><span class="kdef">'+esc(w.def)+'</span>'+
+        '<span class="kbuilt">'+esc(w.w)+'</span>'+(w.kp?'<span class="kkp">'+esc(w.kp)+'</span>':"")+'</div>';
+      const n=tiles(w.w).length;
+      let slots="";
+      for(let i=0;i<n;i++){
+        const p=K.placed[wi+":"+i];
+        slots+='<span class="kslot'+(p?" filled":"")+'" data-w="'+wi+'" data-s="'+i+'">'+(p?esc(p):"")+'</span>';
+      }
+      return '<div class="krow" data-row="'+wi+'"><span class="kdef">'+esc(w.def)+'</span><span class="kslots">'+slots+'</span></div>';
+    }).join("")+'</div>';
+  $("build-prog").textContent=got+"/"+u.words.length+" built";
+  const allDone=got===u.words.length;
+  $("build-next").style.display=allDone?"":"none";
+  if(allDone){ doneOf(u.key).build=true;
+    $("build-next").textContent="つぎへ · walk on →";
+    $("build-next").onclick=()=>enterStep("qa"); }
+  wireKana();
+}
+function wireKana(){
+  const u=unit();
+  const dropTile=(wi,si,t)=>{
+    K.placed[wi+":"+si]=t; K.sel=null;
+    const w=u.words[wi], n=tiles(w.w).length;
+    let full=true, guess="";
+    for(let i=0;i<n;i++){ const p=K.placed[wi+":"+i]; if(!p){full=false;break;} guess+=p; }
+    if(!full){ paintBuildKana(); return; }
+    const id="k:"+u.key+":"+w.w;
+    if(guess===w.w){
+      firstTry(id,true); S.built[u.key+":"+w.w]=true;
+      for(let i=0;i<n;i++) delete K.placed[wi+":"+i];
+      paintBuildKana();
+    }else{
+      firstTry(id,false);
+      const row=document.querySelector('.krow[data-row="'+wi+'"]');
+      if(row){ row.classList.add("shake");
+        setTimeout(()=>{ for(let i=0;i<n;i++) delete K.placed[wi+":"+i]; paintBuildKana(); },450);
+      }
+    }
+  };
+  document.querySelectorAll(".ktile").forEach((tl)=>{
+    tl.onclick=()=>{ K.sel=K.sel===tl.dataset.t?null:tl.dataset.t;
+      document.querySelectorAll(".ktile").forEach((x)=>x.classList.toggle("sel",K.sel===x.dataset.t)); };
+    tl.ondragstart=(e)=>{ e.dataTransfer.setData("text/plain",tl.dataset.t); tl.classList.add("dragging"); };
+    tl.ondragend=()=>tl.classList.remove("dragging");
+  });
+  document.querySelectorAll(".kslot").forEach((s)=>{
+    const wi=+s.dataset.w, si=+s.dataset.s;
+    s.ondragover=(e)=>{e.preventDefault();s.classList.add("over");};
+    s.ondragleave=()=>s.classList.remove("over");
+    s.ondrop=(e)=>{e.preventDefault();s.classList.remove("over");
+      const t=e.dataTransfer.getData("text/plain"); if(t)dropTile(wi,si,t);};
+    s.onclick=()=>{
+      if(K.sel){ dropTile(wi,si,K.sel); return; }
+      if(K.placed[wi+":"+si]){ delete K.placed[wi+":"+si]; paintBuildKana(); }
+    };
+  });
+}
+
+/* ---- kanji mode: the Factory frames (v1 engine) ---- */
+function bankParts(key){
+  const seen=[],out=[];
+  (BUILDS[key]||[]).forEach((b)=>b.parts.forEach((pt)=>{
+    if(!seen.includes(pt.p)){seen.push(pt.p);out.push(pt.p);}
+  }));
+  return out;
+}
+function paintBuildKanji(){
+  const u=unit(), builds=BUILDS[u.key]||[];
+  $("build-area").innerHTML='<div class="queue" id="queue"></div><div class="bench" id="bench"></div>';
+  $("queue").innerHTML=builds.map((b)=>{
+    const done=S.built[u.key+":"+b.ch];
+    const wordHtml=esc(b.word).split("").map((c)=>
+      c===b.ch?'<span class="gap">'+(done?esc(b.ch):"▢")+'</span>':c).join("");
+    return '<button class="qcard'+(done?" built":"")+(B.ch===b.ch?" sel":"")+'" data-ch="'+esc(b.ch)+'">'+
+      '<span class="qtick">'+(done?"✓":"")+'</span>'+
+      '<span class="qw">'+wordHtml+'</span>'+
+      '<span class="qg">'+esc(b.gloss)+'</span></button>';
+  }).join("");
+  $("queue").querySelectorAll("[data-ch]").forEach((c)=>{
+    c.onclick=()=>{ if(S.built[u.key+":"+c.dataset.ch])return;
+      B.ch=c.dataset.ch; B.placed={}; B.sel=null; paintBuild(); };
+  });
+  const got=builds.filter((b)=>S.built[u.key+":"+b.ch]).length;
+  $("build-prog").textContent=got+"/"+builds.length+" built";
+  const allDone=got===builds.length&&builds.length>0;
+  $("build-next").style.display=allDone?"":"none";
+  if(allDone){ doneOf(u.key).build=true;
+    $("build-next").textContent="つぎへ · walk on →";
+    $("build-next").onclick=()=>enterStep("qa"); }
+  if(!B.ch){ const nxt=builds.find((b)=>!S.built[u.key+":"+b.ch]);
+    if(nxt&&!allDone){B.ch=nxt.ch;} }
+  paintBench();
+}
+function slotLab(pos,i){
+  if(pos==="lr")return i===0?"ひだり left":"みぎ right";
+  if(pos==="tb")return i===0?"うえ top":"した bottom";
+  return i===0?"そと outside":"なか inside";
+}
+function paintBench(){
+  const u=unit(), b=(BUILDS[u.key]||[]).find((x)=>x.ch===B.ch);
+  if(!b){ $("bench").innerHTML='<p class="intro">ぜんぶできた！ All built.</p>'; return; }
+  const slotCls=(i)=>{
+    if(b.pos==="kamae"||b.pos==="nyou"||b.pos==="tare")return i===0?"outer":"inner";
+    if(b.pos==="tb")return i===0?"top":"bottom";
+    return "";
+  };
+  $("bench").innerHTML=
+    '<div class="prompt">つくって: <b>'+esc(b.gloss)+'</b> · as in '+esc(b.word)+'</div>'+
+    '<div class="promptread" id="bench-read"></div>'+
+    '<div class="frame '+b.pos+'" id="frame">'+
+      b.parts.map((pt,i)=>'<div class="slot '+slotCls(i)+'" data-slot="'+i+'">'+
+        '<span class="slotlab">'+slotLab(b.pos,i)+'</span></div>').join("")+
+    '</div>'+
+    '<div class="builtline" id="builtline"></div>'+
+    '<div class="hookline" id="hookline"></div>'+
+    '<div class="bankhead">部品 · the parts (drag, or tap then tap)</div>'+
+    '<div class="bank" id="bank">'+bankParts(u.key).map((p)=>{
+      const info=PARTS[p]||{g:"",n:""};
+      return '<button class="piece" data-p="'+esc(p)+'" draggable="true">'+
+        '<span class="pc">'+esc(p)+'</span><span class="pg">'+esc(info.g)+'</span>'+
+        (info.n?'<span class="pn">'+esc(info.n)+'</span>':"")+'</button>';
+    }).join("")+'</div>';
+  wireBench(b);
+}
+function wireBench(b){
+  const u=unit();
+  const slots=[...$("frame").querySelectorAll(".slot")];
+  const pieces=[...$("bank").querySelectorAll(".piece")];
+  const usedParts=()=>Object.values(B.placed);
+  const refresh=()=>{
+    slots.forEach((s)=>{
+      const i=s.dataset.slot, p=B.placed[i];
+      s.classList.toggle("filled",!!p);
+      s.innerHTML='<span class="slotlab">'+slotLab(b.pos,+i)+'</span>'+(p?esc(p):"");
+    });
+    pieces.forEach((pc)=>{
+      pc.classList.toggle("used",usedParts().includes(pc.dataset.p));
+      pc.classList.toggle("sel",B.sel===pc.dataset.p);
+    });
+  };
+  const drop=(i,p)=>{
+    if(usedParts().includes(p))return;
+    B.placed[i]=p; B.sel=null; refresh(); judge();
+  };
+  const judge=()=>{
+    if(Object.keys(B.placed).length!==b.parts.length)return;
+    const right=b.parts.every((pt,i)=>B.placed[i]===pt.p);
+    const id="b:"+u.key+":"+b.ch;
+    if(right){
+      firstTry(id,true);
+      slots.forEach((s,i)=>{
+        const role=b.parts[i].role;
+        s.classList.add("lit-"+role);
+        s.insertAdjacentHTML("beforeend",'<span class="rolebadge rb-'+role+'">'+
+          (role==="sound"?"おと sound"+(b.parts[i].sound?" "+esc(b.parts[i].sound):""):"いみ meaning")+'</span>');
+      });
+      $("bench-read").textContent=b.ch+" · "+b.read;
+      $("builtline").textContent="できた！ "+b.ch;
+      $("hookline").textContent=b.hook;
+      S.built[u.key+":"+b.ch]=true;
+      setTimeout(()=>{ B.ch=null; B.placed={}; paintBuild(); },2600);
+    }else{
+      firstTry(id,false);
+      $("frame").classList.add("shake");
+      setTimeout(()=>{ B.placed={}; paintBench(); },450);
+    }
+  };
+  slots.forEach((s)=>{
+    s.ondragover=(e)=>{e.preventDefault();s.classList.add("over");};
+    s.ondragleave=()=>s.classList.remove("over");
+    s.ondrop=(e)=>{e.preventDefault();s.classList.remove("over");
+      const p=e.dataTransfer.getData("text/plain"); if(p)drop(s.dataset.slot,p);};
+    s.onclick=()=>{
+      const i=s.dataset.slot;
+      if(B.sel){drop(i,B.sel);return;}
+      if(B.placed[i]){delete B.placed[i];refresh();}
+    };
+  });
+  pieces.forEach((pc)=>{
+    pc.ondragstart=(e)=>{e.dataTransfer.setData("text/plain",pc.dataset.p);pc.classList.add("dragging");};
+    pc.ondragend=()=>pc.classList.remove("dragging");
+    pc.onclick=()=>{B.sel=B.sel===pc.dataset.p?null:pc.dataset.p;refresh();};
+  });
+  refresh();
+}
+
+/* ---------------- STEP 3 · QA ---------------- */
+function paintQa(){
+  const u=unit(), qa=content(u.key).qa||[], q=S.qa[u.key];
+  stepHead("qa-head","qa");
+  const done=Object.keys(q.marks).length;
+  $("qa-prog").textContent=done+"/"+qa.length;
+  if(q.i>=qa.length){
+    doneOf(u.key).qa=true;
+    const maru=Object.values(q.marks).filter((m)=>m==="maru").length;
+    $("qa-area").innerHTML='<div class="qabox qadonep"><div class="big">'+
+      (maru===qa.length?"◎":"○")+'</div>'+
+      '<p>'+maru+' of '+qa.length+' felt solid. '+
+      (maru<qa.length?'The △ ones are the ones to ask again tomorrow.':'Ask them again tomorrow anyway; that is how they stick.')+'</p>'+
+      '<p style="margin-top:10px"><button class="btn btn-ghost" id="qa-again">もういちど · run them again</button> '+
+      '<button class="btn btn-primary" id="qa-on">つぎへ · walk on →</button></p></div>';
+    $("qa-again").onclick=()=>{ S.qa[u.key]={i:0,revealed:false,marks:{}}; paintQa(); };
+    $("qa-on").onclick=()=>enterStep("gram");
+    return;
+  }
+  const item=qa[q.i];
+  $("qa-area").innerHTML='<div class="qabox">'+
+    '<div class="qaq"><div class="qalab">しつもん · question '+(q.i+1)+'/'+qa.length+'</div>'+jpBlock(item.q)+'</div>'+
+    (q.revealed?
+      '<div class="qaa"><div class="qalab">モデルのこたえ · one good answer</div>'+jpBlock(item.a)+
+      '<div class="qatip">'+esc(item.tip)+'</div>'+
+      '<div class="qamarks"><button class="btn" id="qa-maru">○ こたえられた · I had it</button>'+
+      '<button class="btn btn-ghost" id="qa-later">△ まだ · not yet</button></div></div>'
+      :
+      '<p class="intro" style="margin:0 0 10px">Say your answer out loud, or in your head. Then check.</p>'+
+      '<p style="text-align:center"><button class="btn btn-primary" id="qa-reveal">見せて · show a good answer</button></p>')+
+    '</div>';
+  if(q.revealed){
+    const mark=(m)=>{ q.marks[q.i]=m; q.i++; q.revealed=false; paintQa(); };
+    $("qa-maru").onclick=()=>mark("maru");
+    $("qa-later").onclick=()=>mark("later");
+  }else{
+    $("qa-reveal").onclick=()=>{ q.revealed=true; paintQa(); };
+  }
+}
+
+/* ---------------- STEP 4 · GRAMMAR ---------------- */
+function paintGram(){
+  const u=unit(), rows=GMAP[u.key]||[];
+  stepHead("gram-head","gram");
+  $("gram-rows").innerHTML=
+    '<p class="intro" style="margin-bottom:2px">This unit stands on three patterns. If one feels shaky, the link drops you on its exact shelf in the Grammar Hub. Tick what you are sure of.</p>'+
+    rows.map((g)=>{
+      const ok=S.gram[u.key+":"+g.id];
+      return '<div class="gramrow'+(ok?" ok":"")+'">'+
+        '<button class="gtick" data-g="'+esc(g.id)+'">'+(ok?"✓":"")+'</button>'+
+        '<div><div class="gt">'+esc(g.label)+'</div><div class="gw">'+esc(g.why)+'</div>'+
+        '<a class="hublink" href="../grammar/#'+esc(g.id)+'" target="_blank" rel="noopener">文法ホームで練習 · revise in the Grammar Hub →</a></div></div>';
+    }).join("");
+  $("gram-rows").querySelectorAll("[data-g]").forEach((b)=>{
+    b.onclick=()=>{ const k=u.key+":"+b.dataset.g; S.gram[k]=!S.gram[k];
+      if(rows.every((g)=>S.gram[u.key+":"+g.id])) doneOf(u.key).gram=true;
+      paintGram(); };
+  });
+  const n=rows.filter((g)=>S.gram[u.key+":"+g.id]).length;
+  $("gram-prog").textContent=n+"/"+rows.length+" ticked";
+  $("gram-next").textContent="つぎへ · walk on →";
+  $("gram-next").onclick=()=>{ enterStep("craft"); };
+}
+
+/* ---------------- STEP 5 · CRAFT + EXTENSION ---------------- */
+function paintCraft(){
+  const u=unit(), c=content(u.key).craft||{model:[],edits:[]};
+  stepHead("craft-head","craft");
+  $("craft-intro").textContent=c.intro||"";
+  $("craft-model").innerHTML=(c.model||[]).map((m)=>
+    '<div class="msent">'+(m.note?'<span class="move">'+esc(m.note)+'</span><br>':"")+jpBlock(m.jp)+'</div>').join("");
+  $("craft-edith").textContent="なおして · now edit: pick the stronger rewrite";
+  $("craft-edits").innerHTML=(c.edits||[]).map((e,i)=>{
+    const got=S.edits[u.key+":"+i];
+    return '<div class="edit" data-e="'+i+'">'+
+      '<div class="weaklab">よわい文 · a flat draft</div>'+jpBlock(e.weak)+
+      '<div class="opts">'+e.options.map((o,j)=>
+        '<button class="optbtn'+(got&&j===e.answer?" good":"")+'" data-o="'+j+'" '+(got?"disabled":"")+'>'+esc(o)+'</button>').join("")+'</div>'+
+      (got?'<div class="why">'+esc(e.why)+'</div>':"")+
+      '</div>';
+  }).join("");
+  $("craft-edits").querySelectorAll(".edit").forEach((box)=>{
+    const i=+box.dataset.e, e=c.edits[i];
+    box.querySelectorAll(".optbtn").forEach((ob)=>{
+      ob.onclick=()=>{
+        const j=+ob.dataset.o, id="e:"+u.key+":"+i;
+        if(j===e.answer){ firstTry(id,true); S.edits[u.key+":"+i]=true;
+          if(c.edits.every((x,k)=>S.edits[u.key+":"+k])) doneOf(u.key).craft=true;
+          paintCraft();
+        }else{ firstTry(id,false); ob.classList.add("bad"); ob.disabled=true; }
+      };
+    });
+  });
+  const got=(c.edits||[]).filter((e,i)=>S.edits[u.key+":"+i]).length;
+  $("craft-prog").textContent=got+"/"+(c.edits||[]).length+" edits";
+  const finished=got===(c.edits||[]).length&&(c.edits||[]).length>0;
+  $("craft-payoff").innerHTML = finished?
+    '<div class="payoff">この単元、あるいた。You walked the whole unit: words, building, talk, grammar, craft. '+
+    'The report on the unit page shows the walk. あしたも、もういちど。</div>':"";
+  /* extension: the stretch, once the floor is walked */
+  const x=content(u.key).extension;
+  $("craft-stretch").innerHTML = (finished&&x)?
+    '<div class="stretch"><div class="xh">のばす · extension: now make it yours</div>'+
+    jpBlock(x.task)+
+    '<div class="xcheck">'+x.checklist.map((ck,i)=>{
+      const ok=S.xticks[u.key+":"+i];
+      return '<div class="xrow'+(ok?" ok":"")+'"><button class="xtick" data-x="'+i+'">'+(ok?"✓":"")+'</button><span>'+esc(ck)+'</span></div>';
+    }).join("")+'</div></div>':"";
+  if(finished&&x){
+    $("craft-stretch").querySelectorAll(".xtick").forEach((b)=>{
+      b.onclick=()=>{ const k=u.key+":"+b.dataset.x; S.xticks[k]=!S.xticks[k]; paintCraft(); };
+    });
+  }
+}
+
+/* ---------------- boot + deep links ---------------- */
+document.querySelectorAll("[data-go]").forEach((b)=>{
+  b.addEventListener("click",()=>go(b.dataset.go));
+});
+window.HubLever.init({ strings:UI, ruby:UI_RUBY, onChange:()=>paint() });
+function applyHash(){
+  const m=(location.hash||"").match(/^#unit:([a-z0-9]+)/);
+  if(m && UNITS.some((u)=>u.key===m[1])){ S.unit=m[1]; go("unit"); return true; }
+  return false;
+}
+window.addEventListener("hashchange",applyHash);
+if(!applyHash()) paint();
+</script>
+</body>
+</html>
