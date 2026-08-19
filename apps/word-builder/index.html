@@ -192,10 +192,15 @@
    red/blue/purple taxonomy as the Kanji Factory:
      sense  red    always meaning in the kanji students meet
      sound  blue   usually sound (series heads: none arise here)
-     both   purple both jobs are common. The seven purples are
-            each attested inside these very banks or in core
-            vocab: 生(星・性), 化(花), 毎(海), 動(働), 泉(線),
-            先(洗), 音(暗).
+     both   purple both jobs are common. The purples are each
+            attested inside these very banks or in core vocab:
+            生(星・性), 化(花), 毎(海), 動(働), 泉(線), 先(洗),
+            音(暗), 者(都 — as in 京都).
+   Blue is structurally RARE at word level, and that is a finding,
+   not a gap: a kanji whose usual job is carrying sound (寺青永白)
+   rarely stands as a piece of a vocabulary word, which is exactly
+   why those live in the Kanji Factory instead. 工 is the one that
+   does both lives: series head of 江紅功, and a word-part in 人工.
    Scope rule: classification is over common school-level kanji.
    A rare phonetic use does not flip a kanji out of red.
    ============================================================ */
@@ -287,7 +292,7 @@ const KANJI = {
   "歴":{g:"to pass through, history",r:"レキ",cap:"sense"},
   "史":{g:"history, chronicle",r:"シ",cap:"sense"},
   "科":{g:"subject, department",r:"カ",cap:"sense"},
-  "者":{g:"person (-er, -ist)",r:"もの・シャ",cap:"sense"},
+  "者":{g:"person (-er, -ist)",r:"もの・シャ",cap:"both"},
   "実":{g:"truth, fruit",r:"み・ジツ",cap:"sense"},
   "経":{g:"to pass through, manage",r:"へ(る)・ケイ",cap:"sense"},
   "営":{g:"to operate, manage",r:"いとな(む)・エイ",cap:"sense"},
@@ -348,7 +353,7 @@ const KANJI = {
   "進":{g:"to advance, progress",r:"すす(む)・シン",cap:"sense"},
   "歩":{g:"to walk, step",r:"ある(く)・ホ",cap:"sense"},
   "気":{g:"spirit, energy",r:"キ",cap:"sense"},
-  "工":{g:"craft, construction",r:"コウ",cap:"sense"},
+  "工":{g:"craft, construction",r:"コウ",cap:"sound"},
   "知":{g:"to know",r:"し(る)・チ",cap:"sense"},
   "能":{g:"ability, function",r:"ノウ",cap:"sense"},
   "便":{g:"convenience",r:"たよ(り)・ベン",cap:"sense"},
@@ -631,8 +636,10 @@ const UI_RUBY = { subtitle:"ユニットのことばを、<ruby>漢字<rt>かん
       '<div class="capkey"><span class="ck-sense">いみ meaning</span>'+
       '<span class="ck-sound">おと sound</span><span class="ck-both">どちらも both</span></div>'+
       '<div class="capnote">Colour is the job a kanji does when it works as a PART. '+
-      'Red is a promise for the kanji you will meet; blue and purple are strong bets. '+
-      'A ×2 or ×3 badge means it builds more than one word here.</div>';
+      'Red is a promise for the kanji you will meet; purple and blue are strong bets. '+
+      'Blue is rare in whole words on purpose: sound-carriers mostly work INSIDE single kanji, '+
+      'and that is the <a href="../kanji/" style="color:var(--accent);font-weight:700">かんじこうじょう Kanji Factory</a>\'s floor of the building. '+
+      'A ×2 or ×3 badge means a kanji builds more than one word here.</div>';
     $("bank").innerHTML=bankOrder.map((k)=>
       '<button type="button" class="chip cap-'+capOf(k)+(S.held===k?" held":"")+
       '" data-k="'+k+'" draggable="true">'+
