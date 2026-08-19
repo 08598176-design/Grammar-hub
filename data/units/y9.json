@@ -48,7 +48,7 @@
     "parts": [
      "左"
     ],
-    "def": "The direction opposite that side, the one most people do not write with."
+    "def": "The direction on the side away from the hand most people write with, opposite to right."
    },
    {
     "w": "橋",
@@ -165,31 +165,31 @@
    },
    {
     "q": [
-     "駅から店までどのくらいですか。",
-     "えきからみせまでどのくらいですか。",
-     "Eki kara mise made dono kurai desu ka.",
-     "How far is it from the station to the shop?"
+     "町の店までどのくらいですか。",
+     "まちのみせまでどのくらいですか。",
+     "Machi no mise made dono kurai desu ka.",
+     "How far is it to the shop in town?"
     ],
     "a": [
-     "駅から店まで歩いて五分ぐらいです。",
-     "えきからみせまであるいてごふんぐらいです。",
-     "Eki kara mise made aruite gofun gurai desu.",
-     "It's about a five minute walk from the station to the shop."
+     "駅から歩いて五分ぐらいです。",
+     "えきからあるいてごふんぐらいです。",
+     "Eki kara aruite gofun gurai desu.",
+     "It's about a five minute walk from the station."
     ],
     "tip": "から...まで frames the whole trip; swap in your own two places."
    },
    {
     "q": [
-     "バスと電車と、どちらが速いですか。",
-     "バスとでんしゃと、どちらがはやいですか。",
-     "Basu to densha to, dochira ga hayai desu ka.",
-     "Which is faster, the bus or the train?"
+     "タクシーと電車と、どちらが速いですか。",
+     "タクシーとでんしゃと、どちらがはやいですか。",
+     "Takushī to densha to, dochira ga hayai desu ka.",
+     "Which is faster, a taxi or the train?"
     ],
     "a": [
-     "バスより電車のほうが速いです。道がこんでいますから。",
-     "バスよりでんしゃのほうがはやいです。みちがこんでいますから。",
-     "Basu yori densha no hō ga hayai desu. Michi ga konde imasu kara.",
-     "The train is faster than the bus, because the roads are congested."
+     "タクシーより電車のほうが速いです。道がこんでいますから。",
+     "タクシーよりでんしゃのほうがはやいです。みちがこんでいますから。",
+     "Takushī yori densha no hō ga hayai desu. Michi ga konde imasu kara.",
+     "The train is faster than a taxi, because the roads are congested."
     ],
     "tip": "より...ほうが gives the comparison; から at the end gives your reason."
    },
@@ -280,21 +280,21 @@
     },
     {
      "jp": [
-      "道がこんでいる時は、歩道を歩いて学校に行きます。",
-      "みちがこんでいるときは、ほどうをあるいてがっこうにいきます。",
-      "Michi ga konde iru toki wa, hodō o aruite gakkō ni ikimasu.",
-      "When the road is congested, I walk to school along the footpath instead."
+      "電車が止まっている時は、歩道を歩いて学校に行きます。",
+      "でんしゃがとまっているときは、ほどうをあるいてがっこうにいきます。",
+      "Densha ga tomatte iru toki wa, hodō o aruite gakkō ni ikimasu.",
+      "When the trains are stopped, I walk to school along the footpath."
      ],
      "note": ""
     },
     {
      "jp": [
-      "その方が早くて、安全です。",
-      "そのほうがはやくて、あんぜんです。",
-      "Sono hō ga hayakute, anzen desu.",
-      "That way is quicker and safer."
+      "歩道は安全で、静かです。",
+      "ほどうはあんぜんで、しずかです。",
+      "Hodō wa anzen de, shizuka desu.",
+      "The footpath is safe and quiet."
      ],
-     "note": "て-form links two adjectives in one clause"
+     "note": "で links two adjectives in one clause"
     }
    ],
    "edits": [
@@ -326,7 +326,7 @@
       "電車がバスより速いでした。"
      ],
      "answer": 1,
-     "why": "Option B is correct: い-adjectives take だった/かった for the past, so 速かったです correctly says the train was faster, with のほうが framing the comparison naturally. Option A is grammatically fine but sits in the present tense, so it does not match describing something you already noticed happened. Option C wrongly pastes でした onto the い-adjective 速い, the same error as the original; い-adjectives never take でした for the past."
+     "why": "Option B is correct: an い-adjective puts the past inside itself, dropping い and adding かった, so 速かったです says the train was faster, with のほうが framing the comparison naturally. Option A is grammatically fine but present tense, so it does not describe what you already noticed. Option C pastes でした onto the い-adjective, the original's error; でした belongs to nouns and な-adjectives."
     },
     {
      "weak": [
@@ -354,7 +354,7 @@
    ],
    "checklist": [
     "Did you frame the whole route with から and まで?",
-    "Didyougiveareasonwithからforthetransportorpathyouchose?",
+    "Did you give a reason with から for the transport or path you chose?",
     "Did you chain at least two directions together with て-form (e.g. わたって、まがります)?",
     "Did you compare two options with より...ほうが?"
    ]
@@ -485,7 +485,7 @@
    },
    "野": {
     "g": "field, wild",
-    "r": "や・ヤ"
+    "r": "の・ヤ"
    },
    "菜": {
     "g": "greens, vegetable",
@@ -538,10 +538,10 @@
      "What do you eat for breakfast?"
     ],
     "a": [
-     "朝食にサラダを食べて、飲み物を飲みます。",
-     "ちょうしょくにサラダをたべて、のみものをのみます。",
-     "Chōshoku ni sarada o tabete, nomimono o nomimasu.",
-     "For breakfast I eat salad and drink something."
+     "朝食にサラダを食べて、ジュースも飲みます。",
+     "ちょうしょくにサラダをたべて、ジュースものみます。",
+     "Chōshoku ni sarada o tabete, jūsu mo nomimasu.",
+     "For breakfast I eat salad and also drink juice."
     ],
     "tip": "て-form chains two actions: 食べて…飲みます. Swap the foods."
    },
@@ -598,12 +598,12 @@
      "Do you always eat dinner with your family?"
     ],
     "a": [
-     "はい、夕食はいつも家族といっしょに食べます。昼食は学校で食べますから、ちがいます。",
-     "はい、ゆうしょくはいつもかぞくといっしょにたべます。ちゅうしょくはがっこうでたべますから、ちがいます。",
-     "Hai, yūshoku wa itsumo kazoku to issho ni tabemasu. Chūshoku wa gakkō de tabemasu kara, chigaimasu.",
-     "Yes, I always eat dinner together with my family. Lunch is different, because I eat it at school."
+     "はい、いつも家族といっしょに食べます。昼食は学校で食べますが、夕食は家で食べます。",
+     "はい、いつもかぞくといっしょにたべます。ちゅうしょくはがっこうでたべますが、ゆうしょくはいえでたべます。",
+     "Hai, itsumo kazoku to issho ni tabemasu. Chūshoku wa gakkō de tabemasu ga, yūshoku wa ie de tabemasu.",
+     "Yes, I always eat it with my family. I eat lunch at school, but dinner at home."
     ],
-    "tip": "から gives the reason for the contrast between 夕食 and 昼食."
+    "tip": "が in the middle contrasts the two meals without starting a new sentence."
    },
    {
     "q": [
@@ -635,21 +635,21 @@
     },
     {
      "jp": [
-      "昼食は学校できゅうしょくを食べます。",
-      "ちゅうしょくはがっこうできゅうしょくをたべます。",
-      "Chūshoku wa gakkō de kyūshoku o tabemasu.",
-      "For lunch I eat school lunch at school."
+      "昼食は学校で食べます。",
+      "ちゅうしょくはがっこうでたべます。",
+      "Chūshoku wa gakkō de tabemasu.",
+      "I eat lunch at school."
      ],
      "note": ""
     },
     {
      "jp": [
-      "夕食は家族といっしょに料理を作ります。",
-      "ゆうしょくはかぞくといっしょにりょうりをつくります。",
-      "Yūshoku wa kazoku to issho ni ryōri o tsukurimasu.",
-      "For dinner I cook a meal together with my family."
+      "夕食は家族といっしょに作ります。",
+      "ゆうしょくはかぞくといっしょにつくります。",
+      "Yūshoku wa kazoku to issho ni tsukurimasu.",
+      "I make dinner together with my family."
      ],
-     "note": "brings in the day's third meal with 料理"
+     "note": "brings in the day's third meal"
     },
     {
      "jp": [
@@ -708,7 +708,7 @@
       "野菜を切りますといためて、食べます。"
      ],
      "answer": 1,
-     "why": "Option B is correct because it keeps the て-form chain (切って、いためて) but finishes politely with 食べます, matching the です/ます register the rest of the unit uses. Option A repeats the plain-form ending 食べる from the original, which breaks the polite register expected when explaining a recipe to the class. Option C swaps in と after 切ります, which is used for listing nouns or quoting, not for chaining actions, so the cooking steps no longer flow as one connected chain."
+     "why": "Option B keeps the て-form chain (切って、いためて) but finishes politely with 食べます, matching the です/ます register the unit uses. Option A repeats the plain-form ending 食べる, the register break from the original. Option C sticks と straight after 切ります, but ます plus と is not how actions chain; the て-form is the glue between cooking steps."
     },
     {
      "weak": [
@@ -729,14 +729,14 @@
   },
   "extension": {
    "task": [
-    "自分の一日の食事について、健康の理由もつけて説明してください。",
-    "じぶんのいちにちのしょくじについて、けんこうのりゆうもつけてせつめいしてください。",
-    "Jibun no ichinichi no shokuji ni tsuite, kenkō no riyū mo tsukete setsumei shite kudasai.",
-    "Explain your own day's meals, adding a health reason as well."
+    "自分の一日の食事について、健康にいい理由もつけて説明してください。",
+    "じぶんのいちにちのしょくじについて、けんこうにいいりゆうもつけてせつめいしてください。",
+    "Jibun no ichinichi no shokuji ni tsuite, kenkō ni ii riyū mo tsukete setsumei shite kudasai.",
+    "Explain your own day's meals, adding a reason why part of it is good for you."
    ],
    "checklist": [
     "Did you name all three meals with 朝食・昼食・夕食?",
-    "Didyouchainatleasttwocookingoreatingactionswithて-form?",
+    "Did you chain at least two cooking or eating actions with て-form?",
     "Did you compare two foods with より…ほうが?",
     "Did you give a real reason with から, not just repeat the claim?"
    ]
@@ -841,13 +841,13 @@
     "w": "もみじ",
     "r": "もみじ",
     "parts": [],
-    "def": "The reddish orange colour leaves turn in autumn, and the sight people travel to see at that time of year."
+    "def": "The red and orange autumn leaves, especially maple, and the sight people travel to see at that time of year."
    }
   ],
   "kanjiGloss": {
    "晴": {
     "g": "clear, fine weather",
-    "r": "はれ"
+    "r": "は(れる)・セイ"
    },
    "雲": {
     "g": "cloud",
@@ -855,7 +855,7 @@
    },
    "暑": {
     "g": "hot (weather)",
-    "r": "あつい"
+    "r": "あつ(い)・ショ"
    },
    "秋": {
     "g": "autumn",
@@ -882,12 +882,12 @@
     "r": "キ"
    },
    "台": {
-    "g": "platform, unit (for storms)",
+    "g": "platform, stand; counter for machines and vehicles",
     "r": "タイ"
    },
    "風": {
     "g": "wind",
-    "r": "かぜ"
+    "r": "かぜ・フウ"
    },
    "花": {
     "g": "flower",
@@ -899,7 +899,7 @@
    },
    "見": {
     "g": "see, look",
-    "r": "みる"
+    "r": "み(る)・ケン"
    }
   },
   "payoff": "12 words, and you did not learn 12 separate things. 花 built two of them: 花火 and 花見. Once a kanji is yours, every word that uses it gets cheaper.",
@@ -912,12 +912,12 @@
      "What's the weather like today?"
     ],
     "a": [
-     "晴れです。とても暑いですね。",
-     "はれです。とてもあついですね。",
-     "Hare desu. Totemo atsui desu ne.",
-     "It's fine. It's very hot, isn't it."
+     "晴れです。雲がありませんね。とても暑いです。",
+     "はれです。くもがありませんね。とてもあついです。",
+     "Hare desu. Kumo ga arimasen ne. Totemo atsui desu.",
+     "It's fine. Not a cloud, is there. It's very hot."
     ],
-    "tip": "Swap 晴れ for 雨 or 曇り to describe a different sky."
+    "tip": "Swap 晴れ for 雨 to describe a different sky; 雲が多いです works when it's cloudy."
    },
    {
     "q": [
@@ -942,10 +942,10 @@
      "Which season do you like best?"
     ],
     "a": [
-     "秋が一番好きです。すずしいから好きです。",
-     "あきがいちばんすきです。すずしいからすきです。",
-     "Aki ga ichiban suki desu. Suzushii kara suki desu.",
-     "Autumn is my favourite. I like it because it's cool."
+     "秋が一番好きです。すずしいからです。冬はあまり好きじゃないです。",
+     "あきがいちばんすきです。すずしいからです。ふゆはあまりすきじゃないです。",
+     "Aki ga ichiban suki desu. Suzushii kara desu. Fuyu wa amari suki janai desu.",
+     "Autumn is my favourite, because it's cool. I don't much like winter."
     ],
     "tip": "一番 plus すき means favourite: swap 秋 for 夏 or 冬 to change your answer."
    },
@@ -987,7 +987,7 @@
      "Which do you like better, spring or autumn?"
     ],
     "a": [
-     "春の方が好きです。花見が楽しいからです。",
+     "春のほうが好きです。花見が楽しいからです。",
      "はるのほうがすきです。はなみがたのしいからです。",
      "Haru no hō ga suki desu. Hanami ga tanoshii kara desu.",
      "I like spring better. It's because hanami is fun."
@@ -1009,7 +1009,7 @@
     },
     {
      "jp": [
-      "涼しいから好きです。",
+      "すずしいから好きです。",
       "すずしいからすきです。",
       "Suzushii kara suki desu.",
       "I like it because it's cool."
@@ -1077,18 +1077,18 @@
     },
     {
      "weak": [
-      "夏わ暑いです。",
-      "なつわあついです。",
-      "Natsu wa atsui desu.",
-      "Summer is hot."
+      "今日はとても熱いです。",
+      "きょうはとてもあついです。",
+      "Kyō wa totemo atsui desu.",
+      "Today is really hot."
      ],
      "options": [
-      "夏を暑いです。",
-      "夏わ暑いです。",
-      "夏は暑いです。"
+      "今日はとても暑いです。",
+      "今日はとても熱いです。",
+      "今日はとても厚いです。"
      ],
-     "answer": 2,
-     "why": "The topic particle は is always written with the hiragana は even though it is pronounced wa, so 夏は暑いです is correct. 夏を暑いです swaps in the object particle を, which does not fit a plain descriptive sentence like this. 夏わ暑いです is the classic mistake of spelling the particle the way it sounds rather than how it is written."
+     "answer": 0,
+     "why": "The weather word is 暑い. 熱い is the same sound but for hot THINGS you touch, like tea or a pan. 厚い, also read あつい, means thick, like a book. The kana line is identical for all three; only the kanji tells the reader which あつい you mean, which is exactly why the kanji is worth having."
     }
    ]
   },
@@ -1101,7 +1101,7 @@
    ],
    "checklist": [
     "Did you name the season with あまり好きじゃない?",
-    "Didyougiveareasonusingから?",
+    "Did you give a reason using から?",
     "Did you include one memory in the past tense (〜ました)?",
     "Did you close with a past-tense reaction?"
    ]
@@ -1171,7 +1171,7 @@
      "部",
      "活"
     ],
-    "def": "An after-school activity like sport or music that students join and practise together regularly."
+    "def": "A Japanese school's after-school activity, like sport or music, that students practise together almost every day."
    },
    {
     "w": "授業",
@@ -1204,7 +1204,7 @@
     "w": "クラブ",
     "r": "クラブ",
     "parts": [],
-    "def": "A group students join outside normal lessons because they all share the same interest."
+    "def": "A group students here join outside normal lessons because they share an interest; the everyday word for it at schools like yours."
    },
    {
     "w": "みんな",
@@ -1216,7 +1216,7 @@
   "kanjiGloss": {
    "日": {
     "g": "day, sun",
-    "r": "ニチ"
+    "r": "ニチ・ニ"
    },
    "本": {
     "g": "book, main, origin",
@@ -1316,27 +1316,27 @@
      "What did your friend say about the homework?"
     ],
     "a": [
-     "「宿題、多すぎる!」と言いました。",
-     "「しゅくだい、おおすぎる!」といいました。",
+     "「宿題、多すぎる！」と言いました。",
+     "「しゅくだい、おおすぎる！」といいました。",
      "'Shukudai, ōsugiru!' to iimashita.",
      "They said, 'The homework's too much!'"
     ],
-    "tip": "多すぎる is the plain form: friends at school say this, not 多すぎます。"
+    "tip": "Inside 「 」 you write what was actually said: 多すぎる is plain form and the が is dropped, both things friends do in speech. In your own writing it would be 宿題が多すぎます。"
    },
    {
     "q": [
-     "次の授業はどこでありますか。",
-     "つぎのじゅぎょうはどこでありますか。",
-     "Tsugi no jugyō wa doko de arimasu ka.",
+     "次の授業はどこですか。",
+     "つぎのじゅぎょうはどこですか。",
+     "Tsugi no jugyō wa doko desu ka.",
      "Where is the next lesson?"
     ],
     "a": [
-     "三番の教室であります。日本語の授業です。",
-     "さんばんのきょうしつであります。にほんごのじゅぎょうです。",
-     "Sanban no kyōshitsu de arimasu. Nihongo no jugyō desu.",
-     "It's in room three. It's the Japanese lesson."
+     "三番教室です。日本語の授業です。",
+     "さんばんきょうしつです。にほんごのじゅぎょうです。",
+     "Sanban kyōshitsu desu. Nihongo no jugyō desu.",
+     "Room three. It's the Japanese lesson."
     ],
-    "tip": "で marks the place something happens: 教室で just tells you where, not who is going there."
+    "tip": "です answers where something IS; you only need で when an action happens there: 教室で読書します。"
    },
    {
     "q": [
@@ -1366,7 +1366,7 @@
      "Muzukashikatta desu. Demo, kotae wa daitai kakemashita.",
      "It was difficult. But I managed to write most of the answers."
     ],
-    "tip": "でも opens a new sentence to push back on your first statement."
+    "tip": "でも opens a new sentence to push back on your first statement; 書けました is 'managed to write', a first taste of the potential form."
    },
    {
     "q": [
@@ -1376,10 +1376,10 @@
      "What do you do during break time?"
     ],
     "a": [
-     "みんなでクラブに行きます。それか、読書をします。",
-     "みんなでくらぶにいきます。それか、どくしょをします。",
-     "Minna de kurabu ni ikimasu. Sore ka, dokusho o shimasu.",
-     "We all go to club together. Or, I read."
+     "みんなでクラブに行きます。または、読書をします。",
+     "みんなでクラブにいきます。または、どくしょをします。",
+     "Minna de kurabu ni ikimasu. Mata wa, dokusho o shimasu.",
+     "We all go to club together. Or else, I read."
     ],
     "tip": "みんなで means all together: drop で and みんな just means everyone on its own."
    }
@@ -1407,21 +1407,21 @@
     },
     {
      "jp": [
-      "でも、ここの学校は授業の後で家に帰ります。",
-      "でも、ここのがっこうはじゅぎょうのあとでいえにかえります。",
-      "Demo, koko no gakkō wa jugyō no ato de ie ni kaerimasu.",
-      "But, here we go home after lessons."
+      "でも、ここでは授業の後で家に帰ります。",
+      "でも、ここではじゅぎょうのあとでいえにかえります。",
+      "Demo, koko de wa jugyō no ato de ie ni kaerimasu.",
+      "But here, we go home after lessons."
      ],
      "note": "uses でも to push back with the local difference"
     },
     {
      "jp": [
-      "友達は「宿題、多すぎる」と言います。",
-      "ともだちは「しゅくだい、おおすぎる」といいます。",
-      "Tomodachi wa 'shukudai, ōsugiru' to iimasu.",
-      "My friend says, 'the homework's too much.'"
+      "友達は「宿題が多い」と言います。",
+      "ともだちは「しゅくだいがおおい」といいます。",
+      "Tomodachi wa 'shukudai ga ōi' to iimasu.",
+      "My friend says, 'there's a lot of homework.'"
      ],
-     "note": "quotes a friend in plain form, the club-room register"
+     "note": "inside 「 」 you write what was actually said, so the plain form is honest here"
     },
     {
      "jp": [
@@ -1484,13 +1484,13 @@
   "extension": {
    "task": [
     "自分の学校について、二つのクラブか授業を比べて書いてください。友達の話し言葉も一つ入れてください。",
-    "じぶんのがっこうについて、ふたつのくらぶかじゅぎょうをくらべてかいてください。ともだちのはなしことばもひとついれてください。",
+    "じぶんのがっこうについて、ふたつのクラブかじゅぎょうをくらべてかいてください。ともだちのはなしことばもひとついれてください。",
     "Jibun no gakkō ni tsuite, futatsu no kurabu ka jugyō o kurabete kaite kudasai. Tomodachi no hanashi kotoba mo hitotsu irete kudasai.",
     "Write about your own school, comparing two clubs or lessons. Include one line of a friend's spoken plain form too."
    ],
    "checklist": [
     "Did you contrast two things with でも or が?",
-    "Didyouquoteafriendusingplainform,notです/ます?",
+    "Did you quote a friend using plain form, not です/ます?",
     "Did you name a specific club, lesson or room?",
     "Did you close with your own reaction or opinion?"
    ]
