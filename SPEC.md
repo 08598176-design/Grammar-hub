@@ -40,7 +40,8 @@ data/script-bank.js  the parked Script strand (5 nodes, 40 items) →
                      window.SCRIPT_BANK. Grammar hub is grammar only; this
                      is the seed bank for a future stand-alone script app.
 apps/                stand-alone proof-of-concept apps (word-lab, oral,
-                     writing-wall, level-up, unit10), each an index.html plus its
+                     writing-wall, level-up, unit10, kanji-factory,
+                     word-builder, unit-walk), each an index.html plus its
                      own copy of lever.js, so a folder can be deleted or
                      handed over whole. They share the design tokens and
                      the lever, but none of the hub's other JS.

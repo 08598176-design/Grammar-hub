@@ -244,6 +244,33 @@ deliberately refuses to dress up a mnemonic as history, but you may want
 to tell it different stories. Anything wrong here is a one-line fix, so
 mark it up freely.
 
+### Q19. Unit Walk: nine VCE topics, five steps each. Which parts survive?
+**Context:** Every VCE AoS topic now has a Bone-Sparrow-style walk:
+https://liaminhawai-cmd.github.io/japanese-hub/walk/ — for each of the
+nine study-design topics: (1) the unit's 12 words with every kanji part
+glossed, (2) assembling the unit's key kanji from their components into
+the right POSITIONS, with the red/blue/purple role colours lighting up on
+success (same taxonomy as the Kanji Factory), (3) six reveal-and-self-mark
+oral questions in the general-conversation style, (4) the three grammar
+patterns the topic leans on, deep-linked into the Grammar Hub for
+revision, and (5) a worked spoken answer with its craft moves named, then
+three editing tasks (pick the stronger rewrite; wrong options hide real
+learner errors, and the app explains every option after you choose).
+The word lists are the same Q6 drafts as the Word Builder. Nothing is
+locked; the steps are just the recommended order.
+**Ask:** Five rulings. (a) Are the QA questions the kind your orals
+actually ask, and are the model answers pitched right (they lean Units
+1–2 for themes 1–2, Units 3–4 flavour for The world around us)? (b) The
+kanji decompositions and sound-part claims in step 2: would you teach
+these splits (住=亻+主, 週=辶+周, 題=是+頁 …)? Each has a one-line hook;
+veto any. (c) The grammar mapping: three Grammar Hub skills per topic are
+proposed — are they the prerequisites you'd send a student back to?
+(d) The craft models name moves like "gives a reason with から" — are
+these the moves you mark for? (e) The admired-person examples name real
+public figures (宮崎駿, 大谷翔平, 大坂なおみ). Comfortable, or should
+they be fictional? Also flag: 高校三年生 for Year 12, and 情報を得る
+in the media topic — right register for your cohort?
+
 ### Q11. Furigana policy
 **Context:** Items currently use `<ruby>` furigana ad hoc and avoid off-list
 kanji. A per-band rule would let content generation scale consistently. (The
