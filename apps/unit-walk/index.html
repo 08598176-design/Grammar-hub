@@ -188,7 +188,7 @@
   .wframe.fusedframe{border:2px solid var(--correct);background:var(--okbg);display:grid;place-items:center;
        font-family:Georgia,serif;font-size:46px;color:var(--correct);animation:formin .5s ease-out}
   @keyframes formin{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:scale(1)}}
-  .wframe.shake,.wordstrip.shake{animation:shake .4s}
+  .wframe.shake,.wordstrip.shake,.wsub.shake{animation:shake .4s}
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
   .hookline{text-align:center;font-size:12.5px;color:var(--muted);max-width:560px;margin:0 auto 6px;min-height:0}
   .bankhead{font-size:10.5px;font-weight:800;letter-spacing:.09em;color:var(--muted);
@@ -10837,6 +10837,9 @@ const PARTS = {
   "哥":{g:"song (old form)",n:""}, "釆":{g:"to sort, sow",n:""},
   "亡":{g:"to vanish",n:"ボウ"}, "孝":{g:"filial duty",n:""},
   "攵":{g:"action hand",n:"のぶん"}, "雨":{g:"rain",n:"あめ"},
+  "匕":{g:"person overturned; spoon",n:""}, "爰":{g:"to pull along",n:""},
+  "次":{g:"next",n:"つぎ"}, "亥":{g:"the boar sign",n:""},
+  "耂":{g:"old man with a cane",n:"おいかんむり"},
 };
 
 /* ---- step 2 kanji targets: parts IN LAYOUT ORDER (lr: left,right;
@@ -11057,6 +11060,27 @@ shakai:[
  {ch:"境",word:"環境",gloss:"boundary",read:"さかい・キョウ",pos:"lr",
   parts:[{p:"土",role:"sense"},{p:"竟",role:"sound",sound:"キョウ"}],
   hook:"Earth 土 for a border drawn on the land. 竟 キョウ is the sound."},
+ {ch:"化",word:"高齢化・温暖化",gloss:"to change; -isation",read:"カ",pos:"lr",
+  parts:[{p:"亻",role:"sense"},{p:"匕",role:"sense"}],
+  hook:"A person 亻 beside a person flipped upside-down 匕: change, drawn as a picture. This is the Factory's purple star: pure MEANING here as -化, pure sound in 花."},
+ {ch:"暖",word:"温暖化",gloss:"warm",read:"あたた(かい)・ダン",pos:"lr",
+  parts:[{p:"日",role:"sense"},{p:"爰",role:"sound",sound:"ダン"}],
+  hook:"The sun 日 does the warming. 爰 lends a drifted sound: 暖 ダン."},
+ {ch:"資",word:"資源",gloss:"assets, funds",read:"シ",pos:"tb",
+  parts:[{p:"次",role:"sound",sound:"シ"},{p:"貝",role:"sense"}],
+  hook:"Shell-money 貝 underneath, the same money as in 買. 次 シ sits on TOP lending the sound. Position never tells you the job."},
+ {ch:"核",word:"核家族",gloss:"core, kernel",read:"カク",pos:"lr",
+  parts:[{p:"木",role:"sense"},{p:"亥",role:"sound",sound:"カク"}],
+  hook:"A tree 木 because the first kernel was a fruit stone. 亥 lends a drifted sound: 核 カク."},
+ {ch:"家",word:"家族・核家族",gloss:"house; family",read:"いえ・カ",pos:"tb",
+  parts:[{p:"宀",role:"sense"},{p:"豕",role:"sense"}],
+  hook:"A roof 宀 with a pig 豕 under it: a farmhouse. Both parts are meaning; the family is whoever lives under the roof."},
+ {ch:"老",word:"老人",gloss:"old, aged",read:"お(いる)・ロウ",pos:"tare",
+  parts:[{p:"耂",role:"sense"},{p:"匕",role:"sense"}],
+  hook:"耂 is an old man bent over a cane, and 匕 underneath is a person changed by the years, the same 匕 as in 化. Two meanings, no sound part."},
+ {ch:"社",word:"社会",gloss:"shrine; society",read:"シャ",pos:"lr",
+  parts:[{p:"礻",role:"sense"},{p:"土",role:"sense"}],
+  hook:"The altar part 礻 and the earth 土: the shrine of the local land god, where the whole village met. The meeting became 社会, society itself."},
  {ch:"問",word:"問題",gloss:"to ask",read:"と(う)・モン",pos:"kamae",
   parts:[{p:"門",role:"sound",sound:"モン"},{p:"口",role:"sense"}],
   hook:"You built this one in the Kanji Factory. The gate 門 is the SOUND and the little mouth 口 is the meaning. Here it is again, earning its keep in 問題."},
@@ -11531,7 +11555,7 @@ function fuseBanks(u){
   (BUILDS[u.key]||[]).forEach((b)=>b.parts.forEach((p)=>rad.add(p.p)));
   u.words.forEach((w)=>tiles(w.w).forEach((c)=>{
     if(!KANJI_RE_UI.test(c)){ kn.add(c); if(SMALL_BIG[c])kn.add(SMALL_BIG[c]); }
-    else if(!buildChs.has(c)) kj.add(c);
+    else if(!buildChs.has(c)&&!rad.has(c)) kj.add(c);
   }));
   return { rad:[...rad], kj:[...kj].sort(), kn:[...kn].sort((a,b)=>a.localeCompare(b,"ja")) };
 }
@@ -11584,13 +11608,14 @@ function paintFuseBench(banks){
     '<div class="prompt">つくって: <b>'+esc(w.def)+'</b></div>'+
     '<div class="wordstrip" id="wordstrip">'+strip+'</div>'+
     '<div class="hookline" id="hookline"></div>'+
+    (W.boxes.some((bx)=>bx.type==="frame")?
     '<div class="bankhead">部品 · the parts of the framed kanji</div>'+
     '<div class="bank">'+banks.rad.map((p)=>{
       const info=PARTS[p]||{g:"",n:""};
       return '<button class="piece'+(usedRad.has(p)?" used":"")+'" data-kind="rad" data-v="'+esc(p)+'" draggable="true">'+
         '<span class="pc">'+esc(p)+'</span><span class="pg">'+esc(info.g)+'</span>'+
         (info.n?'<span class="pn">'+esc(info.n)+'</span>':"")+'</button>';
-    }).join("")+'</div>'+
+    }).join("")+'</div>':"")+
     '<div class="bankhead">タイル · kanji and kana tiles</div>'+
     '<div class="kbank">'+banks.kj.map((c)=>{
       const k=KANJI[c];
@@ -11630,13 +11655,18 @@ function wireFuse(banks){
   };
   const dropInBox=(bi,kind,v)=>{
     const bx=W.boxes[bi];
-    if(bx.type==="frame"||kind==="rad")return;
+    if(bx.type==="frame")return;
     bx.val=v; W.sel=null; paintFuseBench(banks); judgeWordAfterPaint();
   };
   const dropInSub=(bi,si,kind,v)=>{
-    if(kind!=="rad")return;
     const bx=W.boxes[bi];
     if(bx.fused)return;
+    if(kind!=="rad"){
+      /* a whole tile does not fit inside a kanji: nudge, don't block silently */
+      const sub=document.querySelector('.wsub[data-b="'+bi+'"][data-s="'+si+'"]');
+      if(sub){ sub.classList.add("shake"); setTimeout(()=>sub.classList.remove("shake"),450); }
+      return;
+    }
     bx.placed[si]=v; W.sel=null;
     if(Object.keys(bx.placed).length===bx.b.parts.length){
       const right=bx.b.parts.every((pt,k)=>bx.placed[k]===pt.p);
