@@ -174,18 +174,32 @@ model answers per form? Teacher-written models only — no real student
 work. And: is the paraphrased convenience-store text itself accurate
 Japanese you'd stand behind?
 
-### Q10. Privacy state of the repo
-**Context:** Two PDFs in `Unit 10 Abilities and preferences/` contained
-scanned student work with feedback. They are now **deleted from the current
-files** (Liam's side, Aug 18), but git keeps old versions in history, so
-they're recoverable until a one-time "history purge" is run. Also: the app
-now deploys to a public URL from a separate repo, so this repo can and
-should be fully private.
-**Ask:** (a) Please set this repo to Private: Settings → General → Danger
-Zone → Change visibility. (b) OK for Liam's Claude to run the history purge?
-It rewrites the repo's history and everyone re-clones afterwards — a small
-one-time disruption, best done early. Pick a day; nothing else should be
-mid-flight when it runs.
+### Q10. Privacy state of the repo — PART-ANSWERED, (a) BLOCKED
+**Context (revised 2026-08-22, after a full audit of `main`):** The earlier
+note that the two student-scan PDFs were "deleted from the current files"
+was true only of *this branch*. The removal (commit `0841177`) was never
+merged, and Andrew's commit `3fd10bc` put the Unit 10 folder on `main`, so
+both PDFs were **live on public `main` until 2026-08-22**. The audit also
+found more than the two PDFs — see the Decision Log entry for the full list.
+
+Current state: the live sensitive files are now deleted from `main`
+(commit `5c269e3`), but **everything remains in git history**, so the
+purge in (b) is still the operative fix.
+
+**Blocker on (a):** the repo cannot be made private — it is a **fork** of
+`liaminhawai-cmd/Grammar-hub`, and GitHub refuses visibility changes on
+forks ("For security reasons, you cannot change the visibility of a fork").
+Both fork and parent are public. Note also that objects pushed to a public
+fork stay reachable through the fork network, so a history purge on the fork
+alone is not sufficient while it remains a fork of a public parent.
+
+**Ask:** (a) is blocked pending a route decision — the realistic options are
+(i) ask GitHub Support to detach the fork, then make it private and purge, or
+(ii) create a fresh private non-fork repo, copy the *current files* only (no
+history), and delete the fork. (ii) is self-service and severs history in one
+move; (i) preserves the repo and its history. Which does Liam prefer?
+(b) still open: OK for Liam's Claude to run the history purge, and on what
+day? (c) answered — see Decision Log.
 
 ### Q13. Which year levels actually run?
 **Context:** The school learning continuum (Languages tab) carries Japanese
@@ -435,3 +449,23 @@ teacher setting; if no, we keep the mechanic pure.
   here so it doesn't get relitigated — Andrew can amend via Q11.
 - **2026-08 (from Liam):** Kana (hiragana/katakana) drilling is out of scope —
   existing apps cover it. Kanji undecided, see Q5.
+
+- **2026-08-22 (Andrew, Q10c):** Yes — delete the exposed files from the
+  current tree now, ahead of any history purge. Done in commit `5c269e3`:
+  the two student-scan PDFs, `Grammar pre test results and tracking.xlsx`
+  (student first names against per-domain scores plus a next-steps column),
+  `personalised harrison bergeron grammar sheets.docx` (worksheets headed
+  with individual student names, and L1 scaffolding that reveals home-language
+  background), `query.iqy` and `query.xlsx` (school SharePoint paths, list
+  GUIDs, and a named staff member), and `Grammar hub resources - Sheet1 (2).csv`
+  (same SharePoint paths). All are still in history until the purge.
+  `09_Subjects.htm` and `Sentence-builder-Edward.html` were left alone: both
+  come from Liam's upstream repo, not from Andrew's uploads.
+- **2026-08-22 (Andrew, Q10a):** Cannot set the repo private — GitHub blocks
+  visibility changes on forks. Needs the detach-or-recreate decision now
+  recorded in Q10. Not actioned.
+- **2026-08-22 (Andrew, Q10b):** Checking with Liam before the history purge
+  is scheduled. No date set.
+- **2026-08-22 (audit finding):** The parent repo `liaminhawai-cmd/Grammar-hub`
+  does **not** contain the Unit 10 folder or the student scans — that exposure
+  was confined to Andrew's fork.
