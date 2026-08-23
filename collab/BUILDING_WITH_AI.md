@@ -14,9 +14,9 @@ Ask this one instead:
 > them this one thing — what would I actually build?**
 
 Sit with it properly. Not "I'd explain it again more slowly." What would you
-*make*? A board game to give them an intuition for market forces? A puzzle
-where the wrong answer is more interesting than the right one? A model they
-have to break before you show them the real one?
+*make*? A board game to give them an intuition for market forces? A model of
+a system they have to break before you show them the real one? A puzzle where
+the wrong answer is more interesting than the right one?
 
 Then a second question, which is where the good stuff lives:
 
@@ -99,21 +99,23 @@ Do this yourself, before you show anyone. It takes four minutes and it is the
 difference between something that looks like learning and something that is
 learning.
 
-**Open your draft and try to beat it without learning anything.**
+**Open your draft and try to get through it as fast as possible without
+learning anything.** Genuinely try to beat it. Then ask:
 
-- Always click the longest option. What do you score?
-- Always click the odd one out. What do you score?
-- Refresh and guess repeatedly. Does anything stop you?
-- Memorise the sequence, then restart. Does it change?
-- Skip the reading entirely and go straight to the questions. Can you still pass?
-- Search the page for the question's keywords instead of reading. Does that work?
-- Click randomly until something turns green. How long does that take?
+- Did anything stop me?
+- Did I get a decent result anyway?
+- **Did I find myself having to slow down, go back and actually think before I
+  could finish?**
 
-**Every one of those that works is a hole.** Not a small one — students find
-these faster than you do, and they are not being bad kids when they do. They
-are doing what all of us do: taking the cheapest available path. If the
-cheapest path through your activity doesn't go through learning, they will
-not learn, and it is a design problem rather than a motivation problem.
+That last one is the signal you want. If *you* had to stop rushing and engage
+with the content in order to get through, students will have to as well. If
+you sailed through without absorbing anything, so will they — and they are
+faster at finding shortcuts than you are.
+
+They are not being bad kids when they do this. They are doing what all of us
+do: taking the cheapest available path. **If the cheapest path through your
+activity doesn't go through learning, they will not learn** — and that's a
+design problem, not a motivation problem.
 
 Then ask the AI to do the same and tell you what it found. **The gap between
 your list and its list is the most useful feedback you will get all term** —
@@ -126,53 +128,70 @@ and that gap gets smaller every time you do this.
 The fix is not to make things unpleasant. It's arithmetic.
 
 Students take the cheapest path. So make the cheap path expensive and the
-learning path cheap. That's the whole principle, and it is much kinder than
-it sounds, because the student who wants to learn never notices it.
+learning path cheap. That's the whole principle, and it is much kinder than it
+sounds, because the student who wants to learn never notices it.
 
-**Worked example — Sleep Lab** (Year 10 Work & Life Education):
+Some ways that gets built, none of them punishment:
 
-Get a question wrong and it doesn't just say "incorrect." It puts the
-original slide back on your screen, disables the continue button for eight
-seconds while a countdown runs, and puts the question back in the queue so it
-returns before the section ends.
-
-Do the sums the way a student does:
-
-- Guess and move on: 8 seconds of forced waiting, *plus* the question again later
-- Actually read it: about 15 seconds, once
-
-Guessing is now the expensive option. Nobody is being told off, nothing is
-unpleasant, and there's no lecture about trying your best. The maths simply
-stopped rewarding the shortcut. The person who built it found himself
-genuinely reading the content when he was only trying to click through and
-test it.
-
-Two other things that activity does, worth stealing:
-
-- **First attempt is what gets recorded.** Wrong answers keep coming back
-  until you've mastered them, but the report remembers the first try. Mastery
-  and measurement are separate, and both are honest.
-- **The content comes back to you.** It re-shows the slide rather than telling
-  you to go and find it. Never make re-learning harder than guessing again.
+- A wrong answer brings the relevant content back on screen and holds you
+  there briefly before you can continue, and the question returns later.
+  Guessing now costs more time than reading did.
+- The first attempt is what gets recorded, but wrong items keep coming back
+  until they're right. Mastery and measurement stay separate, and both stay
+  honest.
+- Re-learning is never made harder than guessing again. Bring the material to
+  the student rather than telling them to go and find it.
 
 ---
 
-## Scaffolding is fine. Scaffolding that never comes off is not.
+## The real test: can they succeed without understanding?
 
-Sentence starters, drag-and-drop phrase banks, worked examples, gradual
-release — all good, all worth building. The only rule is that **the last step
-has to be one you cannot guess your way through.**
+This is the general form, and it matters more than any particular format.
 
-A rough test: what's the chance a student gets it right without understanding?
+**A thoughtless attempt should reliably produce a poor result. A reasoned
+attempt should reliably produce a good one. And the student should be able to
+see why.**
 
-- Four-option multiple choice: 25%. Never the final step.
-- Four tiles to arrange, two orders acceptable: about 8%. Borderline.
-- Eight tiles, one correct order: effectively zero. Fine as a final step.
+Note what this does *not* say. It does not say there must be one right answer,
+or that near-misses should be punished, or that the odds should be
+impossible. Plenty of the best tasks have many good answers. The question is
+only whether understanding was *required*.
 
-So build the ladder. Give them the stem with six phrases to slot in. Then
-give them the stem with a bank that includes decoys from other answers. Then
-take the stem away. The support is meant to be removed — that's what makes it
-scaffolding rather than a crutch.
+The same principle takes very different shapes:
+
+- **A planning task** — choosing where to put something on a map, given
+  competing constraints. There are many good answers and a great many poor
+  ones. You cannot click at random and do well, but you also aren't hunting
+  for one perfect pixel. What's being learned is how the factors trade off
+  against each other, and the result shows you whether you read them right.
+
+- **A construction task** — assembling a response from parts. Early on it's
+  generous: colour-matching and elimination will get a student a long way, and
+  that's fine, because it's scaffolding. By the top levels the cues have been
+  removed and it can't be done without actually reasoning. What they build
+  becomes the model they refer back to when they next write unaided.
+
+- **A simulation** — a toy model they can play with and watch respond. The
+  learning is intuitive rather than propositional; they're building a feel for
+  how the system behaves that would be very hard to get from watching a video.
+  Someone who understands the principles gets a good outcome fairly quickly
+  and can then fine-tune. Someone who doesn't, flails visibly.
+
+- **A judgement task** — approving or rejecting each of many options, where
+  every choice is defensible or not on its merits. No single correct
+  configuration, but a thoughtless run produces an obviously bad outcome.
+
+Multiple choice and drag-and-drop are two formats among many, and usually the
+least interesting ones available. If the only shapes you're being offered are
+quiz questions and tiles, ask for something else — the model will reach for
+those by default because they're the most common things in its training data,
+not because they're the best fit for what you're teaching.
+
+**Scaffolding is fine. Scaffolding that never comes off is not.** Build the
+ladder: give them the frame with the pieces supplied, then with decoys mixed
+in, then take the frame away. The support is meant to be removed. The only
+firm rule is that **the last step cannot be one you can bluff your way
+through.**
 
 ---
 
@@ -180,6 +199,6 @@ scaffolding rather than a crutch.
 
 1. **You supply the anomaly, it supplies the structure.** What you know about
    your kids is the irreplaceable part.
-2. **Play it as a lazy student before you show anyone.** Every shortcut that
-   works is a hole.
+2. **Rush your own draft before you show anyone.** If you had to slow down and
+   think, good. If you didn't, students won't either.
 3. **Make guessing cost more than learning.** Not punishment — arithmetic.
