@@ -16,6 +16,7 @@ from the public repo `liaminhawai-cmd/japanese-hub` via GitHub Pages:
 | https://liaminhawai-cmd.github.io/japanese-hub/builder/ | Word Builder (a whole unit on one page) — PoC, Q5/Q6 |
 | https://liaminhawai-cmd.github.io/japanese-hub/walk/ | Unit Walk (Years 7-12, every unit as a stepped sequence) — PoC, Q19/Q20 |
 | https://liaminhawai-cmd.github.io/japanese-hub/vocab/ | Vocab Hub (every word in the suite, one warehouse) — PoC, Q20 |
+| https://liaminhawai-cmd.github.io/japanese-hub/look/ | Have a Look — a short, tickable tour for Andrew, not linked from the public landing page |
 
 The repo is named for the whole suite, not just grammar: each new tool gets
 its **own folder** (`/oral/`, `/topics/`, `/writing/`, `/kanji/`) plus a card
@@ -55,7 +56,10 @@ when in doubt, the URL wins.
 
 PoC apps deploy the same way: copy `apps/<name>/index.html` **and its
 `lever.js`** verbatim to the matching live folder (`words/`, `oral/`,
-`writing/`, `levelup/`, `unit10/`, `kanji/`, `builder/`, `walk/`, `vocab/`), and keep a copy of `lever.js` at the live root for
+`writing/`, `levelup/`, `unit10/`, `kanji/`, `builder/`, `walk/`, `vocab/`, `look/`).
+**`look/` is the one exception to "every tool gets a landing-page card"** — it's a
+review aid for Andrew, handed to him directly by URL, not discoverable by a
+student browsing the hub, and keep a copy of `lever.js` at the live root for
 the landing page.
 
 **`lever.js` is one file with several copies on purpose.** The canonical
