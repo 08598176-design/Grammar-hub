@@ -410,3 +410,45 @@ model is unusually good at and depth is what it has to be asked for. The
 correction is not modesty about scope. It is that a second pass over an
 existing artifact is almost always worth more than a first pass over a new
 one, and nobody will ask for it. *Offer it.*
+
+---
+
+## 13. Before you build
+
+Two habits. This repository can show you the cost of skipping either.
+
+**Search the existing work first.** The mechanic you need has usually been
+solved already, one repo over, and a solution never propagates on its own. The
+hand-built engine carries a reteach path, adaptive placement and three teacher
+export formats; none of it reached the nine apps built afterwards.
+Build-a-word-from-parts was implemented five separate times in two days. Most
+costly of all, the distractor design that makes the unit walk's questions
+unexploitable was worked out *after* the grammar hub's bank was generated, and
+was never carried back to it. *Before proposing an implementation, list what
+already exists across the repos that does part of this job and say which one
+you are extending. If the answer is honestly "nothing", say that too — it
+should be rare.*
+
+**Get the loop right on three items before generating three hundred.** The
+item shape is the design; an item is an instance of it. Hand-write two or
+three, run the §9 exploits against those, and get the shape agreed —
+distractor rule included — before any bulk generation, because the bank
+inherits whatever the shape permits.
+
+The cost is measurable here. The grammar hub's 207 multiple-choice items were
+generated against a shape that never said how distractors are built: a student
+who always picks the longest option scores 65%, against 25% for guessing, and
+only 4% of the explanations say anything about why a wrong option is wrong.
+The unit walk's 200 items were generated against a shape that did say — every
+distractor is the same sentence with one element changed — and score 0% on the
+same exploit, with 66% of their explanations addressing a wrong option
+directly. Same project, same fortnight. The only difference was whether the
+shape was pinned down before the volume.
+
+*Run the mechanical exploits over any generated bank before it ships:*
+`node tools/bank-exploits.js [file]` *tries always-longest, always-shortest,
+odd-one-out-by-script and the stored positions, and reports what fraction of
+explanations name a wrong option. Anything beating chance means the bank is
+not finished. It is a script, not a judgement call, and it takes a minute.
+Read its position rows carefully — those describe the stored order, so they
+are a live exploit only where the renderer does not shuffle.*
