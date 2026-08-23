@@ -351,73 +351,62 @@ avoid one.
 
 ---
 
-## 12. What this document under-weights
+## 12. Failure patterns in this body of work
 
-Everything above is one practitioner's codified intuition, and it has a shape:
-rich single artifacts, high friction, deep encoding, ambitious scope, written
-by someone whose own schooling was too slow rather than too hard. That shape
-produces good work and predictable gaps. These are the gaps. Raise one when a
-request runs into it; do not recite the list.
+These are patterns in the built artifacts, checkable in the repository, not
+inferences about the person you are working with. Several were introduced by
+models building quickly, which is exactly why they belong in a document
+addressed to models. Raise one when a request runs into it; do not recite the
+list.
 
-**1. There is no time axis.** Everything here treats one activity as the unit
-of design. The largest effects in learning are properties of the schedule
-rather than the task: spaced retrieval, interleaving, cumulative review. A
-modest task met five times across ten weeks beats an excellent task met once,
-and it is not close. §6 answers forgetting with more routes at the moment of
-encoding, which is an encoding fix for a retrieval problem — real, but second
-order. *When is this met again, and again after that?* If there is no answer,
-the design is not finished. Building the return schedule is a legitimate
-deliverable on its own, and often a better use of effort than enriching the
-artifact.
+**Nothing remembers anything.** Ten student-facing apps are deployed and not
+one of them stores a single byte. A student who refreshes, or comes back
+tomorrow, starts from zero. Several of them compute a first-try score, hold it
+in a variable, print it once and discard it. The design notes specify
+versioned `localStorage` keys with a try/catch loader — written down, and
+implemented nowhere. Nothing spaced, cumulative or resumable is possible until
+that changes, and no amount of task quality substitutes for it. *Before adding
+a feature to an app that forgets, make it remember.*
 
-**2. Novices need the chunking that experts are harmed by.** §4 argues against
-pre-decomposing, and that argument is strongest for students who already hold
-the components. It inverts for students who don't: for genuine novices, worked
-examples and heavy scaffolding beat problem-solving, and the advantage flips
-as expertise develops. "Problem before method" is a claim about *when*, not
-about *always*. *Does this student have the parts?* If not, show the whole
-worked thing first and hold the problem-first move until they do.
+**The loop gets thinner as the build gets faster.** The oldest artifact here
+was built slowly by hand: five thousand lines, three hundred and thirty
+explanations, a reteach path with a second explanation over a fresh item bank,
+adaptive placement across three bands, and teacher export in three formats.
+The newest large one was assembled in a day: four thousand lines, and its quiz
+shows a definition with four words to pick from, draws its distractors at
+random from the same pool, and answers a wrong choice by turning the button
+red and disabling it. That one function breaks production-over-recognition,
+judge-never-prevent, feedback-names-the-rule and cheapest-path-through-
+understanding — four §3 constraints in about forty lines, in the same repo
+that states them. *Speed does not show up as bugs. It shows up as a thin loop
+that runs correctly.*
 
-**3. Boredom and defeat are not the same thing.** Friction, cost for guessing
-and no-easy-wins all assume a student who believes effort will pay. A student
-who has concluded they are bad at this reads identical friction as
-confirmation. The fix is not to remove it: it is that early rungs must produce
-real, earned, visible success quickly, and that difficulty must be
-attributable to the task rather than to the person. *What does the first
-ninety seconds feel like to someone who expects to fail?*
+**Wrong answers get punished rather than explained.** In the word builder a
+wrong tile shakes the row and then wipes the student's entire attempt four
+hundred milliseconds later, including the parts they had right. Nothing is
+named. Compare the same moment in the hand-built engine, where being wrong
+states the rule, and falling below threshold triggers a different explanation
+and a parallel bank. *A wrong answer is the one moment you are guaranteed the
+student's attention. Spending it on a shake is the largest recurring waste
+here.*
 
-**4. Reading load is invisible to whoever wrote the instructions.** A large
-share of the difficulty of any classroom task is the difficulty of reading it,
-and the person who wrote it is the worst available judge of that — the
-stronger their verbal facility, the worse the estimate. This is a separate
-axis from the content being hard. *What is the reading demand of the
-instructions, independent of the content? Would shorter sentences make the
-task easier without making any of the thinking easier?*
+**The same mechanic is rebuilt instead of extracted.** Build-a-word-from-parts
+exists in five independent implementations, all created within two days of
+each other, sharing no code. Improving that mechanic now costs five edits,
+which is why it has had none since. *When a mechanic turns up a third time,
+stop and extract it. The third occurrence is the signal, not the fifth.*
 
-**5. Student time is the scarce resource, not build time.** AI removed the
-cost of building things, so the constraint moved — but it did not move to the
-artifact. It moved to twenty minutes of thirty students' attention, which
-costs the same whether the thing took six hours to make or six minutes. A rich
-build is not self-justifying. *What is the cheapest thing that would get most
-of this?* If the honest answer is "three well-chosen questions, asked five
-times", say so and build that instead.
+**Effort goes to content volume over the loop.** In the two largest apps,
+eighty-five and eighty-three per cent of the file is data. §3 sets the effort
+order as mechanic, then feedback, then content, then polish; the built ratio
+inverts it. *More content is the cheapest-feeling improvement and rarely the
+best available one. Say so when the request is for more items and the loop
+underneath them is thin.*
 
-**6. The artifact is not the lesson.** This document designs things students
-use. It says almost nothing about what the teacher does while they use them,
-and a task with no plan for the teacher's twenty minutes is a study hall.
-*What does this make visible to the teacher, in the moment, and what should
-they do about it? Who do they go to first, and what tells them?*
-
-**7. Every route in §6 leads to the same room.** Those routes are ways back
-into the same knowledge in the same setting. Learning that survives is
-learning that turns up somewhere it was not practised. Difficulty and
-unfamiliarity are different axes, and this document mostly climbs the first.
-*Where does this get used in a context we never practised?* Make that the last
-rung, rather than a harder version of the same rung.
-
-**8. Depth does not fix a missing prerequisite.** "One artifact, many depths"
-(§4) handles a range of readiness *within* a skill. It does nothing for a
-student missing something the task assumes, who will simply fail at a
-shallower level. That needs diagnosis and a route to the missing thing, not a
-gentler version of the current thing. *What does this assume they already
-have, and what happens to the student who hasn't got it?*
+**The shape underneath all five.** Capacity converts into breadth by default.
+Given a builder this fast, the output becomes more apps, more units, more
+words, while the loop inside each one thins out — because breadth is what a
+model is unusually good at and depth is what it has to be asked for. The
+correction is not modesty about scope. It is that a second pass over an
+existing artifact is almost always worth more than a first pass over a new
+one, and nobody will ask for it. *Offer it.*
