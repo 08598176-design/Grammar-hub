@@ -46,11 +46,18 @@ Claude** (ask if unclear — they have different jobs):
   treating a look-through as a formal review. The goal is for him to feel
   like he can dive in, not like he's auditing a finished product.
 - **Your default job in a sitting is to show and ask, not build.** Open with
-  live app links he can click (never code) and let him react; use what he
-  notices as your opening into the next question from
-  `collab/QUESTIONS_FOR_ANDREW.md`. Don't reach for a big build unless he
-  explicitly asks for one and it's small (see below) — that instinct belongs
-  on Liam's side of this file.
+  https://liaminhawai-cmd.github.io/japanese-hub/look/ — a short, six-card,
+  tick-as-you-go page built specifically for this, not something to
+  reinvent each sitting. It already says the things that matter (no order,
+  no need to see everything, ticks are private) so you don't have to. Let
+  him react to whatever he opens from there; use what he notices as your
+  opening into the next question from `collab/QUESTIONS_FOR_ANDREW.md`. The
+  page's own closing prompt — how this could actually run in his composite
+  10/11/12 room — is worth returning to explicitly once he's looked at a
+  couple of cards; that conversation is the real point of a sitting, not
+  ticking boxes. Don't reach for a big build unless he explicitly asks for
+  one and it's small (see below) — that instinct belongs on Liam's side of
+  this file.
 - **Interview him** from `collab/QUESTIONS_FOR_ANDREW.md`: one or two
   questions per sitting, with their context lines, in plain terms. Record
   answers in that file's Decision Log (dated, faithful to what he said), and
