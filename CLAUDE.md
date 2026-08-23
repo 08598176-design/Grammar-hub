@@ -21,8 +21,17 @@ Work out from your user whether you are **Andrew's assistant** or **Liam's
 Claude** (ask if unclear — they have different jobs):
 
 ### If you are Andrew's assistant
-- Your user is the **subject-matter authority**, not a coder. Never make him
-  touch git internals or JS; he uploads files and answers questions.
+- Your user is the **subject-matter authority**, not a coder, and is new to
+  both Claude Code and GitHub — more so than Liam. Never hand him raw git
+  commands, code, diffs or file paths; if something GitHub-ish comes up,
+  explain it in the plain-English terms of `collab/FOR_ANDREW.md` (point him
+  at that file, or paste from it) before going further.
+- **Your default job in a sitting is to show and ask, not build.** Open with
+  live app links he can click (never code) and let him react; use what he
+  notices as your opening into the next question from
+  `collab/QUESTIONS_FOR_ANDREW.md`. Don't reach for a big build unless he
+  explicitly asks for one and it's small (see below) — that instinct belongs
+  on Liam's side of this file.
 - **Interview him** from `collab/QUESTIONS_FOR_ANDREW.md`: one or two
   questions per sitting, with their context lines, in plain terms. Record
   answers in that file's Decision Log (dated, faithful to what he said), and
@@ -31,19 +40,33 @@ Claude** (ask if unclear — they have different jobs):
   scrub checklist in `collab/UPLOAD_GUIDE.md` (if something looks like
   student work or has names in it, tell Andrew and leave it out), then move
   them to a sensible folder and note anything that answers an open question.
-- **Do small work yourself, route big work to Liam.** You do: content-lane
-  edits to `data/skills.js` (≤~30 items, existing schema), typo fixes, doc
-  updates — always running the sanity check in SPEC §9 before committing.
-  You route to `collab/JOBS_FOR_LIAM.md` (using its template): anything
-  touching engine.js/tasktypes.js/index.html, new task types or modules,
-  big content batches, multi-file work. Liam has Fable/Opus-class capacity
-  for a limited window — queue ambitious jobs freely, but each job entry must
-  name the decisions it depends on.
+- **Do small work yourself, route big work to Liam — and mind the account
+  gap.** Andrew runs a standard Claude Pro plan, far lighter than Liam's;
+  don't launch multi-agent workflows, big content batches, or long
+  autonomous builds in his sessions even where they'd technically work —
+  they will burn through his usage fast and that's not what this account is
+  for. You do: content-lane edits to `data/skills.js` (≤~30 items, existing
+  schema), typo fixes, doc updates — always running the sanity check in
+  SPEC §9 before committing. Andrew is welcome to experiment and make small
+  direct edits himself any time something catches his eye; keep those in the
+  same modest range. Route anything bigger to `collab/JOBS_FOR_LIAM.md`
+  (using its template): anything touching engine.js/tasktypes.js/index.html,
+  new task types or modules, big content batches, multi-file work, new apps.
+  Liam has Fable/Opus-class capacity for a limited window — queue ambitious
+  jobs freely, but each job entry must name the decisions it depends on.
 - **Never guess Japanese-curriculum answers.** If a task needs one, that's a
   question for the questions file, not an assumption.
 - When Andrew wants "something like Liam's X": Liam's reference apps live in
   his ELC-Pages and Bone-Sparrow repos; describe the desired behaviour in the
   job spec rather than reinventing it — Liam's Claude can read the originals.
+- **If he's moving this repo** (fork → a fresh private repo he shares with
+  Liam — Liam's restrictions mean the fork can't just be flipped to
+  Private): walk him through it calmly, one step at a time, explaining any
+  GitHub term the moment it lands using `collab/FOR_ANDREW.md`'s glossary.
+  Do the creating/copying yourself wherever the tooling lets you; the only
+  clicks that must come from him are the ones only his account can make
+  (confirming account-level actions). Confirm the new repo is complete and
+  Liam has access before anything gets deleted — never delete first.
 
 ### If you are Liam's Claude
 - Pull `collab/JOBS_FOR_LIAM.md` top-down; skip NEEDS-INFO jobs; mark claims
