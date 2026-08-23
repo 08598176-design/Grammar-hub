@@ -585,3 +585,92 @@ wrong answer. In a school that is a real exclusion, and it is cheap to fix at
 build time and expensive to retrofit. *Tab order and a motion query are part of
 finishing, not polish.*
 
+---
+
+## 16. Two patterns to build by default
+
+§15 names these as the two largest absences. They are one system: the clock
+produces exactly the data the report needs, so build them together.
+
+### Time-gated mastery
+
+**Gate promotion, not access.** An item can be practised whenever the student
+wants — nothing is ever locked, and a keen student drilling for an hour must
+never be told to come back tomorrow. What the clock gates is the *box advance*.
+A correct answer before the interval has elapsed is accepted, marked correct,
+and simply does not promote. A wrong answer demotes at any time. This is the
+whole fix: hammering an item ten times in one sitting stops manufacturing
+mastery, and no one is shut out.
+
+**Tune the intervals to the teaching cycle, not to a forgetting curve.** A
+subject taught twice a week inside an eight-week unit cannot use a schedule
+that puts anything past a month. A working default:
+
+- box 1 — same session, not time gated; this is the relearn queue that already
+  exists
+- box 2 — at least 1 day
+- box 3 — at least 3 days (about the next lesson)
+- box 4 — at least 7 days
+- box 5 — at least 21 days, then held there
+
+**Count distinct local days, not milliseconds.** Day keys already exist in the
+code that drives the day-streak counter; reuse them. Comparing whole days
+survives timezone drift, avoids a five-minute gap counting as a day, and is
+harder to farm by changing the device clock. Clamp a negative gap to zero
+rather than trusting it.
+
+**Say what you measured.** "Mastered" is a claim the data does not support.
+Box 5 under this schedule means *recalled correctly after a three-week gap*,
+which is both defensible and more informative. Label it that way; it costs
+nothing and it is the honest-interface rule applied to a progress display.
+
+**Sort overdue first**, by how overdue. The item last seen five weeks ago is
+worth more than the one seen yesterday, and this is one comparator.
+
+**Treat a missing timestamp as due now.** Existing saved state has no dates.
+Stamp on first review and bump the storage key version rather than migrating.
+
+**Do not build SM-2 or an ease factor.** Five boxes with fixed day intervals is
+the right size for a term. Anything more is opaque to the teacher and needs
+horizons a unit does not have.
+
+### Teacher reporting
+
+**One row per student, one column per sub-skill, pasted into one shared
+sheet.** With no backend, the transport is the design. A tab-separated row on
+the clipboard is the only format that turns twenty-eight devices into a class
+table with no infrastructure, because one paste lands as one row. Keep the
+plain-text block for a quick read and the CSV for a full item log, but the row
+is the default and the other two are extras.
+
+**Report first-try only, and say so.** Mastery and measurement stay separate;
+the student keeps working until it is right, and the number that reaches the
+teacher is the first attempt.
+
+**Name the misses, do not count them.** "14/20" is not actionable. The missed
+items by name, rolled up to their sub-skill tags, is: six misses collapsing to
+*te-form of u-verbs* is a lesson, where six line items are a list.
+
+**The class rollup is the point.** Rank the misses by how many students made
+them. "Nineteen of twenty-eight missed the same thing" is tomorrow's starter,
+and it is the only part of a report that reliably changes what gets taught.
+Design for partial returns — it works with nine rows as well as twenty-eight.
+
+**Include time on task and the student's own words.** Four minutes and
+twenty-five minutes at the same score are different students. For anything
+open, pass the text through verbatim and do not grade it.
+
+**State what the report cannot tell you.** Whether they had help, whether they
+spoke it aloud, whether they understood or pattern-matched. A report that
+implies more than it measured is the dishonest-interface failure in its most
+consequential form, because a teacher acts on it.
+
+**Make it copyable at any point, and persist first.** The reflection answers
+lost in §15 were lost because export was voluntary and late. Save on input;
+offer the copy throughout, not only on a completion screen that a student may
+never reach.
+
+**Nothing leaves the device unless the student sends it.** A name typed for the
+paste stays in that device's storage, the app transmits nothing, and the
+interface says exactly that.
+

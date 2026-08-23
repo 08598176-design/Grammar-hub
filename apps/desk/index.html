@@ -54,7 +54,7 @@
     <button class="tab on" data-d="teach">For teachers</button>
     <button class="tab" data-d="model">For the model</button>
   </div>
-  <p class="stamp">updated 2026-08-23 04:50 UTC</p>
+  <p class="stamp">updated 2026-08-23 04:56 UTC</p>
   <div class="doc on" id="doc-teach">
 <h1 id="building-learning-experiences-with-ai">Building learning experiences with AI</h1>
 <p><em>A guide for teachers. Draft — portable, not specific to this project.</em></p>
@@ -243,7 +243,7 @@
 <p><em>Read fully before proposing anything. Draft — portable, not specific to this project.</em></p>
 <p><strong>This document constrains you, not the teacher you are working with.</strong> Where their request conflicts with something here, say so plainly before building, then do what they decide. Where they have already demonstrated they hold a principle, stop raising it.</p>
 <hr>
-<nav class="toc"><a href="#0-the-gate">0. The gate</a><a href="#1-the-division-of-labour">1. The division of labour</a><a href="#2-principle-or-preference">2. Principle or preference</a><a href="#3-hard-constraints">3. Hard constraints</a><a href="#4-from-the-student-s-chair">4. From the student's chair</a><a href="#5-medium-is-a-per-step-decision">5. Medium is a per-step decision</a><a href="#6-design-for-decay">6. Design for decay</a><a href="#7-format-range">7. Format range</a><a href="#8-exemplars">8. Exemplars</a><a href="#9-the-playtest-sequencing-matters">9. The playtest — sequencing matters</a><a href="#10-pushing-back">10. Pushing back</a><a href="#11-build-then-ratify">11. Build, then ratify</a><a href="#12-patterns-across-the-estate">12. Patterns across the estate</a><a href="#13-before-you-build">13. Before you build</a><a href="#14-house-moves-worth-reusing">14. House moves worth reusing</a><a href="#15-what-the-estate-does-not-do">15. What the estate does not do</a></nav>
+<nav class="toc"><a href="#0-the-gate">0. The gate</a><a href="#1-the-division-of-labour">1. The division of labour</a><a href="#2-principle-or-preference">2. Principle or preference</a><a href="#3-hard-constraints">3. Hard constraints</a><a href="#4-from-the-student-s-chair">4. From the student's chair</a><a href="#5-medium-is-a-per-step-decision">5. Medium is a per-step decision</a><a href="#6-design-for-decay">6. Design for decay</a><a href="#7-format-range">7. Format range</a><a href="#8-exemplars">8. Exemplars</a><a href="#9-the-playtest-sequencing-matters">9. The playtest — sequencing matters</a><a href="#10-pushing-back">10. Pushing back</a><a href="#11-build-then-ratify">11. Build, then ratify</a><a href="#12-patterns-across-the-estate">12. Patterns across the estate</a><a href="#13-before-you-build">13. Before you build</a><a href="#14-house-moves-worth-reusing">14. House moves worth reusing</a><a href="#15-what-the-estate-does-not-do">15. What the estate does not do</a><a href="#16-two-patterns-to-build-by-default">16. Two patterns to build by default</a></nav>
 <h2 id="0-the-gate">0. The gate</h2>
 <p><strong>First, check that it should be built at all.</strong> See §5. If the step belongs on paper, say so instead of building the digital version because you can.</p>
 <p>Then, before proposing any activity, answer these. If the answer to 1–4 isn't available, ask rather than guess.</p>
@@ -410,6 +410,33 @@
 <p><strong>The most valuable writing is the least protected.</strong> The coastal simulation ends with four extended reflection questions on process, trade-offs, competing values and advice — the actual assessable output of the whole task — written into a textarea with no <code>setItem</code> at all. It can be copied out; if the bell goes first, it is gone. The writing wall, by contrast, saves in four places. <em>Persist student writing at the moment it is typed, not at the moment they remember to export it.</em></p>
 <p><strong>Almost nothing produces paper.</strong> Five of twenty-five artifacts carry a print stylesheet, and the two most obviously printable things in the estate — the rubric page and the analytical paragraph page — carry none. For a practice that holds most steps should not be a screen, the estate makes very little that leaves one. <em>When a step belongs on paper, the deliverable is a printable, and it needs the same care as the interactive.</em></p>
 <p><strong>Keyboard and motion are afterthoughts.</strong> Five of twenty-five artifacts handle a keypress; five respect <code>prefers-reduced-motion</code>, while several animate on a wrong answer. In a school that is a real exclusion, and it is cheap to fix at build time and expensive to retrofit. <em>Tab order and a motion query are part of finishing, not polish.</em></p>
+<hr>
+<h2 id="16-two-patterns-to-build-by-default">16. Two patterns to build by default</h2>
+<p>§15 names these as the two largest absences. They are one system: the clock produces exactly the data the report needs, so build them together.</p>
+<h3 id="time-gated-mastery">Time-gated mastery</h3>
+<p><strong>Gate promotion, not access.</strong> An item can be practised whenever the student wants — nothing is ever locked, and a keen student drilling for an hour must never be told to come back tomorrow. What the clock gates is the <em>box advance</em>. A correct answer before the interval has elapsed is accepted, marked correct, and simply does not promote. A wrong answer demotes at any time. This is the whole fix: hammering an item ten times in one sitting stops manufacturing mastery, and no one is shut out.</p>
+<p><strong>Tune the intervals to the teaching cycle, not to a forgetting curve.</strong> A subject taught twice a week inside an eight-week unit cannot use a schedule that puts anything past a month. A working default:</p>
+<ul>
+<li>box 1 — same session, not time gated; this is the relearn queue that already exists</li>
+<li>box 2 — at least 1 day</li>
+<li>box 3 — at least 3 days (about the next lesson)</li>
+<li>box 4 — at least 7 days</li>
+<li>box 5 — at least 21 days, then held there</li>
+</ul>
+<p><strong>Count distinct local days, not milliseconds.</strong> Day keys already exist in the code that drives the day-streak counter; reuse them. Comparing whole days survives timezone drift, avoids a five-minute gap counting as a day, and is harder to farm by changing the device clock. Clamp a negative gap to zero rather than trusting it.</p>
+<p><strong>Say what you measured.</strong> "Mastered" is a claim the data does not support. Box 5 under this schedule means <em>recalled correctly after a three-week gap</em>, which is both defensible and more informative. Label it that way; it costs nothing and it is the honest-interface rule applied to a progress display.</p>
+<p><strong>Sort overdue first</strong>, by how overdue. The item last seen five weeks ago is worth more than the one seen yesterday, and this is one comparator.</p>
+<p><strong>Treat a missing timestamp as due now.</strong> Existing saved state has no dates. Stamp on first review and bump the storage key version rather than migrating.</p>
+<p><strong>Do not build SM-2 or an ease factor.</strong> Five boxes with fixed day intervals is the right size for a term. Anything more is opaque to the teacher and needs horizons a unit does not have.</p>
+<h3 id="teacher-reporting">Teacher reporting</h3>
+<p><strong>One row per student, one column per sub-skill, pasted into one shared sheet.</strong> With no backend, the transport is the design. A tab-separated row on the clipboard is the only format that turns twenty-eight devices into a class table with no infrastructure, because one paste lands as one row. Keep the plain-text block for a quick read and the CSV for a full item log, but the row is the default and the other two are extras.</p>
+<p><strong>Report first-try only, and say so.</strong> Mastery and measurement stay separate; the student keeps working until it is right, and the number that reaches the teacher is the first attempt.</p>
+<p><strong>Name the misses, do not count them.</strong> "14/20" is not actionable. The missed items by name, rolled up to their sub-skill tags, is: six misses collapsing to <em>te-form of u-verbs</em> is a lesson, where six line items are a list.</p>
+<p><strong>The class rollup is the point.</strong> Rank the misses by how many students made them. "Nineteen of twenty-eight missed the same thing" is tomorrow's starter, and it is the only part of a report that reliably changes what gets taught. Design for partial returns — it works with nine rows as well as twenty-eight.</p>
+<p><strong>Include time on task and the student's own words.</strong> Four minutes and twenty-five minutes at the same score are different students. For anything open, pass the text through verbatim and do not grade it.</p>
+<p><strong>State what the report cannot tell you.</strong> Whether they had help, whether they spoke it aloud, whether they understood or pattern-matched. A report that implies more than it measured is the dishonest-interface failure in its most consequential form, because a teacher acts on it.</p>
+<p><strong>Make it copyable at any point, and persist first.</strong> The reflection answers lost in §15 were lost because export was voluntary and late. Save on input; offer the copy throughout, not only on a completion screen that a student may never reach.</p>
+<p><strong>Nothing leaves the device unless the student sends it.</strong> A name typed for the paste stays in that device's storage, the app transmits nothing, and the interface says exactly that.</p>
   </div>
 </div>
 <script>
