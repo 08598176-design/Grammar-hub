@@ -195,10 +195,39 @@ through.**
 
 ---
 
-## If you only remember three things
+## Aim above the target
+
+You are not going to prevent forgetting. What you get to choose is what
+survives it.
+
+Say you want them to know *precipitation*. Aim at "know the word
+precipitation" and you'll cover ten words in the lesson, and they'll keep
+three of them.
+
+So aim higher than the thing you actually want. Have them break it apart into
+its pieces and say what each one does. Have them build the word back up from
+those pieces. Have them produce it from the meaning alone with nothing on
+screen to copy. Have them spot it doing real work in a sentence. If they're
+EAL, have them give it in their first language too.
+
+That's five different routes into one word. In six weeks most of that is
+gone — the morpheme analysis, the translation, the sentence. What's left is
+the word. Which is what you wanted in the first place.
+
+The counterintuitive part, and the reason this is worth saying out loud:
+**it argues for covering less, not more.** Ten words with five routes each
+beats fifty words seen once, and it isn't close. The pressure you'll feel is
+always to widen the coverage. The thing that actually works is to narrow it
+and deepen the routes — and to be able to say why when someone asks.
+
+---
+
+## If you only remember four things
 
 1. **You supply the anomaly, it supplies the structure.** What you know about
    your kids is the irreplaceable part.
 2. **Rush your own draft before you show anyone.** If you had to slow down and
    think, good. If you didn't, students won't either.
 3. **Make guessing cost more than learning.** Not punishment — arithmetic.
+4. **Aim above the target.** Build for a stronger version of the skill, so the
+   skill itself is what's left when most of it fades.
