@@ -40,6 +40,11 @@
   code{background:var(--band);border:1px solid var(--line-soft);border-radius:4px;
        padding:1px 5px;font-size:13.5px}
   a{color:var(--accent)}
+  .toc{display:flex;flex-direction:column;gap:1px;margin:0 0 26px;
+       border-left:2px solid var(--line);padding-left:12px}
+  .toc a{color:var(--muted);text-decoration:none;font-size:14px;padding:3px 0}
+  .toc a:hover,.toc a:focus{color:var(--accent)}
+  h2{scroll-margin-top:56px}
   @media (min-width:700px){ body{padding:24px} p,li{font-size:16px} }
 </style>
 </head>
@@ -49,11 +54,12 @@
     <button class="tab on" data-d="teach">For teachers</button>
     <button class="tab" data-d="model">For the model</button>
   </div>
-  <p class="stamp">updated 2026-08-23 03:27 UTC</p>
+  <p class="stamp">updated 2026-08-23 03:34 UTC</p>
   <div class="doc on" id="doc-teach">
 <h1 id="building-learning-experiences-with-ai">Building learning experiences with AI</h1>
 <p><em>A guide for teachers. Draft — portable, not specific to this project.</em></p>
 <hr>
+<nav class="toc"><a href="#start-from-the-wrong-question">Start from the wrong question</a><a href="#what-you-bring-and-what-the-machine-brings">What you bring, and what the machine brings</a><a href="#not-everything-should-be-a-screen">Not everything should be a screen</a><a href="#the-two-students-you-can-t-see">The two students you can't see</a><a href="#ten-questions-from-the-student-s-chair">Ten questions from the student's chair</a><a href="#six-moves">Six moves</a><a href="#the-lazy-student-test">The lazy student test</a><a href="#make-guessing-cost-more-than-learning">Make guessing cost more than learning</a><a href="#reading-the-complaints">Reading the complaints</a><a href="#the-real-test-can-they-succeed-without-understanding">The real test: can they succeed without understanding?</a><a href="#aim-above-the-target">Aim above the target</a><a href="#if-you-only-remember-six-things">If you only remember six things</a></nav>
 <h2 id="start-from-the-wrong-question">Start from the wrong question</h2>
 <p>The obvious question is <em>"how do I make this lesson easier to deliver?"</em></p>
 <p>Ask this one instead:</p>
@@ -233,6 +239,7 @@
 <p><em>Read fully before proposing anything. Draft — portable, not specific to this project.</em></p>
 <p><strong>This document constrains you, not the teacher you are working with.</strong> Where their request conflicts with something here, say so plainly before building, then do what they decide. Where they have already demonstrated they hold a principle, stop raising it.</p>
 <hr>
+<nav class="toc"><a href="#0-the-gate">0. The gate</a><a href="#1-the-division-of-labour">1. The division of labour</a><a href="#2-principle-or-preference">2. Principle or preference</a><a href="#3-hard-constraints">3. Hard constraints</a><a href="#4-from-the-student-s-chair">4. From the student's chair</a><a href="#5-medium-is-a-per-step-decision">5. Medium is a per-step decision</a><a href="#6-design-for-decay">6. Design for decay</a><a href="#7-format-range">7. Format range</a><a href="#8-exemplars">8. Exemplars</a><a href="#9-the-playtest-sequencing-matters">9. The playtest — sequencing matters</a><a href="#10-pushing-back">10. Pushing back</a><a href="#11-build-then-ratify">11. Build, then ratify</a><a href="#12-what-this-document-under-weights">12. What this document under-weights</a></nav>
 <h2 id="0-the-gate">0. The gate</h2>
 <p><strong>First, check that it should be built at all.</strong> See §5. If the step belongs on paper, say so instead of building the digital version because you can.</p>
 <p>Then, before proposing any activity, answer these. If the answer to 1–4 isn't available, ask rather than guess.</p>
@@ -363,6 +370,17 @@
 <h2 id="11-build-then-ratify">11. Build, then ratify</h2>
 <p>Ship rough. Mark it a proof of concept. Let the teacher veto. Deliberate redundancy is expected at draft stage — do not consolidate competing versions of an idea without being asked.</p>
 <p>Do not seek approval for every decision. Do not smooth over a disagreement to avoid one.</p>
+<hr>
+<h2 id="12-what-this-document-under-weights">12. What this document under-weights</h2>
+<p>Everything above is one practitioner's codified intuition, and it has a shape: rich single artifacts, high friction, deep encoding, ambitious scope, written by someone whose own schooling was too slow rather than too hard. That shape produces good work and predictable gaps. These are the gaps. Raise one when a request runs into it; do not recite the list.</p>
+<p><strong>1. There is no time axis.</strong> Everything here treats one activity as the unit of design. The largest effects in learning are properties of the schedule rather than the task: spaced retrieval, interleaving, cumulative review. A modest task met five times across ten weeks beats an excellent task met once, and it is not close. §6 answers forgetting with more routes at the moment of encoding, which is an encoding fix for a retrieval problem — real, but second order. <em>When is this met again, and again after that?</em> If there is no answer, the design is not finished. Building the return schedule is a legitimate deliverable on its own, and often a better use of effort than enriching the artifact.</p>
+<p><strong>2. Novices need the chunking that experts are harmed by.</strong> §4 argues against pre-decomposing, and that argument is strongest for students who already hold the components. It inverts for students who don't: for genuine novices, worked examples and heavy scaffolding beat problem-solving, and the advantage flips as expertise develops. "Problem before method" is a claim about <em>when</em>, not about <em>always</em>. <em>Does this student have the parts?</em> If not, show the whole worked thing first and hold the problem-first move until they do.</p>
+<p><strong>3. Boredom and defeat are not the same thing.</strong> Friction, cost for guessing and no-easy-wins all assume a student who believes effort will pay. A student who has concluded they are bad at this reads identical friction as confirmation. The fix is not to remove it: it is that early rungs must produce real, earned, visible success quickly, and that difficulty must be attributable to the task rather than to the person. <em>What does the first ninety seconds feel like to someone who expects to fail?</em></p>
+<p><strong>4. Reading load is invisible to whoever wrote the instructions.</strong> A large share of the difficulty of any classroom task is the difficulty of reading it, and the person who wrote it is the worst available judge of that — the stronger their verbal facility, the worse the estimate. This is a separate axis from the content being hard. <em>What is the reading demand of the instructions, independent of the content? Would shorter sentences make the task easier without making any of the thinking easier?</em></p>
+<p><strong>5. Student time is the scarce resource, not build time.</strong> AI removed the cost of building things, so the constraint moved — but it did not move to the artifact. It moved to twenty minutes of thirty students' attention, which costs the same whether the thing took six hours to make or six minutes. A rich build is not self-justifying. <em>What is the cheapest thing that would get most of this?</em> If the honest answer is "three well-chosen questions, asked five times", say so and build that instead.</p>
+<p><strong>6. The artifact is not the lesson.</strong> This document designs things students use. It says almost nothing about what the teacher does while they use them, and a task with no plan for the teacher's twenty minutes is a study hall. <em>What does this make visible to the teacher, in the moment, and what should they do about it? Who do they go to first, and what tells them?</em></p>
+<p><strong>7. Every route in §6 leads to the same room.</strong> Those routes are ways back into the same knowledge in the same setting. Learning that survives is learning that turns up somewhere it was not practised. Difficulty and unfamiliarity are different axes, and this document mostly climbs the first. <em>Where does this get used in a context we never practised?</em> Make that the last rung, rather than a harder version of the same rung.</p>
+<p><strong>8. Depth does not fix a missing prerequisite.</strong> "One artifact, many depths" (§4) handles a range of readiness <em>within</em> a skill. It does nothing for a student missing something the task assumes, who will simply fail at a shallower level. That needs diagnosis and a route to the missing thing, not a gentler version of the current thing. <em>What does this assume they already have, and what happens to the student who hasn't got it?</em></p>
   </div>
 </div>
 <script>
