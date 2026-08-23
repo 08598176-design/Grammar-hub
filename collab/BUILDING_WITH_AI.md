@@ -110,6 +110,130 @@ learning or merely occupying them.
 
 ---
 
+## The two students you can't see
+
+Most teachers were reasonably good at school. That's a sampling problem, and
+it's worth saying out loud, because it quietly decides what you notice.
+
+If you were the student who got there first and liked getting there first, you
+have a vivid, embodied memory of one position in the room and only that one.
+You know what the pace feels like when it's roughly right for you. You are
+much less likely to have a felt memory of being three years behind and hiding
+it, or of being so far ahead that the lesson itself was the obstacle.
+
+Here's the part that makes this hard to fix by instinct. **Both failures at
+the edges of your room are invisible in the work you collect.**
+
+- The student the task is too hard for **completes it anyway.** Scaffolding is
+  very good at producing finished work. They copy the shape of the model,
+  follow the steps, fill the frame, hand in something that looks reasonable,
+  and have learned nothing. The artifact says the lesson worked.
+- The student the task is too easy for **also completes it**, and their loss is
+  a thing that didn't happen. They never got to see the shape of the problem,
+  because you handed them the steps. Nothing in their book records the hour
+  they spent not thinking.
+
+Neither of those reaches you through your marking, so instinct alone won't
+correct for it. You have to ask on purpose.
+
+### Name three real students
+
+Do this before you finalise anything. Not categories — actual kids, with
+names, because abstract questions get abstract answers.
+
+1. **Who is this too easy for?** What do they actually do for those fifteen
+   minutes?
+2. **Who is this too hard for?** What will they produce instead of learning,
+   and would you be able to tell the difference from their work?
+3. **Who is this not serving at all?** Often that isn't about ability — it's
+   the kid who missed the prior unit, or who can do the thinking but not the
+   writing, or who can do all of it but not in that order.
+
+### On chunking specifically
+
+Breaking a task into small steps is the standard fix at the bottom of the
+range, and it works. It is also the standard way to remove the learning from
+the top. If the point of a task is to *find* a structure and you supply that
+structure in numbered steps, there is nothing left to find. The strong
+student's work still looks fine. They did clerical work instead of thinking.
+
+The cheap correction is order, not difficulty: **give the problem before you
+give the method.** Five minutes of "here's what this is trying to solve, have
+a go at it yourself" costs the class almost nothing, and for one or two of
+them it is the entire lesson. Algebra is an answer to *how do you describe a
+pattern without writing out every case?* — let them invent a notation for it
+first, then show them what mathematics settled on, then teach it explicitly to
+everybody.
+
+Note what that is *not*. It is not an argument for discovery learning. As a
+whole-class default that loses most of the room, and the students it loses are
+the ones with the least to fall back on. The strong student doesn't need a
+different lesson. They need the five minutes at the start where the problem is
+still open.
+
+### One artifact, many depths
+
+The instinct is to make three versions. Resist it — three versions means
+somebody has to be handed the easy one, which is the part that stings, and it
+triples your work for a worse result.
+
+What works better is a single artifact deep enough to be read at more than one
+level.
+
+- **A wall of model answers spanning several years of difficulty**, all on
+  display at once. Everyone works from where they are. Nobody is assigned a
+  level.
+- **A simulation.** The student who barely engages still gets something real
+  out of poking at it — put a wall here, and the coast stops eroding here and
+  starts eroding *there*. The student who reads everything gets the actual
+  model. Same screen, no tiers, and an enormous difference in what they leave
+  with.
+- **A grid of skills against levels** where every cell is clickable and
+  nothing is locked.
+
+The common property: **the student sets their own depth by how they behave,
+not by which version they were given.** Which also means nobody ever has to be
+told which one they got.
+
+---
+
+## Ten questions from the student's chair
+
+You already have the list of high impact teaching strategies. The trouble with
+it is that every item is written as something the teacher does, which means
+you can honestly tick all ten and still have a lesson that didn't land.
+
+Each one converts into a question the student could answer. In that form it's
+checkable — you can look at one particular kid and know.
+
+- **Setting goals** — *Can I say what I'm meant to be able to do by the end,
+  in my own words?*
+- **Structuring lessons** — *Do I know where this is going, or am I just doing
+  the next thing I'm told?*
+- **Explicit teaching** — *Was I actually shown this, or am I meant to have
+  picked it up?*
+- **Worked examples** — *Have I seen a good one, and do I know what makes it
+  good?*
+- **Collaborative learning** — *Could I have done this on my own? Did the
+  group need me?*
+- **Multiple exposures** — *Have I met this more than once, in more than one
+  form?*
+- **Questioning** — *Did I have to commit to an answer, or could I wait for
+  someone else's?*
+- **Feedback** — *Do I know whether I was right, and why?*
+- **Metacognitive strategies** — *Do I know what to do when I'm stuck?*
+- **Differentiated teaching** — *Was this pitched at me, or at someone else in
+  the room?*
+
+Ask them about a specific student, not about the class. The class average can
+answer yes to all ten while a third of the room answers no.
+
+This is also a good thing to hand to an AI: *"check this draft against these
+ten questions, once as my strongest student and once as my weakest."* It will
+find things, and the ones it finds at the edges are usually the real ones.
+
+---
+
 ## Six moves
 
 **1. Describe the experience, not the feature.**
@@ -272,14 +396,17 @@ and deepen the routes — and to be able to say why when someone asks.
 
 ---
 
-## If you only remember five things
+## If you only remember six things
 
 1. **You supply the anomaly, it supplies the structure.** What you know about
    your kids is the irreplaceable part.
 2. **Choose the medium step by step.** Most steps are not a screen. The screen
    is for the job only a screen does well.
-3. **Rush your own draft before you show anyone.** If you had to slow down and
+3. **Design for the whole range in one artifact.** Name the kid it's too easy
+   for and the kid it's too hard for. Both of them will finish it, and neither
+   will show up in your marking.
+4. **Rush your own draft before you show anyone.** If you had to slow down and
    think, good. If you didn't, students won't either.
-4. **Make guessing cost more than learning.** Not punishment — arithmetic.
-5. **Aim above the target.** Build for a stronger version of the skill, so the
+5. **Make guessing cost more than learning.** Not punishment — arithmetic.
+6. **Aim above the target.** Build for a stronger version of the skill, so the
    skill itself is what's left when most of it fades.
