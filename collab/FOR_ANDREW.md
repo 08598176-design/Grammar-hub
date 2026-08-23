@@ -53,6 +53,27 @@ double check with Liam (or have your Claude check) that you're copying the
 copy WITH tonight's work in it, not an older one. Your Claude can confirm
 this for you before you do anything.
 
+## You don't have to review everything carefully
+
+Everything live on the site right now is a rough first draft — a proof of
+concept, not a finished product. You don't need to comb through every
+detail before you say anything. Skim, click around, and if something
+catches your eye, you're welcome to just dive straight in and start
+tweaking it yourself rather than treating this like a formal review. The
+point of this stage is for you to react and experiment, not to audit.
+
+## Which Claude model should I use?
+
+You've talked to ChatGPT and Claude before, so the conversation side of
+this will feel familiar. What's new is that Claude Code can actually open,
+edit and save files for you, rather than just replying in a chat window —
+and that Claude comes in a few different models, which are not all the
+same underneath. If you're not sure which to pick, just ask your Claude —
+it should tell you plainly when something's worth switching for (e.g.
+"this one's worth switching to Opus for"). You're unlikely to have the very
+heaviest model Liam uses (Fable) on your plan, but Opus is the one to reach
+for whenever something needs careful judgement rather than a quick answer.
+
 ## What should happen when you open a session with your Claude
 
 Two things, roughly:
