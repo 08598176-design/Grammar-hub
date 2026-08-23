@@ -533,3 +533,55 @@ honest-interface constraint solved rather than deferred: the machine does the
 part it can do honestly and hands the student the criterion for the part it
 cannot.
 
+---
+
+## 15. What the estate does not do
+
+The absences, measured the same way as §12 and §14. These are the gaps between
+what the principles claim and what the artifacts implement, and they are all
+fixable.
+
+**Mastery without a clock.** The vocabulary builder has a real five-box Leitner
+system: a correct answer advances a box, a wrong one drops it to box 1, three
+in a row counts as learned and box 5 auto-masters. But `dueForReview()` sorts
+by box and then by repetitions, and there is no `nextDue`, `lastSeen`,
+`lastReviewed` or `dueAt` field anywhere in the file — zero occurrences of
+each. "Due" means *lowest box*, not *enough time has passed*, so a word can
+travel from box 1 to mastered inside a single sitting. The calendar is already
+tracked; day-boundary logic exists in that file and drives a day-streak counter
+on the home screen rather than the review queue. Every part of a spacing system
+is present except the part that makes it spacing. *This is the highest-leverage
+missing piece in the estate and the smallest: a timestamp on the item, a
+box-to-interval table, and a filter in the one function that picks what comes
+next.*
+
+**Most artifacts tell the teacher nothing.** Six of twenty-five have any way to
+get anything out, and one of them — the hand-built engine, with three export
+formats — carries most of that. The other nineteen are closed: the student
+works, the screen responds, and nothing leaves the device. If reporting is part
+of what makes a screen step defensible, then most of the estate is not meeting
+its own condition. *A task that produces nothing a teacher can read is a task
+whose effect nobody can check. Ask what leaves the device before building the
+content.*
+
+**The most valuable writing is the least protected.** The coastal simulation
+ends with four extended reflection questions on process, trade-offs, competing
+values and advice — the actual assessable output of the whole task — written
+into a textarea with no `setItem` at all. It can be copied out; if the bell
+goes first, it is gone. The writing wall, by contrast, saves in four places.
+*Persist student writing at the moment it is typed, not at the moment they
+remember to export it.*
+
+**Almost nothing produces paper.** Five of twenty-five artifacts carry a print
+stylesheet, and the two most obviously printable things in the estate — the
+rubric page and the analytical paragraph page — carry none. For a practice that
+holds most steps should not be a screen, the estate makes very little that
+leaves one. *When a step belongs on paper, the deliverable is a printable, and
+it needs the same care as the interactive.*
+
+**Keyboard and motion are afterthoughts.** Five of twenty-five artifacts handle
+a keypress; five respect `prefers-reduced-motion`, while several animate on a
+wrong answer. In a school that is a real exclusion, and it is cheap to fix at
+build time and expensive to retrofit. *Tab order and a motion query are part of
+finishing, not polish.*
+
