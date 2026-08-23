@@ -1,6 +1,6 @@
 # Building learning experiences with AI
 
-*A short guide for teachers. Draft — portable, not specific to this project.*
+*A guide for teachers. Draft — portable, not specific to this project.*
 
 ---
 
@@ -318,6 +318,82 @@ Some ways that gets built, none of them punishment:
 
 ---
 
+## Reading the complaints
+
+Build in any of that friction and some students will not enjoy it, and they
+will tell you. This is where good tasks get quietly dismantled, so it's worth
+having a procedure rather than a reflex.
+
+A real case. A task that sent students back through the material every time
+they got something wrong, and brought the question round again later. The
+feedback afterwards was unhappy: too much effort, it kept making me go back.
+Taken at face value, that says rebuild it. But the same students finished with
+a high score, in about thirty-five minutes of a sixty-minute lesson, and got
+the rest of the lesson back for other work. What it replaced was an hour of
+slides with three hands up and no accountability.
+
+So they learned more, in less time, and disliked it. All three are true at
+once, and only one of them arrives on its own.
+
+Worth noticing the time, too. If a task does in thirty-five minutes what an
+hour used to do, that is the result. Resist the instinct to fill the gap with
+more content — you just bought a student twenty-five minutes.
+
+### Two kinds of friction, one complaint
+
+The reason you can't simply decide to discount complaints is that **productive
+and unproductive friction produce the same sentence.**
+
+- **Productive friction** is effort that *is* the learning. Being sent back to
+  the source. Having to commit before you can see the options. Not being able
+  to bluff the last step.
+- **Unproductive friction** is effort that isn't. Ambiguous wording, unclear
+  instructions, a fiddly interface, hunting for where to click, re-reading
+  something you had already mastered because the task wasn't keeping track.
+
+Both come back as *"it was annoying"* and *"it kept making me do it again."*
+You can't tell them apart from the tone. You can only tell them apart by
+asking.
+
+The question that separates them: **was the thing they had to redo the thing
+they were meant to be learning?** If yes, the mechanism worked. If they were
+redoing navigation, or typing, or content they already had, that's your bug —
+and hunt it hard, because unproductive friction is where the goodwill goes.
+
+A rough tell in their language: *"I didn't know what it wanted"* is a design
+defect. *"It kept making me go back"* is the design working. Both students
+sound equally unimpressed.
+
+### Get a second signal
+
+A complaint is evidence about the experience. It is not evidence about the
+learning, and you have other sources for that.
+
+- What did they actually score, and against what?
+- How long did it take, compared with what it replaced?
+- Ask again in three weeks. Feedback collected at the moment of effort is
+  measuring the effort.
+
+And the one only you can supply: **compare it to what would otherwise have
+happened, not to an easier hour.** The student is implicitly comparing your
+task to a comfortable lesson. You are the only person in the room who knows
+what the alternative actually was, and what it would have taught them.
+
+### Two traps, not one
+
+The obvious trap is caving. The less obvious one is its mirror image: deciding
+that because students complained, the task must have been rigorous. That
+belief protects bad design indefinitely, and nobody can argue you out of it.
+Complaint is no more evidence of quality than it is evidence of failure. It's
+a prompt to go and find out which.
+
+And notice who *doesn't* complain. The student quietly completing without
+learning has nothing to report. Neither does the one who finished in eight
+minutes and spent the rest of the lesson somewhere else. Complaint tracks
+engagement at least as much as it tracks quality.
+
+---
+
 ## The real test: can they succeed without understanding?
 
 This is the general form, and it matters more than any particular format.
@@ -408,5 +484,7 @@ and deepen the routes — and to be able to say why when someone asks.
 4. **Rush your own draft before you show anyone.** If you had to slow down and
    think, good. If you didn't, students won't either.
 5. **Make guessing cost more than learning.** Not punishment — arithmetic.
+   Expect complaints about it, and find out which kind of hard they meant
+   before you soften anything.
 6. **Aim above the target.** Build for a stronger version of the skill, so the
    skill itself is what's left when most of it fades.
