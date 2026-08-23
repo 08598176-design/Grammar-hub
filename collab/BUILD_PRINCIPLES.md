@@ -29,10 +29,11 @@ available, ask rather than guess.
 5. **What is the version of this you would produce by default?** Name it
    explicitly. Then build something else, or justify why the default is
    actually right here.
-6. **What happens at the two edges of the range?** Say what the fastest and
-   the slowest student in the room actually do during this task. If the honest
-   answer is "the same thing, at the same depth", it is pitched at one point in
-   a room that isn't.
+6. **What would a student two or three years below the target get out of
+   this, and one two or three years above?** Answer in the positive — what
+   each comes away with, not whether they would cope. "Nothing" at either end
+   means the task has a single depth and is pitched at one point in a room
+   that isn't.
 
 Question 5 is not decoration. Your default for anything described as
 "engaging", "scaffolded" or "differentiated" is the mean of a large body of
@@ -461,3 +462,74 @@ explanations name a wrong option. Anything beating chance means the bank is
 not finished. It is a script, not a judgement call, and it takes a minute.
 Read its position rows carefully — those describe the stored order, so they
 are a live exploit only where the renderer does not shuffle.*
+
+---
+
+## 14. House moves worth reusing
+
+Extracted from the strongest artifacts in the estate. They recur, they are
+written down nowhere else, and they are most of what makes that work good.
+Reach for one of these before inventing a mechanic.
+
+**State the criterion against the near-miss.** A criterion is given by naming
+the plausible weaker version it has to beat. In the vocabulary work every
+technical term is defined against the everyday sense that will mislead —
+*dominant: an allele expressed in the phenotype whenever present, not just
+"powerful"*; *coherent: same frequency and a constant phase difference, not
+just "logical/clear"*; *gradient: steepness at a point, not just a colour
+blend*. The reflection questions use the same move to set the standard for an
+answer — *not just names the place, but explains the process*; *not just what
+worked, but what it cost*; *not just lists them, but shows the actual
+conflict*. A rule stated on its own is decoration. A rule stated against what
+it is commonly confused with is usable.
+
+**No option without a stated cost.** Each of five coastal strategies carries a
+written advantage and a written disadvantage: the sea wall protects what is
+behind it and scours the beach in front; groynes build one beach by starving
+the next; nourishment works and washes away; retreat is cheap and takes
+people's land; doing nothing is free and legitimate. No option dominates, so
+there is no right answer to find — only a defensible one to argue for.
+
+**Couple the resource to the risk.** Approving coastal housing adds to the
+budget and creates the asset that can be lost, and at most two of three sites
+may be approved. The money needed to protect the coast comes from the decision
+that endangers it. That single coupling removes the safe strategy: a student
+cannot succeed by being cautious, only by reasoning about where.
+
+**Let outcomes fall out of a model, not a table.** Wave energy and longshore
+drift at each point are derived from how that point faces the incoming swell,
+so the shape of the coast drives the physics instead of each choice having an
+authored consequence. This is what lets a student find something the author
+never scripted, and it is the whole difference between a simulation and a
+branching quiz.
+
+**Tune for attributability, not realism.** The constants carry a floor on
+along-coast drift where the shore turns away from the swell, commented *keeps
+sand reaching the estuary*, and an export scale annotated *lower = estuary
+stays fed*. They exist so the estuary cannot die for reasons outside the
+student's control. Tune a model so that a bad outcome is traceable to a
+decision the student actually made.
+
+**Deliver judgement as disagreement.** The result is not a score. It is an
+engineer who explains the physics and takes no side, plus three parties with
+incompatible goal lists, each returning a good, mixed or bad reading assembled
+from situational lines naming what specifically happened. Nobody can satisfy
+all three, so what the student leaves with is a position to defend rather than
+a mark.
+
+**Make the ethical constraint a mechanic.** The Traditional Owners are a party
+holding a consent right the simulation enforces, with Free, Prior and Informed
+Consent named explicitly, and a wall placed on the significant site returns
+*that should never have happened*. The authoring constraint sits in the data
+file itself: a fictional place, a real framework, no invented sacred story or
+words for a real community. Respect implemented as a rule of the game rather
+than a paragraph of text, and safety achieved by making the place fictional
+and the process real.
+
+**Check coverage, and say that is what you are checking.** Open written
+answers are scanned against a keyword list marked *not a correctness check*,
+paired with a sentence describing what a strong answer does. That is §3's
+honest-interface constraint solved rather than deferred: the machine does the
+part it can do honestly and hands the student the criterion for the part it
+cannot.
+

@@ -136,18 +136,31 @@ the edges of your room are invisible in the work you collect.**
 Neither of those reaches you through your marking, so instinct alone won't
 correct for it. You have to ask on purpose.
 
-### Name three real students
+### Two or three years either way
 
-Do this before you finalise anything. Not categories — actual kids, with
-names, because abstract questions get abstract answers.
+Before you finalise anything, ask:
 
-1. **Who is this too easy for?** What do they actually do for those fifteen
-   minutes?
-2. **Who is this too hard for?** What will they produce instead of learning,
-   and would you be able to tell the difference from their work?
-3. **Who is this not serving at all?** Often that isn't about ability — it's
-   the kid who missed the prior unit, or who can do the thinking but not the
-   writing, or who can do all of it but not in that order.
+> **What would a student two or three years younger than the target get out of
+> this? And one two or three years older?**
+
+Not "would they cope". What would they actually come away with. That is a much
+harder question to answer vaguely, it forces the answer in the positive, and
+you can answer it before you have met the class.
+
+Three things fall out of it:
+
+- **If the younger student gets nothing, the task has one depth.** Everyone
+  below the target is spending the lesson on something other than learning,
+  and you will not see it in their book.
+- **If the older student gets nothing new, there is no top to it.** The
+  students who could have gone furthest will stop where you stopped, and you
+  will not see that either.
+- **If you can answer both with something specific, the task spans the room.**
+  Work out what in it did that, because whatever it was is the thing to keep
+  doing.
+
+In a composite class the question stops being hypothetical: the younger and
+older student are both sitting in front of you.
 
 ### On chunking specifically
 
