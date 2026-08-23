@@ -351,65 +351,74 @@ avoid one.
 
 ---
 
-## 12. Failure patterns in this body of work
+## 12. Patterns across the estate
 
-These are patterns in the built artifacts, checkable in the repository, not
-inferences about the person you are working with. Several were introduced by
-models building quickly, which is exactly why they belong in a document
-addressed to models. Raise one when a request runs into it; do not recite the
-list.
+Twenty-seven repositories, eighteen of them live sites. These are patterns in
+that history, checkable, not inferences about the person you are working with.
+Raise one when a request runs into it; do not recite the list.
 
-**Nothing remembers anything.** Ten student-facing apps are deployed and not
-one of them stores a single byte. A student who refreshes, or comes back
-tomorrow, starts from zero. Several of them compute a first-try score, hold it
-in a variable, print it once and discard it. The design notes specify
-versioned `localStorage` keys with a try/catch loader — written down, and
-implemented nowhere. Nothing spaced, cumulative or resumable is possible until
-that changes, and no amount of task quality substitutes for it. *Before adding
-a feature to an app that forgets, make it remember.*
+**Source and artifact live in different repositories, joined by a manual
+download.** The coastal simulation is the clearest case, and it is good work: a
+generator and a separate data layer, the data file headed *DATA LAYER (edit
+this)*, the physics documented in prose above the numbers, and a
+cultural-safety constraint written into the file itself. That sits in one
+repository. The thing students actually use sits in another, as
+`CoastsInteractive (12).html` — the twelfth browser download — added in a
+commit called "Add files via upload". The generator's output path is a chat
+sandbox directory that exists nowhere else. The two are verifiably the same
+build, and nothing in either file points at the other.
 
-**The loop gets thinner as the build gets faster.** The oldest artifact here
-was built slowly by hand: five thousand lines, three hundred and thirty
-explanations, a reteach path with a second explanation over a fresh item bank,
-adaptive placement across three bands, and teacher export in three formats.
-The newest large one was assembled in a day: four thousand lines, and its quiz
-shows a definition with four words to pick from, draws its distractors at
-random from the same pool, and answers a wrong choice by turning the button
-red and disabling it. That one function breaks production-over-recognition,
-judge-never-prevent, feedback-names-the-rule and cheapest-path-through-
-understanding — four §3 constraints in about forty lines, in the same repo
-that states them. *Speed does not show up as bugs. It shows up as a thin loop
-that runs correctly.*
+The cost is not tidiness. A model opening the repository that holds the
+artifact sees a large generated file with no source, edits it, and forks it
+permanently from the data layer that governs it. Nobody finds the real source
+unaided, so the good architecture quietly stops paying. *Every generated
+artifact carries a header naming the repository and script that produced it.
+Generators write into the repository, never to a sandbox path. Before editing
+any large data-heavy file, look for its generator and say whether you found
+one.*
 
-**Wrong answers get punished rather than explained.** In the word builder a
-wrong tile shakes the row and then wipes the student's entire attempt four
-hundred milliseconds later, including the parts they had right. Nothing is
-named. Compare the same moment in the hand-built engine, where being wrong
-states the rule, and falling below threshold triggers a different explanation
-and a parallel bank. *A wrong answer is the one moment you are guaranteed the
-student's attention. Spending it on a shake is the largest recurring waste
-here.*
+**Iteration happens either way; only one workflow keeps it.** One repository
+holds fifty-four commits over a fortnight with the reasoning in the messages —
+*cut the fluff, unlock navigation, teach the rule*; *open up the builder
+choices*; *restore the richer We Do builder*. Read in order those record a
+consistent correction toward more student freedom and more explanation, and a
+model can learn the house style from the log alone. The other repository holds
+four commits, three of them "Add files via upload", and every artifact in it
+has exactly one. The filenames are `(12)`, `(4) (3)`, `(2) (2)`: eleven rounds
+of iteration happened in a chat window and none survived.
 
-**The same mechanic is rebuilt instead of extracted.** Build-a-word-from-parts
-exists in five independent implementations, all created within two days of
-each other, sharing no code. Improving that mechanic now costs five edits,
-which is why it has had none since. *When a mechanic turns up a third time,
-stop and extract it. The third occurrence is the signal, not the fifth.*
+The cost lands unevenly. The strongest engine in the estate — five thousand
+lines, three hundred and thirty explanations, a reteach path over a parallel
+bank, adaptive placement, three export formats — is in the repository with no
+history. There is no record of how it got good, which is a large part of why
+none of it reached anything built afterwards. *Once a thing is real, work on it
+in the repository. The commit message is the only place the reasoning survives,
+and it is what the next model reads.*
 
-**Effort goes to content volume over the loop.** In the two largest apps,
-eighty-five and eighty-three per cent of the file is data. §3 sets the effort
-order as mechanic, then feedback, then content, then polish; the built ratio
-inverts it. *More content is the cheapest-feeling improvement and rarely the
-best available one. Say so when the request is for more items and the loop
-underneath them is thin.*
+**The instructions are where the work is, not where the reusable parts are.**
+One repository carries a ninety-line `AGENTS.md` of hard rules and principles;
+another carries four separate documents. The two repositories holding every
+reference implementation and the only real simulation source carry nothing at
+all, so a model dropped into them starts from zero, sitting next to the best
+material available. *When you build something reusable, the instruction file
+goes in with it.*
 
-**The shape underneath all five.** Capacity converts into breadth by default.
-Given a builder this fast, the output becomes more apps, more units, more
-words, while the loop inside each one thins out — because breadth is what a
-model is unusually good at and depth is what it has to be asked for. The
-correction is not modesty about scope. It is that a second pass over an
-existing artifact is almost always worth more than a first pass over a new
-one, and nobody will ask for it. *Offer it.*
+**The highest-consequence check in the estate is done from memory.** The
+public-repo rules require a privacy and copyright check on every file with what
+was checked named in the commit, and the log shows it being done faithfully, by
+hand, every time. That is a repeatable check on student-facing content in a
+public repository — exactly the kind of thing that should be a script that
+fails loudly rather than a habit that holds until the one late evening it
+doesn't. *Offer to convert a repeated manual check into a script the first time
+you watch it done twice.*
+
+**Depth of iteration predicts quality, and most artifacts get none.** In the
+repository that does iterate, commits per file run 14, 13, 10, 8, 8, 5, 4, 3,
+3, 2, 2, 2, 1, 1, 1. The two most-worked artifacts are the two best ones. The
+largest file in the repository has two commits, and one artifact with eight
+commits behind it is not reachable from the hub at all. *A second pass over
+something already built usually beats a first pass over something new, and
+nobody will ask for it. Offer it.*
 
 ---
 
@@ -435,15 +444,15 @@ three, run the §9 exploits against those, and get the shape agreed —
 distractor rule included — before any bulk generation, because the bank
 inherits whatever the shape permits.
 
-The cost is measurable here. The grammar hub's 207 multiple-choice items were
-generated against a shape that never said how distractors are built: a student
+The cost is measurable. Two banks in one project, both generated fast in the
+same fortnight. The first, 207 multiple-choice items, was generated against a shape that never said how distractors are built: a student
 who always picks the longest option scores 65%, against 25% for guessing, and
 only 4% of the explanations say anything about why a wrong option is wrong.
-The unit walk's 200 items were generated against a shape that did say — every
-distractor is the same sentence with one element changed — and score 0% on the
-same exploit, with 66% of their explanations addressing a wrong option
-directly. Same project, same fortnight. The only difference was whether the
-shape was pinned down before the volume.
+The second, 200 items, was generated against a shape that did say — every
+distractor is the same sentence with one element changed — and scores 0% on the
+same exploit, with 66% of its explanations addressing a wrong option directly.
+Same speed, same process. The only difference was whether the item shape was
+pinned down before the volume.
 
 *Run the mechanical exploits over any generated bank before it ships:*
 `node tools/bank-exploits.js [file]` *tries always-longest, always-shortest,
