@@ -60,6 +60,56 @@ The single most useful sentence you can say to it:
 
 ---
 
+## Not everything should be a screen
+
+Most examples in this document are interactive, because that is what an AI can
+help you build quickly. **That is a fact about the tool, not a claim about
+what good teaching looks like.**
+
+Some of the best work is a model-answer wall, a worksheet, a well-sequenced
+lesson, a rubric introduced at exactly the right moment. AI can help you make
+those too, and often should. What it should never do is push something onto a
+screen that belongs on paper.
+
+**Choose the medium step by step, not unit by unit.** Here is what that looks
+like in practice.
+
+A class is writing in the voice of a character from a novel. The original
+design: write it, hand it in, teacher marks it.
+
+The rebuilt sequence:
+
+1. **On screen.** A quiz matching quotes to characters — and you must also
+   explain how you knew. It won't let you past a question you got wrong, and
+   questions return in a different order. A student who hasn't read the book
+   discovers that immediately and unmistakably. The explanations they read
+   along the way are themselves worked examples of how to describe your own
+   reasoning.
+2. **On paper.** The writing task, exactly as originally set. No scaffolding.
+   No criteria shown yet.
+3. **On paper, with a partner.** Score that draft against the rubric. This is
+   the first time they see the rubric.
+4. **On paper.** Rewrite it, now knowing the criteria.
+
+Look at what the teacher ends up holding: two drafts of the same piece, one
+produced cold and one produced with explicit criteria in hand. The gap between
+them says more about that student than either draft alone — and it came free,
+purely from the sequencing.
+
+The screen did exactly one job: activating prior knowledge, with honest
+immediate feedback and worked examples smuggled into the wrong-answer
+explanations. It carried none of the actual writing, because extended
+handwritten writing is what the assessment is and what transfers. Nobody had
+to hold an opinion about whether screens are good or bad.
+
+**When you do use a screen, make it earn its place.** Lock it to full screen.
+Make wandering off task cost something. Build in reporting so you can see what
+actually happened rather than assuming. The question is never screens versus
+paper. It is whether this particular fifteen minutes is pushing kids toward
+learning or merely occupying them.
+
+---
+
 ## Six moves
 
 **1. Describe the experience, not the feature.**
@@ -222,12 +272,14 @@ and deepen the routes — and to be able to say why when someone asks.
 
 ---
 
-## If you only remember four things
+## If you only remember five things
 
 1. **You supply the anomaly, it supplies the structure.** What you know about
    your kids is the irreplaceable part.
-2. **Rush your own draft before you show anyone.** If you had to slow down and
+2. **Choose the medium step by step.** Most steps are not a screen. The screen
+   is for the job only a screen does well.
+3. **Rush your own draft before you show anyone.** If you had to slow down and
    think, good. If you didn't, students won't either.
-3. **Make guessing cost more than learning.** Not punishment — arithmetic.
-4. **Aim above the target.** Build for a stronger version of the skill, so the
+4. **Make guessing cost more than learning.** Not punishment — arithmetic.
+5. **Aim above the target.** Build for a stronger version of the skill, so the
    skill itself is what's left when most of it fades.

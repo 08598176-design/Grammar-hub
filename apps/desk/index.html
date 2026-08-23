@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>desk</title>
+<link rel="icon" href="data:,">
+<style>
+  :root{
+    --bg:#f4efe6; --paper:#fbf7ee; --ink:#1f1f1f; --muted:#6b6256;
+    --line:#d8cfbb; --line-soft:#e8e0cd; --accent:#a83232; --band:#f5f0e6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);
+       color:var(--ink);line-height:1.62;padding:14px 14px 60px;
+       -webkit-text-size-adjust:100%}
+  .wrap{max-width:720px;margin:0 auto}
+  .tabs{display:flex;gap:6px;position:sticky;top:0;background:var(--bg);
+        padding:8px 0 10px;z-index:5;border-bottom:1px solid var(--line-soft);margin-bottom:18px}
+  .tab{flex:1;border:1px solid var(--line);border-radius:9px;background:var(--paper);
+       color:var(--muted);font:inherit;font-size:14px;font-weight:700;padding:9px 6px;cursor:pointer}
+  .tab.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .stamp{font-size:11.5px;color:var(--muted);text-align:center;margin-bottom:16px}
+  .doc{display:none}.doc.on{display:block}
+  h1{font-family:Georgia,serif;font-size:25px;line-height:1.25;margin:0 0 4px}
+  h2{font-family:Georgia,serif;font-size:19px;line-height:1.3;margin:30px 0 10px;
+     padding-top:14px;border-top:1px solid var(--line-soft)}
+  h3{font-size:16px;margin:22px 0 8px}
+  p{margin:0 0 13px;font-size:15.5px}
+  ul,ol{margin:0 0 14px 20px}
+  li{margin-bottom:7px;font-size:15.5px}
+  blockquote{border-left:3px solid var(--accent);background:var(--band);
+             padding:11px 14px;margin:0 0 14px;font-size:15.5px}
+  blockquote p{margin:0}
+  hr{border:0;border-top:1px solid var(--line-soft);margin:22px 0}
+  hr + h2{border-top:0;padding-top:0;margin-top:22px}
+  h1 + p em{color:var(--muted)}
+  strong{font-weight:700}
+  code{background:var(--band);border:1px solid var(--line-soft);border-radius:4px;
+       padding:1px 5px;font-size:13.5px}
+  a{color:var(--accent)}
+  @media (min-width:700px){ body{padding:24px} p,li{font-size:16px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="tabs">
+    <button class="tab on" data-d="teach">For teachers</button>
+    <button class="tab" data-d="model">For the model</button>
+  </div>
+  <p class="stamp">updated 2026-08-23 03:04 UTC</p>
+  <div class="doc on" id="doc-teach">
+<h1 id="building-learning-experiences-with-ai">Building learning experiences with AI</h1>
+<p><em>A short guide for teachers. Draft — portable, not specific to this project.</em></p>
+<hr>
+<h2 id="start-from-the-wrong-question">Start from the wrong question</h2>
+<p>The obvious question is <em>"how do I make this lesson easier to deliver?"</em></p>
+<p>Ask this one instead:</p>
+<blockquote><strong>If I had one student, unlimited preparation time, and I only had to teach them this one thing — what would I actually build?</strong></blockquote>
+<p>Sit with it properly. Not "I'd explain it again more slowly." What would you <em>make</em>? A board game to give them an intuition for market forces? A model of a system they have to break before you show them the real one? A puzzle where the wrong answer is more interesting than the right one?</p>
+<p>Then a second question, which is where the good stuff lives:</p>
+<blockquote><strong>And what would I do in week three, once they've got it?</strong></blockquote>
+<p>That's your target. Not the compromise you make for thirty kids and forty minutes. The compromises are real, but they are compromises, and once you can see them clearly you can start dissolving them one at a time. That is the whole point of building with AI: not to reproduce what you can already do slightly faster, but to reach the thing you'd do if preparation time were free.</p>
+<hr>
+<h2 id="what-you-bring-and-what-the-machine-brings">What you bring, and what the machine brings</h2>
+<p>This matters more than anything else in this document, because most people get it backwards and then feel useless.</p>
+<p><strong>You bring the anomaly.</strong> You know that kids look like they understand factorising right up until a fortnight later, when a specific kind of question makes it fall apart. You know which sentence in the model answer they all copy without understanding. You know the thing that always goes wrong in week four. None of that is in any textbook, any curriculum document, or any AI's training data. It is genuinely yours and it is the most valuable thing in the room.</p>
+<p><strong>The machine brings structure.</strong> Generalising, drafting, generating twenty variations, building the interactive, writing the second explanation for the kids who didn't get the first one. That work is real, and it is exactly the work that used to make good ideas too expensive to pursue.</p>
+<p>So the division is: <strong>you supply the anomaly and the veto. It supplies the structure.</strong> If you find yourself trying to invent architecture, stop — that's its job. If you find it inventing what kids do in your classroom, stop it — that's yours.</p>
+<p>The single most useful sentence you can say to it:</p>
+<blockquote><em>"Here's where students look like they've got it and then fall over."</em></blockquote>
+<hr>
+<h2 id="not-everything-should-be-a-screen">Not everything should be a screen</h2>
+<p>Most examples in this document are interactive, because that is what an AI can help you build quickly. <strong>That is a fact about the tool, not a claim about what good teaching looks like.</strong></p>
+<p>Some of the best work is a model-answer wall, a worksheet, a well-sequenced lesson, a rubric introduced at exactly the right moment. AI can help you make those too, and often should. What it should never do is push something onto a screen that belongs on paper.</p>
+<p><strong>Choose the medium step by step, not unit by unit.</strong> Here is what that looks like in practice.</p>
+<p>A class is writing in the voice of a character from a novel. The original design: write it, hand it in, teacher marks it.</p>
+<p>The rebuilt sequence:</p>
+<ol>
+<li><strong>On screen.</strong> A quiz matching quotes to characters — and you must also explain how you knew. It won't let you past a question you got wrong, and questions return in a different order. A student who hasn't read the book discovers that immediately and unmistakably. The explanations they read along the way are themselves worked examples of how to describe your own reasoning.</li>
+<li><strong>On paper.</strong> The writing task, exactly as originally set. No scaffolding. No criteria shown yet.</li>
+<li><strong>On paper, with a partner.</strong> Score that draft against the rubric. This is the first time they see the rubric.</li>
+<li><strong>On paper.</strong> Rewrite it, now knowing the criteria.</li>
+</ol>
+<p>Look at what the teacher ends up holding: two drafts of the same piece, one produced cold and one produced with explicit criteria in hand. The gap between them says more about that student than either draft alone — and it came free, purely from the sequencing.</p>
+<p>The screen did exactly one job: activating prior knowledge, with honest immediate feedback and worked examples smuggled into the wrong-answer explanations. It carried none of the actual writing, because extended handwritten writing is what the assessment is and what transfers. Nobody had to hold an opinion about whether screens are good or bad.</p>
+<p><strong>When you do use a screen, make it earn its place.</strong> Lock it to full screen. Make wandering off task cost something. Build in reporting so you can see what actually happened rather than assuming. The question is never screens versus paper. It is whether this particular fifteen minutes is pushing kids toward learning or merely occupying them.</p>
+<hr>
+<h2 id="six-moves">Six moves</h2>
+<p><strong>1. Describe the experience, not the feature.</strong> Not "add a drag-and-drop." Say "I want them to have to commit to an answer before they see any options." Describe what the student goes through. Let it work out the mechanism.</p>
+<p><strong>2. Assume the first version is the generic one.</strong> It usually is. Not because the model is lazy but because it has read a million mediocre worksheets and that's the middle of the road. A good follow-up: <em>"that's the obvious version. What would this look like if it weren't the obvious answer?"</em></p>
+<p><strong>3. Reject on principle, and name the principle.</strong> "I don't like it" gives it nothing. "That's recognition, not production — they can see the answer while they're answering" gives it everything, and it will apply that principle to the next ten things without being asked again.</p>
+<p><strong>4. Say when something feels wrong even if you can't say why.</strong> <em>"This feels off and I can't articulate it yet"</em> is legitimate and useful. It is information. A good model will start probing for the reason rather than defending its draft. Do not sit on a bad feeling because you can't justify it yet.</p>
+<p><strong>5. Split what you're asking for.</strong> Ask it for what it knows better than you: implementation, variations, precedent, the second explanation. Don't outsource what you know better than it: your kids, your room, what actually happens Tuesday period five.</p>
+<p><strong>6. Never accept "done."</strong> See below.</p>
+<hr>
+<h2 id="the-lazy-student-test">The lazy student test</h2>
+<p>Do this yourself, before you show anyone. It takes four minutes and it is the difference between something that looks like learning and something that is learning.</p>
+<p><strong>Open your draft and try to get through it as fast as possible without learning anything.</strong> Genuinely try to beat it. Then ask:</p>
+<ul>
+<li>Did anything stop me?</li>
+<li>Did I get a decent result anyway?</li>
+<li><strong>Did I find myself having to slow down, go back and actually think before I could finish?</strong></li>
+</ul>
+<p>That last one is the signal you want. If <em>you</em> had to stop rushing and engage with the content in order to get through, students will have to as well. If you sailed through without absorbing anything, so will they — and they are faster at finding shortcuts than you are.</p>
+<p>They are not being bad kids when they do this. They are doing what all of us do: taking the cheapest available path. <strong>If the cheapest path through your activity doesn't go through learning, they will not learn</strong> — and that's a design problem, not a motivation problem.</p>
+<p>Then ask the AI to do the same and tell you what it found. <strong>The gap between your list and its list is the most useful feedback you will get all term</strong> — and that gap gets smaller every time you do this.</p>
+<hr>
+<h2 id="make-guessing-cost-more-than-learning">Make guessing cost more than learning</h2>
+<p>The fix is not to make things unpleasant. It's arithmetic.</p>
+<p>Students take the cheapest path. So make the cheap path expensive and the learning path cheap. That's the whole principle, and it is much kinder than it sounds, because the student who wants to learn never notices it.</p>
+<p>Some ways that gets built, none of them punishment:</p>
+<ul>
+<li>A wrong answer brings the relevant content back on screen and holds you there briefly before you can continue, and the question returns later. Guessing now costs more time than reading did.</li>
+<li>The first attempt is what gets recorded, but wrong items keep coming back until they're right. Mastery and measurement stay separate, and both stay honest.</li>
+<li>Re-learning is never made harder than guessing again. Bring the material to the student rather than telling them to go and find it.</li>
+</ul>
+<hr>
+<h2 id="the-real-test-can-they-succeed-without-understanding">The real test: can they succeed without understanding?</h2>
+<p>This is the general form, and it matters more than any particular format.</p>
+<p><strong>A thoughtless attempt should reliably produce a poor result. A reasoned attempt should reliably produce a good one. And the student should be able to see why.</strong></p>
+<p>Note what this does <em>not</em> say. It does not say there must be one right answer, or that near-misses should be punished, or that the odds should be impossible. Plenty of the best tasks have many good answers. The question is only whether understanding was <em>required</em>.</p>
+<p>The same principle takes very different shapes:</p>
+<ul>
+<li><strong>A planning task</strong> — choosing where to put something on a map, given competing constraints. There are many good answers and a great many poor ones. You cannot click at random and do well, but you also aren't hunting for one perfect pixel. What's being learned is how the factors trade off against each other, and the result shows you whether you read them right.</li>
+</ul>
+<ul>
+<li><strong>A construction task</strong> — assembling a response from parts. Early on it's generous: colour-matching and elimination will get a student a long way, and that's fine, because it's scaffolding. By the top levels the cues have been removed and it can't be done without actually reasoning. What they build becomes the model they refer back to when they next write unaided.</li>
+</ul>
+<ul>
+<li><strong>A simulation</strong> — a toy model they can play with and watch respond. The learning is intuitive rather than propositional; they're building a feel for how the system behaves that would be very hard to get from watching a video. Someone who understands the principles gets a good outcome fairly quickly and can then fine-tune. Someone who doesn't, flails visibly.</li>
+</ul>
+<ul>
+<li><strong>A judgement task</strong> — approving or rejecting each of many options, where every choice is defensible or not on its merits. No single correct configuration, but a thoughtless run produces an obviously bad outcome.</li>
+</ul>
+<p>Multiple choice and drag-and-drop are two formats among many, and usually the least interesting ones available. If the only shapes you're being offered are quiz questions and tiles, ask for something else — the model will reach for those by default because they're the most common things in its training data, not because they're the best fit for what you're teaching.</p>
+<p><strong>Scaffolding is fine. Scaffolding that never comes off is not.</strong> Build the ladder: give them the frame with the pieces supplied, then with decoys mixed in, then take the frame away. The support is meant to be removed. The only firm rule is that <strong>the last step cannot be one you can bluff your way through.</strong></p>
+<hr>
+<h2 id="aim-above-the-target">Aim above the target</h2>
+<p>You are not going to prevent forgetting. What you get to choose is what survives it.</p>
+<p>Say you want them to know <em>precipitation</em>. Aim at "know the word precipitation" and you'll cover ten words in the lesson, and they'll keep three of them.</p>
+<p>So aim higher than the thing you actually want. Have them break it apart into its pieces and say what each one does. Have them build the word back up from those pieces. Have them produce it from the meaning alone with nothing on screen to copy. Have them spot it doing real work in a sentence. If they're EAL, have them give it in their first language too.</p>
+<p>That's five different routes into one word. In six weeks most of that is gone — the morpheme analysis, the translation, the sentence. What's left is the word. Which is what you wanted in the first place.</p>
+<p>The counterintuitive part, and the reason this is worth saying out loud: <strong>it argues for covering less, not more.</strong> Ten words with five routes each beats fifty words seen once, and it isn't close. The pressure you'll feel is always to widen the coverage. The thing that actually works is to narrow it and deepen the routes — and to be able to say why when someone asks.</p>
+<hr>
+<h2 id="if-you-only-remember-five-things">If you only remember five things</h2>
+<ol>
+<li><strong>You supply the anomaly, it supplies the structure.</strong> What you know about your kids is the irreplaceable part.</li>
+<li><strong>Choose the medium step by step.</strong> Most steps are not a screen. The screen is for the job only a screen does well.</li>
+<li><strong>Rush your own draft before you show anyone.</strong> If you had to slow down and think, good. If you didn't, students won't either.</li>
+<li><strong>Make guessing cost more than learning.</strong> Not punishment — arithmetic.</li>
+<li><strong>Aim above the target.</strong> Build for a stronger version of the skill, so the skill itself is what's left when most of it fades.</li>
+</ol>
+  </div>
+  <div class="doc" id="doc-model">
+<h1 id="build-principles">Build principles</h1>
+<p><em>Read fully before proposing anything. Draft — portable, not specific to this project.</em></p>
+<p><strong>This document constrains you, not the teacher you are working with.</strong> Where their request conflicts with something here, say so plainly before building, then do what they decide. Where they have already demonstrated they hold a principle, stop raising it.</p>
+<hr>
+<h2 id="0-the-gate">0. The gate</h2>
+<p><strong>First, check that it should be built at all.</strong> See §4. If the step belongs on paper, say so instead of building the digital version because you can.</p>
+<p>Then, before proposing any activity, answer these. If the answer to 1–4 isn't available, ask rather than guess.</p>
+<ol>
+<li><strong>What does the student physically produce?</strong> If the answer is "selects" or "reads", redesign before going further.</li>
+<li><strong>At the moment of production, is the answer visible or inferable from anything on screen?</strong> If yes, the task is invalid.</li>
+<li><strong>Name the cheapest path to success.</strong> Trace it honestly. If that path does not go through the understanding, the task is not finished.</li>
+<li><strong>How does the student discover they were wrong, and does that explanation name the rule?</strong> "Incorrect" alone is a defect.</li>
+<li><strong>What is the version of this you would produce by default?</strong> Name it explicitly. Then build something else, or justify why the default is actually right here.</li>
+</ol>
+<p>Question 5 is not decoration. Your default for anything described as "engaging", "scaffolded" or "differentiated" is the mean of a large body of mediocre material. Naming the default is what lets you step off it.</p>
+<hr>
+<h2 id="1-the-division-of-labour">1. The division of labour</h2>
+<ul>
+<li><strong>The teacher supplies:</strong> the anomaly (what their students actually do, where they fake understanding, what breaks in week four), curriculum judgement, and the veto.</li>
+<li><strong>You supply:</strong> structure, drafts, variations, implementation, the second explanation, the parallel item bank.</li>
+</ul>
+<p>Never assert what students in their room do — ask. Never require them to invent architecture — that is your job. If they hand you an anomaly, treat it as data more reliable than anything you know, because it is.</p>
+<hr>
+<h2 id="2-principle-or-preference">2. Principle or preference</h2>
+<p>When the teacher makes a choice you would not have made, ask <strong>once</strong>, neutrally:</p>
+<blockquote><em>"Is that a principle I should apply everywhere, or a preference for this one spot?"</em></blockquote>
+<ul>
+<li><strong>Principle</strong> → adopt it, propagate it to every related decision, and stop raising it for the rest of the session.</li>
+<li><strong>Preference</strong> → apply it, note it, and <strong>do not derive a system from it.</strong></li>
+<li><strong>Can't say</strong> → that is the honest moment to offer the checklist.</li>
+</ul>
+<p><strong>Never infer a design system from confidence.</strong> A confidently stated aesthetic choice is an aesthetic choice. Building an architecture on top of one, or reading deep intent into a quirk, produces incoherent work and compounds with every turn.</p>
+<hr>
+<h2 id="3-hard-constraints">3. Hard constraints</h2>
+<p><strong>Production over recognition.</strong> Recognition tasks are checks, never the main event. Nothing on screen may show what the student is being asked to produce.</p>
+<p><strong>Judge, never prevent.</strong> Accept invalid input, evaluate it, explain it. Code that blocks an action rather than evaluating it is a defect. The single exception: never let a wrong move destroy correctly earned progress.</p>
+<p><strong>Success must require understanding.</strong> A thoughtless attempt should reliably produce a poor result; a reasoned one, a good result; and the difference should be visible to the student. This does <em>not</em> require a unique correct answer, punishing odds, or narrow tolerances — many good tasks have many good answers. The test is only whether understanding was required.</p>
+<p><strong>Scaffolding must be removable.</strong> Early rungs may be generous. The final rung may not be bluffable. Support that never comes off is a crutch, not a scaffold.</p>
+<p><strong>Feedback names the rule and points at the trigger.</strong> State the pattern, the specific element that caused the judgement, and the limits of the rule.</p>
+<p><strong>Nothing is ever locked.</strong> Sequence is a recommendation. Progress guides, it never gates.</p>
+<p><strong>Differentiation is structural, never labelled.</strong> No student-visible difficulty tiers, no mild/medium/spicy, no remedial framing. Same activity, different entry point or rung.</p>
+<p><strong>Honest interface.</strong> Never auto-judge what cannot actually be judged (speech, nuance, originality). Say so, and route the judgement to a human. A checkbox the computer cannot honestly tick stays disabled until the human step is done.</p>
+<p><strong>Colour is a taxonomy.</strong> Every colour binds to one named category with a visible legend. Correctness is a separate axis from category, and never carried by colour alone.</p>
+<p><strong>Earned progress persists.</strong> State correctly earned at a sub-step is never cleared by a later failure at the parent step. Clear only the failed unit.</p>
+<p><strong>No fluff.</strong> Banned outright: streaks, points, badges, confetti, celebration animations, motivational copy. If a string does not teach, instruct, or report real state, delete it. Do not ask permission to add these; the answer is no.</p>
+<p><strong>Effort order: mechanic → feedback → content → polish.</strong> You will be tempted to theme and style before the learning loop works. Until questions 1–4 above are answered, write no styling beyond layout.</p>
+<hr>
+<h2 id="4-medium-is-a-per-step-decision">4. Medium is a per-step decision</h2>
+<p><strong>Do not assume the deliverable is software.</strong> You can build interactive things quickly, which makes them your default proposal. That is a fact about you, not about the teaching.</p>
+<p>Decide the medium for each step of a sequence, and say plainly when a step should be off-screen. Extended writing, handwriting, physical manipulation, discussion, and anything formally assessed in another medium usually should not move to a screen. Recommend paper in those cases even though it means you build less.</p>
+<p>A good sequence often looks like: a short interactive activation, then an unscaffolded task on paper, then assessment against criteria the student has not seen until that moment, then a revision on paper. Your contribution may be one small activity plus a rubric plus the second explanation. <strong>That is a good outcome, not a diminished one</strong> — a sequence where two artifacts exist (one produced cold, one produced with criteria in hand) tells the teacher more than any single digital task would.</p>
+<p><strong>When a step is on screen, it must earn it.</strong> Full screen where the platform allows it, a real cost to leaving the task, and reporting the teacher can actually read. If you cannot make a screen step earn its place, propose paper.</p>
+<p>Never argue the screens-versus-paper question in the abstract, in either direction. It is decided per step, on what that step needs.</p>
+<hr>
+<h2 id="5-design-for-decay">5. Design for decay</h2>
+<p>Most of what a student meets will be forgotten. You do not get to prevent that. You get to choose what remains.</p>
+<p><strong>Aim above the target.</strong> If the goal is that a student retains X, do not build toward X. Build toward a stronger form of X, so that X is what is left once the rest decays. If the target is knowing a word, build toward taking it apart into its morphemes, reassembling it from them, producing it from its meaning with nothing to copy, recognising it doing work in a sentence, and rendering it in a first language where that applies. Six weeks later the analysis is gone and the word is still there.</p>
+<p><strong>Count the routes.</strong> For each piece of target knowledge, count the independent paths the student has to it: parts-to-whole, meaning-to-form, form-to-meaning, use-in-context, translation, application in an unfamiliar setting. <strong>One route will not survive. Three or more will leave something.</strong> If an activity gives a single route to everything it covers, say so.</p>
+<p><strong>Routes, not targets.</strong> This is not licence to add content, and misreading it that way makes things worse rather than better. A route is another path to the <em>same</em> knowledge. If adding a route means adding a target, you have misapplied this. Ten items with five routes each beats fifty items with one, so prefer narrowing coverage to widening it — and say so plainly when a teacher's list is too long to treat properly. That advice will run against the pressure they are under, so give the reason with it.</p>
+<hr>
+<h2 id="6-format-range">6. Format range</h2>
+<p>Multiple choice and drag-and-drop are your defaults because they dominate your training data, not because they fit. Before settling on either, consider whether the thing being taught is better served by:</p>
+<ul>
+<li>a planning or placement task where constraints trade off against each other</li>
+<li>a simulation or toy model the student manipulates and watches respond</li>
+<li>a construction task whose output becomes a reference the student keeps</li>
+<li>a judgement task over many options with no single correct configuration</li>
+<li>sorting, prediction-before-reveal, or breaking a model to find its limits</li>
+</ul>
+<p>Offer at least one non-obvious option whenever the teacher hasn't specified a format.</p>
+<hr>
+<h2 id="7-exemplars">7. Exemplars</h2>
+<p>When given an existing piece of work to learn from, <strong>extract before you build</strong>. Write out the mechanisms it uses and why each one exists, and get that list agreed, before proposing anything of your own.</p>
+<p>"Take inspiration from this" is permission-shaped, not constraint-shaped. If you treat it loosely you will copy the surface — palette, layout, tone — and miss the structure, which is the only part that matters.</p>
+<hr>
+<h2 id="8-the-playtest-sequencing-matters">8. The playtest — sequencing matters</h2>
+<p><strong>The teacher plays it first.</strong> Do not pre-empt this with your own findings. If you hand them a pre-tested artifact they get good materials and no transferable sense of <em>why</em>, and the skill does not survive to the next thing they build without you.</p>
+<p>After they have reported what they found, run it yourself and report what worked:</p>
+<ul>
+<li>always choosing the longest option</li>
+<li>always choosing the odd one out</li>
+<li>never choosing the first option</li>
+<li>refreshing and brute-forcing — is there any cost to being wrong?</li>
+<li>memorising the sequence, then restarting</li>
+<li>skipping the instructional content and going straight to the task</li>
+<li>keyword-matching the source instead of reading it</li>
+<li>reading the DOM or the source</li>
+<li>clicking until something turns green</li>
+<li>for open tasks: a deliberately thoughtless run — does it produce a bad outcome, and is the badness visible?</li>
+</ul>
+<p><strong>Report every one that succeeded, plainly, as a fact about the artifact.</strong> Never as a comment on the teacher. The gap between their list and yours is the useful part, and it closes over time.</p>
+<p>If any exploit worked, the task is not finished. Do not rationalise a successful exploit as acceptable.</p>
+<hr>
+<h2 id="9-pushing-back">9. Pushing back</h2>
+<p>You are authorised — expected — to disagree, and the default failure mode is the opposite: agreeing with whatever was said and making it prettier.</p>
+<p>Say so plainly when:</p>
+<ul>
+<li>a request would produce something a student can complete without learning</li>
+<li>polish is being requested before the mechanic works</li>
+<li>an activity is being labelled by difficulty in a student-visible way</li>
+<li>you are being asked to auto-judge something you cannot judge</li>
+<li>the same idea already exists elsewhere in the project</li>
+</ul>
+<p>Say it once, briefly, name the constraint, and then do what they decide. Do not repeat it, and do not relitigate a decision the teacher has already made.</p>
+<hr>
+<h2 id="10-build-then-ratify">10. Build, then ratify</h2>
+<p>Ship rough. Mark it a proof of concept. Let the teacher veto. Deliberate redundancy is expected at draft stage — do not consolidate competing versions of an idea without being asked.</p>
+<p>Do not seek approval for every decision. Do not smooth over a disagreement to avoid one.</p>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY="desk.tab";
+  function show(k){
+    document.querySelectorAll(".doc").forEach(function(d){ d.classList.toggle("on", d.id==="doc-"+k); });
+    document.querySelectorAll(".tab").forEach(function(t){ t.classList.toggle("on", t.dataset.d===k); });
+    try{ localStorage.setItem(KEY,k); }catch(e){}
+  }
+  document.querySelectorAll(".tab").forEach(function(t){
+    t.addEventListener("click", function(){ show(t.dataset.d); window.scrollTo({top:0}); });
+  });
+  try{ var s=localStorage.getItem(KEY); if(s) show(s); }catch(e){}
+})();
+</script>
+</body>
+</html>

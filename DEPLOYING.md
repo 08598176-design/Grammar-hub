@@ -17,6 +17,7 @@ from the public repo `liaminhawai-cmd/japanese-hub` via GitHub Pages:
 | https://liaminhawai-cmd.github.io/japanese-hub/walk/ | Unit Walk (Years 7-12, every unit as a stepped sequence) — PoC, Q19/Q20 |
 | https://liaminhawai-cmd.github.io/japanese-hub/vocab/ | Vocab Hub (every word in the suite, one warehouse) — PoC, Q20 |
 | https://liaminhawai-cmd.github.io/japanese-hub/look/ | Have a Look — a short, tickable tour for Andrew, not linked from the public landing page |
+| https://liaminhawai-cmd.github.io/japanese-hub/kelpie-9f3c/ | The desk — the two design docs, live and readable on a phone. Unlinked and `noindex` by design; not a tool, not for Andrew |
 
 The repo is named for the whole suite, not just grammar: each new tool gets
 its **own folder** (`/oral/`, `/topics/`, `/writing/`, `/kanji/`) plus a card
@@ -57,9 +58,14 @@ when in doubt, the URL wins.
 PoC apps deploy the same way: copy `apps/<name>/index.html` **and its
 `lever.js`** verbatim to the matching live folder (`words/`, `oral/`,
 `writing/`, `levelup/`, `unit10/`, `kanji/`, `builder/`, `walk/`, `vocab/`, `look/`).
-**`look/` is the one exception to "every tool gets a landing-page card"** — it's a
-review aid for Andrew, handed to him directly by URL, not discoverable by a
-student browsing the hub, and keep a copy of `lever.js` at the live root for
+**`look/` and `kelpie-9f3c/` are the exceptions to "every tool gets a
+landing-page card"** — `look/` is a review aid for Andrew, handed to him
+directly by URL, not discoverable by a student browsing the hub. `kelpie-9f3c/`
+is the two design docs rendered for reading on a phone: it is deliberately
+unguessable, carries `noindex, nofollow`, is linked from nowhere, and must stay
+that way — it is a working draft, not something anyone should stumble onto.
+Regenerate it with `node tools/gen-desk.js` after editing either doc, then copy
+`apps/desk/index.html` across. Keep a copy of `lever.js` at the live root for
 the landing page.
 
 **`lever.js` is one file with several copies on purpose.** The canonical
